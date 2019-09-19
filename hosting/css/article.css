@@ -1,0 +1,224 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: Noto Sans KR, AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
+    font-weight: 300;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+}
+
+#wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+}
+
+#headerBG {
+    background-color: #0ab9f1;
+    height: 120px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+}
+
+header {
+    background-color: #0ab9f1;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+}
+
+.header_l, .header_r {
+    flex: 1;
+}
+.header_c {
+    display: flex;
+    text-align: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    flex: 3;
+}
+.header_c img {
+    width: 104px;
+    display: inline-block;
+    margin-bottom: -8px;
+}
+.header_c > p {
+    font-size: 12px;
+    color: white;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+.header_r {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.header_r > a {
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+    margin-top: 8px;
+    margin-right: 16px;
+}
+
+h1.title {
+    font-size: 18px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.slider_container {
+    width: 100%;
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 80%; 
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+.mask {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0,0,0,0.02);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.image_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+    left: 0;
+    transition: left 0.5s ease-in-out;
+}
+
+.image_container > div {
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider_btn {
+    color: white;
+    position: absolute;
+    top: calc(50% - 16px);
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    text-shadow: 0 0 4px #333;
+}
+.slider_btn_l {
+    left: 10px;
+}
+.slider_btn_r {
+    right: 10px;
+}
+.slider_counter {
+    background: rgba(0,0,0,0.3);
+    color: white;
+    padding: 4px 8px; 
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+.info_container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    padding: 0 8px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.5px solid rgba(0,0,0,0.1);
+    padding: 16px 0;
+}
+
+.cell {
+    flex: 1;
+    padding: 4px;
+}
+
+.cell_title {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.cell_data {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.text_container {
+    white-space: pre-line;
+    word-break: keep-all;
+    padding: 0 12px;
+    margin: 32px 0;
+    font-size: 12px;
+}
+
+.contact_btn {
+    width: calc(100% - 16px);
+    margin: auto;
+    background-color: #0ab9f1;
+    color: white;
+    height: 60px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cancel_btn {
+    width: calc(100% - 16px);
+    margin: auto;
+    color: #666;
+    height: 60px;
+    font-size: 16px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+footer {
+    background-color: rgba(0,0,0,0.01);
+    height: 80px;
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+    padding: 0 8px;
+    word-break: keep-all;
+    color: gray;
+}
+

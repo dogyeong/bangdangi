@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
+    <meta name="author" content="패러다임">
+    <meta itemprop="name" content="방단기">
+    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="twitter:title" content="방단기">
+    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:title" content="방단기">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="방단기">
+    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:url" content="https://bangdangi.web.app/">
+    <link rel="canonical" href="https://bangdangi.web.app/" />
+    <!-- SEO END -->
+    <title>방단기</title>
+    <link rel=stylesheet type="text/css" href="css/master.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+</head>
+
+<body>
+    
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/6.1.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#reserved-urls -->
+    <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-database.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-messaging.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-storage.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-firestore.js"></script>
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+    <script>
+        var db = firebase.database();
+        var fs = firebase.firestore();
+        db.ref('/article/pnu/-Ll0_34wGxU8jd1NqWMJ').once('value')
+            .then((snapshot) => {
+                return snapshot.val();
+            })
+            .then((data) => {
+                setDB(data);
+            })
+            .catch((err) => console.log(err));
+
+        setDB = async (data) => {
+            console.log(data)      
+            try {
+                await fs.collection(`article/live/pnu`).doc('-Ll0_34wGxU8jd1NqWMJ').set(makeArticle(data));
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+
+        /*
+        khuSC -Ll4rD9bhAq0n9lxa3j4
+        khuSC -LnL9qOufdt-5DN0utG7
+        pknu -Ll0_kcl0YL1rtF1nacY
+        pknu -Ll0_lmSWQPX0cxOf9-X
+        pknu -Ll0_tf_p9vko54naedz
+        pnu -Ll0_34wGxU8jd1NqWMJ
+        */
+        makeArticle = (origin) => {
+            let data = {
+                'createdAt': null,
+                'text': null,
+                'title': null,
+                'tradeType': null,
+                'reason': null,
+                'startDate': null,
+                'endDate': null,
+                'dateKeywords': null,
+                'keywords': null,
+                'discountKeywords': null,
+                'price': null,
+                'display': false,
+                'deposit': null,
+                'expense': null,
+                'locationL': null,
+                'locationS': null,
+                'roomType': null,
+                'only': null,
+                'pic': false,
+                'floor': null,
+                'totalFloor': null,
+                'images': null,
+                'urlType': null,
+                'url': null,
+                'openkakao': null,
+                'contact': null,
+                'done': false,
+            }
+            if (origin.createdAt !== undefined) {
+                let n = parseInt(origin.createdAt)
+                data.createdAt = new Date(n+32400000);
+            }
+            if (origin.text !== undefined) {
+                data.text = origin.text;
+            }
+            if (origin.title !== undefined) {
+                data.title = origin.title;
+            }
+            if (origin.tradeType !== undefined) {
+                data.tradeType = origin.tradeType;
+            }
+            if (origin.reason !== undefined) {
+                data.reason = origin.reason;
+            }
+            // date
+            if (origin.startDate !== undefined) {
+                if ( /\d{4}-\d{2}-\d{2}/.test(origin.startDate) ) { // 0000-00-00
+                 //   data.startDate = new Date(origin.startDate);
+                }
+                else if ( origin.startDate.match(/\d{4}-\d{2}/) !== null ) { // 0000-00
+                 //   data.startDate = new Date(`${ origin.startDate.match(/\d{4}-\d{2}/)[0] }-01`);
+                }
+            }
+            if (origin.endDate !== undefined) {
+                if ( /\d{4}-\d{2}-\d{2}/.test(origin.endDate) ) { // 0000-00-00
+                  //  data.endDate = new Date(origin.endDate);
+                }
+                else if ( origin.endDate.match(/\d{4}-\d{2}/) !== null ) { // 0000-00
+                  //  data.endDate = new Date(`${ origin.endDate.match(/\d{4}-\d{2}/)[0] }-28`);
+                }
+            }
+            if (origin.dateKeywords !== undefined) {
+                let temp = {};
+                origin.dateKeywords.split(',').forEach((i) => { temp[i]=true });
+                data.dateKeywords = temp;
+            }
+            if (origin.keywords !== undefined) {
+                let temp = {};
+                origin.keywords.split(',').forEach((i) => { temp[i]=true });
+                delete temp[""] // 비어있는 key가 있으면 지워준다
+                data.keywords = temp;
+            }
+            if (origin.discount !== undefined) {
+                let temp = {};
+                origin.discount.split(',').forEach((i) => { temp[i]=true });
+                data.discountKeywords = temp;
+            }
+            if (origin.price !== undefined) {
+                data.price = isNaN(parseFloat(origin.price)) ? null : parseFloat(origin.price);
+            }
+            if (origin.display !== undefined) {
+                if (origin.display === true) data.display = true;
+                if (origin.display === false) data.display = false;
+            }
+            if (origin.deposit !== undefined) {
+                data.deposit = isNaN(parseFloat(origin.deposit)) ? null : parseFloat(origin.deposit);
+            }
+            if (origin.expense !== undefined) {
+                data.expense = isNaN(parseFloat(origin.expense)) ? null : parseFloat(origin.expense);
+            }
+            if (origin.locationL !== undefined) {
+                let temp = {};
+                origin.locationL.split(',').forEach((i) => { temp[i]=true });
+                data.locationL = temp;
+            }
+            if (origin.locationS !== undefined) {
+                let temp = {};
+                origin.locationS.split(',').forEach((i) => { temp[i]=true });
+                data.locationS = temp;
+            }
+            if (origin.roomType !== undefined) {
+                data.roomType = origin.roomType;
+            }
+            if (origin.only !== undefined) {
+                let temp = {};
+                origin.only.split(',').forEach((i) => { temp[i]=true });
+                data.only = temp;
+            }
+            if (origin.pic !== undefined) {
+                data.pic = true;
+            } else {
+                data.pic = false;
+            }
+            if (origin.floor !== undefined) {
+                if (origin.floor === '반지층') data.floor = -1;
+                else data.floor = isNaN(parseFloat(origin.floor)) ? null : parseFloat(origin.floor);
+            }
+            if (origin.totalFloor !== undefined) {
+                data.totalFloor = isNaN(parseFloat(origin.totalFloor)) ? null : parseFloat(origin.totalFloor);
+            }
+            if (origin.images !== undefined) {
+                data.images = origin.images;
+            }
+            if (origin.urlType !== undefined) {
+                if (origin.urlType === 'everytime' || origin.urlType === 'every') data.urlType = 'everytime'
+                else if (origin.urlType === 'peterpanz' || origin.urlType === 'p') data.urlType = 'peterpanz'
+                else if (origin.urlType === 'mypnu') data.urlType = 'mypnu'
+                else data.urlType = 'bangdangi'
+            }
+            if (origin.url !== undefined) {
+                data.url = origin.url;
+            }
+            if (origin.openkakao !== undefined) {
+                data.openkakao = origin.openkakao;
+            }
+            if (origin.contact !== undefined) {
+                data.contact = origin.contact;
+            }
+            if (origin.done !== undefined) {
+                data.done = true;
+            }
+            return data;
+        }
+    </script>
+</body>
+
+</html>

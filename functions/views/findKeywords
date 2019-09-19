@@ -1,0 +1,49 @@
+async function f(u) {
+	console.log(`${u}: start..`);
+
+	let dateKeywords = {}
+    let discountKeywords = {}
+    let locationKeywords = {}
+
+    await firebase.firestore().collection(`article/live/${u}`)
+    .where('display','==',true).where('done','==',false)
+    .get()
+    .then((docs) => {
+        if (docs.empty) {
+            console.log("docs is empty.");
+        }
+        else {
+            return docs.docs;
+        }
+    })
+    .then((docs) => {
+        docs.forEach((doc) => {
+            d = doc.data();
+            if (d.dateKeywords !== null) {
+                Object.keys(d.dateKeywords)
+                .forEach((k) => dateKeywords[k] = true);
+            }
+            if (d.discountKeywords !== null) {
+                Object.keys(d.discountKeywords)
+                .forEach((k) => discountKeywords[k] = true);
+            }
+            if (d.locationL !== null) {
+                Object.keys(d.locationL)
+                .forEach((k) => locationKeywords[k] = true);
+            }
+        })
+
+        firebase.firestore().doc(`article/keywords/${u}/dateKeywords`)
+        .set({ keywords: Object.keys(dateKeywords) });
+        firebase.firestore().doc(`article/keywords/${u}/discountKeywords`)
+        .set({ keywords: Object.keys(discountKeywords) });
+        firebase.firestore().doc(`article/keywords/${u}/locationKeywords`)
+        .set({ keywords: Object.keys(locationKeywords) });	
+
+    })
+    .catch((e) => console.log(e.message))
+}
+
+
+['pnu','cnu','hanyang','hankyong','hufsSC','hufsGC','khuSC','khuGC','pknu']
+.forEach((u) => f(u));

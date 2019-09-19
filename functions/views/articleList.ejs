@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141137545-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'Pageview',
+        'pagePath': '/<%=univ%>/',
+        'pageTitle': '<%=univ%>'
+      });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TC8GC5C');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">  
+    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
+    <meta name="author" content="패러다임">
+    <meta itemprop="name" content="방단기">
+    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="twitter:title" content="방단기">
+    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:title" content="방단기">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="방단기">
+    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:url" content="https://bangdangi.web.app/">
+    <link rel="canonical" href="https://bangdangi.web.app/" />
+    <!-- SEO END --> 
+    <title>방단기</title>
+    <link rel=stylesheet type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC8GC5C"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="upper">
+      <div id="title">
+        <a href="https://bangdangi.web.app/">
+          <img src="/img/logo_w.png">
+        </a>
+        <p>방학기간, 2학기만 살 방을 구하고 있다면?</p>
+      </div>
+      <form id="univ_form">
+        <select name="univ" id="univ_select">
+          <option value="">학교를 선택해 주세요</option>
+          <optgroup label="서울">
+            <option value="hufsSC" <%= (univ==='hufsSC') ? 'selected' : '' %>>한국외국어대학교 서울캠퍼스</option>
+            <option value="khuSC" <%= (univ==='khuSC') ? 'selected' : '' %>>경희대학교 서울캠퍼스</option>
+            <option value="hanyang" <%= (univ==='hanyang') ? 'selected' : '' %>>한양대학교</option>
+          </optgroup>
+          <optgroup label="경기">
+            <option value="hufsGC" <%= (univ==='hufsGC') ? 'selected' : '' %>>한국외국어대학교 글로벌캠퍼스</option>
+            <option value="khuGC" <%= (univ==='khuGC') ? 'selected' : '' %>>경희대학교 국제캠퍼스</option>
+            <option value="hankyong" <%= (univ==='hankyong') ? 'selected' : '' %>>한경대학</option>
+          </optgroup>
+          <optgroup label="대전">
+            <option value="cnu" <%= (univ==='cnu') ? 'selected' : '' %>>충남대학교</option>
+          </optgroup>      
+          <optgroup label="부산">
+            <option value="pnu" <%= (univ==='pnu') ? 'selected' : '' %>>부산대학교</option>
+            <option value="pknu" <%= (univ==='pknu') ? 'selected' : '' %>>부경대학교</option>
+            <option value="donga" <%= (univ==='donga') ? 'selected' : '' %>>동아대학교</option>
+          </optgroup>
+        </select>
+      </form>
+    </div>
+
+    <div id="lower">
+      <div id="hashtag_container">
+        <form action="https://bangdangi.web.app/board/list/<%=univ%>/" method="get">
+          <div class="hashtag_title">장소 키워드</div>
+          <div class="hashtag_list">
+              <% for (i of keywords.locationKeywords) { %>
+                  <input type="checkbox" name="locationKeywords[]" id="<%= i %>" value="<%= i %>" <%= (selectedLocation!==undefined&&selectedLocation.includes(`${i}`)) ? 'checked' : '' %>>
+                  <label for="<%= i %>"><span><%= i %></span></label>
+              <% } %>
+          </div>
+          <div class="hashtag_title">기간 키워드</div>
+          <div class="hashtag_list">
+              <% for (i of keywords.dateKeywords) { %>
+                  <input type="checkbox" name="dateKeywords[]" id="<%= i %>" value="<%= i %>" <%= (selectedDate!==undefined&&selectedDate.includes(`${i}`)) ? 'checked' : '' %>>
+                  <label for="<%= i %>"><span><%= i %></span></label>
+              <% } %>
+          </div>
+          <div class="submit_container">
+              <input type="submit" value="검색">
+              <a href="https://bangdangi.web.app/board/list/<%=univ%>">
+                <i class="xi-renew"></i> 초기화
+              </a>
+          </div>  
+        </form>
+      </div>
+      <!-- 매물이 없을때는 에러메세지를 출력 -->
+      <% if (!err) { %>
+      <div id="main">
+          <% for ( room of roomList) { %>
+            <a href=<%= room['url'] %> target="_sub" data-id=<%= room['url'] %> data-univ=<%= univ %>>
+                <div class="list_wrapper">
+                    <div class="list_left">
+                        <div class="list_upper">
+                            <div class="list_upper_l">
+                                <div class="icon_container">
+                                    <% if (room.urlType === 'mypnu') { %>
+                                        <img src='/img/mypnu_logo.png' style="width:30px;">
+                                    <% } else if (room.urlType === 'everytime') { %>
+                                        <img src="/img/everytime_logo.png" style="width:30px;">
+                                    <% } else if (room.urlType === 'peterpanz') { %>
+                                        <img src='/img/peterpanz_logo.png' style="width:30px;">
+                                    <% } else { %>
+                                        <img src='/img/bangdangi_logo_2.png' style="width:30px;">
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="list_upper_r">
+                                <div class="tag_container">
+                                    <% for (i in room['discountKeywords']) { %>
+                                        <span><%= i %></span>
+                                    <% } %>
+                                    <% for (i in room['dateKeywords']) { %>
+                                        <span><%= i %></span>
+                                    <% } %>
+                                    <% for (i in room['locationL']) { %>
+                                        <span><%= i %></span>
+                                    <% } %>
+                                </div>
+                                <div class="price_container">
+                                    <%= `${room['deposit']===null?'문의':room['deposit']}/${room['price']===null?'문의':room['price']}` %>
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="list_mid">
+                            <div>
+                                <% let line1 = []; %>
+                                <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()-32400000).toLocaleDateString()); %>
+                                <% period = period + '~'; %>
+                                <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()-32400000).toLocaleDateString()); %>
+                                <% var loc = (room['locationL']===null ? '' : Object.keys(room['locationL']).join(' ')); %>
+                                <% loc = loc + (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
+                                <% if (loc !== '') line1.push(loc); %>
+                                <% if (period !== '~') line1.push(period); %>
+                                <%= line1.join(' | ') %>
+                            </div>
+                            <div>
+                                <% var line2 = []; %>
+                                <% room['roomType']===null || line2.push(room['roomType']); %>
+                                <% room['tradeType']===null || line2.push(room['tradeType']); %>
+                                <% room['floor']===null || line2.push(room['floor']+'층'); %>
+                                <% room['expense']===null || line2.push(`관리비 ${room['expense']}만원`); %>  
+                                <%= line2.join(' | ') %>
+                            </div>
+                        </div>
+                        <div class="list_lower">
+                            <div class="keywords_container">
+                                <% for(i in room['keywords']) { %>
+                                    <span><%=i%></span>
+                                <% } %>
+                                <% if (room['pic']===true) { %>
+                                    <span>사진O</span>
+                                <% } %>
+                                <% for(i in room['only']) { %>
+                                    <span><%=i%></span>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list_right">
+                    <div><img src="/img/arrow.png"></div>
+                    </div>
+                </div>
+            </a>
+          <% } %>
+      </div>
+      <% } else { %>
+      <div id="err">
+        <%= err %>
+      </div>
+      <% } %>
+    </div>
+    <div id="footer">
+        <div class="top_btn">
+            <i class="xi-angle-up-min"></i>
+            <p>TOP</p>
+        </div>
+        <div>
+            <a href="http://pf.kakao.com/_HxcGdT">
+            <i class="xi-kakaotalk"></i>문의하기
+            </a>
+        </div>
+        <div>
+            <a href="https://www.instagram.com/bang_dangi/?hl=ko">
+            <i class="xi-instagram"></i>인스타그램
+            </a>
+        </div>
+    </div>
+    <a style="    position: fixed;
+    bottom: 80px;
+    left: calc(50% - 66px);
+    box-sizing: border-box;
+    display: flex;
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    border-radius: 100px;" href="#">매물 등록하기</a>
+    <!-- 알림 서비스 배너 -->
+    <a href="https://bangdangi.web.app/noti" class="noti_banner_container noti_hidden">
+          <div id="noti_banner">
+            <p id="noti_title">원하는 매물을 찾지 못하셨다면?</p>
+            <p>방단기 알림서비스 받아보기! 
+              <span>
+                <i class="xi-angle-right-min"></i>
+              </span>
+            </p>
+            <span id="noti_close">
+              <i class="xi-close"></i>
+            </span>
+          </div>
+    </a>
+    <script>
+        document.getElementById('lower').style.display = 'initial';
+        var univSelect = document.getElementById('univ_select');
+        var currentUniv = "<%= univ %>";
+        var isFirstScroll = [false, false, false, false, false];
+        var notiBanner = document.getElementsByClassName('noti_banner_container')[0];
+        var isBannerOpened = false;
+        var topBtn = document.getElementsByClassName('top_btn')[0];
+
+        if (window.innerWidth >= 530) topBtn.style.display = 'block'; 
+
+        function sendScrollTag() {
+            if (currentUniv === '') return;
+
+            var h = document.documentElement, 
+            b = document.body,
+            st = 'scrollTop',
+            sh = 'scrollHeight';
+            var percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+
+            if (currentUniv==='pnu' || currentUniv==='hufsSC' || currentUniv==='hufsGC' || currentUniv==='cnu') {
+                if (percent >= 20 && isBannerOpened===false) {
+                    isBannerOpened = true;
+                    openNotiBanner();
+                }
+            }
+        }
+
+        function changeRoomList() {
+            if(this.value == "") return;
+            window.location.href = `https://bangdangi.web.app/board/list/${this.value}`;
+        }
+
+        function closeNotiBanner() {
+            notiBanner.classList.add('noti_hidden');
+            event.preventDefault();
+        }
+        
+        function openNotiBanner() {
+            notiBanner.classList.remove('noti_hidden');
+        }
+        
+        univSelect.onchange = changeRoomList;
+        <% if (!err) { %>
+        document.addEventListener('scroll', sendScrollTag);
+        <% } %>
+        document.getElementById('noti_close').addEventListener('click', closeNotiBanner);
+        topBtn.addEventListener('click', () => window.scrollTo(0,0));
+    </script>
+  </body>
+</html>
