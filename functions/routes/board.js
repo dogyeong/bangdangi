@@ -211,13 +211,14 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var univ = req.params.univ;
     var articleNo = req.params.articleNo;
     var db = admin.firestore();
+    var ignoreDone = req.query.v; //done에 상관없이 상세페이지가 보이도록 한다.
 
     db.doc(`article/live/${univ}/${articleNo}`).get()
     .then((doc) => {
         if (doc.exists) {   
             // 문서 존재함
             let data = doc.data();
-            if (data.done !== true) { 
+            if (data.done !== true || ignoreDone !== undefined) { 
                 // 거래 완료되지 않음
                 return res.render('articleDetail', { univ, articleNo, data });
             }
