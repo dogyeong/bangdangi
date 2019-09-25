@@ -92,6 +92,11 @@
                             <%= data.startDate ? new Date(data.startDate.toMillis()-32400000).toLocaleDateString() : '' %>
                             <%= (data.startDate || data.endDate) ? ' ~ ' : '' %> 
                             <%= data.endDate ? new Date(data.endDate.toMillis()-32400000).toLocaleDateString() : '' %>
+                            <% if (data['dateKeywords'] && data['dateKeywords']['6개월']) { %>
+                            <div class="cell_data_sub">
+                                6개월
+                            </div>
+                            <% } %>
                         </div>
                     </div>
                     <div class="cell">
@@ -99,7 +104,7 @@
                             위치
                         </div>
                         <div class="cell_data">
-                            <%= (data['locationL'] ? Object.keys(data['locationL']).join(' ') : '') %> <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '') %>
+                            <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '') %>
                         </div>
                     </div>
                 </div>
@@ -137,7 +142,11 @@
                             해당층/전체층
                         </div>
                         <div class="cell_data">
-                            <%= data.floor!==null ? data.floor+'층' : '' %><%= data.totalFloor===null ? '' : '/'+data.totalFloor+'층' %>
+                            <% if (data.floor === -1) { %>
+                                반지층<%= data.totalFloor===null ? '' : '/'+data.totalFloor+'층' %>
+                            <% } else { %>
+                                <%= data.floor!==null ? data.floor+'층' : '' %><%= data.totalFloor===null ? '' : '/'+data.totalFloor+'층' %>
+                            <% } %>
                         </div>
                     </div>
                 </div>

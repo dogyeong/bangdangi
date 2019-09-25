@@ -9,11 +9,6 @@ const cors = require('cors')({
   origin: true
 });
 
-// Routers
-const indexRouter = require('./routes/index');
-const boardRouter = require('./routes/board');
-const userRouter = require('./routes/user');
-
 admin.initializeApp();
 const app = express();
 
@@ -25,6 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Routers
+const indexRouter = require('./routes/index');
+const boardRouter = require('./routes/board');
+const userRouter = require('./routes/user');
 
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
@@ -48,29 +48,8 @@ app.use((err, req, res, next) => {
 
 const api = functions.https.onRequest(app);
 
-const getList = functions.https.onRequest((request, response) => {
-  cors(request, response, () => {
-    var univ = request.query.univ;
-    var db = admin.database();
-
-    db.ref('/article/'+univ).once('value', (snapshot) => {
-    	return snapshot.val()
-    })
-    .then((result) => {
-      console.log("완료");
-      response.status(200).send(result);
-      return null;
-    })
-    .catch((err) => {
-      response.status(500).send(err);
-      return null;
-    });
-  });
-});
-
 module.exports = {
-  api,
-  getList
+  api
 }
 
 

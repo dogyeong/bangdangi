@@ -27,26 +27,74 @@
 </head>
 
 <body>
-    <h1>Hi, this is login page</h1>
+    <h1>Hi, this is Google login page</h1>
+    <button id="btn">LogIn</button>
 </body>
 <script src="/__/firebase/6.6.1/firebase-app.js"></script>
 <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
 <script src="/__/firebase/init.js"></script>
 <script>
+    var btn = document.querySelector('#btn');
     const auth = firebase.auth();
+
     auth.useDeviceLanguage();
-    
+    auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
+
     function googleSignIn() {
         var provider = new firebase.auth.GoogleAuthProvider();
         auth.signInWithPopup(provider).then((result) => {
             console.log("token", result.credential.accessToken);
             console.log("user", result.user);
+
+            return result.user.getIdToken().then((idToken) => {
+                const csrfToken = getCookie('csrfToken');
+                console.log(csrfToken);
+                return postIdTokenToSessionLogin('/user/sessionLogin', { idToken, csrfToken });
+            });
         })
-        .catch((e) => {
-            console.log(e);
-        })
+            .then(() => {
+                auth.signOut();
+                //이 다음 then에서 window.location.assign('/profile'); 해야함
+            })
+            .catch((e) => {
+                console.log(e);
+            })
     }
 
+    function postIdTokenToSessionLogin(action, params) {
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', action);
+        document.charset = "utf-8";
+
+        for (var key in params) {
+            var hiddenField = document.createElement('input');
+            hiddenField.setAttribute('type', 'hidden');
+            hiddenField.setAttribute('name', key);
+            hiddenField.setAttribute('value', params[key]);
+            form.appendChild(hiddenField);
+        }
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    btn.addEventListener('click', googleSignIn);
 </script>
 
 </html>

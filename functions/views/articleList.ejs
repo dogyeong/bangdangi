@@ -147,8 +147,7 @@
                                 <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()-32400000).toLocaleDateString()); %>
                                 <% period = period + '~'; %>
                                 <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()-32400000).toLocaleDateString()); %>
-                                <% var loc = (room['locationL']===null ? '' : Object.keys(room['locationL']).join(' ')); %>
-                                <% loc = loc + (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
+                                <% var loc = (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
                                 <% if (loc !== '') line1.push(loc); %>
                                 <% if (period !== '~') line1.push(period); %>
                                 <%= line1.join(' | ') %>
