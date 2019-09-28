@@ -22,19 +22,30 @@
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
     <title>방단기</title>
-    <link rel=stylesheet type="text/css" href="/css/style.css" />
+    <link rel=stylesheet type="text/css" href="/css/login.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 
 <body>
-    <h1>Hi, this is Google login page</h1>
-    <button id="btn">LogIn</button>
+    <div id="container">
+        <div class="logo_container">
+            <a href="https://bangdangi.web.app/"><img src="/img/bangdangi_logo_2.png"></a>
+        </div>
+        <div class="btn_container">
+            <button class="google_btn">Google LogIn</button>
+            <button class="kakao_btn">Kakao LogIn</button>
+        </div>  
+    </div>
+    
+    
 </body>
 <script src="/__/firebase/6.6.1/firebase-app.js"></script>
 <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
 <script src="/__/firebase/init.js"></script>
 <script>
-    var btn = document.querySelector('#btn');
+    var googleBtn = document.querySelector('.google_btn');
+    var kakaoBtn = document.querySelector('.kakao_btn');
     const auth = firebase.auth();
 
     auth.useDeviceLanguage();
@@ -47,9 +58,7 @@
             console.log("user", result.user);
 
             return result.user.getIdToken().then((idToken) => {
-                const csrfToken = getCookie('csrfToken');
-                console.log(csrfToken);
-                return postIdTokenToSessionLogin('/user/sessionLogin', { idToken, csrfToken });
+                return postIdTokenToSessionLogin('/user/sessionLogin', { idToken });
             });
         })
             .then(() => {
@@ -94,7 +103,26 @@
         return "";
     }
 
-    btn.addEventListener('click', googleSignIn);
+    // 카카오톡 아이디로 로그인 :: 카카오 액세스 토큰 받아오기
+    //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정
+    Kakao.init('07ac8a4da1c7b6aa00a5947dc53f964a');
+    function loginWithKakao() {
+        // 로그인 창을 띄웁니다.
+        Kakao.Auth.login({
+            success: function (authObj) {
+                console.log(JSON.stringify(authObj));
+                postIdTokenToSessionLogin('/user/kakaoLogin', authObj);
+            },
+            fail: function (err) {
+                console.log(JSON.stringify(err));
+            }
+        });
+    };
+    //]]>
+    
+    googleBtn.addEventListener('click', googleSignIn);
+    kakaoBtn.addEventListener('click', loginWithKakao);
 </script>
 
 </html>

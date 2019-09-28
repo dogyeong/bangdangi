@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
+    <meta name="author" content="패러다임">
+    <meta itemprop="name" content="방단기">
+    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="twitter:title" content="방단기">
+    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:title" content="방단기">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="방단기">
+    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:url" content="https://bangdangi.web.app/">
+    <link rel="canonical" href="https://bangdangi.web.app/" />
+    <!-- SEO END -->
+    <title>방단기</title>
+</head>
+<body>
+
+</body>
+<script src="/__/firebase/6.6.1/firebase-app.js"></script>
+<script src="/__/firebase/6.1.0/firebase-auth.js"></script>
+<script src="/__/firebase/init.js"></script>
+<script>
+    var token = `<%= firebaseToken %>`;
+
+    firebase.auth().signInWithCustomToken(token)
+    .then((result) => {
+        return result.user.getIdToken().then((idToken) => {
+            return postIdTokenToSessionLogin('/user/sessionLogin', { idToken });
+        })   
+    })
+    .then(() => {
+        firebase.auth().signOut();
+        //이 다음 then에서 window.location.assign('/profile'); 해야함
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+
+    function postIdTokenToSessionLogin(action, params) {
+        var form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', action);
+        document.charset = "utf-8";
+
+        for (var key in params) {
+            var hiddenField = document.createElement('input');
+            hiddenField.setAttribute('type', 'hidden');
+            hiddenField.setAttribute('name', key);
+            hiddenField.setAttribute('value', params[key]);
+            form.appendChild(hiddenField);
+        }
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+
+</script>
+
+</html>

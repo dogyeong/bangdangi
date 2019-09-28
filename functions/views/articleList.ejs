@@ -57,22 +57,19 @@
         <select name="univ" id="univ_select">
           <option value="">학교를 선택해 주세요</option>
           <optgroup label="서울">
+            <option value="cuk" <%= (univ==='cuk') ? 'selected' : '' %>>카톨릭대학교</option>
+            <option value="uos" <%= (univ==='uos') ? 'selected' : '' %>>서울시립대학교</option>
+            <option value="skku" <%= (univ==='skku') ? 'selected' : '' %>>성균관대학교</option>
             <option value="hufsSC" <%= (univ==='hufsSC') ? 'selected' : '' %>>한국외국어대학교 서울캠퍼스</option>
             <option value="khuSC" <%= (univ==='khuSC') ? 'selected' : '' %>>경희대학교 서울캠퍼스</option>
             <option value="hanyang" <%= (univ==='hanyang') ? 'selected' : '' %>>한양대학교</option>
-          </optgroup>
-          <optgroup label="경기">
-            <option value="hufsGC" <%= (univ==='hufsGC') ? 'selected' : '' %>>한국외국어대학교 글로벌캠퍼스</option>
-            <option value="khuGC" <%= (univ==='khuGC') ? 'selected' : '' %>>경희대학교 국제캠퍼스</option>
-            <option value="hankyong" <%= (univ==='hankyong') ? 'selected' : '' %>>한경대학</option>
           </optgroup>
           <optgroup label="대전">
             <option value="cnu" <%= (univ==='cnu') ? 'selected' : '' %>>충남대학교</option>
           </optgroup>      
           <optgroup label="부산">
             <option value="pnu" <%= (univ==='pnu') ? 'selected' : '' %>>부산대학교</option>
-            <option value="pknu" <%= (univ==='pknu') ? 'selected' : '' %>>부경대학교</option>
-            <option value="donga" <%= (univ==='donga') ? 'selected' : '' %>>동아대학교</option>
+            <option value="pknu" <%= (univ==='pknu') ? 'selected' : '' %>>부경대/경성대학교</option>
           </optgroup>
         </select>
       </form>
@@ -114,13 +111,15 @@
                             <div class="list_upper_l">
                                 <div class="icon_container">
                                     <% if (room.urlType === 'mypnu') { %>
-                                        <img src='/img/mypnu_logo.png' style="width:30px;">
+                                        <img src='/img/mypnu_logo.png' style="width:40px;">
                                     <% } else if (room.urlType === 'everytime') { %>
-                                        <img src="/img/everytime_logo.png" style="width:30px;">
+                                        <img src="/img/everytime_logo.png" style="width:27px;">
                                     <% } else if (room.urlType === 'peterpanz') { %>
-                                        <img src='/img/peterpanz_logo.png' style="width:30px;">
+                                        <img src='/img/peterpanz_logo.png' style="width:35px;">
+                                    <% } else if (room.urlType === 'dabang') { %>
+                                        <img src='/img/dabang_logo.png' style="width:65px;">
                                     <% } else { %>
-                                        <img src='/img/bangdangi_logo_2.png' style="width:30px;">
+                                        <img src='/img/bangdangi_logo_2.png' style="width:40px;">
                                     <% } %>
                                 </div>
                             </div>
@@ -204,18 +203,20 @@
             </a>
         </div>
     </div>
+    <!-- 매물 등록하기 버튼
     <a style="    position: fixed;
-    bottom: 80px;
-    left: calc(50% - 66px);
-    box-sizing: border-box;
-    display: flex;
-    padding: 10px 20px;
-    background-color: dodgerblue;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 16px;
-    border-radius: 100px;" href="#">매물 등록하기</a>
+      bottom: 80px;
+      left: calc(50% - 66px);
+      box-sizing: border-box;
+      display: flex;
+      padding: 10px 20px;
+      background-color: dodgerblue;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 16px;
+      border-radius: 100px;" href="#">매물 등록하기</a>
+    -->
     <!-- 알림 서비스 배너 -->
     <a href="https://bangdangi.web.app/noti" class="noti_banner_container noti_hidden">
           <div id="noti_banner">

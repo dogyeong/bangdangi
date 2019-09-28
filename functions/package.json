@@ -19,7 +19,9 @@
     "firebase-functions": "^2.3.0",
     "http-errors": "^1.7.3",
     "morgan": "^1.9.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
