@@ -246,6 +246,18 @@ router.post('/create_process', (req, res, next) => {
     return res.render('create');
 })
 
+router.get('/getNew', (req, res) => {
+    let ref = admin.firestore().doc('article/live');
+    ref.getCollections().then(collections => {
+        return collections.forEach(collection => {
+            return collection.orderBy('createdAt', 'desc').limit(1).get()
+            .then(docs => docs.forEach(doc => console.log(doc.data())))
+        })
+    }).catch(error => console.log(error)); 
+    res.send('getNew OK');
+})
+
+
 
 
 module.exports = router;

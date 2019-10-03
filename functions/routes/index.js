@@ -7,8 +7,8 @@ router.get('/', (req, res, next) => {
   res.send("Hi from index routes!")
 });
 
-router.get('/test', (req, res, next) => {
-    //res.render('test');
+router.get('test', (req, res, next) => {
+    res.send('test');
 });
 
 module.exports = router;
