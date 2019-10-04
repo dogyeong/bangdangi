@@ -39,6 +39,7 @@
     <!-- SEO END --> 
     <title>방단기</title>
     <link rel=stylesheet type="text/css" href="css/index.css"/>
+    <link rel=stylesheet type="text/css" href="css/headerBar.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   </head>
   <body>
@@ -52,39 +53,46 @@
           <img src="img/bangdangi_logo_2.png">
         </a>
         <ul class="nav">
-          <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물알림 신청</a></li>
-          <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물 등록</a></li>
+          <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물알림신청</a></li>
+          <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물등록</a></li>
         </ul>
       </div>       
     </header>
     <!-- 메인 배너 -->
     <div class="mainBlock">
-      <div class="mainCopyContainer">
-        <div class="mainCopy">
-          <h1>찾아다닐 필요없이<br>모든 단기원룸을 한번에</h1>
+      <div class="mainBlockContainer">
+        <div class="mainBlockDivider">
+            <div class="mainCopy">
+              <h1>찾아다닐 필요없이<br>모든 단기원룸을 한번에</h1>
+              <p>
+                방단기는 20개가 넘는 부동산 커뮤니티에서<br>
+                단기 원룸들을 찾아 매일 업로드하고 있습니다<br>
+              </p>
+            </div>
+            <!-- 셀렉트 폼 -->
+            <form id="univ_form">
+              <label for="univ_select">학교를 선택해주세요</label>
+              <select name="univ" id="univ_select">
+                <option value="" selected>학교를 선택해 주세요</option>
+                <optgroup label="서울">
+                  <option value="cuk">카톨릭대학교</option>
+                  <option value="uos">서울시립대학교</option>
+                  <option value="skku">성균관대학교</option>
+                  <option value="khuSC">경희대학교 서울캠퍼스</option>
+                  <option value="hufsSC">한국외국어대학교 서울캠퍼스</option>
+                  <option value="hanyang">한양대학교</option>
+                </optgroup>
+                <optgroup label="대전">
+                  <option value="cnu">충남대학교</option>
+                </optgroup>      
+                <optgroup label="부산">
+                  <option value="pnu">부산대학교</option>
+                  <option value="pknu">부경대/경성대학교</option>
+                </optgroup>
+              </select>
+            </form>
         </div>
       </div>
-      <!-- 셀렉트 폼 -->
-      <form id="univ_form">
-        <select name="univ" id="univ_select">
-          <option value="" selected>학교를 선택해 주세요</option>
-          <optgroup label="서울">
-            <option value="cuk">카톨릭대학교</option>
-            <option value="uos">서울시립대학교</option>
-            <option value="skku">성균관대학교</option>
-            <option value="khuSC">경희대학교 서울캠퍼스</option>
-            <option value="hufsSC">한국외국어대학교 서울캠퍼스</option>
-            <option value="hanyang">한양대학교</option>
-          </optgroup>
-          <optgroup label="대전">
-            <option value="cnu">충남대학교</option>
-          </optgroup>      
-          <optgroup label="부산">
-            <option value="pnu">부산대학교</option>
-            <option value="pknu">부경대/경성대학교</option>
-          </optgroup>
-        </select>
-      </form>
     </div>
     <!-- 새로 등록된 매물 -->
     <div class="subBlock b1">
@@ -93,22 +101,22 @@
           새로 등록된 매물
         </div>
         <div class="b1_cards">
-          <a href="#" class="b1_item">
+          <a href="https://bangdangi.web.app/board/read/pnu/k0tptB9xnvbyzc7JXgzb" class="b1_item">
             <div class="b1_item_content">
-              <div class="b1_item_img"></div>
-              <div class="b1_item_text">부산대정문앞 5분거리<br>300/300</div>
+              <div class="b1_item_img" style="background: url(https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/%EB%B6%80%EB%8C%80%2F42F27C7F-C7A6-4A34-B3AD-F0FA9F3A4EDD.jpeg?alt=media&token=1db1345a-46f6-45cf-befa-316827a43fb8) center center / cover no-repeat;"></div>
+              <div class="b1_item_text">부산대 은혜원룸<br>3개월이상</div>
             </div>
           </a>
-          <a href="#" class="b1_item">
+          <a href="https://bangdangi.web.app/board/read/hufsSC/F6culkWF7P1LY6ArDB4A" class="b1_item">
             <div class="b1_item_content">
-              <div class="b1_item_img"></div>
-              <div class="b1_item_text"></div>
+              <div class="b1_item_img" style="background: url(https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/%EA%B2%BD%ED%9D%AC%EB%8C%80%2F30-7.jpg?alt=media&token=4809f717-0a0c-423b-842e-46e1c7c03506) center center / cover no-repeat;"></div>
+              <div class="b1_item_text">경희대정문 1분거리<br>20년 2월까지</div>
             </div>
           </a>
-          <a href="#" class="b1_item">
+          <a href="https://bangdangi.web.app/board/read/cnu/ikARenFNss0ZfAgbyg7o" class="b1_item">
             <div class="b1_item_content">
-              <div class="b1_item_img"></div>
-              <div class="b1_item_text"></div>
+              <div class="b1_item_img" style="background: url(https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/ikARenFNss0ZfAgbyg7o%2F3D28E2E2-7313-463B-8B8A-6A96CCD60B65.jpeg?alt=media&token=0e1a75ba-27eb-4c87-92a6-8eb9fa8e793c) center center / cover no-repeat;"></div>
+              <div class="b1_item_text">충남대정문 5분거리<br>12월 말까지</div>
             </div>
           </a>
         </div>
