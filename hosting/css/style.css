@@ -11,52 +11,74 @@
       width: 100%;
     }
     /* upper */
-    #upper {
-      background-color: #0ab9f1;
-      padding-bottom: 24px;
-    }
-    /* title */
-    div#title {
-      width:100%;
-      text-align: center;
-      font-weight: 500;
-      font-size: 24px;
-      padding: 16px 0;
-      margin: auto;
-    }
-    #title img {
-      width: 120px;
-      margin-bottom: -8px;
-    }
-    #title > p {
-    font-size: 12px;
-    color: white;
-    font-weight: 400;
+    .form_container {
+      padding: 24px 40px;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
     }
 
     /* university select */
-    #univ_title {
-      width: 100%;
-      font-size: 16px;
-      font-weight: 400;
-      margin-top: 16px;
-      margin-bottom: 8px;
-    }
     #univ_form {
-      width: 80%;
-      max-width: 400px;
+      position: relative;
+      width: 100%;
+      max-width: 600px;
       margin: auto;
-      margin-top: 32px;
+      height: 47px;
+      border: 3px solid #0AB9F1; /* 테두리 설정 */ 
+      z-index: 1;
+    }
+    #univ_form:before { /* 화살표 대체 */ 
+        content: ""; 
+        position: absolute; 
+        top: 50%; 
+        right: 15px; 
+        width: 0; 
+        height: 0; 
+        margin-top: -1px; 
+        border-left: 5px solid transparent; 
+        border-right: 5px solid transparent; 
+        border-top: 5px solid #999; 
+    }
+    #univ_form label {
+        position: absolute; 
+        top: 1px; /* 위치정렬 */ 
+        left: 5px; /* 위치정렬 */ 
+        font-size: 14px;
+        padding: .8em .5em; /* select의 여백 크기 만큼 */ 
+        z-index: -1; /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
     }
     #univ_select {
-      width: 100%;
-      border: 1px solid #e5e5e5;
-      height: 40px;
-      font-size: 14px;
-      font-weight: 400;
-      border-radius: 0;
-      box-sizing: border-box;
-      background-color: white;
+        width: 100%; 
+        height: auto; /* 높이 초기화 */ 
+        line-height: normal; /* line-height 초기화 */ 
+        font-family: inherit; /* 폰트 상속 */ 
+        padding: .8em .5em; /* 여백과 높이 결정 */ 
+        border: 0; 
+        opacity: 0; /* 숨기기 */ 
+        font-size: 14px;
+        filter:alpha(opacity=0); /* IE8 숨기기 */ 
+        -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+        -moz-appearance: none; 
+        appearance: none; 
+    }
+    @media screen and (max-width: 600px) {
+      header {
+        position: fixed;
+        top: 0;
+        z-index: 4;
+      }
+      .form_container {
+        position: fixed;
+        top: 58px;
+        padding: 0;
+        width: 100%;
+        background-color: #fff;
+        z-index: 3;
+      }
+      #univ_form {
+        border: none;
+        border-bottom: 3px solid #0AB9F1;
+      }
+      
     }
 
     /* mid */
@@ -95,12 +117,12 @@
     /* footer */
     div#footer{
       width: 100%;
-      max-width: 500px;
       display: flex;
       margin: auto;
       justify-content: center;
       align-items: center;
-      padding: 16px 0;
+      padding: 24px 0;
+      border-top: 1px solid rgba(0,0,0,0.1);
     }
 
     #footer > div {
@@ -117,7 +139,8 @@
     .top_btn {
       display: none;
       position: fixed;
-      left: calc(50% + 266px);
+      left: calc(50% + 316px);
+      background-color: #fff;
       bottom: 80px;
       line-height: 12px;
       text-align: center;
@@ -130,7 +153,16 @@
     /* lower */
     #lower {
       width: 100%;
-      display: none;
+      display: block;
+      background-color: #ebeef1;
+      padding: 16px 0;
+    }
+    @media screen and (max-width: 600px) {
+      #lower {
+        margin-top: 108px;
+        padding: 0;
+        border: none;
+      }
     }
 
     /* main + roomList */
@@ -146,28 +178,25 @@
       margin: auto;
     }
     div#main {
-      padding: 0 8px;
-      padding-top: 8px;
       margin: auto;
-      width: auto;
-      max-width: 500px;
+      width: 100%;
+      max-width: 600px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: #e8e8e8;
-      border-top: 1px solid rgba(0,0,0,0.1);
+      background-color: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
     }
     #main a {
       display: block;
       box-sizing: border-box;
       text-decoration: none;
       color: #333;
-      margin-bottom: 8px;
       padding: 12px;
       background-color: white;
       width: 100%;
-      border-bottom: 1px solid rgba(0,0,0,0.3);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
     }
     .list_wrapper {
       width: 100%;
@@ -193,7 +222,7 @@
     .tag_container {
       font-weight: 300;
       font-size: 14px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     .tag_container span {
       color: #0ab9f1;
@@ -201,7 +230,9 @@
       padding: 1px 4px;
       border-radius: 2px;
       margin-right: 4px;
+      margin-bottom: 2px;
       font-size: 14px;
+      display: inline-block;
     }
     
     .price_container {
@@ -234,6 +265,17 @@
     }
 
     /* hashtag : 위쪽 주요 태그 선택하는 부분 */
+    #hashtag_container {
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      margin-bottom: 12px;
+    }
+    #hashtag_container > form {
+      padding: 12px 20px;
+      background-color: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
     input[type="checkbox"] + label span {
       color: rgba(0,0,0,0.7);
       position: relative;
@@ -261,26 +303,18 @@
       margin: auto;
       margin-top: 16px;
       margin-bottom: 4px;
-      max-width: 500px;
-      width: 95%;
-    }
-    #hashtag_container {
       width: 100%;
-      margin: auto;
-      margin-bottom: 12px;
     }
     .hashtag_list {
       margin: auto;
-      max-width: 500px;
-      width: 95%;
+      width: 100%;
     }
     .submit_container {
       width: 100%;
-      max-width: 500px;
       margin: auto;
       text-align: center;
-      padding-top: 12px;
-      margin-top: 12px;
+      padding-top: 16px;
+      margin-top: 16px;
       border-top: 1px solid rgba(0,0,0,0.1);
     }
     .submit_container input[type="submit"] {
@@ -312,6 +346,16 @@
       line-height: 36px;
       margin: 0 4px;
     }
+    @media screen and (max-width: 600px) {
+      #hashtag_container {
+        margin-bottom: 4px;
+      }
+      #hashtag_container > form {
+        padding: 12px 12px;
+        background-color: #fff;
+      }
+    }
+    
 
     /* noti_banner */
     .noti_banner_container {

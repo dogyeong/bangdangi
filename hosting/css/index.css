@@ -91,6 +91,7 @@
         padding: .8em .5em; /* 여백과 높이 결정 */ 
         border: 0; 
         opacity: 0; /* 숨기기 */ 
+        font-size: 14px;
         filter:alpha(opacity=0); /* IE8 숨기기 */ 
         -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
         -moz-appearance: none; 
@@ -118,7 +119,7 @@
     */
     .subBlock {
       width: 100%;
-      padding: 240px 0;
+      padding: 200px 0;
       position: relative;
     }
     .b1 {
@@ -190,6 +191,8 @@
         }
         .b1_cards {
             overflow: scroll;
+            overflow-x: auto;
+            overflow-y: hidden;
             justify-content: flex-start;
             margin-top: 60px;
         } 
@@ -245,6 +248,10 @@
     @media screen and (max-width: 600px) {
         .b2_title {
             font-size: 24px;
+            font-weight: 400;
+        }
+        .b2_text {
+            font-weight: 300;
         }
     }
 
@@ -289,8 +296,8 @@
         }
         .footerContainer {
             flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+            justify-content: flex-start;
+            align-items: center;
         }
         .footer_left {
             margin-bottom: 20px;
