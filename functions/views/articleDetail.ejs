@@ -8,6 +8,7 @@
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Pageview',
+        'pagePath': '/board/read/<%=univ%>/<%=articleNo%>',
         'pageTitle': '/<%=univ%>/<%=articleNo%>',
         'univ': "<%=univ%>"
       });
@@ -42,6 +43,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel=stylesheet type="text/css" href="/css/article.css" />
+    <link rel=stylesheet type="text/css" href="/css/headerBar.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 </head>
 
@@ -52,118 +54,148 @@
     <!-- End Google Tag Manager (noscript) -->
     <span id="headerBG"></span>
     <div id="wrapper">
+        <!-- 헤더 -->
         <header>
-            <div class="header_l">
-            </div>
-            <div class="header_c">
-                <a href="https://bangdangi.web.app/"><img src="/img/logo_w.png"></a>
-                <p>방학기간, 2학기만 살 방을 구하고 있다면?</p>
-            </div>
-            <div class="header_r">
-                <a href="https://bangdangi.web.app/board/list/<%=univ%>">목록으로</a>
-            </div>
-        </header>
-        <content>
-            <% if(data.title !== null) { %>
-            <h1 class="title">
-                <%= data.title %>
-            </h1>    
-            <% } %>
-            <% if(data.images !== null) { %>
-            <div class="slider_container">
-                <div class="mask">
-                    <div class="image_container">
-                        <% for(i of data.images) { %>
-                            <div style="background:url('<%=i%>') no-repeat center center;background-size:contain;"></div>
-                        <% } %>
-                    </div>    
-                </div>
-                <span class="slider_btn slider_btn_l"><i class="xi-angle-left xi-2x"></i></span>
-                <span class="slider_btn slider_btn_r"><i class="xi-angle-right xi-2x"></i></span>
-                <span class="slider_counter"></span>
-            </div>
-            <% } %>
-            <div class="info_container">
-                <div class="row">
-                    <div class="cell">
-                        <div class="cell_title">
-                            기간
-                        </div>
-                        <div class="cell_data">
-                            <%= data.startDate ? new Date(data.startDate.toMillis()-32400000).toLocaleDateString() : '' %>
-                            <%= (data.startDate || data.endDate) ? ' ~ ' : '' %> 
-                            <%= data.endDate ? new Date(data.endDate.toMillis()-32400000).toLocaleDateString() : '' %>
-                            <% if (data['dateKeywords'] && data['dateKeywords']['6개월']) { %>
-                            <div class="cell_data_sub">
-                                6개월
-                            </div>
-                            <% } %>
-                        </div>
-                    </div>
-                    <div class="cell">
-                        <div class="cell_title">
-                            위치
-                        </div>
-                        <div class="cell_data">
-                            <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '') %>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="cell">
-                        <div class="cell_title">
-                            가격
-                        </div>
-                        <div class="cell_data">
-                            <%= data.deposit!==null ? data.deposit : '문의' %>/<%= data.price!==null ? data.price : '문의' %>
-                        </div>
-                    </div>
-                    <div class="cell">
-                        <div class="cell_title">
-                            관리비
-                        </div>
-                        <div class="cell_data">
-                            <% if(data.expense !== null) { %>
-                                <%= data.expense %>만원
-                            <% }%>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="cell">
-                        <div class="cell_title">
-                            방 형태
-                        </div>
-                        <div class="cell_data">
-                            <%= data.roomType || '' %>
-                        </div>
-                    </div>
-                    <div class="cell">
-                        <div class="cell_title">
-                            해당층/전체층
-                        </div>
-                        <div class="cell_data">
-                            <% if (data.floor === -1) { %>
-                                반지층<%= data.totalFloor===null ? '' : '/'+data.totalFloor+'층' %>
-                            <% } else { %>
-                                <%= data.floor!==null ? data.floor+'층' : '' %><%= data.totalFloor===null ? '' : '/'+data.totalFloor+'층' %>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text_container">
-                <%= data.text || '' %>
-            </div>
-            <div class="contact_container">
-                <div class="contact_btn" data-contact="<%= data.contact || '' %>">
-                    매물 등록자와 연락하기
-                </div>
-                <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
-                    다른 방 보러가기
+            <div id="header_inner">
+                <a class="header_logo" href="https://bangdangi.web.app/">
+                <img src="/img/bangdangi_logo_2.png">
                 </a>
+                <ul class="nav">
+                <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물알림신청</a></li>
+                <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물등록</a></li>
+                </ul>
+            </div>       
+        </header>
+        
+        <!-- 제목 + 사진 + 기본정보 블럭 -->
+        <div class="block1">
+            <div class="titleBlock">
+                <!-- 글 제목-->
+                <% if(data.title !== null) { %>
+                <h1 class="title">
+                    <%= data.title %>
+                </h1>    
+                <% } %>
             </div>
-        </content>
+            <div class="infoBlock">
+                <!-- 이미지 슬라이더-->
+                <% if(data.images !== null) { %>
+                    <div class="slider_container">
+                        <div class="mask">
+                            <div class="image_container">
+                                <% for(i of data.images) { %>
+                                    <div style="background:url('<%=i%>') no-repeat center center;background-size:contain;"></div>
+                                <% } %>
+                            </div>    
+                        </div>
+                        <span class="slider_btn slider_btn_l"><i class="xi-angle-left xi-2x"></i></span>
+                        <span class="slider_btn slider_btn_r"><i class="xi-angle-right xi-2x"></i></span>
+                        <span class="slider_counter"></span>
+                    </div>
+                <% } %>
+                <!-- 기본 정보 -->
+                <div class="info_container">
+                    <!-- 기본정보 영역 제목 -->
+                    <div class="info_title">매물정보</div>
+                    <!-- 기본정보 영역 테이블 -->
+                    <div class="info_table">
+                        <div class="row">
+                            <div class="cell_title">가격</div>
+                            <div class="cell_data">
+                                보증금 <span><%= data.deposit!==null ? data.deposit : '문의' %></span> / 월세 <span><%= data.price!==null ? data.price : '문의' %></span>
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="cell_title">
+                                기간
+                            </div>
+                            <div class="cell_data">
+                                <%= data.startDate ? new Date(data.startDate.toMillis()-32400000).toLocaleDateString() : '' %>
+                                <%= (data.startDate || data.endDate) ? ' ~ ' : '' %> 
+                                <%= data.endDate ? new Date(data.endDate.toMillis()-32400000).toLocaleDateString() : '' %>
+                                <% if (data['dateKeywords'] && data['dateKeywords']['6개월']) { %>
+                                <div class="cell_data_sub">
+                                    6개월
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="cell_title">
+                                위치
+                            </div>
+                            <div class="cell_data">
+                                <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '') %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cell_title">
+                                관리비
+                            </div>
+                            <div class="cell_data">
+                                <% if(data.expense !== null) { %>
+                                    <%= data.expense %>만원
+                                <% }%>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cell_title">
+                                방 형태
+                            </div>
+                            <div class="cell_data">
+                                <%= data.roomType || '' %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cell_title">
+                                해당층
+                            </div>
+                            <div class="cell_data">
+                                <% if (data.floor === -1) { %>
+                                    반지층
+                                <% } else { %>
+                                    <%= data.floor!==null ? data.floor+'층' : '' %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="cell_title">
+                                전체층
+                            </div>
+                            <div class="cell_data">
+                                <%= data.totalFloor===null ? '' : data.totalFloor+'층' %>
+                            </div>
+                        </div>
+                    </div>
+                </div>         
+            </div>
+        </div>
+        
+        <!-- 본문 블럭 -->
+        <div class="block2">
+            <div class="detail_title">상세설명</div>
+            <p class="detail_text"><%= data.text || '' %></p>
+        </div>
+
+        <!-- 연락하기 버튼 블럭 -->
+        <div class="contact_container">
+            <a class="cancel_arrow" href="https://bangdangi.web.app/board/list/<%=univ%>">
+                <i class="xi-angle-left"></i>
+            </a>
+            <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
+                다른 방 보러가기
+            </a>
+            <div class="contact_btn" data-contact="<%= data.contact || '' %>">
+                <% if (data.contact && data.contact.length > 15) { %>
+                    오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+                <% } else { %>
+                    매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
+                <% } %>
+                
+            </div>  
+        </div>
+
+        <!-- 푸터 -->
         <footer>
             <div>
                 개인과 직거래시 언제나 안전에 유의하세요.

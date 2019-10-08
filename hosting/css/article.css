@@ -13,79 +13,55 @@ body {
 
 #wrapper {
     width: 100%;
-    max-width: 500px;
+    height: 100%;
     margin: auto;
+    background-color: #ebeef1;
 }
 
-#headerBG {
-    background-color: #0ab9f1;
-    height: 120px;
+/*
+* 첫번째 블럭 : 제목 + 사진 + 매물정보
+*/
+.block1 {
     width: 100%;
-    position: absolute;
-    top: 0;
-    z-index: -1;
-}
-
-header {
-    background-color: #0ab9f1;
-    width: 100%;
-    height: 120px;
-    display: flex;
-    flex-direction: row;
-}
-
-.header_l, .header_r {
-    flex: 1;
-}
-.header_c {
-    display: flex;
-    text-align: center;
-    justify-content: flex-end;
-    flex-direction: column;
-    flex: 3;
-}
-.header_c img {
-    width: 104px;
-    display: inline-block;
-    margin-bottom: -8px;
-}
-.header_c > p {
-    font-size: 12px;
-    color: white;
-    font-weight: 400;
+    max-width: 800px;
+    margin: auto;
     margin-bottom: 16px;
+    margin-top: 16px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
-.header_r {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-.header_r > a {
-    color: white;
-    font-size: 12px;
-    font-weight: 400;
-    text-decoration: none;
-    margin-top: 8px;
-    margin-right: 16px;
-}
-
-h1.title {
-    font-size: 18px;
+.titleBlock {
+    padding: 20px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-    padding: 8px;
-    color: #333;
+}
+.title {
+    font-size: 20px;
     font-weight: 500;
+    margin-bottom: 8px;
+    word-break: keep-all;
+}
+.infoBlock {
+    display: flex;
+    padding: 20px;
+}
+@media screen and (max-width: 600px) {
+    .infoBlock {
+        display: block;
+    }
 }
 
+/*
+* 이미지 슬라이더
+*/
 .slider_container {
     width: 100%;
     position: relative;
     height: 0;
     overflow: hidden;
-    padding-bottom: 80%; 
-    margin-top: 16px;
-    margin-bottom: 16px;
+    padding-bottom: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex: 1;
 }
 .mask {
     width: 100%;
@@ -98,7 +74,6 @@ h1.title {
     display: flex;
     align-items: center;
 }
-
 .image_container {
     width: 100%;
     height: 100%;
@@ -109,7 +84,6 @@ h1.title {
     left: 0;
     transition: left 0.5s ease-in-out;
 }
-
 .image_container > div {
     min-width: 100%;
     min-height: 100%;
@@ -117,7 +91,6 @@ h1.title {
     justify-content: center;
     align-items: center;
 }
-
 .slider_btn {
     color: white;
     position: absolute;
@@ -145,86 +118,167 @@ h1.title {
     font-weight: 400;
     letter-spacing: 1.5px;
 }
+@media screen and (max-width: 600px) {
+    .slider_container {
+        padding-bottom: 70%;
+    }
+}
+
+/*
+* 매물정보 컨테이너
+*/
 .info_container {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    padding: 0 8px;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 0.5px solid rgba(0,0,0,0.1);
-    padding: 16px 0;
-}
-
-.cell {
     flex: 1;
-    padding: 4px;
+    padding-left: 20px;
 }
-
-.cell_title {
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-
-.cell_data {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.cell_data_sub {
-    font-size: 16px;
-    font-weight: 400;
-    color: #333;
-}
-
-.text_container {
-    white-space: pre-line;
-    word-break: keep-all;
-    padding: 0 12px;
-    margin: 32px 0;
-    font-size: 12px;
-}
-
-.contact_btn {
-    width: calc(100% - 16px);
-    margin: auto;
-    background-color: #0ab9f1;
-    color: white;
-    height: 60px;
-    border-radius: 4px;
+.info_title {
     font-size: 16px;
     font-weight: 500;
+    margin-bottom: 24px;
+}
+.info_table {
+    display: table;
+    width: 100%;
+}
+.row {
+    display: table-row;
+    height: 40px;
+}
+.cell_title {
+    display: table-cell;
+    font-size: 14px;
+    font-weight: 400;
+    width: 80px;
+}
+.cell_data {
+    display: table-cell;
+    font-size: 16px;
+    font-weight: 500;
+    word-break: keep-all;
+}
+@media screen and (max-width: 600px) {
+    .info_container {
+        padding: 0;
+        margin-top: 20px;
+    }
+    .cell_data {
+        text-align: right;
+    }
+}
+
+/*
+* 본문 블럭
+*/
+.block2 {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+.detail_title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+.detail_text {
+    white-space: pre-line;
+    font-size: 16px;
+}
+
+/*
+* 연락하기 버튼 블럭
+*/
+.contact_container {
+    width: 100%;
+    max-width: 800px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: auto;
 }
 .cancel_btn {
-    width: calc(100% - 16px);
     margin: auto;
-    color: #666;
+    color: #fff;
     height: 60px;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 18px;
+    font-weight: 400;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    flex: 2;
+    background-color: #A0A7B4;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+.cancel_arrow {
+    display: none;
+    margin: auto;
+    color: #fff;
+    height: 60px;
+    font-size: 18px;
+    font-weight: 400;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    flex: 1;
+    background-color: #A0A7B4;
+    box-sizing: border-box;
+}
+.contact_btn {
+    margin: auto;
+    background-color: #0ab9f1;
+    color: white;
+    height: 60px;
+    font-size: 18px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 3;
+    margin-left: 8px;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+    .contact_container {
+        position: fixed;
+        bottom: 0;
+    }
+    .cancel_btn {
+        display: none;
+    }
+    .cancel_arrow {
+        display: flex;
+    }
+    .contact_btn {
+        margin: 0;
+        border: none;
+    }
 }
 
+/*
+* 푸터
+*/
 footer {
-    background-color: rgba(0,0,0,0.01);
     height: 80px;
-    margin-top: 32px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     padding: 0 8px;
     word-break: keep-all;
     color: gray;
+    border-top: 1px solid rgba(0,0,0,0.1);
 }
-
+@media screen and (max-width: 600px) {
+    footer {
+        margin: 0;
+        margin-bottom: 60px;
+    }
+}
