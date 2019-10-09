@@ -63,6 +63,7 @@
         <div>
             <div>url타입</div>
             <div>display</div>
+            <div>거래완료(done)</div>
             <div>삭제 휴지통</div>
         </div>
         <div>
@@ -173,6 +174,7 @@
             addArticles(roomList);
             Array.from(document.getElementsByClassName('text')).forEach((i) => i.addEventListener('click', toggleText));
             Array.from(document.getElementsByClassName('displayBtn')).forEach((i) => i.addEventListener('click', toggleDisplay));
+            Array.from(document.getElementsByClassName('doneBtn')).forEach((i) => i.addEventListener('click', toggleDone));
             Array.from(document.getElementsByClassName('xi-close')).forEach((i) => i.addEventListener('click', deleteArticle));
             Array.from(document.getElementsByClassName('xi-trash-o')).forEach((i) => i.addEventListener('click', toTrash));
             Array.from(document.getElementsByClassName('modify')).forEach((i) => i.addEventListener('click', modifyData));
@@ -229,9 +231,11 @@
               <div>
                 <div class="modify" data-type="str" data-key=${key} data-target='urlType'>${article.urlType}</div>
                 <div class="clickable displayBtn" data-key=${key}><i class=${article.display ? "xi-eye-o" : "xi-eye-off-o"}></i></div>
+                <div class="clickable doneBtn" data-key=${key}><i class=${article.done ? "xi-check-square-o" : "xi-checkbox-blank"}></i></div>
                 <div class="cliclable">
                   <i class="xi-close" data-key=${key}></i> 
                   <i class="xi-trash-o" data-key=${key}></i>
+
                 </div>
               </div>
               <div>
@@ -300,7 +304,28 @@
                 // 에러가 발생하면 메세지 출력
                 console.log("Transaction failed: ", error);
             });
-
+        }
+        function toggleDone() {
+            // 거래완료 항목을 토글하는 함수
+            var icon = this.children[0];
+            let key = this.dataset.key;
+            var doneRef = firebase.firestore().doc(`${currentPath}/${key}`);
+            return firebase.firestore().runTransaction((transaction) => {
+                return transaction.get(doneRef).then((doc) => {
+                    if (!doc.exists) {
+                        throw "Document does not exist!";
+                    }
+                    // 반대로 업데이트
+                    transaction.update(doneRef, { done: !doc.data().done });
+                });
+            }).then(function () {
+                // 토글에 성공하면, 아이콘을 바꾼다
+                icon.classList.toggle('xi-check-square-o');
+                icon.classList.toggle('xi-checkbox-blank');
+            }).catch(function (error) {
+                // 에러가 발생하면 메세지 출력
+                console.log("Transaction failed: ", error);
+            });
         }
 
         function deleteArticle() {

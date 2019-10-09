@@ -246,7 +246,7 @@ body {
 @media screen and (max-width: 600px) {
     .contact_container {
         position: fixed;
-        bottom: 0;
+        bottom: 20px;
     }
     .cancel_btn {
         display: none;
