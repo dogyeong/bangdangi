@@ -42,8 +42,8 @@
     <title>방단기</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel=stylesheet type="text/css" href="/css/article.css" />
     <link rel=stylesheet type="text/css" href="/css/headerBar.css"/>
+    <link rel=stylesheet type="text/css" href="/css/article.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 </head>
 
@@ -57,12 +57,28 @@
         <!-- 헤더 -->
         <header>
             <div id="header_inner">
-                <a class="header_logo" href="https://bangdangi.web.app/">
-                <img src="/img/bangdangi_logo_2.png">
-                </a>
-                <ul class="nav">
-                <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물알림신청</a></li>
-                <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물등록</a></li>
+                <div class="back_btn">
+                    <a href="https://bangdangi.web.app/board/list/<%=univ%>">
+                        <i class="xi-arrow-left"></i>
+                    </a>
+                </div>
+                <ul class="share_container">
+                    <li class="kakao_link_btn">
+                        <a href="javascript:;" id="kakao-link-btn"> 
+                            <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" /> <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
+                        </a>
+                    </li>
+                    
+                    <li class="url_link_btn">
+                        <a href="javascript:;"> 
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAA1VBMVEVNivUAAAD////R0tTX2NpQj/8LGjMqKCb4+PjU1ddBdc52dnhkZ2kjP21Qj/1MifMPGzGLi4tpaW0xMzTFxsirrK45Z7ZEe9kjHyBKg+kIEBk9bMC1tbfJzM4dHyCgoKALEyIpSYDw8PBHRUbg4OCTk5M2YakZGRobLlEZGBQRDgZFetibm5tvb29+fn5QUFBgYGAXEhSWpsOmxPxHU20+OjmSlqOfueiJioUfTI8gFgAQAAA/ed4lIyk2TX8hGRAnKzsfDwA3V5ArNEsZK0sVJDwzW5/HC2fwAAADfElEQVR4nO3aCVPaQBiA4Xw5KkRcQAUSDkXksLWK1l7aw9qW/v+f1N0EAY+Czlgys3mfQTMjcWbzkmxCwHEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECOBc+V9YBfXlypvHqOylGc9ZBfmmrJ643neCPHWY/5pekGb91Copc8VnBPpJH1mF+abrDv9nqu655KoSdVdxVbGxyeuG5P9tyBtHPbwOwHNam5e6NCbhsYe1JoP+FQsLaB33c7cuqOpZffBuMT90z6fTlb3NjxZj9PDXr6jHCoTwydxY2tiWx38tNA2++7/f07G1u4js7l8MGJYtPKBuOqNhjon+rc53cX719H0Ug+fPx0cfF59vfBBwsbhPK4y6B+FWmjL1++Bneese79go7wuIZyTILo2zBWzuITX1XWQ14j9f3aRAgtfLP8dOFN9C2KrsI8vfAP/LgJ6zdRZN0k+AzBz1+BGl5d/8h6IFmK9R4QDDcaTjnrkWStnOv5YCr3ewEA2IvTnOO0Vlz8h+GaBpIZ1Vrx7r8h9n2SNpe8/Gooy+8ChSLhfHXLxHVzsWcaLH2dbxvo1a27OFRHMinfa6CUfqjk9+xlTxuouCIH1u0JaktkEqv5saAa9TumR4hpoFTcFPlp4d2jIx2hPG9Qvn8LNZ0qkwZxV2TLut3A0BF+q/LWZbpxjfsNpmkODsrqXCw8ElJH0nWcYLpxschpe+Z0drrQc4Nj615g1OenRaUbDPzilD/QDeabfVy3MEEQG+nkH6eORapeZ8qr6tPF9Ilk/XQtm0qoP81ut9ucxOZLaM0pkdHezEjk9u+v9FqNrtEcWhQhmKTTXuio+j8+WFvQUrdrWTUrNA6MP07SoLS5RMmcG53yZfIPVn2soFQQBGbGNw3a/hLt9FpZWfp9VOOpDWxmGoxLS5wlx4LVzP2D1XNi1qP8z+LJqgS/7fuGxX2BEjnp+37HXCf6fk2kphf6OnFXL7alomzfCwzdoOR7xV19nagXpkHR8/V14q5e6AbW3Tl5TNrAowENaEADGjg0MGhAA4MGNDBoQAODBjQwaDBr4B+et4s6xcZOx/OK7dHY83LXwPM6OoFXTB5esePlssFDNKABDWhAg4UGpZw0CERGO/8wyk+DJSpZD28tVGtriVbWw1sPFaglsh4dAAAAAAAAAAAAAAAAAAAAAAAAAABYj7+OGWOi7RC/RAAAAABJRU5ErkJggg==">
+                        </a>
+                    </li>
+                    <li class="share_btn">
+                        <a href="javascript:;">
+                            <i class="xi-share-alt-o"></i>   
+                        </a>
+                    </li>
                 </ul>
             </div>       
         </header>
@@ -177,11 +193,13 @@
             <p class="detail_text"><%= data.text || '' %></p>
         </div>
 
+        <!-- 모바일에서 다른방 보러가기 버튼 -->
+        <a class="cancel_mobile" href="https://bangdangi.web.app/board/list/<%=univ%>">
+            <i class="xi-arrow-left"></i> 다른 방 보러가기
+        </a>
+
         <!-- 연락하기 버튼 블럭 -->
         <div class="contact_container">
-            <a class="cancel_arrow" href="https://bangdangi.web.app/board/list/<%=univ%>">
-                <i class="xi-angle-left"></i>
-            </a>
             <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
                 다른 방 보러가기
             </a>
@@ -190,8 +208,7 @@
                     오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
                 <% } else { %>
                     매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
-                <% } %>
-                
+                <% } %>      
             </div>  
         </div>
 
@@ -250,5 +267,28 @@
     }
 
     contactBtn.addEventListener('click', contact);
+</script>
+
+<!-- 카카오톡 공유하기 -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript">
+    //<![CDATA[
+    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('07ac8a4da1c7b6aa00a5947dc53f964a');
+    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+    Kakao.Link.createDefaultButton({
+        container: '#kakao-link-btn',  // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id 
+        objectType: 'feed',
+        content: {  // 여기부터 실제 내용이 들어갑니다. 
+            title: '<%= kakao.title %>', // 본문 제목
+            description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
+            imageUrl: '<%= kakao.imageUrl %>', // 이미지
+            link: {
+                mobileWebUrl: '<%= kakao.link %>',
+                webUrl: '<%= kakao.link %>'
+            }
+        }
+    });
+    //]]>
 </script>
 </html>

@@ -35,33 +35,37 @@ router.post('/sessionLogin', (req, res, next) => {
 });
 
 router.post('/kakaoLogin', (req, res) => {
-    console.log(req.body);
+    //console.log(req.body);
+    // 액세스 토큰을 받아온다
     const token = req.body.access_token;
     if (!token) return res.status(400).send({error: 'There is no token.'})
     .send({message: 'Access token is a required parameter.'});
 
-    console.log(`Verifying Kakao token: ${token}`);
-
+    //console.log(`Verifying Kakao token: ${token}`);
+    // 액세스 토큰을 파이어베이스 토큰으로 바꾼다
     return createFirebaseToken(token)
     .then((firebaseToken) => {
-        console.log(`Returning firebase token to user: ${firebaseToken}`);
-        return res.render('kakaoLogin', { firebaseToken });
+        //console.log(`Returning firebase token to user: ${firebaseToken}`);
+        //return res.render('kakaoLogin', { firebaseToken });
+        return res.send(firebaseToken);
     });
 })
 
 router.get('/profile', (req, res) => {
-    // Get session cookie.
+    // 세션 쿠키를 받는다
     var sessionCookie = req.cookies.__session || '';
     // Get the session cookie and verify it. In this case, we are verifying if the
     // Firebase session was revoked, user deleted/disabled, etc.
     admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
         .then((decodedClaims) => {
             // Serve content for signed in user.    decodedClaims.uid
-            return serveContentForUser('/user/profile', req, res, decodedClaims);
+            //return serveContentForUser('/user/profile', req, res, decodedClaims);
+            console.log(decodedClaims);
+            return res.send(`프로필페이지입니다. uid: ${decodedClaims.uid}`);
         }).catch((error) => {
             // Force user to login.
             console.log(error);
-            res.redirect('/'); 
+            res.redirect('/user/login'); 
         });
 })
 
@@ -82,58 +86,6 @@ function createSession(req, res, token, expiresIn) {
         }, error => {
             return res.status(401).send('UNAUTHORIZED REQUEST!' + error.message);
         });
-}
-
-/**
- * Renders the profile page and serves it in the response.
- * @param {string} endpoint The get profile endpoint.
- * @param {!Object} req The expressjs request.
- * @param {!Object} res The expressjs response.
- * @param {!firebase.auth.DecodedIdToken} decodedClaims The decoded claims from verified
- *     session cookies.
- * @return {!Promise} A promise that resolves on success.
- */
-function serveContentForUser(endpoint, req, res, decodedClaims) {
-    // Lookup the user information corresponding to cookie and return the profile data for the user.
-    return admin.auth().getUser(decodedClaims.sub).then((userRecord) => {
-        var html = '<!DOCTYPE html>' +
-            '<html>' +
-            '<meta charset="UTF-8">' +
-            '<link href="style.css" rel="stylesheet" type="text/css" media="screen" />' +
-            '<meta name="viewport" content="width=device-width, initial-scale=1">' +
-            '<title>Profile Page</title>' +
-            '<body>' +
-            '<div id="container">' +
-            '  <h3>Welcome to Session Management Example App, ' + (userRecord.displayName || 'N/A') + '</h3>' +
-            '  <div id="loaded">' +
-            '    <div id="main">' +
-            '      <div id="user-signed-in">' +
-            // Show user profile information.
-            '        <div id="user-info">' +
-            '          <div id="photo-container">' +
-            (userRecord.photoURL ? '      <img style="width:50px;" id="photo" src=' + userRecord.photoURL + '>' : '') +
-            '          </div>' +
-            '          <div id="name">' + userRecord.displayName + '</div>' +
-            '          <div id="email">' +
-            userRecord.email + ' (' + (userRecord.emailVerified ? 'verified' : 'unverified') + ')</div>' +
-            '          <div class="clearfix"></div>' +
-            '        </div>' +
-            '        <p>' +
-            // Append button for sign out.
-            '          <button id="sign-out" onClick="window.location.assign(\'/logout\')">Sign Out</button>' +
-            // Append button for deletion.
-            '          <button id="delete-account" onClick="window.location.assign(\'/delete\')">' +
-            'Delete account</button>' +
-            '        </p>' +
-            '      </div>' +
-            '    </div>' +
-            '  </div>' +
-            '</div>' +
-            '</body>' +
-            '</html>';
-        res.set('Content-Type', 'text/html');
-        return res.end(html);
-    });
 }
 
 /**

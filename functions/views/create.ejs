@@ -38,7 +38,6 @@
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END --> 
     <title>방단기</title>
-    <link rel=stylesheet type="text/css" href="/css/style.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   </head>
   <body>
@@ -46,6 +45,47 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC8GC5C"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <h1>Hi, this is create page</h1>
+    <h3>매물등록 페이지입니다. 학교는 <%=univ%>이고 user id는 <%=uid%>입니다.</h3>
+
+    <div>
+      <form action="/board/create_process" method="post">
+        <select name="univ" id="univ_select" required>
+          <option value="">학교를 선택해 주세요</option>
+          <optgroup label="서울">
+            <!-- <option value="cuk" <%= (univ==='cuk') ? 'selected' : '' %>>카톨릭대학교</option>
+            <option value="uos" <%= (univ==='uos') ? 'selected' : '' %>>서울시립대학교</option>
+            <option value="skku" <%= (univ==='skku') ? 'selected' : '' %>>성균관대학교</option> -->
+            <option value="hufsSC" <%= (univ==='hufsSC') ? 'selected' : '' %>>한국외국어대학교 서울캠퍼스</option>
+            <option value="khuSC" <%= (univ==='khuSC') ? 'selected' : '' %>>경희대학교 서울캠퍼스</option>
+            <option value="hanyang" <%= (univ==='hanyang') ? 'selected' : '' %>>한양대학교</option>
+          </optgroup>
+          <optgroup label="대전">
+            <option value="cnu" <%= (univ==='cnu') ? 'selected' : '' %>>충남대학교</option>
+          </optgroup>      
+          <optgroup label="부산">
+            <option value="pnu" <%= (univ==='pnu') ? 'selected' : '' %>>부산대학교</option>
+            <option value="pknu" <%= (univ==='pknu') ? 'selected' : '' %>>부경대/경성대학교</option>
+          </optgroup>
+        </select>
+        <br>
+        제목 <input name="title" type="text"><br>
+        본문 <textarea name="text"></textarea><br>
+        거래형태
+        <input type="radio" name="tradeType" value="양도" checked>양도
+        <input type="radio" name="tradeType" value="전대">전대
+        <br>
+        보증금<input name="deposit" type="number"><br>
+        월세<input name="price" type="number"><br>
+        관리비<input name="expense" type="number"><br>
+        연락처<input name="contact" type="text"><br>
+        방 형태
+        <input type="radio" name="roomType" value="원룸" checked>원룸
+        <input type="radio" name="roomType" value="투룸" checked>투룸
+        <br>
+        전체 건물 층수<input name="totalFloor" type="number"><br>
+        방 층수<input name="floor" type="number"><br>
+        <input type="submit" value="저장">
+      </form>
+    </div>
   </body>
 </html>

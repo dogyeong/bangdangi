@@ -112,7 +112,28 @@
         Kakao.Auth.login({
             success: function (authObj) {
                 console.log(JSON.stringify(authObj));
-                postIdTokenToSessionLogin('/user/kakaoLogin', authObj);
+                fetch('https://bangdangi.web.app/user/kakaoLogin', { 
+                    method: 'POST', 
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(authObj)
+                })
+                .then((res) => res.text())
+                .then((firebaseToken) => firebase.auth().signInWithCustomToken(firebaseToken))
+                .then((result) => {
+                    return result.user.getIdToken().then((idToken) => {
+                        return postIdTokenToSessionLogin('/user/sessionLogin', { idToken });
+                    })   
+                })
+                .then(() => {
+                    firebase.auth().signOut();
+                })
+                .catch((e) => {
+                    alert("로그인에 실패했습니다.");
+                    console.log(e);
+                });
             },
             fail: function (err) {
                 console.log(JSON.stringify(err));

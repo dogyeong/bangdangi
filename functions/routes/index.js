@@ -13,11 +13,6 @@ router.get('/', (req, res, next) => {
   res.send("Hi from index routes!")
 });
 
-
-router.use('/test', (req, res, next) => {
-  res.send('test');
-});
-
 router.get('/getNew', (req, res) => {
   let ref = admin.firestore().doc('article/live');
   ref.getCollections().then(collections => {

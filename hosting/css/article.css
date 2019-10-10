@@ -19,6 +19,71 @@ body {
 }
 
 /*
+* 헤더
+*/ 
+header a {
+    text-decoration: none;
+    color: #3b3b46;
+}
+.back_btn {
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.share_container {
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.share_container > li {
+    position: absolute;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 100px;
+    text-align: center;
+    left: 0;
+    overflow: hidden;
+}
+.share_container > li a {
+    text-decoration: none;
+    color: #3b3b46;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    border-radius: 100px;
+    overflow: hidden;
+}
+.share_container > li a > img {
+    width: 100%;
+}
+.kakao_link_btn, .url_link_btn {
+    opacity: 0;
+    left: 0 !important;
+    transition: left 1s;
+}
+.kakao_visible {
+    left: -84px !important;
+    opacity: 1;
+}
+.url_visible {
+    left: -42px !important;
+    opacity: 1;
+}
+@media screen and (max-width: 600px) {
+    .back_btn {
+        padding: 0;
+    }
+}
+
+/*
 * 첫번째 블럭 : 제목 + 사진 + 매물정보
 */
 .block1 {
@@ -38,7 +103,6 @@ body {
 .title {
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 8px;
     word-break: keep-all;
 }
 .infoBlock {
@@ -188,6 +252,11 @@ body {
     white-space: pre-line;
     font-size: 16px;
 }
+@media screen and (max-width: 600px) {
+    .block2 {
+        margin-bottom: 0;
+    }
+}
 
 /*
 * 연락하기 버튼 블럭
@@ -213,19 +282,15 @@ body {
     border: 1px solid rgba(0,0,0,0.1);
     box-sizing: border-box;
 }
-.cancel_arrow {
+.cancel_mobile {
     display: none;
-    margin: auto;
-    color: #fff;
-    height: 60px;
-    font-size: 18px;
-    font-weight: 400;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     text-decoration: none;
-    flex: 1;
-    background-color: #A0A7B4;
-    box-sizing: border-box;
+    color: #444;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 20px 0;
+    background-color: rgba(245,247,248);
 }
 .contact_btn {
     margin: auto;
@@ -251,8 +316,8 @@ body {
     .cancel_btn {
         display: none;
     }
-    .cancel_arrow {
-        display: flex;
+    .cancel_mobile {
+        display: block;
     }
     .contact_btn {
         margin: 0;
@@ -279,6 +344,6 @@ footer {
 @media screen and (max-width: 600px) {
     footer {
         margin: 0;
-        margin-bottom: 60px;
+        padding-bottom: 72px;
     }
 }
