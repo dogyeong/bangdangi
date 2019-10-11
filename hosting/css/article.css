@@ -67,15 +67,13 @@ header a {
 .kakao_link_btn, .url_link_btn {
     opacity: 0;
     left: 0 !important;
-    transition: left 1s;
+    transition: left 0.6s cubic-bezier(0.01, 0.71, 0.76, 0.95);
 }
 .kakao_visible {
     left: -84px !important;
-    opacity: 1;
 }
 .url_visible {
     left: -42px !important;
-    opacity: 1;
 }
 @media screen and (max-width: 600px) {
     .back_btn {

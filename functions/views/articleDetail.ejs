@@ -71,7 +71,7 @@
                     
                     <li class="url_link_btn">
                         <a href="javascript:;"> 
-                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAA1VBMVEVNivUAAAD////R0tTX2NpQj/8LGjMqKCb4+PjU1ddBdc52dnhkZ2kjP21Qj/1MifMPGzGLi4tpaW0xMzTFxsirrK45Z7ZEe9kjHyBKg+kIEBk9bMC1tbfJzM4dHyCgoKALEyIpSYDw8PBHRUbg4OCTk5M2YakZGRobLlEZGBQRDgZFetibm5tvb29+fn5QUFBgYGAXEhSWpsOmxPxHU20+OjmSlqOfueiJioUfTI8gFgAQAAA/ed4lIyk2TX8hGRAnKzsfDwA3V5ArNEsZK0sVJDwzW5/HC2fwAAADfElEQVR4nO3aCVPaQBiA4Xw5KkRcQAUSDkXksLWK1l7aw9qW/v+f1N0EAY+Czlgys3mfQTMjcWbzkmxCwHEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECOBc+V9YBfXlypvHqOylGc9ZBfmmrJ643neCPHWY/5pekGb91Copc8VnBPpJH1mF+abrDv9nqu655KoSdVdxVbGxyeuG5P9tyBtHPbwOwHNam5e6NCbhsYe1JoP+FQsLaB33c7cuqOpZffBuMT90z6fTlb3NjxZj9PDXr6jHCoTwydxY2tiWx38tNA2++7/f07G1u4js7l8MGJYtPKBuOqNhjon+rc53cX719H0Ug+fPx0cfF59vfBBwsbhPK4y6B+FWmjL1++Bneese79go7wuIZyTILo2zBWzuITX1XWQ14j9f3aRAgtfLP8dOFN9C2KrsI8vfAP/LgJ6zdRZN0k+AzBz1+BGl5d/8h6IFmK9R4QDDcaTjnrkWStnOv5YCr3ewEA2IvTnOO0Vlz8h+GaBpIZ1Vrx7r8h9n2SNpe8/Gooy+8ChSLhfHXLxHVzsWcaLH2dbxvo1a27OFRHMinfa6CUfqjk9+xlTxuouCIH1u0JaktkEqv5saAa9TumR4hpoFTcFPlp4d2jIx2hPG9Qvn8LNZ0qkwZxV2TLut3A0BF+q/LWZbpxjfsNpmkODsrqXCw8ElJH0nWcYLpxschpe+Z0drrQc4Nj615g1OenRaUbDPzilD/QDeabfVy3MEEQG+nkH6eORapeZ8qr6tPF9Ilk/XQtm0qoP81ut9ucxOZLaM0pkdHezEjk9u+v9FqNrtEcWhQhmKTTXuio+j8+WFvQUrdrWTUrNA6MP07SoLS5RMmcG53yZfIPVn2soFQQBGbGNw3a/hLt9FpZWfp9VOOpDWxmGoxLS5wlx4LVzP2D1XNi1qP8z+LJqgS/7fuGxX2BEjnp+37HXCf6fk2kphf6OnFXL7alomzfCwzdoOR7xV19nagXpkHR8/V14q5e6AbW3Tl5TNrAowENaEADGjg0MGhAA4MGNDBoQAODBjQwaDBr4B+et4s6xcZOx/OK7dHY83LXwPM6OoFXTB5esePlssFDNKABDWhAg4UGpZw0CERGO/8wyk+DJSpZD28tVGtriVbWw1sPFaglsh4dAAAAAAAAAAAAAAAAAAAAAAAAAABYj7+OGWOi7RC/RAAAAABJRU5ErkJggg==">
+                            <img src="/img/url_link_image.png">
                         </a>
                     </li>
                     <li class="share_btn">
@@ -269,7 +269,7 @@
     contactBtn.addEventListener('click', contact);
 </script>
 
-<!-- 카카오톡 공유하기 -->
+<!-- 공유하기 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript">
     //<![CDATA[
@@ -290,5 +290,53 @@
         }
     });
     //]]>
+
+
+    var share_btn = document.querySelector('.share_btn');
+    var kakao_share = document.querySelector('.kakao_link_btn');
+    var url_share = document.querySelector('.url_link_btn');
+    var names = [
+	"webkitTransitionEnd", 
+	"oTransitionEnd", 
+	"otransitionend", 
+	"transitionend", 
+    "transitionEnd" ];
+    
+    function toggleShare() {
+        kakao_share.classList.toggle('kakao_visible');
+        url_share.classList.toggle('url_visible');
+
+        if (kakao_share.classList.contains('kakao_visible'))
+            kakao_share.style.opacity = 1;
+
+        if (url_share.classList.contains('url_visible'))
+            url_share.style.opacity = 1;
+    }
+    function transitionEvent(element, callback) {
+        for (var i = 0; i < names.length; i++) {
+            element.addEventListener(names[i], callback, false);
+        }
+    }
+    
+    function copyURL() {
+        var t = document.createElement("textarea");
+        document.body.appendChild(t);
+        t.value = `<%= kakao.link %>`;
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        window.alert('URL이 복사되었습니다.')
+    }
+    
+    share_btn.addEventListener('click', toggleShare);
+    url_share.addEventListener('click', copyURL);
+    transitionEvent(kakao_share, function() { 
+        if(!this.classList.contains('kakao_visible'))
+            this.style.opacity = 0;
+    });
+    transitionEvent(url_share, function() {
+        if(!this.classList.contains('url_visible'))
+            this.style.opacity = 0;
+    });
 </script>
 </html>
