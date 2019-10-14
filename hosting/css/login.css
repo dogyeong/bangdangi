@@ -12,19 +12,23 @@ body {
 }
 
 div#container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    background-color: #ebeef1;
     height: 100vh;
     width: 100vw;
+}
+
+.login_container {
+    width: 100%;
+    position: absolute;
+    top: calc(50% - 140px);
 }
 
 .logo_container {
     width: 100%;
     max-width: 500px;
     text-align: center;
-    margin-bottom: 60px;
+    margin: auto;
+    margin-bottom: 40px;
 }
 
 .logo_container a {
@@ -37,29 +41,31 @@ div#container {
 }
 
 .btn_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    max-width: 500px;
+    text-align: center;
+    margin: auto;
 }
 
-.btn_container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
+.btn_container p {
+    color: #555;
+    margin-bottom: 16px;
 }
 
-button {
-    width: calc(100% - 20px);
-    height: 48px;
+.btn_container a {
+    width: 52px;
+    display: inline-block;
+    height: 52px;
+    margin: 0 8px;
     box-sizing: border-box;
-    max-width: 400px;
-    margin-bottom: 8px;
-    border-radius: 4px;
+    border-radius: 200px;
     box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.google_btn {
+    background: center / cover no-repeat url('/img/google_logo.svg');
+}
+
+.kakao_btn {
+    background: center / cover no-repeat url('/img/kakao_logo.svg');
 }

@@ -82,7 +82,7 @@ function createSession(req, res, token, expiresIn) {
             // Set cookie policy for session cookie.
             const options = { maxAge: expiresIn, httpOnly: true, secure: true };
             res.cookie('__session', sessionCookie, options);
-            return res.redirect('/user/profile');
+            return res.redirect('/');
         }, error => {
             return res.status(401).send('UNAUTHORIZED REQUEST!' + error.message);
         });
