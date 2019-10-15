@@ -1,0 +1,72 @@
+body {
+    background-color: #EBEEF1;
+}
+.wrapper {
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    margin-top: 12px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.block1 {
+    padding: 20px;
+}
+.univ {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+input[type="text"] {
+    border: none;
+    -webkit-app-region: none;
+    width: 100%;
+    display: block;
+    font-size: 16px;
+    height: 40px;
+    font-weight: 400;
+}
+
+
+.block_divider {
+    width: 100%;
+    height: 4px;
+    background-color: #EBEEF1;
+}
+
+.block2 {
+    padding: 20px;
+}
+.block_t {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+.select_btn {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle {
+    padding: 4px 0;
+    height: auto;
+    transition: all 0.15s ease;
+    max-height: 2000px;
+    overflow: hidden;
+    transform: scaleY(1);
+    transform-origin: top;
+}
+.toggle span {
+    word-break: keep-all;
+    display: inline-block;
+}
+
+.hidden {
+    max-height: 0;
+    padding: 0;
+    transform: scaleY(0);
+}
