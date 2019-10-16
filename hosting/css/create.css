@@ -18,14 +18,15 @@ body {
     font-weight: 400;
     margin-bottom: 12px;
 }
-input[type="text"] {
+.text_input_full {
     border: none;
     -webkit-app-region: none;
     width: 100%;
     display: block;
     font-size: 16px;
-    height: 40px;
+    height: 48px;
     font-weight: 400;
+    color: #3b3b46;
 }
 
 
@@ -44,13 +45,17 @@ input[type="text"] {
     margin-bottom: 12px;
 }
 .select_btn {
-    height: 40px;
+    height: 48px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
+.container_toggle_btn {
+    flex: 1;
+    text-align: right;
+    padding-right: 8px;
+}
 .toggle {
     padding: 4px 0;
     height: auto;
@@ -63,10 +68,35 @@ input[type="text"] {
 .toggle span {
     word-break: keep-all;
     display: inline-block;
+    margin-right: 4px;
 }
 
 .hidden {
     max-height: 0;
     padding: 0;
     transform: scaleY(0);
+}
+
+/*
+* block 3
+*/
+.block3 {
+    padding: 20px;
+}
+.enable_input_type_container {
+    display: flex;
+    width: 100%;
+}
+.enable_input_type_container > input {
+    border: none;
+    -webkit-app-region: none;
+    flex: 1;
+    display: block;
+    font-size: 16px;
+    height: 48px;
+    font-weight: 400;
+    color: #3b3b46;
+}
+.enable_input_type_end {
+    margin-right: 12px;
 }

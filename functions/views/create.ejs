@@ -68,6 +68,7 @@
     </header>
     <div class="wrapper">
       <form action="/board/create_process" method="post">
+        <!-- blcok 1-->
         <div class="block1">
           <div class="univ">
             <!-- 
@@ -83,36 +84,86 @@
             <%= (univ==='pknu') ? '부경대/경성대학교' : '' %>
           </div>
           <div class="title">
-            <input name="title" type="text" placeholder="제목" required>
+            <input class="text_input_full" name="title" type="text" placeholder="제목" required>
           </div>
         </div>
         <div class="block_divider"></div>
+        <!-- block 2 -->
         <div class="block2">
           <div class="block_t">건물정보</div>
-          <div class="select_btn" data-type="locationL">
-            <div>건물위치</div>
-            <div class="container_toggle_btn">아래</div>
+          <!-- 건물위치 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-type="locationL">
+              <div>건물위치</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="locationL_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
           </div>
-          <div class="locationL_container toggle hidden">
-            <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-            <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-            <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-            <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-            <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
-          </div>
-          
-          <input type="text" name="locationS" placeholder="상세위치">
+          <!-- 건물 상세위치 -->    
+          <input class="text_input_full" type="text" name="locationS" placeholder="상세위치">
         </div>
         <div class="block_divider"></div>
-        제목 <input name="title" type="text" required><br>
+        <!-- block 3 -->
+        <div class="block3">
+          <div class="block_t">매물정보</div>
+          <!-- 월세 -->
+          <div class="enable_input_type_container">
+            <input name="price" type="number" placeholder="월세">
+            <div class="enable_input_type_end">만원</div>
+            <div class="enable_toggle_btn">토글버튼</div>
+          </div>
+          <!-- 보증금 -->
+          <div class="enable_input_type_container">
+            <input name="deposit" type="number" placeholder="보증금">
+            <div class="enable_input_type_end">만원</div>
+            <div class="enable_toggle_btn">토글버튼</div>
+          </div>
+          <!-- 관리비 -->
+          <div class="enable_input_type_container">
+            <input name="expense" type="number" placeholder="관리비">
+            <div class="enable_input_type_end">만원</div>
+            <div class="enable_toggle_btn">토글버튼</div>
+          </div>
+          <!-- 가격키워드 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-type="keywords">
+              <div>가격키워드</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="keywords_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
+          </div>
+          <!-- 기간키워드 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-type="dateKeywords">
+              <div>건물위치</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="dateKeywords_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
+          </div>
+          </div>
         본문 <textarea name="text"></textarea><br>
         거래형태
         <input type="radio" name="tradeType" value="양도" checked>양도
         <input type="radio" name="tradeType" value="전대">전대
         <br>
-        보증금<input name="deposit" type="number"><br>
-        월세<input name="price" type="number"><br>
-        관리비<input name="expense" type="number"><br>
         연락처<input name="contact" type="text"><br>
         방 형태
         <input type="radio" name="roomType" value="원룸" checked>원룸
@@ -126,14 +177,17 @@
   </div>
 </body>
 <script>
-  var btn = document.querySelectorAll('.container_toggle_btn')[0];
+  var btn = document.querySelectorAll('.container_toggle_btn');
 
-  btn.addEventListener('click', function() {
-    var type = this.parentNode.dataset.type;
-    console.log(type);
-    var target = document.querySelector(`.${type}_container`);
+  btn.forEach((b) => {
+    b.addEventListener('click', function() {
+      var type = this.parentNode.dataset.type;
+      var target = document.querySelector(`.${type}_container`);
 
-    target.classList.toggle('hidden');
+      target.classList.toggle('hidden');
+      this.firstElementChild.classList.toggle('xi-angle-down-min');
+      this.firstElementChild.classList.toggle('xi-angle-up-min');
+    });
   });
 </script>
 </html>

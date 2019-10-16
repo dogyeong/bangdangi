@@ -61,6 +61,7 @@
 
     <div class="article" style="position: fixed; top: 80px; border-bottom: 1px solid black">
         <div>
+            <div>매물번호</div>
             <div>url타입</div>
             <div>display</div>
             <div>거래완료(done)</div>
@@ -179,6 +180,7 @@
             Array.from(document.getElementsByClassName('xi-trash-o')).forEach((i) => i.addEventListener('click', toTrash));
             Array.from(document.getElementsByClassName('modify')).forEach((i) => i.addEventListener('click', modifyData));
             Array.from(document.getElementsByClassName('updateText')).forEach((i) => i.addEventListener('click', updateText));
+            Array.from(document.getElementsByClassName('articleId')).forEach((i) => i.addEventListener('click', copyId));
             flatpickr(".updateDate", { // 날짜 수정하기 위해 이벤트 걸어주기
                 onValueUpdate: function (selectedDates, dateStr, instance) {
                     let _this = instance.element;
@@ -194,6 +196,15 @@
                         .catch((e) => window.alert(e.message))
                 }
             });
+        }
+
+        function copyId() {
+            var t = document.createElement("textarea");
+            document.body.appendChild(t);
+            t.value = this.dataset.key;
+            t.select();
+            document.execCommand('copy');
+            document.body.removeChild(t);
         }
 
         // 본문 클릭하면 수정 시작
@@ -229,6 +240,7 @@
                     `
             <div class="article">
               <div>
+                <div class="articleId" data-key=${key}>${key}</div>
                 <div class="modify" data-type="str" data-key=${key} data-target='urlType'>${article.urlType}</div>
                 <div class="clickable displayBtn" data-key=${key}><i class=${article.display ? "xi-eye-o" : "xi-eye-off-o"}></i></div>
                 <div class="clickable doneBtn" data-key=${key}><i class=${article.done ? "xi-check-square-o" : "xi-checkbox-blank"}></i></div>

@@ -29,8 +29,8 @@ router.post('/sessionLogin', (req, res, next) => {
         return;
     }
     */
-    // Set session expiration to 10 minutes.
-    const expiresIn = 60 * 10 * 1000;
+    // Set session expiration to 100 minutes.
+    const expiresIn = 60 * 100 * 1000;
     return createSession(req, res, idToken, expiresIn);
 });
 
