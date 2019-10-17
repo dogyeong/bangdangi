@@ -45,5 +45,5 @@ async function f(u) {
 }
 
 
-['pnu','cnu','hanyang','hankyong','hufsSC','hufsGC','khuSC','khuGC','pknu']
+['pnu','cnu','hanyang','hankyong','dongdaemun','pknu']
 .forEach((u) => f(u));

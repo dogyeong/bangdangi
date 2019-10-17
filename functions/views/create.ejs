@@ -93,7 +93,7 @@
           <div class="block_t">건물정보</div>
           <!-- 건물위치 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-type="locationL">
+            <div class="select_btn" data-field="locationL">
               <div>건물위치</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
@@ -114,26 +114,38 @@
           <div class="block_t">매물정보</div>
           <!-- 월세 -->
           <div class="enable_input_type_container">
-            <input name="price" type="number" placeholder="월세">
-            <div class="enable_input_type_end">만원</div>
-            <div class="enable_toggle_btn">토글버튼</div>
+            <input name="price" type="number" data-field="price" placeholder="월세">
+            <div class="enable_input_type_end" data-field="price">만원</div>
+            <div class="enable_toggle_btn active" data-field="price"></div>
           </div>
           <!-- 보증금 -->
           <div class="enable_input_type_container">
-            <input name="deposit" type="number" placeholder="보증금">
-            <div class="enable_input_type_end">만원</div>
-            <div class="enable_toggle_btn">토글버튼</div>
+            <input name="deposit" type="number" data-field="deposit" placeholder="보증금">
+            <div class="enable_input_type_end" data-field="deposit">만원</div>
+            <div class="enable_toggle_btn active" data-field="deposit"></div>
           </div>
           <!-- 관리비 -->
           <div class="enable_input_type_container">
-            <input name="expense" type="number" placeholder="관리비">
-            <div class="enable_input_type_end">만원</div>
-            <div class="enable_toggle_btn">토글버튼</div>
+            <input name="expense" type="number" data-field="expense" placeholder="관리비">
+            <div class="enable_input_type_end" data-field="expense">만원</div>
+            <div class="enable_toggle_btn active" data-field="expense"></div>
           </div>
-          <!-- 가격키워드 -->
+          <!-- 시작날짜 -->
+          <div class="enable_input_type_container">
+            <input name="deposit" type="text" onfocus="(this.type='date')" data-field="startDate" placeholder="시작날짜">
+            <div class="enable_input_type_end" data-field="startDate">부터</div>
+            <div class="enable_toggle_btn active" data-field="startDate"></div>
+          </div>
+          <!-- 끝날짜 -->
+          <div class="enable_input_type_container">
+            <input name="deposit" type="text" onfocus="(this.type='date')" data-field="endDate" placeholder="끝날짜">
+            <div class="enable_input_type_end" data-field="endDate">까지</div>
+            <div class="enable_toggle_btn active" data-field="endDate"></div>
+          </div>
+          <!-- 가격태그 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-type="keywords">
-              <div>가격키워드</div>
+            <div class="select_btn" data-field="keywords">
+              <div>가격태그</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
             <div class="keywords_container toggle hidden">
@@ -144,10 +156,10 @@
               <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
             </div>
           </div>
-          <!-- 기간키워드 -->
+          <!-- 기간태그 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-type="dateKeywords">
-              <div>건물위치</div>
+            <div class="select_btn" data-field="dateKeywords">
+              <div>기간태그</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
             <div class="dateKeywords_container toggle hidden">
@@ -158,19 +170,63 @@
               <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
             </div>
           </div>
+          <!-- 방구조 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-field="dateKeywords">
+              <div>방구조</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="dateKeywords_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
           </div>
-        본문 <textarea name="text"></textarea><br>
-        거래형태
-        <input type="radio" name="tradeType" value="양도" checked>양도
-        <input type="radio" name="tradeType" value="전대">전대
-        <br>
-        연락처<input name="contact" type="text"><br>
-        방 형태
-        <input type="radio" name="roomType" value="원룸" checked>원룸
-        <input type="radio" name="roomType" value="투룸" checked>투룸
-        <br>
-        전체 건물 층수<input name="totalFloor" type="number"><br>
-        방 층수<input name="floor" type="number"><br>
+          <!-- 건물 전체 층수 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-field="dateKeywords">
+              <div>건물 전체층수</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="dateKeywords_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
+          </div>
+          <!-- 방 층수 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-field="dateKeywords">
+              <div>방 층수</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="dateKeywords_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
+          </div>
+          <!-- 남성/여성 전용 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-field="dateKeywords">
+              <div>남성/여성 전용</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="dateKeywords_container toggle hidden">
+              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            </div>
+          </div>
+        </div>
         <input type="submit" value="저장">
       </form>
     </div> <!-- End of wrapper -->
@@ -178,10 +234,10 @@
 </body>
 <script>
   var btn = document.querySelectorAll('.container_toggle_btn');
-
+  
   btn.forEach((b) => {
     b.addEventListener('click', function() {
-      var type = this.parentNode.dataset.type;
+      var type = this.parentNode.dataset.field;
       var target = document.querySelector(`.${type}_container`);
 
       target.classList.toggle('hidden');
@@ -189,5 +245,18 @@
       this.firstElementChild.classList.toggle('xi-angle-up-min');
     });
   });
+
+  document.querySelectorAll('.enable_toggle_btn').forEach((btn) => {
+    btn.addEventListener('click', function() {
+      let field = this.dataset.field;
+      let input = document.querySelector(`input[data-field='${field}']`);
+      if (this.classList.toggle('active')) {
+        input.disabled = false;
+      } else {
+        input.value = '';
+        input.disabled = true;
+      }
+    })
+  })
 </script>
 </html>

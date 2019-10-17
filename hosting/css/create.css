@@ -9,6 +9,12 @@ body {
     background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
 }
+input::placeholder {
+    color: #666;
+}
+input:disabled::placeholder {
+    color: #ddd;
+}
 
 .block1 {
     padding: 20px;
@@ -98,5 +104,36 @@ body {
     color: #3b3b46;
 }
 .enable_input_type_end {
-    margin-right: 12px;
+    margin: 0 12px;
+    word-break: keep-all;
+}
+.enable_toggle_btn {
+    cursor: pointer;
+    width: 40px;
+    height: 20px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+.enable_toggle_btn:after {
+	content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 90px;
+    transition: all 0.3s;
+}
+
+.active {
+    background-color: #0AB9F1
+}
+
+.active:after {
+    left: calc(100% - 2px);
+	transform: translateX(-100%);
 }
