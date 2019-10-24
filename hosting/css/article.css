@@ -310,10 +310,18 @@ header a {
     text-align: center;
     text-decoration: none;
     color: #444;
-    font-size: 14px;
     font-weight: 400;
-    padding: 20px 0;
-    background-color: rgba(245,247,248);
+    margin-top: 24px;
+    padding: 16px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+}
+.contact_kakao {
+    background-color: #ffe812;
+}
+.contact_phone {
+    background-color: #fff;
+    border: 2px solid #26cf12;
 }
 .contact_btn {
     margin: auto;
@@ -342,6 +350,8 @@ header a {
     }
     .contact_mobile {
         display: block;
+        margin-top: 24px;
+        
     }
     .cancel_btn {
         margin: 0;

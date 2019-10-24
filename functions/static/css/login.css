@@ -1,0 +1,87 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: Noto Sans KR, AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
+    font-weight: 300;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+}
+
+div#container {
+    background-color: #ebeef1;
+    height: 100vh;
+    width: 100vw;
+}
+
+.login_container {
+    width: 100%;
+    position: absolute;
+    top: calc(50% - 180px);
+}
+
+.logo_container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 48px;
+}
+
+.logo_container a {
+    width: 30%;
+    display: inline-block;
+}
+
+.logo_container img {
+    width: 100%;
+}
+
+.btn_container {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.btn_container p {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.btn_container button {
+    width: 260px;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 4px;
+    margin: 0 8px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 4px 6px 9px 0 rgba(58,62,49,.05), 8px 22px 60px 0 rgba(57,58,48,.07);
+    cursor: pointer;
+    margin: auto;
+    margin-bottom: 8px;
+}
+
+.btn_container button > img {
+    width: 40px;
+    height: 40px;
+}
+.btn_container button > span {
+    font-size: 13px;
+    font-weight: 400;
+    flex: 1;
+}
+
+.google_btn {
+    background-color: #fff;
+}
+
+.kakao_btn {
+    background-color: #ffe812;
+}

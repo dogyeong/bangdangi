@@ -15,49 +15,64 @@ router.get('/list/:univ', (req, res, next) => {
     var selectedLocation = req.query.locationKeywords;
     var selectedDate = req.query.dateKeywords;
 
+    var err = false;
+    var dateKeywords = [];
+    var discountKeywords = [];
+    var locationKeywords = [];
+    var keywords;
+    var queryArr = [];
+    var resultArr = [];
+
     var ref = db.collection(`article/live/${univ}`)
         .where('display','==',true).where('done','==',false);
     
+    // 선택된 태그가 없으면 전부다 불러온다
+    if (selectedLocation === undefined && selectedDate === undefined) {
+        queryArr.push(ref.get());
+    }
     if (selectedLocation !== undefined) { // 위치 키워드 필터링
-        for (kwd of selectedLocation) ref = ref.where(`locationL.${kwd}`, '==', true);
+        for (kwd of selectedLocation) queryArr.push(ref.where(`locationL.${kwd}`, '==', true).get());
     }
     if (selectedDate !== undefined) { // 기간 키워드 필터링
-        for (kwd of selectedDate) ref = ref.where(`dateKeywords.${kwd}`, '==', true);
+        for (kwd of selectedDate) queryArr.push(ref.where(`dateKeywords.${kwd}`, '==', true).get());
     }
-    
-    ref.get()
-    .then(async (docs) => {
-        let err = false;
-        let dateKeywords = [];
-        let discountKeywords = [];
-        let locationKeywords = [];
-        let keywords;
-        var univ = req.params.univ;
-        
-        await db.collection(`article/keywords/${univ}`).get()
-        .then((keywordLists) => {
-            keywordLists.forEach((keywordList) => {
-                if (keywordList.id === 'dateKeywords') { 
-                    dateKeywords = keywordList.data().keywords || [];
-                }    
-                else if (keywordList.id === 'discountKeywords') { 
-                    discountKeywords = keywordList.data().keywords || [];
-                }
-                else if (keywordList.id === 'locationKeywords') { 
-                    locationKeywords = keywordList.data().keywords || [];
-                }  
-            });
 
-            keywords = { dateKeywords, discountKeywords, locationKeywords };
-            return null;
+    Promise.all(queryArr)
+    .then(res => { // resolve된 결과배열들을 다 합친다
+        return res.reduce((result, current) => { 
+            if (current.docs !== undefined) return result.concat(current.docs); 
+            else return result; 
+        }, []);
+    })
+    .then((arr) => { // 합쳐진 배열에서 중복된 원소들을 제거한다
+        return arr.reduce((result, current) => {
+            id = current.id;
+            if (result.findIndex((doc) => doc.id === id) < 0) result.push(current);
+            return result;
+        }, []);
+    })
+    .then(arr => { // 결과 배열을 저장하고, 태그들을 불러온다
+        resultArr = arr;
+        return db.collection(`article/keywords/${univ}`).get();
+    })
+    .then(keywordLists => { // 불러온 태그들을 저장한다
+        keywordLists.forEach((keywordList) => {
+            if (keywordList.id === 'dateKeywords') { 
+                dateKeywords = keywordList.data().keywords || [];
+            }    
+            else if (keywordList.id === 'discountKeywords') { 
+                discountKeywords = keywordList.data().keywords || [];
+            }
+            else if (keywordList.id === 'locationKeywords') { 
+                locationKeywords = keywordList.data().keywords || [];
+            }  
         })
-        .catch((err) => {
-            console.log(err);
-            return next(createError(500));
-        })
-
-        if (!docs.empty) { // 결과 존재
-            var roomList = docs.docs.map((doc) => doc.data());
+        keywords = { dateKeywords, discountKeywords, locationKeywords };
+        return null;
+    })
+    .then(() => {
+        if (resultArr !== []) { // 결과 존재
+            var roomList = resultArr.map((doc) => doc.data());
             roomList.sort((a,b) => {
                 return b.createdAt.toMillis() - a.createdAt.toMillis();
             });
@@ -68,7 +83,7 @@ router.get('/list/:univ', (req, res, next) => {
             return res.render('articleList', { keywords, univ, selectedLocation, selectedDate, err });
         }    
     })
-    .catch((err) => {
+    .catch(err => {
         console.log(err);
         return next(createError(500));
     })

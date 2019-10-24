@@ -91,11 +91,10 @@
         <div class="block1">
             <div class="titleBlock">
                 <!-- 글 제목-->
-                <% if(data.title !== null) { %>
+                
                 <h1 class="title">
-                    <%= data.title %>
+                    <%= data.title || '' %>
                 </h1>    
-                <% } %>
                 <!-- 조회수 -->
                 <div class="views_container">
                     <div class="views_title">조회</div>
@@ -135,14 +134,20 @@
                                 기간
                             </div>
                             <div class="cell_data">
-                                <%= data.startDate ? new Date(data.startDate.toMillis()-32400000).toLocaleDateString() : '' %>
-                                <%= (data.startDate || data.endDate) ? ' ~ ' : '' %> 
-                                <%= data.endDate ? new Date(data.endDate.toMillis()-32400000).toLocaleDateString() : '' %>
-                                <% if (data['dateKeywords'] && data['dateKeywords']['6개월']) { %>
-                                <div class="cell_data_sub">
-                                    6개월
-                                </div>
-                                <% } %>
+                                <% if(data.startDate === null && data.endDate === null) { %>
+                                    <% if(data['dateKeywords']) { %>
+                                    <%=   Object.keys(data['dateKeywords'])[0] %>
+                                    <% } %>
+                                <% } else { %>
+                                    <%= data.startDate ? new Date(data.startDate.toMillis()-32400000).toLocaleDateString() : '' %>
+                                    <%= (data.startDate || data.endDate) ? ' ~ ' : '' %> 
+                                    <%= data.endDate ? new Date(data.endDate.toMillis()-32400000).toLocaleDateString() : '' %>
+                                    <% if (data['dateKeywords'] && data['dateKeywords']['6개월']) { %>
+                                    <div class="cell_data_sub">
+                                        6개월
+                                    </div>
+                                    <% } %>
+                                <% } %> 
                             </div>
                         </div>
                         <div class="row"> 
@@ -200,16 +205,19 @@
         <div class="block2">
             <div class="detail_title">상세설명</div>
             <p class="detail_text"><%= data.text || '' %></p>
+            <!-- 모바일에서 연락하기 버튼 -->
+            <% if (data.contact && data.contact.length > 15) { %>
+                <a class="contact_mobile contact_kakao" data-contact="<%= data.contact || '' %>" href="javascript:;">
+                    오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+                </a>
+            <% } else { %>
+                <a class="contact_mobile contact_phone" data-contact="<%= data.contact || '' %>" href="javascript:;">
+                    매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
+                </a>
+            <% } %> 
         </div>
 
-        <!-- 모바일에서 연락하기 버튼 -->
-        <a class="contact_mobile" data-contact="<%= data.contact || '' %>" href="javascript:;">
-            <% if (data.contact && data.contact.length > 15) { %>
-                오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-            <% } else { %>
-                매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
-            <% } %> 
-        </a>
+        
 
         <!-- 연락하기 버튼 블럭 -->
         <div class="contact_container">      
