@@ -43,8 +43,8 @@
   <!-- SEO END -->
   <title>방단기</title>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-  <link rel="stylesheet" href="/css/headerBar.css">
   <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/headerBar.css">
   <link rel="stylesheet" href="/css/create.css">
 </head>
 
@@ -76,8 +76,7 @@
                     <%= (univ==='uos') ? '서울시립대학교' : '' %>
                     <%= (univ==='skku') ? '성균관대학교' : '' %> 
                   -->
-            <%= (univ==='hufsSC') ? '한국외국어대학교 서울캠퍼스' : '' %>
-            <%= (univ==='khuSC') ? '경희대학교 서울캠퍼스' : '' %>
+            <%= (univ==='dongdaemun') ? '경희대/한국외국어대학교' : '' %>
             <%= (univ==='hanyang') ? '한양대학교' : '' %>
             <%= (univ==='cnu') ? '충남대학교' : '' %>
             <%= (univ==='pnu') ? '부산대학교' : '' %>
@@ -94,15 +93,15 @@
           <!-- 건물위치 -->
           <div class="select_inpt_type_container">
             <div class="select_btn" data-field="locationL">
-              <div>건물위치</div>
+              <div class="select_btn_text" data-field="locationL" data-placeholder="건물위치">건물위치</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="locationL_container toggle hidden">
+            <div class="select_input_container toggle hidden" data-field="locationL">
               <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+              <span><input type="checkbox" name="locationL" value="L_b"> L_b</span>
+              <span><input type="checkbox" name="locationL" value="L_c"> L_c</span>
+              <span><input type="checkbox" name="locationL" value="L_d"> L_d</span>
+              <span><input type="checkbox" name="locationL" value="L_e"> L_e</span>
             </div>
           </div>
           <!-- 건물 상세위치 -->    
@@ -144,108 +143,177 @@
           </div>
           <!-- 가격태그 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-field="keywords">
-              <div>가격태그</div>
+            <div class="select_btn" data-field="discountKeywords">
+              <div class="select_btn_text" data-field="discountKeywords" data-placeholder="가격태그">가격태그</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="keywords_container toggle hidden">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            <div class="select_input_container toggle hidden" data-field="discountKeywords">
+              <span><input type="checkbox" name="discountKeywords" value="월세지원"> 월세지원</span>
+              <span><input type="checkbox" name="discountKeywords" value="보증금지원"> 보증금지원</span>
+              <span><input type="checkbox" name="discountKeywords" value="무보증금"> 무보증금</span>
             </div>
           </div>
           <!-- 기간태그 -->
           <div class="select_inpt_type_container">
             <div class="select_btn" data-field="dateKeywords">
-              <div>기간태그</div>
+              <div class="select_btn_text" data-field="dateKeywords" data-placeholder="기간태그">기간태그</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="dateKeywords_container toggle hidden">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            <div class="select_input_container toggle hidden" data-field="dateKeywords">
+              <span><input type="radio" name="dateKeywords" value="1개월 이내"> 1개월 이내</span>
+              <span><input type="radio" name="dateKeywords" value="2개월"> 2개월</span>
+              <span><input type="radio" name="dateKeywords" value="3개월"> 3개월</span>
+              <span><input type="radio" name="dateKeywords" value="6개월 이내"> 6개월 이내</span>
+              <span><input type="radio" name="dateKeywords" value="1년 이내"> 1년 이내</span>
+              <span><input type="radio" name="dateKeywords" value="1년 이상"> 1년 이상</span>
+            </div>
+          </div>
+          <!-- 기타태그 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-field="keywords">
+              <div class="select_btn_text" data-field="keywords" data-placeholder="기타태그">기타태그</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="select_input_container toggle hidden" data-field="keywords">
+              <span><input type="checkbox" name="keywords" value="주차가능"> 주차가능</span>
+              <span><input type="checkbox" name="keywords" value="풀옵션"> 풀옵션</span>
             </div>
           </div>
           <!-- 방구조 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-field="dateKeywords">
-              <div>방구조</div>
+            <div class="select_btn" data-field="roomType">
+              <div class="select_btn_text" data-field="roomType" data-placeholder="방구조">방구조</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="dateKeywords_container toggle hidden">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            <div class="select_input_container toggle hidden" data-field="roomType">
+              <span><input type="radio" name="roomType" value="원룸"> 원룸</span>
+              <span><input type="radio" name="roomType" value="투룸"> 투룸</span>
+              <span><input type="radio" name="roomType" value="쓰리룸"> 쓰리룸+</span>
+              <span><input type="radio" name="roomType" value="복층형"> 복층형</span>
             </div>
           </div>
           <!-- 건물 전체 층수 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-field="dateKeywords">
-              <div>건물 전체층수</div>
+            <div class="select_btn" data-field="totalFloor">
+              <div class="select_btn_text" data-field="totalFloor" data-placeholder="건물 전체층수">건물 전체층수</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="dateKeywords_container toggle hidden">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            <div class="select_input_container toggle hidden" data-field="totalFloor">
+              <span><input type="radio" name="totalFloor" value="1층"> 1층</span>
+              <span><input type="radio" name="totalFloor" value="2층"> 2층</span>
+              <span><input type="radio" name="totalFloor" value="3층"> 3층</span>
+              <span><input type="radio" name="totalFloor" value="4층"> 4층</span>
+              <span><input type="radio" name="totalFloor" value="5층 이상"> 5층 이상</span>
             </div>
           </div>
           <!-- 방 층수 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-field="dateKeywords">
-              <div>방 층수</div>
+            <div class="select_btn" data-field="floor">
+              <div class="select_btn_text" data-field="floor" data-placeholder="방 층수">방 층수</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="dateKeywords_container toggle hidden">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            <div class="select_input_container toggle hidden" data-field="floor">
+              <span><input type="radio" name="floor" value="반지층"> 반지층</span>
+              <span><input type="radio" name="floor" value="1층"> 1층</span>
+              <span><input type="radio" name="floor" value="2층"> 2층</span>
+              <span><input type="radio" name="floor" value="3층"> 3층</span>
+              <span><input type="radio" name="floor" value="4층"> 4층</span>
+              <span><input type="radio" name="floor" value="5층 이상"> 5층 이상</span>
             </div>
           </div>
           <!-- 남성/여성 전용 -->
           <div class="select_inpt_type_container">
-            <div class="select_btn" data-field="dateKeywords">
-              <div>남성/여성 전용</div>
+            <div class="select_btn" data-field="only">
+              <div class="select_btn_text" data-field="only" data-placeholder="남성/여성 전용">남성/여성 전용</div>
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
-            <div class="dateKeywords_container toggle hidden">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bggggggggggggg</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bffffffffffff</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_beeeeeeeeeeee</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_bbbbbbbbbbbbb</span>
+            <div class="select_input_container toggle hidden" data-field="only">
+              <span><input type="checkbox" name="only" value="남성전용"> 남성전용</span>
+              <span><input type="checkbox" name="only" value="여성전용"> 여성전용</span>
             </div>
           </div>
         </div>
-        <input type="submit" value="저장">
+        <div class="block_divider"></div>
+        <!-- block 4 -->
+        <div class="block4">
+          <div class="block_t">거래정보</div>
+          <!-- 거래형태 -->
+          <div class="select_inpt_type_container">
+            <div class="select_btn" data-field="tradeType">
+              <div class="select_btn_text" data-field="tradeType" data-placeholder="거래형태">거래형태</div>
+              <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
+            </div>
+            <div class="select_input_container toggle hidden" data-field="tradeType">
+              <span><input type="radio" name="tradeType" value="양도"> 양도</span>
+              <span><input type="radio" name="tradeType" value="전대"> 전대</span>
+            </div>
+          </div>
+          <!-- 연락처 -->    
+          <input class="text_input_full" type="text" name="contact" placeholder="연락처 또는 카카오톡 오픈채팅 URL" required>
+          <!-- 상세설명 -->
+        </div>
+        <!-- block 5 -->
+        <div class="block5">
+          <textarea name="text" placeholder="상세설명을 입력해 주세요" rows="10" maxlength="200"></textarea>
+        </div>
+        <!-- block 6 -->
+        <div class="block6">
+            <a href="https://bangdangi.web.app/board/list/<%=univ%>"">취소</a>
+            <input type="submit" value="저장">  
+        </div>
+        
       </form>
     </div> <!-- End of wrapper -->
   </div>
 </body>
 <script>
-  var btn = document.querySelectorAll('.container_toggle_btn');
-  
-  btn.forEach((b) => {
+  var selectToggleBtn = document.querySelectorAll('.select_btn');
+  var chkbox = document.querySelectorAll('input[type="checkbox"]');
+  var radio = document.querySelectorAll('input[type="radio"]');
+
+  // 체크박스에 체크 또는 해제했을 때 텍스트 조작
+  chkbox.forEach((cb) => {
+    cb.onchange = function() {
+      let field = this.name;
+      var text = document.querySelector(`.select_btn_text[data-field="${field}"]`);
+      if (this.checked) { // 체크된 경우
+        if (text.innerText == text.dataset.placeholder) text.innerText = this.value; // 체크되어있는게 없는 경우
+        else text.innerText = text.innerText + ',' + this.value; // 체크되어있는게 있는 경우
+      } else { // 체크해제된 경우
+        // 체크해제된 문자열 제거
+        text.innerText = text.innerText.replace(`,${this.value},`, ','); // 해당 문자가 중간에 있는 경우
+        text.innerText = text.innerText.replace(`,${this.value}`, ''); // 해당 문자가 제일 뒤에 있는 경우
+        text.innerText = text.innerText.replace(`${this.value},`, ''); // 해당 문자가 제일 앞에 있는 경우
+        text.innerText = text.innerText.replace(`${this.value}`, ''); // 해당 문자가 혼자 있는 경우
+        // 전부 지워졌는지 검사
+        if (text.innerText == '') text.innerText = text.dataset.placeholder; 
+      }
+    };
+  })
+
+  // 라디오박스 체크했을 때 텍스트 조작
+  radio.forEach((r) => {
+    r.onchange = function() {
+      let field = this.name;
+      var text = document.querySelector(`.select_btn_text[data-field="${field}"]`);
+      text.innerText = this.value;
+    }
+  });
+
+  // 각 항목 눌렀을 때 접혔다 펴졌다
+  selectToggleBtn.forEach((b) => {
     b.addEventListener('click', function() {
-      var type = this.parentNode.dataset.field;
-      var target = document.querySelector(`.${type}_container`);
+      var type = this.dataset.field;
+      var target = document.querySelector(`.select_input_container[data-field="${type}"]`);
+      var icon = document.querySelector(`.select_btn[data-field="${type}"] i`);
 
       target.classList.toggle('hidden');
-      this.firstElementChild.classList.toggle('xi-angle-down-min');
-      this.firstElementChild.classList.toggle('xi-angle-up-min');
+      icon.classList.toggle('xi-angle-down-min');
+      icon.classList.toggle('xi-angle-up-min');
     });
   });
 
+  // 입력 가능/불가능 토글 스위치
   document.querySelectorAll('.enable_toggle_btn').forEach((btn) => {
     btn.addEventListener('click', function() {
       let field = this.dataset.field;

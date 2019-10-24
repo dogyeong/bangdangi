@@ -70,7 +70,7 @@
             <!-- <option value="cuk" <%= (univ==='cuk') ? 'selected' : '' %>>카톨릭대학교</option>
             <option value="uos" <%= (univ==='uos') ? 'selected' : '' %>>서울시립대학교</option>
             <option value="skku" <%= (univ==='skku') ? 'selected' : '' %>>성균관대학교</option> -->
-            <option value="dongdaemun" <%= (univ==='dongdaemun') ? 'selected' : '' %>>한국외대/경희대학교</option>
+            <option value="dongdaemun" <%= (univ==='dongdaemun') ? 'selected' : '' %>>한국외대/경희대/서울시립대학교</option>
             <option value="hanyang" <%= (univ==='hanyang') ? 'selected' : '' %>>한양대학교</option>
           </optgroup>
           <optgroup label="대전">
@@ -144,7 +144,11 @@
                                         <span><%= i %></span>
                                     <% } %>
                                 </div>
-                                <div class="price_container">
+                                <div class="price_container
+                                  <% if (room['createdAt'].toDate() >= new Date(new Date().getTime()-2*24*3600*1000)) { %>
+                                    new
+                                  <% } %>
+                                ">
                                     <%= `${room['deposit']===null?'문의':room['deposit']}/${room['price']===null?'문의':room['price']}` %>
                                 </div>
                             </div>   
@@ -152,9 +156,9 @@
                         <div class="list_mid">
                             <div>
                                 <% let line1 = []; %>
-                                <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()-32400000).toLocaleDateString()); %>
+                                <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()).toLocaleDateString()); %>
                                 <% period = period + '~'; %>
-                                <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()-32400000).toLocaleDateString()); %>
+                                <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()).toLocaleDateString()); %>
                                 <% var loc = (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
                                 <% if (loc !== '') line1.push(loc); %>
                                 <% if (period !== '~') line1.push(period); %>

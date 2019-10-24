@@ -239,6 +239,12 @@
       font-weight: 500;
       font-size: 20px;
     }
+    .new:after {
+      content: 'N';
+      font-size: 14px;
+      position: relative;
+      color: rgb(241, 83, 83)
+    }
     .list_mid {
       margin: 8px 0;
       font-size: 14px;

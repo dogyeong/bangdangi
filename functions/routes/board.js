@@ -79,12 +79,16 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var articleNo = req.params.articleNo;
     var db = admin.firestore();
     var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
+    var kakao = {}; // 카카오로 공유하기 했을 때 전달될 정보
+    var data; // 상세페이지에서 보여질 매물정보
+    var related = []; // 관련 매물 정보
+    var docRef = db.doc(`article/live/${univ}/${articleNo}`);
 
-    db.doc(`article/live/${univ}/${articleNo}`).get()
+    docRef.get()
     .then((doc) => {
         if (doc.exists) {   
             // 문서 존재함
-            let data = doc.data();
+            data = doc.data();
             if (data.done !== true || ignoreDone !== undefined) { 
                 // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
                 // 카카오톡 공유하기 했을 때 공유될 정보
@@ -92,9 +96,11 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
                 let description = `${data.locationL ? Object.keys(data.locationL).join(' ') : ''} ${data.locationS ? Object.keys(data.locationS).join(' ') : ''} ${data.deposit || '문의'}/${data.price || '문의'}`;
                 let imageUrl = data.images ? data.images[0] : 'https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/kakao_share.jpg?alt=media&token=248d577e-16c5-4e74-a64f-2e2413032421';
                 let link = data.url || 'https://bangdangi.web.app';
-                var kakao = { title, description, imageUrl, link };
+                kakao = { title, description, imageUrl, link };
 
-                return res.render('articleDetail', { univ, articleNo, data, kakao });
+                return db.collection(`article/live/${univ}`)
+                    .where('display', '==', true).where('done', '==', false)
+                    .orderBy('createdAt', 'desc').limit(4).get();
             }
             else { 
                 // 거래 완료됨
@@ -106,11 +112,41 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
            return next(createError(404));
         }
     })
+    .then((docs) => {
+        let filtered = docs.docs.filter(doc => doc.id !== articleNo);
+        if (filtered.length === 4) filtered.pop();
+        filtered.forEach(doc => {
+            let d = doc.data();
+            related.push({
+                'url': `${d.url}`,
+                'img': `${d.images ? d.images[0] : ''}`,
+                'line1': `${d.dateKeywords ? Object.keys(d.dateKeywords)[0] : ''} ${d.locationL ? Object.keys(d.locationL).join(' '): ''}`,
+                'line2': `${d.deposit ? '보'+d.deposit : ''} ${d.price ? '월'+d.price : ''}`,
+            });
+        });
+       return viewIncrement(docRef);
+    })
+    .then((newViews) => {
+        console.log("views: " + newViews);
+        return res.render('articleDetail', { univ, articleNo, data, kakao, related });
+    })
     .catch((err) => {
         console.log(err);
         return next(createError(500));
     })
 });
+
+function viewIncrement(docRef) {
+    return admin.firestore().runTransaction((transaction) => {
+        return transaction.get(docRef)
+        .then((doc) => {
+            // 조회수 1 증가
+            let newViews = doc.data().views + 1;
+            transaction.update(docRef, { views: newViews });
+            return Promise.resolve(newViews);
+        });
+    })
+}
 
 router.get('/create', (req, res, next) => {
     // 세션 쿠키 받기

@@ -42,6 +42,7 @@
     <title>방단기</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel=stylesheet type="text/css" href="/css/common.css"/>
     <link rel=stylesheet type="text/css" href="/css/headerBar.css"/>
     <link rel=stylesheet type="text/css" href="/css/article.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
@@ -58,8 +59,11 @@
         <header>
             <div id="header_inner">
                 <div class="back_btn">
-                    <a href="https://bangdangi.web.app/board/list/<%=univ%>">
+                    <a class="back_arrow"href="https://bangdangi.web.app/board/list/<%=univ%>">
                         <i class="xi-arrow-left"></i>
+                    </a>
+                    <a class="header_logo" href="https://bangdangi.web.app/">
+                        <img src="/img/bangdangi_logo_2.png">
                     </a>
                 </div>
                 <ul class="share_container">
@@ -92,6 +96,11 @@
                     <%= data.title %>
                 </h1>    
                 <% } %>
+                <!-- 조회수 -->
+                <div class="views_container">
+                    <div class="views_title">조회</div>
+                    <div class="views_number"><%= data.views %></div>
+                </div>
             </div>
             <div class="infoBlock">
                 <!-- 이미지 슬라이더-->
@@ -193,15 +202,19 @@
             <p class="detail_text"><%= data.text || '' %></p>
         </div>
 
-        <!-- 모바일에서 다른방 보러가기 버튼 -->
-        <a class="cancel_mobile" href="https://bangdangi.web.app/board/list/<%=univ%>">
-            <i class="xi-arrow-left"></i> 다른 방 보러가기
+        <!-- 모바일에서 연락하기 버튼 -->
+        <a class="contact_mobile" data-contact="<%= data.contact || '' %>" href="javascript:;">
+            <% if (data.contact && data.contact.length > 15) { %>
+                오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+            <% } else { %>
+                매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
+            <% } %> 
         </a>
 
         <!-- 연락하기 버튼 블럭 -->
-        <div class="contact_container">
+        <div class="contact_container">      
             <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
-                다른 방 보러가기
+                <i class="xi-arrow-left"></i> &nbsp; 다른 단기 원룸 보러가기
             </a>
             <div class="contact_btn" data-contact="<%= data.contact || '' %>">
                 <% if (data.contact && data.contact.length > 15) { %>
@@ -209,8 +222,31 @@
                 <% } else { %>
                     매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
                 <% } %>      
-            </div>  
+            </div> 
         </div>
+
+        <!-- 관련 매물 블럭 -->
+        <div class="block3">
+            <div class="related_title">
+                관련 매물
+            </div>
+            <div class="related_body">
+                <% for (i of related) { %>
+                    <a href="<%= i.url %>">
+                        <div class="related_img_container">
+                            <div class="related_img" style="background: center / cover no-repeat url('<%= i.img %>'),  #ebeef1;"></div>
+                        </div>
+                        <p><%= i.line1 %></p>    
+                        <p><%= i.line2 %></p>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- 관련 매물 더 보러가기-->
+        <a class="related_more" href="https://bangdangi.web.app/board/list/<%=univ%>">
+            <i class="xi-plus-thin"></i> &nbsp; 관련 매물 더 보기
+        </a>
 
         <!-- 푸터 -->
         <footer>
@@ -253,6 +289,7 @@
     <% } %>
     
     var contactBtn = document.getElementsByClassName('contact_btn')[0];
+    var contactBtnMobile = document.querySelector('.contact_mobile');
 
     function contact() {
         var contact = this.dataset.contact;
@@ -267,6 +304,7 @@
     }
 
     contactBtn.addEventListener('click', contact);
+    contactBtnMobile.addEventListener('click', contact);
 </script>
 
 <!-- 공유하기 -->
@@ -338,5 +376,6 @@
         if(!this.classList.contains('url_visible'))
             this.style.opacity = 0;
     });
+    
 </script>
 </html>

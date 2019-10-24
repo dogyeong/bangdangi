@@ -11,9 +11,11 @@ body {
 }
 input::placeholder {
     color: #666;
+    background-color: #fff;
 }
-input:disabled::placeholder {
+input:disabled::placeholder, input[type="date"]:disabled {
     color: #ddd;
+    background-color: #fff;
 }
 
 .block1 {
@@ -33,6 +35,7 @@ input:disabled::placeholder {
     height: 48px;
     font-weight: 400;
     color: #3b3b46;
+    background-color: #fff;
 }
 
 
@@ -136,4 +139,55 @@ input:disabled::placeholder {
 .active:after {
     left: calc(100% - 2px);
 	transform: translateX(-100%);
+}
+
+.block4 {
+    padding: 20px;
+}
+
+.block5 {
+    padding: 20px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+textarea {
+    border: none;
+    width: 100%;
+    font-size: 16px;
+    background-color: #fff;
+    resize: none;
+}
+
+.block6 {
+    padding: 20px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.block6 > a {
+    display: flex;
+    width: 160px;
+    margin: 0 12px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    background-color: #A9B1BC;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+}
+.block6 > input {
+    -webkit-appearance: none;
+    border: none;
+    display: flex;
+    width: 160px;
+    margin: 0 12px;
+    height: 48px;
+    justify-content: center;
+    align-items: center;
+    background-color: #0AB9F1;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
 }
