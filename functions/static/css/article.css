@@ -133,18 +133,6 @@ header a {
     padding: 20px;
 }
 @media screen and (max-width: 600px) {
-    .titleBlock {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .views_container {
-        margin-top: 12px;
-    }
-    .views_title {
-        padding: 0;
-        margin: 0;
-        padding-right: 10px;
-    }
     .infoBlock {
         display: block;
     }
@@ -354,7 +342,7 @@ header a {
 @media screen and (max-width: 600px) {
     .contact_container {
         position: fixed;
-        bottom: 0;
+        bottom: 20px;
         z-index: 999;
     }
     .contact_btn {
@@ -362,14 +350,13 @@ header a {
     }
     .contact_mobile {
         display: block;
-        margin-top: 40px;
+        margin-top: 24px;
+        
     }
     .cancel_btn {
         margin: 0;
         border: none;
         background-color: #0ab9f1;
-        height: 80px;
-        padding-bottom: 20px;
     }
 }
 
@@ -423,31 +410,8 @@ header a {
     top: 0;
     left: 0;
 }
-.related_body p {
+.related_body > p {
     font-size: 15px;
-    font-weight: 400;
-}
-@media screen and (max-width: 600px) {
-    .related_body {
-        align-items: stretch;
-        flex-direction: column;
-    }
-    .related_body > a {
-        padding: 16px 10px;
-        margin: 0;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-    }
-    .related_body > a:first-child {
-        padding-top: 0;
-    }
-    .related_body > a:last-child {
-        padding-bottom: 0;
-        border: none;
-    }
-    .related_img_container {
-        margin-bottom: 8px;
-    }
-
 }
 
 /*
@@ -488,8 +452,6 @@ footer {
 @media screen and (max-width: 600px) {
     footer {
         margin: 0;
-        margin-bottom: 80px;
-        height: 100px;
-        border: none;
+        padding-bottom: 72px;
     }
 }

@@ -10,7 +10,7 @@ const cors = require('cors')({
 /* GET home page. */
 router.get('/', (req, res, next) => {
   //res.render('index', { title: 'Express' });
-  res.send("Hi from index routes!")
+  res.render('index');
 });
 
 router.get('/getNew', (req, res) => {
