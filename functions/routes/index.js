@@ -9,8 +9,29 @@ const cors = require('cors')({
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  //res.render('index', { title: 'Express' });
-  res.render('index');
+  var db = admin.firestore();
+  // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
+  Promise.all([
+    db.collection('article/live/cnu').where('display', '==', true).where('done', '==', false)
+    .orderBy('createdAt', 'desc').limit(1).get(),
+    db.collection('article/live/dongdaemun').where('display', '==', true).where('done', '==', false)
+    .orderBy('createdAt', 'desc').limit(1).get(),
+    db.collection('article/live/mafo').where('display', '==', true).where('done', '==', false)
+    .orderBy('createdAt', 'desc').limit(1).get()
+  ])
+  .then(result => {
+    // 들고온 매물들을 배열로 만들고
+    let newArticleArr = result.reduce((res, cur) => {
+      if (!cur.empty) res.push(cur.docs[0].data());
+      return res;
+    }, []);
+    // index 렌더링할 때 넘겨준다
+    return res.render('index', { newArticleArr });
+  })
+  .catch(error => {
+    console.log(error);
+    return next(createError(500));
+  })
 });
 
 router.get('/getNew', (req, res) => {

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
+    <meta name="author" content="패러다임">
+    <meta itemprop="name" content="방단기">
+    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="twitter:title" content="방단기">
+    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:title" content="방단기">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="방단기">
+    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:url" content="https://bangdangi.web.app/">
+    <link rel="canonical" href="https://bangdangi.web.app/" />
+    <!-- SEO END -->
+    <title>방단기 관리자센터</title>
+    <link rel=stylesheet type="text/css" href="css/master.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <!-- Date picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/ko-KR.js"></script>
+    <style>
+        .textNoWrap {
+            text-overflow: ellipsis;
+            white-space: nowrap !important;
+            max-width: 280px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <img src="img/logo_w.png">관리자센터
+        </div>
+        <form id="univ_form">
+            <select name="univ" id="univ_select" onchange="loadData(this.value);">
+                <option value="" selected>학교를 선택해 주세요</option>
+                <optgroup label="서울">
+                    <option value="cuk">카톨릭대학교</option>
+                    <option value="mafo">연세대/이화여대/홍익대</option>
+                    <option value="skku">성균관대학교</option>
+                    <option value="dongdaemun">한국외대/경희대/서울시립대학교</option>
+                    <option value="hanyang">한양대학교</option>
+                </optgroup>
+                <optgroup label="대전">
+                    <option value="cnu">충남대학교</option>
+                </optgroup>      
+                <optgroup label="부산">
+                    <option value="pnu">부산대학교</option>
+                    <option value="pknu">부경대/경성대학교</option>
+                </optgroup>
+            </select>
+        </form>
+        <div id="reload"><i class="xi-refresh"></i> 다시 불러오기</div>
+        <div id="add"><i class="xi-plus-circle"></i> 빈매물추가</div>
+    </header>
+
+    <div id="article" style="margin-top: 80px;"></div>
+
+    <div id="loading_container">
+        <div class="loading">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/6.1.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#reserved-urls -->
+    <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-database.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-messaging.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-storage.js"></script>
+    <script src="/__/firebase/6.1.0/firebase-firestore.js"></script>
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+    <script>
+        var loading = document.querySelector('#loading_container');
+        var select = document.querySelector('#univ_select');
+        var reloadBtn = document.getElementById('reload')
+        var addBtn = document.getElementById('add')
+        
+        var showLoading = () => { loading.style.display = 'initial' };
+        var hideLoading = () => { loading.style.display = 'none' };
+        var loadData = (univ) => {
+            if(univ === "") return;
+            document.querySelector('#article').innerHTML = '';
+            var container = document.getElementById('article');
+            var hot;
+            var textRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                td.className = 'textNoWrap';
+                return cellProperties;
+            };
+            showLoading();
+            firebase.firestore().collection(`article/live/${univ}`).orderBy('createdAt', 'desc').get()
+            .then(docs => {
+                let data = [];
+                docs.forEach(doc => {
+                    let d = doc.data();
+                    data.push({
+                        ...d,
+                        id: doc.id,
+                        createdAt: d.createdAt ? d.createdAt.toDate().toLocaleDateString() : null,
+                        startDate: d.startDate ? d.startDate.toDate().toLocaleDateString() : null,
+                        endDate: d.endDate ? d.endDate.toDate().toLocaleDateString() : null,
+                        dateKeywords: d.dateKeywords ? Object.keys(d.dateKeywords).join(',') : null, 
+                        locationL: d.locationL ? Object.keys(d.locationL).join(',') : null,
+                        locationS: d.locationS ? Object.keys(d.locationS).join(',') : null,
+                        keywords: d.keywords ? Object.keys(d.keywords).join(',') : null,
+                        discountKeywords: d.discountKeywords ? Object.keys(d.discountKeywords).join(',') : null,
+                        images: d.images ? d.images.length : null,
+                    });
+                });
+                return data;
+            })
+            .then(data => {
+                hot = new Handsontable(container, {
+                    data: data,
+                    rowHeaders: true,
+                    colHeaders: ['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '건물층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오'],
+                    columns : [
+                        {data: 'id'},
+                        {data: 'urlType'},
+                        {data: 'createdAt'},
+                        {data: 'views'},
+                        {data: 'display'},
+                        {data: 'done'},
+                        {data: 'title', renderer: textRenderer},
+                        {data: 'reason'},
+                        {data: 'tradeType'},
+                        {data: 'text', renderer: textRenderer},
+                        {data: 'startDate'},
+                        {data: 'endDate'},
+                        {data: 'dateKeywords'},
+                        {data: 'locationL'},
+                        {data: 'locationS'},
+                        {data: 'price'},
+                        {data: 'deposit'},
+                        {data: 'expense'},
+                        {data: 'discountKeywords'},
+                        {data: 'keywords'},
+                        {data: 'floor'},
+                        {data: 'totalFloor'},
+                        {data: 'roomType'},
+                        {data: 'only'},   
+                        {data: 'pic'},
+                        {data: 'images'},
+                        {data: 'url', renderer: textRenderer},
+                        {data: 'contact'},
+                        {data: 'openkakao'},
+                    ],
+                    filters: true,
+                    dropdownMenu: true,
+                    language: 'ko-KR',
+                    licenseKey: 'non-commercial-and-evaluation',
+                });
+            })
+            .then(() => hideLoading())
+            .catch(err => console.log(err));
+        }
+        var reloadData = () => { loadData(select.value) };
+        var addEmptyArticle = () => {
+            if (select.value !== "") {
+                firebase.firestore().collection(`article/live/${select.value}`).add({
+                    createdAt: new Date(),
+                    display: false,
+                    tradeType: null,
+                    reason: null,
+                    startDate: null,
+                    endDate: null,
+                    dateKeywords: null,
+                    keywords: null,
+                    discountKeywords: null,
+                    price: null,
+                    deposit: null,
+                    expense: null,
+                    locationL: null,
+                    locationS: null,
+                    roomType: null,
+                    only: null,
+                    pic: false,
+                    floor: null,
+                    totalFloor: null,
+                    images: null,
+                    urlType: null,
+                    url: null,
+                    openkakao: null,
+                    contact: null,
+                    done: false,
+                    text: null,
+                    title: null,
+                    views: 0,
+                })
+                    .then(docRef => {
+                        return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.univ}/${docRef.id}` });
+                    })
+                    .then(() => {
+                        reloadData();
+                    })
+                    .catch((err) => { window.alert(err.message) })
+            } else {
+                window.alert("위치를 먼저 선택해주세요.");
+            }
+        }
+
+        reloadBtn.addEventListener('click', reloadData);
+        addBtn.addEventListener('click', addEmptyArticle);
+    </script>
+</body>
+
+</html>

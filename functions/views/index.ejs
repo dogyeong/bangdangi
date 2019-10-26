@@ -103,24 +103,18 @@
           새로 등록된 매물
         </div>
         <div class="b1_cards">
-          <a href="https://bangdangi.web.app/board/read/pnu/k0tptB9xnvbyzc7JXgzb" class="b1_item">
-            <div class="b1_item_content">
-              <div class="b1_item_img" style="background: url(https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/%EB%B6%80%EB%8C%80%2F42F27C7F-C7A6-4A34-B3AD-F0FA9F3A4EDD.jpeg?alt=media&token=1db1345a-46f6-45cf-befa-316827a43fb8) center center / cover no-repeat;"></div>
-              <div class="b1_item_text">부산대 은혜원룸<br>3개월이상</div>
-            </div>
-          </a>
-          <a href="https://bangdangi.web.app/board/read/hufsSC/F6culkWF7P1LY6ArDB4A" class="b1_item">
-            <div class="b1_item_content">
-              <div class="b1_item_img" style="background: url(https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/%EA%B2%BD%ED%9D%AC%EB%8C%80%2F30-7.jpg?alt=media&token=4809f717-0a0c-423b-842e-46e1c7c03506) center center / cover no-repeat;"></div>
-              <div class="b1_item_text">경희대정문 1분거리<br>20년 2월까지</div>
-            </div>
-          </a>
-          <a href="https://bangdangi.web.app/board/read/cnu/ywdIE9o0riozntagNx6u" class="b1_item">
-            <div class="b1_item_content">
-              <div class="b1_item_img" style="background: url(https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/ywdIE9o0riozntagNx6u%2F4935B9AB-E11C-4FA8-B422-CDDF6751B272.jpeg?alt=media&token=1ec28ffc-b45d-4dd6-9c39-e711467da4d1) center center / cover no-repeat;"></div>
-              <div class="b1_item_text">충남대 로데오거리 근처<br>1월 말까지</div>
-            </div>
-          </a>
+          <% for (i of newArticleArr) { %>
+            <a href="<%= i.url %>" class="b1_item">
+              <div class="b1_item_content">
+                <div class="b1_item_img" style="background: url(<%= i.images ? i.images[0] : '' %>) center center / cover no-repeat;"></div>
+                <div class="b1_item_text">
+                  <%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %>
+                  <br>
+                  <%= i.dateKeywords ? Object.keys(i.dateKeywords)[0] : '' %>
+                </div>
+              </div>
+            </a>
+          <% } %>  
         </div>
       </div>
     </div>
