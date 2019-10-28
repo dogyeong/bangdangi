@@ -69,6 +69,11 @@
 
     <div id="article" style="margin-top: 80px;"></div>
 
+    <div class="update_container">
+        <div onclick="closeUpdateBox();">close</div>
+        <div class="update_content"></div>
+    </div>
+
     <div id="loading_container">
         <div class="loading">
             <div class="loading-dot"></div>
@@ -125,6 +130,7 @@
                         locationS: d.locationS ? Object.keys(d.locationS).join(',') : null,
                         keywords: d.keywords ? Object.keys(d.keywords).join(',') : null,
                         discountKeywords: d.discountKeywords ? Object.keys(d.discountKeywords).join(',') : null,
+                        only: d.only ? Object.keys(d.only).join(',') : null,
                         images: d.images ? d.images.length : null,
                     });
                 });
@@ -166,8 +172,10 @@
                         {data: 'contact'},
                         {data: 'openkakao'},
                     ],
+                    columnSorting: true,
                     filters: true,
                     dropdownMenu: true,
+                    afterSelection: function(){ checkSelection(arguments, hot) },
                     language: 'ko-KR',
                     licenseKey: 'non-commercial-and-evaluation',
                 });
@@ -219,7 +227,19 @@
                 window.alert("위치를 먼저 선택해주세요.");
             }
         }
-
+        var checkSelection = (data, hot) => {
+            if (data[3] !== 28 || data[0] !== data[2]) return;
+            let id = hot.getCell(data[0], data[1]).innerText;
+            openUpdateBox(id);
+        }
+        var openUpdateBox = (id) => {
+            let box = document.querySelector('.update_container');
+            document.querySelector('.update_content').innerText = id;
+            if (!box.classList.contains('update_open')) box.classList.add('update_open');
+        }
+        var closeUpdateBox = () => {
+            document.querySelector('.update_container').classList.remove('update_open');
+        }
         reloadBtn.addEventListener('click', reloadData);
         addBtn.addEventListener('click', addEmptyArticle);
     </script>

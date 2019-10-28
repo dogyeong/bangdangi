@@ -26,15 +26,22 @@ router.get('/list/:univ', (req, res, next) => {
     var ref = db.collection(`article/live/${univ}`)
         .where('display','==',true).where('done','==',false);
     
-    // 선택된 태그가 없으면 전부다 불러온다
-    if (selectedLocation === undefined && selectedDate === undefined) {
-        queryArr.push(ref.get());
-    }
-    if (selectedLocation !== undefined) { // 위치 키워드 필터링
-        for (kwd of selectedLocation) queryArr.push(ref.where(`locationL.${kwd}`, '==', true).get());
-    }
-    if (selectedDate !== undefined) { // 기간 키워드 필터링
-        for (kwd of selectedDate) queryArr.push(ref.where(`dateKeywords.${kwd}`, '==', true).get());
+    if (selectedLocation !== undefined) { 
+        if (selectedDate !== undefined) { // 장소, 기간 둘 다 선택한 경우
+            for (kwd of selectedLocation) {
+                let lRef = ref.where(`locationL.${kwd}`, '==', true);
+                for (kwd of selectedDate) queryArr.push(lRef.where(`dateKeywords.${kwd}`, '==', true).get());
+            }
+        }
+        else // 장소 키워드만 선택한 경우 
+            for (kwd of selectedLocation) queryArr.push(ref.where(`locationL.${kwd}`, '==', true).get());
+    } 
+    else {
+        if (selectedDate !== undefined) // 기간 키워드만 선택한 경우
+            for (kwd of selectedDate) queryArr.push(ref.where(`dateKeywords.${kwd}`, '==', true).get());
+            
+        else // 선택된 태그가 없으면 전부다 불러온다
+            queryArr.push(ref.get());    
     }
 
     Promise.all(queryArr)

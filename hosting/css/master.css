@@ -147,7 +147,26 @@
     .modify:hover, .displayBtn:hover, .xi-close:hover, .xi-trash-o:hover {
       background-color: rgba(0,0,0,0.1);
     }
-    
+
+    /*
+    *  update container
+    */
+    .update_container {
+      width: 500px;
+      height: 100vh;
+      position: fixed;
+      z-index: 999;
+      background-color: #fff;
+      top: 0;
+      right: -520px;
+      box-sizing: border-box;
+      padding: 20px;
+      border-left: 1px solid #e6e6e6;
+      transition: all 0.6s ease;
+    }
+    .update_open {
+      right: 0 !important;
+    }
 
     /* loading dot */
     #loading_container {
