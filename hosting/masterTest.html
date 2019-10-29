@@ -30,13 +30,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
     <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/ko-KR.js"></script>
-    <style>
-        .textNoWrap {
-            text-overflow: ellipsis;
-            white-space: nowrap !important;
-            max-width: 280px;
-        }
-    </style>
 </head>
 
 <body>
@@ -56,7 +49,7 @@
                 </optgroup>
                 <optgroup label="대전">
                     <option value="cnu">충남대학교</option>
-                </optgroup>      
+                </optgroup>
                 <optgroup label="부산">
                     <option value="pnu">부산대학교</option>
                     <option value="pknu">부경대/경성대학교</option>
@@ -70,8 +63,240 @@
     <div id="article" style="margin-top: 80px;"></div>
 
     <div class="update_container">
-        <div onclick="closeUpdateBox();">close</div>
-        <div class="update_content"></div>
+        <div class="update_header">
+            <div class="id_container"></div>
+            <div class="update_close" onclick="closeUpdateBox();"><i class="xi-close"></i></div>
+        </div>
+        <div class="update_content">
+            <!-- urlType -->
+            <div class="field_container">
+                <div class="field_title" data-field="urlType">urlType</div>
+                <div class="field_value" data-container="urlType">
+                    <input type="text" data-field="urlType">
+                </div>
+            </div>
+            <!-- createdAt -->
+            <div class="field_container">
+                <div class="field_title" data-field="createdAt">createdAt</div>
+                <div class="field_value" data-container="createdAt">
+                    <input type="date" data-field="createdAt">
+                </div>
+            </div>
+            <!-- views -->
+            <div class="field_container">
+                <div class="field_title" data-field="views">views</div>
+                <div class="field_value" data-container="views">
+                    <input type="number" data-field="views">
+                </div>
+            </div>
+            <!-- display -->
+            <div class="field_container">
+                <div class="field_title" data-field="display">display</div>
+                <div class="field_value" data-container="display">
+                    <input type="radio" name="display" data-field="display" value="true"> true
+                    <input type="radio" name="display" data-field="display" value="false"> false
+                </div>
+            </div>
+            <!-- done -->
+            <div class="field_container">
+                <div class="field_title" data-field="done">done</div>
+                <div class="field_value" data-container="done">
+                    <input type="radio" name="done" data-field="done" value="true"> true
+                    <input type="radio" name="done" data-field="done" value="false"> false
+                </div>
+            </div>
+            <!-- title -->
+            <div class="field_container">
+                <div class="field_title" data-field="title">title</div>
+                <div class="field_value" data-container="title">
+                    <input type="text" data-field="title">
+                </div>
+            </div>
+            <!-- reason -->
+            <div class="field_container">
+                <div class="field_title" data-field="reason">reason</div>
+                <div class="field_value" data-container="reason">
+                    <input type="text" data-field="reason">
+                </div>
+            </div>
+            <!-- tradeType -->
+            <div class="field_container">
+                <div class="field_title" data-field="tradeType">tradeType</div>
+                <div class="field_value" data-container="tradeType">
+                    <input type="text" data-field="tradeType">
+                </div>
+            </div>
+            <!-- text -->
+            <div class="field_container">
+                <div class="field_title" data-field="text">text</div>
+                <div class="field_value" data-container="text">
+                    <input type="text" data-field="text">
+                </div>
+            </div>
+            <!-- startDate -->
+            <div class="field_container">
+                <div class="field_title" data-field="startDate">startDate</div>
+                <div class="field_value" data-container="startDate">
+                    <input type="date" data-field="startDate">
+                </div>
+            </div>
+            <!-- endDate -->
+            <div class="field_container">
+                <div class="field_title" data-field="endDate">endDate</div>
+                <div class="field_value" data-container="endDate">
+                    <input type="date" data-field="endDate">
+                </div>
+            </div>
+            <!-- dateKeywords -->
+            <div class="field_container">
+                <div class="field_title" data-field="dateKeywords">dateKeywords</div>
+                <div class="field_value" data-container="dateKeywords">
+                    <div class="field_map">
+                        <div class="field_map_add" data-field="dateKeywords">+</div>
+                        <div class="field_map_del" data-field="dateKeywords">-</div>
+                    </div>
+                    <input type="text" data-field="dateKeywords">
+                </div>
+            </div>
+            <!-- locationL -->
+            <div class="field_container">
+                <div class="field_title" data-field="locationL">locationL</div>
+                <div class="field_value" data-container="locationL">
+                    <div class="field_map">
+                        <div class="field_map_add" data-field="locationL">+</div>
+                        <div class="field_map_del" data-field="locationL">-</div>
+                    </div>
+                    <input type="text" data-field="locationL">
+                </div>
+            </div>
+            <!-- locationS -->
+            <div class="field_container">
+                <div class="field_title" data-field="locationS">locationS</div>
+                <div class="field_value" data-container="locationS">
+                    <div class="field_map">
+                        <div class="field_map_add" data-field="locationS">+</div>
+                        <div class="field_map_del" data-field="locationS">-</div>
+                    </div>
+                    <input type="text" data-field="locationS">
+                </div>
+            </div>
+            <!-- price -->
+            <div class="field_container">
+                <div class="field_title" data-field="price">price</div>
+                <div class="field_value" data-container="price">
+                    <input type="number" data-field="price">
+                </div>
+            </div>
+            <!-- deposit -->
+            <div class="field_container">
+                <div class="field_title" data-field="deposit">deposit</div>
+                <div class="field_value" data-container="deposit">
+                    <input type="number" data-field="deposit">
+                </div>
+            </div>
+            <!-- expense -->
+            <div class="field_container">
+                <div class="field_title" data-field="expense">expense</div>
+                <div class="field_value" data-container="expense">
+                    <input type="number" data-field="expense">
+                </div>
+            </div>
+            <!-- discountKeywords -->
+            <div class="field_container">
+                <div class="field_title" data-field="discountKeywords">discountKeywords</div>
+                <div class="field_value" data-container="discountKeywords">
+                    <div class="field_map">
+                        <div class="field_map_add" data-field="discountKeywords">+</div>
+                        <div class="field_map_del" data-field="discountKeywords">-</div>
+                    </div>
+                    <input type="text" data-field="discountKeywords">
+                </div>
+            </div>
+            <!-- keywords -->
+            <div class="field_container">
+                <div class="field_title" data-field="keywords">keywords</div>
+                <div class="field_value" data-container="keywords">
+                    <div class="field_map">
+                        <div class="field_map_add" data-field="keywords">+</div>
+                        <div class="field_map_del" data-field="keywords">-</div>
+                    </div>
+                    <input type="text" data-field="keywords">
+                </div>
+            </div>
+            <!-- floor -->
+            <div class="field_container">
+                <div class="field_title" data-field="floor">floor</div>
+                <div class="field_value" data-container="floor">
+                    <input type="number" data-field="floor">
+                </div>
+            </div>
+            <!-- totalFloor -->
+            <div class="field_container">
+                <div class="field_title" data-field="totalFloor">totalFloor</div>
+                <div class="field_value" data-container="totalFloor">
+                    <input type="number" data-field="totalFloor">
+                </div>
+            </div>
+            <!-- roomType -->
+            <div class="field_container">
+                <div class="field_title" data-field="roomType">roomType</div>
+                <div class="field_value" data-container="roomType">
+                    <input type="text" data-field="roomType">
+                </div>
+            </div>
+            <!-- only -->
+            <div class="field_container">
+                <div class="field_title" data-field="only">only</div>
+                <div class="field_value" data-container="only">
+                    <div class="field_map">
+                        <div class="field_map_add" data-field="only">+</div>
+                        <div class="field_map_del" data-field="only">-</div>
+                    </div>
+                    <input type="text" data-field="only">
+                </div>
+            </div>
+            <!-- images -->
+            <div class="field_container">
+                <div class="field_title" data-field="images">images</div>
+                <div class="field_value" data-container="images">
+                    <input type="file" data-field="images">
+                </div>
+            </div>
+            <!-- pic -->
+            <div class="field_container">
+                <div class="field_title" data-field="pic">pic</div>
+                <div class="field_value" data-container="pic">
+                    <input type="radio" name="pic" data-field="pic" value="true"> true
+                    <input type="radio" name="pic" data-field="pic" value="false"> false
+                </div>
+            </div>
+            <!-- url -->
+            <div class="field_container">
+                <div class="field_title" data-field="url">url</div>
+                <div class="field_value" data-container="url">
+                    <input type="text" data-field="url">
+                </div>
+            </div>
+            <!-- contact -->
+            <div class="field_container">
+                <div class="field_title" data-field="contact">contact</div>
+                <div class="field_value" data-container="contact">
+                    <input type="text" data-field="contact">
+                </div>
+            </div>
+            <!-- openkakao -->
+            <div class="field_container">
+                <div class="field_title" data-field="openkakao">openkakao</div>
+                <div class="field_value" data-container="openkakao">
+                    <input type="text" data-field="openkakao">
+                </div>
+            </div>
+            <div class="update_footer">
+                <div class="update_confirm"><i class="xi-check-circle-o"></i>업데이트</div>
+                <div class="update_delete"><i class="xi-close-circle-o"></i>삭제</div>
+            </div>
+        </div>
+        <div class="update_loading"><i class="xi-spinner-5 xi-spin"></i></div>
     </div>
 
     <div id="loading_container">
@@ -98,13 +323,17 @@
     <script>
         var loading = document.querySelector('#loading_container');
         var select = document.querySelector('#univ_select');
-        var reloadBtn = document.getElementById('reload')
-        var addBtn = document.getElementById('add')
-        
+        var reloadBtn = document.getElementById('reload');
+        var addBtn = document.getElementById('add');
+        var updateLoading = document.querySelector('.update_loading');
+        var fieldTitle = document.querySelectorAll('.field_title');
+
         var showLoading = () => { loading.style.display = 'initial' };
         var hideLoading = () => { loading.style.display = 'none' };
+        var showUpdateLoading = () => { updateLoading.style.display = 'flex' };
+        var hideUpdateLoading = () => { updateLoading.style.display = 'none' };
         var loadData = (univ) => {
-            if(univ === "") return;
+            if (univ === "") return;
             document.querySelector('#article').innerHTML = '';
             var container = document.getElementById('article');
             var hot;
@@ -115,73 +344,73 @@
             };
             showLoading();
             firebase.firestore().collection(`article/live/${univ}`).orderBy('createdAt', 'desc').get()
-            .then(docs => {
-                let data = [];
-                docs.forEach(doc => {
-                    let d = doc.data();
-                    data.push({
-                        ...d,
-                        id: doc.id,
-                        createdAt: d.createdAt ? d.createdAt.toDate().toLocaleDateString() : null,
-                        startDate: d.startDate ? d.startDate.toDate().toLocaleDateString() : null,
-                        endDate: d.endDate ? d.endDate.toDate().toLocaleDateString() : null,
-                        dateKeywords: d.dateKeywords ? Object.keys(d.dateKeywords).join(',') : null, 
-                        locationL: d.locationL ? Object.keys(d.locationL).join(',') : null,
-                        locationS: d.locationS ? Object.keys(d.locationS).join(',') : null,
-                        keywords: d.keywords ? Object.keys(d.keywords).join(',') : null,
-                        discountKeywords: d.discountKeywords ? Object.keys(d.discountKeywords).join(',') : null,
-                        only: d.only ? Object.keys(d.only).join(',') : null,
-                        images: d.images ? d.images.length : null,
+                .then(docs => {
+                    let data = [];
+                    docs.forEach(doc => {
+                        let d = doc.data();
+                        data.push({
+                            ...d,
+                            id: doc.id,
+                            createdAt: d.createdAt ? d.createdAt.toDate().toLocaleDateString() : null,
+                            startDate: d.startDate ? d.startDate.toDate().toLocaleDateString() : null,
+                            endDate: d.endDate ? d.endDate.toDate().toLocaleDateString() : null,
+                            dateKeywords: d.dateKeywords ? Object.keys(d.dateKeywords).join(',') : null,
+                            locationL: d.locationL ? Object.keys(d.locationL).join(',') : null,
+                            locationS: d.locationS ? Object.keys(d.locationS).join(',') : null,
+                            keywords: d.keywords ? Object.keys(d.keywords).join(',') : null,
+                            discountKeywords: d.discountKeywords ? Object.keys(d.discountKeywords).join(',') : null,
+                            only: d.only ? Object.keys(d.only).join(',') : null,
+                            images: d.images ? d.images.length : null,
+                        });
                     });
-                });
-                return data;
-            })
-            .then(data => {
-                hot = new Handsontable(container, {
-                    data: data,
-                    rowHeaders: true,
-                    colHeaders: ['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '건물층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오'],
-                    columns : [
-                        {data: 'id'},
-                        {data: 'urlType'},
-                        {data: 'createdAt'},
-                        {data: 'views'},
-                        {data: 'display'},
-                        {data: 'done'},
-                        {data: 'title', renderer: textRenderer},
-                        {data: 'reason'},
-                        {data: 'tradeType'},
-                        {data: 'text', renderer: textRenderer},
-                        {data: 'startDate'},
-                        {data: 'endDate'},
-                        {data: 'dateKeywords'},
-                        {data: 'locationL'},
-                        {data: 'locationS'},
-                        {data: 'price'},
-                        {data: 'deposit'},
-                        {data: 'expense'},
-                        {data: 'discountKeywords'},
-                        {data: 'keywords'},
-                        {data: 'floor'},
-                        {data: 'totalFloor'},
-                        {data: 'roomType'},
-                        {data: 'only'},   
-                        {data: 'pic'},
-                        {data: 'images'},
-                        {data: 'url', renderer: textRenderer},
-                        {data: 'contact'},
-                        {data: 'openkakao'},
-                    ],
-                    columnSorting: true,
-                    filters: true,
-                    dropdownMenu: true,
-                    afterSelection: function(){ checkSelection(arguments, hot) },
-                    language: 'ko-KR',
-                    licenseKey: 'non-commercial-and-evaluation',
-                });
-            })
-            .then(() => hideLoading())
-            .catch(err => console.log(err));
+                    return data;
+                })
+                .then(data => {
+                    hot = new Handsontable(container, {
+                        data: data,
+                        rowHeaders: true,
+                        colHeaders: ['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '건물층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오'],
+                        columns: [
+                            { data: 'id', renderer: textRenderer },
+                            { data: 'urlType' },
+                            { data: 'createdAt' },
+                            { data: 'views' },
+                            { data: 'display' },
+                            { data: 'done' },
+                            { data: 'title', renderer: textRenderer },
+                            { data: 'reason' },
+                            { data: 'tradeType' },
+                            { data: 'text', renderer: textRenderer },
+                            { data: 'startDate' },
+                            { data: 'endDate' },
+                            { data: 'dateKeywords' },
+                            { data: 'locationL' },
+                            { data: 'locationS' },
+                            { data: 'price' },
+                            { data: 'deposit' },
+                            { data: 'expense' },
+                            { data: 'discountKeywords' },
+                            { data: 'keywords' },
+                            { data: 'floor' },
+                            { data: 'totalFloor' },
+                            { data: 'roomType' },
+                            { data: 'only' },
+                            { data: 'pic' },
+                            { data: 'images' },
+                            { data: 'url', renderer: textRenderer },
+                            { data: 'contact' },
+                            { data: 'openkakao' },
+                        ],
+                        columnSorting: true,
+                        filters: true,
+                        dropdownMenu: true,
+                        afterSelection: function () { selectionCallback(arguments, hot) },
+                        language: 'ko-KR',
+                        licenseKey: 'non-commercial-and-evaluation',
+                    });
+                })
+                .then(() => hideLoading())
+                .catch(err => console.log(err));
         }
         var reloadData = () => { loadData(select.value) };
         var addEmptyArticle = () => {
@@ -227,19 +456,103 @@
                 window.alert("위치를 먼저 선택해주세요.");
             }
         }
-        var checkSelection = (data, hot) => {
+        var selectionCallback = (data, hot) => {
+            //  check selection
             if (data[3] !== 28 || data[0] !== data[2]) return;
             let id = hot.getCell(data[0], data[1]).innerText;
             openUpdateBox(id);
         }
         var openUpdateBox = (id) => {
+            // 일단 닫혀있으면 연다
             let box = document.querySelector('.update_container');
-            document.querySelector('.update_content').innerText = id;
             if (!box.classList.contains('update_open')) box.classList.add('update_open');
+            
+            // 로딩 이미지 켜준다
+            showUpdateLoading();
+            
+            // id, 매물 데이터를 가져온다 
+            document.querySelector('.id_container').innerText = id;
+            firebase.firestore().doc(`article/live/${select.value}/${id}`).get()
+            .then(doc => {
+                return parseDoc(doc.data()); // DB에서 가져온 데이터 파싱
+            })
+            .then(() => {
+                hideUpdateLoading(); // 로딩창 숨기기
+            })
+            .catch(err => {
+                console.log(err);
+                window.alert(err.message);
+            })
         }
         var closeUpdateBox = () => {
             document.querySelector('.update_container').classList.remove('update_open');
         }
+        var parseDoc = (data) => {
+            // html 초기화
+
+            // 데이터 파싱 후 렌더
+            for (i in data) {
+                let type  = typeof(data[i]);
+                if (data[i] === null) { // null
+                    document.querySelector(`.field_title[data-field="${i}"]`).classList.add('null');
+                    document.querySelector(`.field_value[data-container="${i}"]`).classList.add('null');
+                }
+                else if (type === 'string') // string
+                    document.querySelector(`input[data-field="${i}"]`).value = data[i];
+                else if (type === 'number') // number
+                    document.querySelector(`input[data-field="${i}"]`).value = parseFloat(data[i]);
+                else if (type === 'boolean') { // boolean
+                    if (data[i]) document.querySelector(`input[data-field="${i}"][value="true"]`).checked = true;
+                    else document.querySelector(`input[data-field="${i}"][value="false"]`).checked = true;
+                }
+                else if (Array.isArray(data[i])) { // array
+                    // 기존의 input 전부 삭제
+                    document.querySelectorAll(`input[type="text"][data-field="${i}"]`).forEach(i => i.remove()); 
+                    // 새 input 추가
+                    for (img of data[i]) {
+                        document.querySelector(`.field_value[data-container="${i}"]`)
+                            .innerHTML += `<input type="text" data-field="${i}" value="${img}">`
+                    };
+                }
+                else if (type === 'object') { // object
+                    if (data[i].toDate) { // date 객체
+                        let d = data[i].toDate();
+                        document.querySelector(`input[data-field="${i}"]`).value = formatDate(d);
+                    }
+                    else { // map 객체 (object)
+                        // 기존의 input 전부 삭제
+                        document.querySelectorAll(`input[type="text"][data-field="${i}"]`).forEach(i => i.remove()); 
+                        // 새 input 추가
+                        Object.keys(data[i]).forEach(key => {
+                            document.querySelector(`.field_value[data-container="${i}"]`)
+                                .innerHTML += `<input type="text" data-field="${i}" value="${key}">`
+                        });
+                    }
+                }
+            }
+        }
+        var toggleNull = function() {
+            let fieldValue = document.querySelector(`.field_value[data-container="${this.dataset.field}"]`); 
+            if (this.classList.toggle('null')) 
+                fieldValue.classList.add('null');
+            else
+                fieldValue.classList.remove('null');
+        }
+        var formatDate = (date) => {
+            var d = date,
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) 
+                month = '0' + month;
+            if (day.length < 2) 
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
+        fieldTitle.forEach(i => i.addEventListener('click', toggleNull));
         reloadBtn.addEventListener('click', reloadData);
         addBtn.addEventListener('click', addEmptyArticle);
     </script>
