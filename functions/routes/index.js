@@ -3,8 +3,13 @@ const router = express.Router();
 const admin = require('firebase-admin');
 const createError = require('http-errors');
 const url = require('url');
+const http = require('http');
+const https = require('https');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const request = require('request-promise');
 const cors = require('cors')({
-    origin: true
+  origin: true
 });
 
 /* GET home page. */
@@ -34,15 +39,16 @@ router.get('/', (req, res, next) => {
   })
 });
 
-router.get('/getNew', (req, res) => {
-  let ref = admin.firestore().doc('article/live');
-  ref.getCollections().then(collections => {
-      let arr = [];
-      return collections.forEach(collection => {
-        return res.send(JSON.parse(getArticleList(collection)));
-      });
-  }).catch(error => console.log(error)); 
-  res.send('getNew OK');
+router.get('/master', (req, res) => {
+  return res.render('master');
+})
+
+router.get('/master2', (req, res) => {
+  return res.render('master2');
+})
+
+router.get('/masterLogin', (req, res) => {
+  return res.render('masterLogin');
 })
 
 async function getArticleList(collection) {

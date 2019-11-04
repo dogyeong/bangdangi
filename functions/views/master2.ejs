@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
     <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/ko-KR.js"></script>
+    
 </head>
 
 <body>
@@ -463,7 +464,7 @@
                     views: 0,
                 })
                     .then(docRef => {
-                        return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.univ}/${docRef.id}` });
+                        return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.value}/${docRef.id}` });
                     })
                     .then(() => {
                         reloadData();
@@ -495,7 +496,7 @@
         var selectionCallback = (data, hot) => {
             //  check selection
             if (data[3] !== 28 || data[0] !== data[2]) return;
-            let id = hot.getCell(data[0], data[1]).innerText;
+            let id = hot.getDataAtRow(data[0])[0];
             openUpdateBox(id);
         }
         var openUpdateBox = (id) => {
@@ -734,13 +735,37 @@
                 window.alert(err.message);
             })
         }
+        var deleteData = () => {
+            showUpdateLoading();
+            let univ = select.value;
+            let id = document.querySelector('.id_container').innerText;
+            firebase.firestore().doc(`article/live/${univ}/${id}`).delete()
+            .then(() => {
+                hideUpdateLoading();
+                closeUpdateBox();
+                reloadData();
+            })
+            .catch(err => {
+                console.log(err);
+                window.alert(err.message);
+            })
+        }
 
         fieldTitle.forEach(i => i.addEventListener('click', toggleNull));
         reloadBtn.addEventListener('click', reloadData);
         addBtn.addEventListener('click', addEmptyArticle);
         downloadBtn.addEventListener('click', exportCSV);
         updateBtn.addEventListener('click', updateData);
+        deleteBtn.addEventListener('click', deleteData);
     </script>
 </body>
-
+    <script>
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log(user);
+            } else {
+                window.location.href = 'http://bangdangi.web.app/masterLogin';
+            }
+        });
+    </script>
 </html>

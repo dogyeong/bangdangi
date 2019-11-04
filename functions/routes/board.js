@@ -174,7 +174,9 @@ router.get('/create', (req, res, next) => {
     // 세션 쿠키 받기
     var sessionCookie = req.cookies.__session || '';
     // 학교 받기
-    var univ = req.query.univ;
+    var univ = req.query.univ || '';
+    // 학교 검사
+    if(univ === '') res.redirect('../user/login'); 
 
     // 세션쿠키 검사
     return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
@@ -190,16 +192,16 @@ router.get('/create', (req, res, next) => {
 
 router.post('/create_process', (req, res, next) => {
     var db = admin.firestore();
-    var title = req.body.title;
-    var text = req.body.text;
-    var tradeType = req.body.tradeType;
-    var price = parseFloat(req.body.price);
-    var deposit = parseFloat(req.body.deposit);
-    var expense = parseFloat(req.body.expense);
-    var contact = (req.body.contact);
-    var roomType = req.body.roomType;
-    var totalFloor = parseFloat(req.body.totalFloor);
-    var floor = parseFloat(req.body.floor);
+    var title = req.body.title || null;
+    var text = req.body.text || null;
+    var tradeType = req.body.tradeType || null;
+    var price = parseFloat(req.body.price) || null;
+    var deposit = parseFloat(req.body.deposit) || null;
+    var expense = parseFloat(req.body.expense) || null;
+    var contact = req.body.contact || null;
+    var roomType = req.body.roomType || null;
+    var totalFloor = parseFloat(req.body.totalFloor) || null;
+    var floor = parseFloat(req.body.floor) || null;
     var univ = req.body.univ;
     var sessionCookie = req.cookies.__session || '';
 
@@ -210,7 +212,7 @@ router.post('/create_process', (req, res, next) => {
             return db.collection(`article/live/${univ}`)
             .add({
                 createdAt: new Date(), 
-                weiter: decodedClaims.uid,
+                writer: decodedClaims.uid,
                 title,
                 text,
                 tradeType,
@@ -232,10 +234,10 @@ router.post('/create_process', (req, res, next) => {
                 endDate: null,
             })
         })
-        .then(async (ref) => {
+        .then(async ref => {
                 await db.doc(`article/live/${univ}/${ref.id}`).update({ url: `https://bangdangi.web.app/board/read/${univ}/${ref.id}` });
-                return res.redirect(`/read/${univ}/${ref.id}`);
-         })
+                return res.redirect(`/board/read/${univ}/${ref.id}`);
+        })
         .catch((error) => {
             console.log(error);
             // 유효하지 않으면 로그인 페이지 렌더링

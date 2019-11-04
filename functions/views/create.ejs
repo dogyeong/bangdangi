@@ -76,12 +76,14 @@
                     <%= (univ==='uos') ? '서울시립대학교' : '' %>
                     <%= (univ==='skku') ? '성균관대학교' : '' %> 
                   -->
-            <%= (univ==='dongdaemun') ? '경희대/한국외국어대학교' : '' %>
+            <%= (univ==='dongdaemun') ? '동대문구' : '' %>
+            <%= (univ==='mafo') ? '마포구' : '' %>
             <%= (univ==='hanyang') ? '한양대학교' : '' %>
             <%= (univ==='cnu') ? '충남대학교' : '' %>
             <%= (univ==='pnu') ? '부산대학교' : '' %>
             <%= (univ==='pknu') ? '부경대/경성대학교' : '' %>
           </div>
+          <input type="hidden" name="univ" value="<%=univ%>"> 
           <div class="title">
             <input class="text_input_full" name="title" type="text" placeholder="제목" required>
           </div>

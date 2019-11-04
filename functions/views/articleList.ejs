@@ -38,10 +38,10 @@
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END --> 
     <title>방단기</title>
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel=stylesheet type="text/css" href="/css/style.css"/>
-    <link rel=stylesheet type="text/css" href="/css/headerBar.css"/>
+    <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../img/favicon.ico" type="image/x-icon">
+    <link rel=stylesheet type="text/css" href="../../css/style.css"/>
+    <link rel=stylesheet type="text/css" href="../../css/headerBar.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   </head>
   <body>
@@ -53,7 +53,7 @@
     <header>
       <div id="header_inner">
         <a class="header_logo" href="https://bangdangi.web.app/">
-          <img src="/img/bangdangi_logo_2.png">
+          <img src="../../img/bangdangi_logo_2.png">
         </a>
         <ul class="nav">
           <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물알림신청</a></li>
@@ -69,8 +69,8 @@
           <optgroup label="서울">
             <!-- <option value="cuk" <%= (univ==='cuk') ? 'selected' : '' %>>카톨릭대학교</option>
             <option value="skku" <%= (univ==='skku') ? 'selected' : '' %>>성균관대학교</option> -->
-            <option value="mafo" <%= (univ==='mafo') ? 'selected' : '' %>>연세대/이화여대/홍익대학교</option>
-            <option value="dongdaemun" <%= (univ==='dongdaemun') ? 'selected' : '' %>>한국외대/경희대/서울시립대학교</option>
+            <option value="mafo" <%= (univ==='mafo') ? 'selected' : '' %>>마포구(연세대/이대/홍대)</option>
+            <option value="dongdaemun" <%= (univ==='dongdaemun') ? 'selected' : '' %>>동대문구(외대/경희대/시립대)</option>
             <option value="hanyang" <%= (univ==='hanyang') ? 'selected' : '' %>>한양대학교</option>
           </optgroup>
           <optgroup label="대전">
@@ -86,7 +86,7 @@
 
     <div id="lower">
       <div id="hashtag_container">
-        <form action="https://bangdangi.web.app/board/list/<%=univ%>/" method="get">
+        <form action="https://bangdangi.web.app/board/list/<%=univ%>" method="get">
           <div class="hashtag_title">장소 키워드</div>
           <div class="hashtag_list">
               <% for (i of keywords.locationKeywords) { %>
@@ -120,15 +120,15 @@
                             <div class="list_upper_l">
                                 <div class="icon_container">
                                     <% if (room.urlType === 'mypnu') { %>
-                                        <img src='/img/mypnu_logo.png' style="width:40px;">
+                                        <img src='../../img/mypnu_logo.png' style="width:40px;">
                                     <% } else if (room.urlType === 'everytime') { %>
-                                        <img src="/img/everytime_logo.png" style="width:27px;">
+                                        <img src="../../img/everytime_logo.png" style="width:27px;">
                                     <% } else if (room.urlType === 'peterpanz') { %>
-                                        <img src='/img/peterpanz_logo.png' style="width:35px;">
+                                        <img src='../../img/peterpanz_logo.png' style="width:35px;">
                                     <% } else if (room.urlType === 'dabang') { %>
-                                        <img src='/img/dabang_logo.png' style="width:65px;">
+                                        <img src='../../img/dabang_logo.png' style="width:65px;">
                                     <% } else { %>
-                                        <img src='/img/bangdangi_logo_2.png' style="width:40px;">
+                                        <img src='../../img/bangdangi_logo_2.png' style="width:40px;">
                                     <% } %>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@
                         </div>
                     </div>
                     <div class="list_right">
-                    <div><img src="/img/arrow.png"></div>
+                    <div><img src="../../img/arrow.png"></div>
                     </div>
                 </div>
             </a>
