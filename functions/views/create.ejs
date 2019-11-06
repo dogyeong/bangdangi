@@ -78,7 +78,7 @@
                   -->
             <%= (univ==='dongdaemun') ? '동대문구' : '' %>
             <%= (univ==='mafo') ? '마포구' : '' %>
-            <%= (univ==='hanyang') ? '한양대학교' : '' %>
+            <%= (univ==='seongdong') ? '한양대학교' : '' %>
             <%= (univ==='cnu') ? '충남대학교' : '' %>
             <%= (univ==='pnu') ? '부산대학교' : '' %>
             <%= (univ==='pknu') ? '부경대/경성대학교' : '' %>
@@ -99,11 +99,9 @@
               <div class="container_toggle_btn"><i class="xi-angle-down-min"></i></div>
             </div>
             <div class="select_input_container toggle hidden" data-field="locationL">
-              <span><input type="checkbox" name="locationL" value="L_a"> L_a</span>
-              <span><input type="checkbox" name="locationL" value="L_b"> L_b</span>
-              <span><input type="checkbox" name="locationL" value="L_c"> L_c</span>
-              <span><input type="checkbox" name="locationL" value="L_d"> L_d</span>
-              <span><input type="checkbox" name="locationL" value="L_e"> L_e</span>
+              <% for (i of keywords) { %>
+                <span><input type="checkbox" name="locationL" value="<%=i%>"> <%=i%></span>
+              <% } %>
             </div>
           </div>
           <!-- 건물 상세위치 -->    

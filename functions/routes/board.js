@@ -78,17 +78,18 @@ router.get('/list/:univ', (req, res, next) => {
         return null;
     })
     .then(() => {
-        if (resultArr !== []) { // 결과 존재
+        if (resultArr.length > 0) { // 결과 존재
             var roomList = resultArr.map((doc) => doc.data());
             roomList.sort((a,b) => {
                 return b.createdAt.toMillis() - a.createdAt.toMillis();
             });
-            return res.render('articleList', { roomList, keywords, univ, selectedLocation, selectedDate, err });
         }
         else { // 결과 없음
-            err = '결과가 존재하지 않습니다.';
-            return res.render('articleList', { keywords, univ, selectedLocation, selectedDate, err });
+            roomList = resultArr;
+            err = '매물이 존재하지 않습니다';
+            console.log(roomList);
         }    
+        return res.render('articleList', { roomList, keywords, univ, selectedLocation, selectedDate, err });
     })
     .catch(err => {
         console.log(err);
@@ -171,18 +172,25 @@ function viewIncrement(docRef) {
 }
 
 router.get('/create', (req, res, next) => {
+    console.log(req.query.referrer);
     // 세션 쿠키 받기
     var sessionCookie = req.cookies.__session || '';
     // 학교 받기
     var univ = req.query.univ || '';
     // 학교 검사
-    if(univ === '') res.redirect('../user/login'); 
+    if(univ === '') res.redirect('../user/login?referrer=board/create'); 
 
-    // 세션쿠키 검사
-    return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
-        .then((decodedClaims) => {
+    // 키워드 받기
+    var keywords = [];
+    return admin.firestore().doc(`article/keywords/${univ}/locationKeywords`).get()
+        .then(doc => {
+            keywords = doc.data().keywords;
+            // 세션쿠키 검사
+            return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
+        })
+        .then(decodedClaims => {
             // 유효한 세션이면 매물등록 페이지 렌더링
-            return res.render('create', { uid: decodedClaims.uid, univ });
+            return res.render('create', { uid: decodedClaims.uid, univ, keywords });
         }).catch((error) => {
             console.log(error);
             // 유효하지 않으면 로그인 페이지 렌더링

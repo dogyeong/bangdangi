@@ -24,9 +24,12 @@
     * main block
     */
     .mainBlock {
-      height: calc(100% - 58px);
-      position: relative;
-      width: 100%;
+        height: calc(100% - 58px);
+        position: relative;
+        width: 100%;
+        background: url(../img/main_bg.jpg) center center / cover no-repeat;
+        background-color: darkgrey;
+        background-blend-mode: multiply;
     } 
     .mainBlockContainer {
       position: absolute;
@@ -45,23 +48,28 @@
         justify-content: space-between;
     }
     .mainCopy {
-      
+        color: #fff;
+        font-size: 18px;
+        font-weight: 300;
+        text-shadow: 4px 0px 9px rgba(58,62,49,.65);
     }
     .mainCopy > h1 {
-      margin: 0 0 28px;
-      font-size: 40px;
-      font-weight: 300;
-      line-height: 1.36;
-      color: #3b3b46;
+        margin: 0 0 28px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 1.36;
+        /* color: #3b3b46; */
+        color: #fff;
     }
 
     /* university select */
     #univ_form {
-      position: relative;
-      width: 360px;
-      height: 47px;
-      border: 3px solid #0AB9F1; /* 테두리 설정 */ 
-      z-index: 1;
+        position: relative;
+        width: 360px;
+        height: 47px;
+        border: 3px solid #0AB9F1;
+        z-index: 1;
+        background-color: rgba(240,240,240,0.85);
     }
     #univ_form:before { /* 화살표 대체 */ 
         content: ""; 
@@ -170,7 +178,7 @@
         height: 180px;
         border-top-right-radius: 5px;
         border-top-left-radius: 5px;
-        
+        background-color: #ebeef1;
     }
     .b1_item_text {
         width: 100%;
@@ -186,6 +194,11 @@
         overflow: hidden;
     }
     @media screen and (max-width: 600px) { 
+        .subBlock_container {
+            width: 100%;
+            margin: 0;
+            padding: 0 8px;
+        }
         .subBlock {
             padding: 180px 0;
         }

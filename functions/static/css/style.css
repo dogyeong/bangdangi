@@ -160,22 +160,49 @@
     @media screen and (max-width: 600px) {
       #lower {
         margin-top: 108px;
-        padding: 0;
+        padding-top: 0;
         border: none;
       }
     }
 
     /* main + roomList */
-    div#err {
+    .error_container {
+      margin: auto;
+      padding: 60px 0;
+      width: 100%;
+      max-width: 600px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 200px;
-      background: rgba(0,0,0,0.02);
-      color: #333;
-      font-size: 14px;
-      max-width: 500px;
+      background-color: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      font-size: 18px;
+      color: #555;
+      letter-spacing: -0.4px;
+    }
+    .request_container {
       margin: auto;
+      padding: 20px 20px;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-top: none;
+      font-size: 15px;
+      color: #777;
+      text-align: center;
+    }
+    .request_container > a {
+      margin-top: 12px;
+      padding: 8px 8px;
+      display: block;
+      text-decoration: underline;
+      font-weight: 400;
     }
     div#main {
       margin: auto;
