@@ -17,11 +17,11 @@ router.get('/', (req, res, next) => {
   var db = admin.firestore();
   // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
   Promise.all([
-    db.collection('article/live/cnu').where('display', '==', true).where('done', '==', false)
-    .orderBy('createdAt', 'desc').limit(1).get(),
     db.collection('article/live/dongdaemun').where('display', '==', true).where('done', '==', false)
     .orderBy('createdAt', 'desc').limit(1).get(),
     db.collection('article/live/mafo').where('display', '==', true).where('done', '==', false)
+    .orderBy('createdAt', 'desc').limit(1).get(),
+    db.collection('article/live/cnu').where('display', '==', true).where('done', '==', false)
     .orderBy('createdAt', 'desc').limit(1).get()
   ])
   .then(result => {

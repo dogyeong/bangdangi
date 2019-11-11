@@ -301,10 +301,11 @@ header a {
     max-width: 800px;
     display: flex;
     margin: auto;
+    margin-top: 40px;
 }
 .cancel_btn {
     margin: auto;
-    color: #fff;
+    color: #333;
     height: 60px;
     font-size: 18px;
     font-weight: 400;
@@ -313,62 +314,58 @@ header a {
     align-items: center;
     text-decoration: none;
     flex: 2;
-    background-color: #A0A7B4;
+    background-color: #fff;
     border: 1px solid rgba(0,0,0,0.1);
     box-sizing: border-box;
 }
-.contact_mobile {
-    display: none;
-    text-align: center;
-    text-decoration: none;
-    color: #444;
-    font-weight: 400;
-    margin-top: 24px;
-    padding: 16px 10px;
-    border-radius: 4px;
-    font-size: 15px;
-}
-.contact_kakao {
-    background-color: #ffe812;
-}
-.contact_phone {
-    background-color: #fff;
-    border: 2px solid #26cf12;
-}
-.contact_btn {
+.contact_btn_container {
     margin: auto;
-    background-color: #0ab9f1;
     color: white;
     height: 60px;
     font-size: 18px;
     font-weight: 400;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
     flex: 3;
     margin-left: 8px;
-    border: 1px solid rgba(0,0,0,0.1);
     box-sizing: border-box;
     cursor: pointer;
 }
+
+.contact_kakao {
+    background-color: #ffe812;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+.contact_call, .contact_sms {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: #0AB9F1;
+    color: #fff
+}
+.contact_call {
+    margin-right: 2px;
+}
+
 @media screen and (max-width: 600px) {
-    .contact_container {
+    .cancel_btn {
         position: fixed;
         bottom: 0;
+        left: 0;
         z-index: 999;
-    }
-    .contact_btn {
-        display: none;
-    }
-    .contact_mobile {
-        display: block;
-        margin-top: 40px;
-    }
-    .cancel_btn {
         margin: 0;
-        border: none;
-        background-color: #0ab9f1;
         height: 80px;
+        width: 100%;
+    }
+    .contact_btn_container {
+        font-size: 16px;
+        height: 48px;
+        margin: 0;
     }
 }
 

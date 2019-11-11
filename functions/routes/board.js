@@ -112,15 +112,10 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         if (doc.exists) {   
             // 문서 존재함
             data = doc.data();
-            if (data.done !== true || ignoreDone !== undefined) { 
-                // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
-                // 카카오톡 공유하기 했을 때 공유될 정보
-                let title = data.title || '방단기에 좋은 방이 있어요!';
-                let description = `${data.locationL ? Object.keys(data.locationL).join(' ') : ''} ${data.locationS ? Object.keys(data.locationS).join(' ') : ''} ${data.deposit || '문의'}/${data.price || '문의'}`;
-                let imageUrl = data.images ? data.images[0] : 'https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/kakao_share.jpg?alt=media&token=248d577e-16c5-4e74-a64f-2e2413032421';
-                let link = data.url || 'https://bangdangi.web.app';
-                kakao = { title, description, imageUrl, link };
-
+            if (data.done !== true || ignoreDone !== undefined) { // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
+                // 카카오톡 공유하기 했을 때 공유될 정보 저장
+                kakao = getKaKaoShareObject(data);
+                // 최신 매물을 4개 가져온다
                 return db.collection(`article/live/${univ}`)
                     .where('display', '==', true).where('done', '==', false)
                     .orderBy('createdAt', 'desc').limit(4).get();
@@ -136,21 +131,15 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         }
     })
     .then((docs) => {
+        // 가져온 최신 매물 4개 중에 현재 조회할 매물이 포함되있으면 제거한다
         let filtered = docs.docs.filter(doc => doc.id !== articleNo);
         if (filtered.length === 4) filtered.pop();
-        filtered.forEach(doc => {
-            let d = doc.data();
-            related.push({
-                'url': `${d.url}`,
-                'img': `${d.images ? d.images[0] : ''}`,
-                'line1': `${d.dateKeywords ? Object.keys(d.dateKeywords)[0] : ''} ${d.locationL ? Object.keys(d.locationL).join(' '): ''}`,
-                'line2': `${d.deposit ? '보'+d.deposit : ''} ${d.price ? '월'+d.price : ''}`,
-            });
-        });
+        // 관련매물 정보를 배열에 담아 저장한다
+        related = getRelatedArray(filtered);
+        // 조회수 1 증가
        return viewIncrement(docRef);
     })
     .then((newViews) => {
-        console.log("views: " + newViews);
         return res.render('articleDetail', { univ, articleNo, data, kakao, related });
     })
     .catch((err) => {
@@ -158,6 +147,27 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         return next(createError(500));
     })
 });
+
+getRelatedArray = (arr) => {
+    let resultArray = arr.map(doc => {
+        let d = doc.data();
+        return {
+            'url': `${d.url}`,
+            'img': `${d.images ? d.images[0] : ''}`,
+            'line1': `${d.dateKeywords ? Object.keys(d.dateKeywords)[0] : ''} ${d.locationL ? Object.keys(d.locationL).join(' '): ''}`,
+            'line2': `${d.deposit ? '보'+d.deposit : ''} ${d.price ? '월'+d.price : ''}`,
+        };
+    });
+    return resultArray;
+}
+
+getKaKaoShareObject = (data) => {
+    let title = data.title || '방단기에 좋은 방이 있어요!';
+    let description = `${data.locationL ? Object.keys(data.locationL).join(' ') : ''} ${data.locationS ? Object.keys(data.locationS).join(' ') : ''} ${data.deposit || '문의'}/${data.price || '문의'}`;
+    let imageUrl = data.images ? data.images[0] : 'https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/kakao_share.jpg?alt=media&token=248d577e-16c5-4e74-a64f-2e2413032421';
+    let link = data.url || 'https://bangdangi.web.app';
+    return { title, description, imageUrl, link };
+}
 
 function viewIncrement(docRef) {
     return admin.firestore().runTransaction((transaction) => {
@@ -208,7 +218,6 @@ router.post('/create_process', (req, res, next) => {
     var expense = parseFloat(req.body.expense) || null;
     var contact = req.body.contact || null;
     var roomType = req.body.roomType || null;
-    var totalFloor = parseFloat(req.body.totalFloor) || null;
     var floor = parseFloat(req.body.floor) || null;
     var univ = req.body.univ;
     var sessionCookie = req.cookies.__session || '';
@@ -229,7 +238,6 @@ router.post('/create_process', (req, res, next) => {
                 expense,
                 contact,
                 roomType,
-                totalFloor,
                 floor,
                 urlType: 'bangdangi',
                 display: true,

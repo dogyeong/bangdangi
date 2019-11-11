@@ -131,6 +131,7 @@
                     <div class="info_title">매물정보</div>
                     <!-- 기본정보 영역 테이블 -->
                     <div class="info_table">
+                        <!-- 보증금 -->
                         <div class="row">
                             <div class="cell_title">가격</div>
                             <div class="cell_data">
@@ -138,6 +139,7 @@
                                 <span><%= data.price!==null ? data.price : '문의' %></span>
                             </div>
                         </div>
+                        <!-- 기간 -->
                         <div class="row">
                             <div class="cell_title">
                                 기간
@@ -159,50 +161,44 @@
                                 <% } %>
                             </div>
                         </div>
+                        <!-- 위치 -->
                         <div class="row">
                             <div class="cell_title">
                                 위치
                             </div>
                             <div class="cell_data">
-                                <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '') %>
+                                <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '문의') %>
                             </div>
                         </div>
+                        <!-- 관리비 -->
                         <div class="row">
                             <div class="cell_title">
                                 관리비
                             </div>
                             <div class="cell_data">
-                                <% if(data.expense !== null) { %>
-                                <%= data.expense %>만원
-                                <% }%>
+                                <%= data.expense === null ? '문의' : data.expense+'만원' %>
                             </div>
                         </div>
+                        <!-- 방 형태-->
                         <div class="row">
                             <div class="cell_title">
                                 방 형태
                             </div>
                             <div class="cell_data">
-                                <%= data.roomType || '' %>
+                                <%= data.roomType || '문의' %>
                             </div>
                         </div>
+                        <!-- 층수 -->
                         <div class="row">
                             <div class="cell_title">
-                                해당층
+                                층수
                             </div>
                             <div class="cell_data">
                                 <% if (data.floor === -1) { %>
                                 반지층
                                 <% } else { %>
-                                <%= data.floor!==null ? data.floor+'층' : '' %>
+                                <%= data.floor!==null ? data.floor+'층' : '문의' %>
                                 <% } %>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="cell_title">
-                                전체층
-                            </div>
-                            <div class="cell_data">
-                                <%= data.totalFloor===null ? '' : data.totalFloor+'층' %>
                             </div>
                         </div>
                     </div>
@@ -214,32 +210,27 @@
         <div class="block2">
             <div class="detail_title">상세설명</div>
             <p class="detail_text"><%= data.text || '' %></p>
-            <!-- 모바일에서 연락하기 버튼 -->
-            <% if (data.contact && data.contact.length > 15) { %>
-            <a class="contact_mobile contact_kakao" data-contact="<%= data.contact || '' %>" href="javascript:;">
-                오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-            </a>
-            <% } else { %>
-            <a class="contact_mobile contact_phone" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
-                매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
-            </a>
-            <% } %>
-        </div>
-
-
-
-        <!-- 연락하기 버튼 블럭 -->
-        <div class="contact_container">
-            <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
-                <i class="xi-arrow-left"></i> &nbsp; 다른 단기 원룸 보러가기
-            </a>
-            <div class="contact_btn" data-contact="<%= data.contact || '' %>">
-                <% if (data.contact && data.contact.length > 15) { %>
-                오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-                <% } else { %>
-                매물 등록자와 연락하기 &nbsp;&nbsp; <i class="xi-call"></i>
-                <% } %>
+            <!-- 연락하기 버튼 블럭 START -->
+            <div class="contact_container">
+                <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
+                    <i class="xi-arrow-left"></i> &nbsp; 다른 단기 원룸 보러가기
+                </a>
+                <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
+                    <% if (data.contact && data.contact.length > 15) { %>
+                        <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
+                            오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+                        </a>
+                    <% } else { %>
+                        <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
+                            <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
+                        </a>
+                        <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
+                            <i class="xi-mail-o"></i> &nbsp;&nbsp; 문자 연락하기
+                        </a>
+                    <% } %>
+                </div>
             </div>
+            <!-- 연락하기 버튼 블럭 END -->
         </div>
 
         <!-- 관련 매물 블럭 -->
@@ -274,6 +265,8 @@
         </footer>
     </div>
 </body>
+
+<!-- 이미지 슬라이더, 연락하기 -->
 <script>
     var imageContainer = document.getElementsByClassName('image_container')[0];
     <% if (data.images !== null) { %>
@@ -306,23 +299,18 @@
         rightBtn.addEventListener('click', moveR);
     <% } %>
     
-    var contactBtn = document.getElementsByClassName('contact_btn')[0];
-    var contactBtnMobile = document.querySelector('.contact_mobile');
+    var contactBtn = document.querySelectorAll('.contact');
 
-    function contact() {
+    function contactCallback() {
         var contact = this.dataset.contact;
-        var reg = /^\d+$/;
-        var isValid = reg.test(contact);
-        if (isValid) {
-            window.location = `tel:${contact}`;
-        }
-        else {
-            window.open(contact);
-        }
-    }
+        var type = this.dataset.type;
 
-    contactBtn.addEventListener('click', contact);
-    contactBtnMobile.addEventListener('click', contact);
+        if (type === 'tel') window.location = `tel:${contact}`;
+        else if (type === 'sms') window.location = `sms:${contact}`;
+        else window.location = `${contact}`;
+    }
+    
+    contactBtn.forEach(i => i.addEventListener('click', contactCallback));
 </script>
 
 <!-- 공유하기 -->

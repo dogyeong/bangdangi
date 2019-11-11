@@ -73,9 +73,8 @@
       <select name="univ" id="univ_select">
         <option value="">학교를 선택해 주세요</option>
         <optgroup label="서울">
-          <!-- <option value="cuk" <%= (univ==='cuk') ? 'selected' : '' %>>카톨릭대학교</option>
-            <option value="skku" <%= (univ==='skku') ? 'selected' : '' %>>성균관대학교</option> -->
-          <option value="mafo" <%= (univ==='mafo') ? 'selected' : '' %>>마포구(연세대/이대/홍대)</option>
+          <option value="mafo" <%= (univ==='mafo') ? 'selected' : '' %>>마포구,서대문구(연세대/이대/홍대)</option>
+          <option value="gwanak" <%= (univ==='gwanak') ? 'selected' : '' %>>관악구(서울대)</option>
           <option value="dongdaemun" <%= (univ==='dongdaemun') ? 'selected' : '' %>>동대문구(외대/경희대/시립대)</option>
           <option value="seongdong" <%= (univ==='seongdong') ? 'selected' : '' %>>성동구(한양대)</option>
         </optgroup>
@@ -84,7 +83,6 @@
         </optgroup>
         <optgroup label="부산">
           <option value="pnu" <%= (univ==='pnu') ? 'selected' : '' %>>부산대학교</option>
-          <option value="pknu" <%= (univ==='pknu') ? 'selected' : '' %>>부경대/경성대학교</option>
         </optgroup>
       </select>
     </form>

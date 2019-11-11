@@ -28,7 +28,7 @@
         position: relative;
         width: 100%;
         background: url(../img/main_bg.jpg) center center / cover no-repeat;
-        background-color: darkgrey;
+        background-color: rgba(44, 40, 40, 0.45);
         background-blend-mode: multiply;
     } 
     .mainBlockContainer {
@@ -51,7 +51,7 @@
         color: #fff;
         font-size: 18px;
         font-weight: 300;
-        text-shadow: 4px 0px 9px rgba(58,62,49,.65);
+        text-shadow: 4px 0px 9px rgba(58,62,49,.35);
     }
     .mainCopy > h1 {
         margin: 0 0 28px;
