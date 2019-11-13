@@ -18,16 +18,23 @@ router.get('/', (req, res, next) => {
   // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
   Promise.all([
     db.collection('article/live/dongdaemun').where('display', '==', true).where('done', '==', false)
-    .orderBy('createdAt', 'desc').limit(1).get(),
+    .orderBy('createdAt', 'desc').limit(3).get(),
     db.collection('article/live/mafo').where('display', '==', true).where('done', '==', false)
-    .orderBy('createdAt', 'desc').limit(1).get(),
+    .orderBy('createdAt', 'desc').limit(3).get(),
     db.collection('article/live/cnu').where('display', '==', true).where('done', '==', false)
-    .orderBy('createdAt', 'desc').limit(1).get()
+    .orderBy('createdAt', 'desc').limit(3).get()
   ])
   .then(result => {
     // 들고온 매물들을 배열로 만들고
     let newArticleArr = result.reduce((res, cur) => {
-      if (!cur.empty) res.push(cur.docs[0].data());
+      if (!cur.empty) {
+        let arrHasImage = cur.docs.filter(doc => {
+          return doc.data().images
+        })
+        if (arrHasImage.length > 0) {
+          res.push(arrHasImage[0].data());
+        }
+      }
       return res;
     }, []);
     // index 렌더링할 때 넘겨준다
@@ -49,6 +56,10 @@ router.get('/master2', (req, res) => {
 
 router.get('/masterLogin', (req, res) => {
   return res.render('masterLogin');
+})
+
+router.get('/request', (req, res) => {
+  return res.render('request');
 })
 
 async function getArticleList(collection) {

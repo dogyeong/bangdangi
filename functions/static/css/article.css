@@ -361,11 +361,17 @@ header a {
         margin: 0;
         height: 80px;
         width: 100%;
+        background-color: #0AB9F1;
+        color: #fff;
     }
     .contact_btn_container {
         font-size: 16px;
         height: 48px;
         margin: 0;
+    }
+    .contact_call, .contact_sms {
+        color: #073e59;
+        background-color: rgba(8, 186, 241, 0.18);
     }
 }
 

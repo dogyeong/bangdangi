@@ -15,12 +15,12 @@
     </script>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || []; w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-TC8GC5C');</script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8">
@@ -217,16 +217,19 @@
                 </a>
                 <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
                     <% if (data.contact && data.contact.length > 15) { %>
-                        <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
-                            오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-                        </a>
+                    <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>"
+                        href="javascript:void(0);">
+                        오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+                    </a>
                     <% } else { %>
-                        <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
-                            <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
-                        </a>
-                        <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>" href="javascript:void(0);">
-                            <i class="xi-mail-o"></i> &nbsp;&nbsp; 문자 연락하기
-                        </a>
+                    <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>"
+                        href="javascript:void(0);">
+                        <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
+                    </a>
+                    <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
+                        href="javascript:void(0);">
+                        <i class="xi-mail-o"></i> &nbsp;&nbsp; 문자 연락하기
+                    </a>
                     <% } %>
                 </div>
             </div>
@@ -309,7 +312,7 @@
         else if (type === 'sms') window.location = `sms:${contact}`;
         else window.location = `${contact}`;
     }
-    
+
     contactBtn.forEach(i => i.addEventListener('click', contactCallback));
 </script>
 
@@ -403,4 +406,48 @@
     }
 
 </script>
+<!-- Channel Plugin Scripts -->
+<script>
+    (function () {
+        var w = window;
+        if (w.ChannelIO) {
+            return (window.console.error || window.console.log || function () { })('ChannelIO script included twice.');
+        }
+        var d = window.document;
+        var ch = function () {
+            ch.c(arguments);
+        };
+        ch.q = [];
+        ch.c = function (args) {
+            ch.q.push(args);
+        };
+        w.ChannelIO = ch;
+        function l() {
+            if (w.ChannelIOInitialized) {
+                return;
+            }
+            w.ChannelIOInitialized = true;
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+            s.charset = 'UTF-8';
+            var x = document.getElementsByTagName('script')[0];
+            x.parentNode.insertBefore(s, x);
+        }
+        if (document.readyState === 'complete') {
+            l();
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', l);
+        } else {
+            window.addEventListener('DOMContentLoaded', l, false);
+            window.addEventListener('load', l, false);
+        }
+    })();
+    ChannelIO('boot', {
+        "pluginKey": "5ce5e194-1fa1-4289-9d57-c84d88b225a0"
+    });
+</script>
+<!-- End Channel Plugin -->
+
 </html>

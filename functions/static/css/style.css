@@ -390,36 +390,34 @@
     }
     
 
-    /* noti_banner */
-    .noti_banner_container {
-      width: 100%;
-      text-decoration: none;
+    /* request 이런 방 구해요 광고 */
+    a.request_container {
+      padding: 28px 12px !important ; 
+    }
+    .request_title_container {
       display: flex;
-      position: fixed;
-      background-color: #0ab9f1;
-      height: 80px;
-      bottom: 0px;
-      transition: bottom 0.8s ease-in-out;
       justify-content: center;
       align-items: center;
-      color: white;
-      font-size: 14px;
     }
-    .noti_hidden {
-      bottom: -80px;
+    .request_title_image {
+      width: 32px;
+      display: flex;
     }
-    #noti_banner {
+    .request_title_image > img {
       width: 100%;
-      max-width: 500px;
-      padding-left: 28px;
     }
-    #noti_title {
-      font-size: 18px;
-      font-weight: 500;
-      margin-bottom: 2px;
+    .request_title {
+      font-size: 28px;
+      font-weight: 400;
+      margin-left: 12px;
+      letter-spacing: -.3px;
     }
-    #noti_close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+    .request_text_container {
+      margin-top: 8px;
+    }
+    .request_button_container {
+      margin-top: 8px;
+      font-size: 16px;
+      text-decoration: underline;
+      font-weight: 400;
     }

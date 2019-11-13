@@ -83,12 +83,15 @@ router.get('/list/:univ', (req, res, next) => {
             roomList.sort((a,b) => {
                 return b.createdAt.toMillis() - a.createdAt.toMillis();
             });
+            if (roomList.length > 4) {
+                roomList.splice(5, 0, { ad: true });
+            }
         }
         else { // 결과 없음
             roomList = resultArr;
             err = '매물이 존재하지 않습니다';
             console.log(roomList);
-        }    
+        }   
         return res.render('articleList', { roomList, keywords, univ, selectedLocation, selectedDate, err });
     })
     .catch(err => {

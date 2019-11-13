@@ -62,7 +62,7 @@
         <img src="../../img/bangdangi_logo_2.png">
       </a>
       <ul class="nav">
-        <li><a href="http://pf.kakao.com/_fCxjwT/chat">매물알림신청</a></li>
+        <li><a href="https://bangdangi.web.app/request">이런방구해요</a></li>
         <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물등록</a></li>
       </ul>
     </div>
@@ -118,86 +118,103 @@
     <!-- 매물이 없을때는 에러메세지를 출력 -->
     <% if (!err) { %>
     <div id="main">
-      <% for ( room of roomList) { %>
-      <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %>>
-        <div class="list_wrapper">
-          <div class="list_left">
-            <div class="list_upper">
-              <div class="list_upper_l">
-                <div class="icon_container">
-                  <% if (room.urlType === 'mypnu') { %>
-                  <img src='../../img/mypnu_logo.png' style="width:40px;">
-                  <% } else if (room.urlType === 'everytime') { %>
-                  <img src="../../img/everytime_logo.png" style="width:27px;">
-                  <% } else if (room.urlType === 'peterpanz') { %>
-                  <img src='../../img/peterpanz_logo.png' style="width:35px;">
-                  <% } else if (room.urlType === 'dabang') { %>
-                  <img src='../../img/dabang_logo.png' style="width:65px;">
-                  <% } else { %>
-                  <img src='../../img/bangdangi_logo_2.png' style="width:40px;">
-                  <% } %>
+      <% for ( room of roomList ) { %>
+        <% if ( room.ad ) { %>
+          <a class="request_container" href="/request">
+            <div class="request_title_container">
+              <div class="request_title_image"><img src="../../img/request/question.svg "></div>
+              <div class="request_title">이런 방 구해요</div>
+            </div>
+            <div class="request_text_container">
+                찾고있는 방이 없나요?<br/>
+                방 요청을 등록하면 원하는 방을 무료로 찾아드립니다!
+            </div>
+            <div class="request_button_container">
+              방 요청하기
+            </div>
+          </a>
+        <% } else { %>
+          <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %>>
+            <div class="list_wrapper">
+              <div class="list_left">
+                  <div class="list_upper">
+                    <div class="list_upper_l">
+                      <div class="icon_container">
+                        <% if (room.urlType === 'mypnu') { %>
+                        <img src='../../img/mypnu_logo.png' style="width:40px;">
+                        <% } else if (room.urlType === 'everytime') { %>
+                        <img src="../../img/everytime_logo.png" style="width:27px;">
+                        <% } else if (room.urlType === 'peterpanz') { %>
+                        <img src='../../img/peterpanz_logo.png' style="width:35px;">
+                        <% } else if (room.urlType === 'dabang') { %>
+                        <img src='../../img/dabang_logo.png' style="width:65px;">
+                        <% } else { %>
+                        <img src='../../img/bangdangi_logo_2.png' style="width:40px;">
+                        <% } %>
+                      </div>
+                    </div>
+                    <div class="list_upper_r">
+                      <div class="tag_container">
+                        <% for (i in room['discountKeywords']) { %>
+                        <span><%= i %></span>
+                        <% } %>
+                        <% for (i in room['dateKeywords']) { %>
+                        <span><%= i %></span>
+                        <% } %>
+                        <% for (i in room['locationL']) { %>
+                        <span><%= i %></span>
+                        <% } %>
+                      </div>
+                      <div class="price_container
+                                        <% if (room['createdAt'].toDate() >= new Date(new Date().getTime()-2*24*3600*1000)) { %>
+                                          new
+                                        <% } %>
+                                      ">
+                        <%= `${room['deposit']===null?'문의':room['deposit']}/${room['price']===null?'문의':room['price']}` %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list_mid">
+                    <div>
+                      <% let line1 = []; %>
+                      <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()).toLocaleDateString()); %>
+                      <% period = period + '~'; %>
+                      <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()).toLocaleDateString()); %>
+                      <% var loc = (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
+                      <% if (loc !== '') line1.push(loc); %>
+                      <% if (period !== '~') line1.push(period); %>
+                      <%= line1.join(' | ') %>
+                    </div>
+                    <div>
+                      <% var line2 = []; %>
+                      <% room['roomType']===null || line2.push(room['roomType']); %>
+                      <% room['tradeType']===null || line2.push(room['tradeType']); %>
+                      <% room['floor']===null || line2.push(room['floor']+'층'); %>
+                      <% room['expense']===null || line2.push(`관리비 ${room['expense']}만원`); %>
+                      <%= line2.join(' | ') %>
+                    </div>
+                  </div>
+                  <div class="list_lower">
+                    <div class="keywords_container">
+                      <% for(i in room['keywords']) { %>
+                      <span><%=i%></span>
+                      <% } %>
+                      <% if (room['pic']===true) { %>
+                      <span>사진O</span>
+                      <% } %>
+                      <% for(i in room['only']) { %>
+                      <span><%=i%></span>
+                      <% } %>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="list_upper_r">
-                <div class="tag_container">
-                  <% for (i in room['discountKeywords']) { %>
-                  <span><%= i %></span>
-                  <% } %>
-                  <% for (i in room['dateKeywords']) { %>
-                  <span><%= i %></span>
-                  <% } %>
-                  <% for (i in room['locationL']) { %>
-                  <span><%= i %></span>
-                  <% } %>
-                </div>
-                <div class="price_container
-                                  <% if (room['createdAt'].toDate() >= new Date(new Date().getTime()-2*24*3600*1000)) { %>
-                                    new
-                                  <% } %>
-                                ">
-                  <%= `${room['deposit']===null?'문의':room['deposit']}/${room['price']===null?'문의':room['price']}` %>
-                </div>
+              <div class="list_right">
+                <div><img src="../../img/arrow.png"></div>
               </div>
             </div>
-            <div class="list_mid">
-              <div>
-                <% let line1 = []; %>
-                <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()).toLocaleDateString()); %>
-                <% period = period + '~'; %>
-                <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()).toLocaleDateString()); %>
-                <% var loc = (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
-                <% if (loc !== '') line1.push(loc); %>
-                <% if (period !== '~') line1.push(period); %>
-                <%= line1.join(' | ') %>
-              </div>
-              <div>
-                <% var line2 = []; %>
-                <% room['roomType']===null || line2.push(room['roomType']); %>
-                <% room['tradeType']===null || line2.push(room['tradeType']); %>
-                <% room['floor']===null || line2.push(room['floor']+'층'); %>
-                <% room['expense']===null || line2.push(`관리비 ${room['expense']}만원`); %>
-                <%= line2.join(' | ') %>
-              </div>
-            </div>
-            <div class="list_lower">
-              <div class="keywords_container">
-                <% for(i in room['keywords']) { %>
-                <span><%=i%></span>
-                <% } %>
-                <% if (room['pic']===true) { %>
-                <span>사진O</span>
-                <% } %>
-                <% for(i in room['only']) { %>
-                <span><%=i%></span>
-                <% } %>
-              </div>
-            </div>
-          </div>
-          <div class="list_right">
-            <div><img src="../../img/arrow.png"></div>
-          </div>
-        </div>
-      </a>
+          </a>
+        <% } %>
+        
       <% } %>
     </div>
     <% } else { %>
@@ -245,70 +262,23 @@
       font-size: 16px;
       border-radius: 100px;" href="#">매물 등록하기</a>
     -->
-  <!-- 알림 서비스 배너 -->
-  <a href="https://bangdangi.web.app/noti" class="noti_banner_container noti_hidden">
-    <div id="noti_banner">
-      <p id="noti_title">원하는 매물을 찾지 못하셨다면?</p>
-      <p>방단기 알림서비스 받아보기!
-        <span>
-          <i class="xi-angle-right-min"></i>
-        </span>
-      </p>
-      <span id="noti_close">
-        <i class="xi-close"></i>
-      </span>
-    </div>
-  </a>
   <script>
-    document.getElementById('lower').style.display = 'block';
     var univSelect = document.getElementById('univ_select');
     var currentUniv = "<%= univ %>";
-    var isFirstScroll = [false, false, false, false, false];
-    var notiBanner = document.getElementsByClassName('noti_banner_container')[0];
-    var isBannerOpened = false;
     var topBtn = document.getElementsByClassName('top_btn')[0];
 
     /* 현재 선택된 셀렉트의 학교이름이 셀렉트의 label값으로 들어가게 한다 */
     document.querySelector('#univ_form label').innerText = univSelect.options[univSelect.selectedIndex].innerText;
 
+    document.getElementById('lower').style.display = 'block';
     if (window.innerWidth >= 530) topBtn.style.display = 'block';
-
-    function sendScrollTag() {
-      if (currentUniv === '') return;
-
-      var h = document.documentElement,
-        b = document.body,
-        st = 'scrollTop',
-        sh = 'scrollHeight';
-      var percent = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
-
-      if (currentUniv === 'pnu' || currentUniv === 'hufsSC' || currentUniv === 'hufsGC' || currentUniv === 'cnu') {
-        if (percent >= 20 && isBannerOpened === false) {
-          isBannerOpened = true;
-          openNotiBanner();
-        }
-      }
-    }
 
     function changeRoomList() {
       if (this.value == "") return;
       window.location.href = `https://bangdangi.web.app/board/list/${this.value}`;
     }
 
-    function closeNotiBanner() {
-      notiBanner.classList.add('noti_hidden');
-      event.preventDefault();
-    }
-
-    function openNotiBanner() {
-      notiBanner.classList.remove('noti_hidden');
-    }
-
     univSelect.onchange = changeRoomList;
-        <% if (!err) { %>
-      document.addEventListener('scroll', sendScrollTag);
-        <% } %>
-      document.getElementById('noti_close').addEventListener('click', closeNotiBanner);
     topBtn.addEventListener('click', () => window.scrollTo(0, 0));
   </script>
   <!-- Channel Plugin Scripts -->
