@@ -394,26 +394,8 @@
     a.request_container {
       padding: 28px 12px !important ; 
     }
-    .request_title_container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .request_title_image {
-      width: 32px;
-      display: flex;
-    }
-    .request_title_image > img {
-      width: 100%;
-    }
-    .request_title {
-      font-size: 28px;
-      font-weight: 400;
-      margin-left: 12px;
-      letter-spacing: -.3px;
-    }
     .request_text_container {
-      margin-top: 8px;
+      
     }
     .request_button_container {
       margin-top: 8px;

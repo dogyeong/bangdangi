@@ -78,14 +78,9 @@ router.get('/list/:univ', (req, res, next) => {
         return null;
     })
     .then(() => {
+        var roomList = [];
         if (resultArr.length > 0) { // 결과 존재
-            var roomList = resultArr.map((doc) => doc.data());
-            roomList.sort((a,b) => {
-                return b.createdAt.toMillis() - a.createdAt.toMillis();
-            });
-            if (roomList.length > 4) {
-                roomList.splice(5, 0, { ad: true });
-            }
+            roomList = getRoomList(resultArr);
         }
         else { // 결과 없음
             roomList = resultArr;
@@ -99,6 +94,99 @@ router.get('/list/:univ', (req, res, next) => {
         return next(createError(500));
     })
 });
+getRoomList = (arr) => {
+    var result = arr.map((doc) => doc.data());
+    // 일단 등록시간순으로 정렬
+    result.sort((a,b) => {
+        return b.createdAt.toMillis() - a.createdAt.toMillis();
+    });
+    // 화면에 보여질 정보로 포맷을 맞춘다
+    result = result.map(doc => {
+        return {
+            period: formatPeriod(doc), // string or null
+            discountKeywords: formatDiscout(doc), // array
+            tradeType: doc.tradeType, // string or null
+            deposit: formatDeposit(doc), // string
+            price: formatPrice(doc), // string
+            line1: formatLine1(doc), // string
+            line2: formatLine2(doc), // string
+            keywords: formatKeywords(doc), // array
+            imageURL: formatImageURL(doc), // string or null
+            urlType: doc.urlType, // string or null
+            timeStamp: doc.createdAt.toMillis(), // string
+            views: doc.views // string
+        }
+    });
+    // 길이가 5 이상이면 '이런방구해요'광고를 넣어준다
+    if (result.length > 4) 
+        result.splice(5, 0, { ad: true });
+    return result;
+}
+formatPeriod = (doc) => {
+    if (doc.startDate === null && doc.endDate === null) 
+        return null;
+    else 
+        return `${formatDate(doc.startDate)}~${formatDate(doc.endDate)}`;
+}
+formatDate = (date) => {
+    if (date === null) 
+        return '';
+    let dateObj = date.toDate();
+    let y = dateObj.getFullYear();
+    let m = dateObj.getMonth() + 1;
+    let d = dateObj.getDate();
+    return `${m}월 ${d}일`;
+}
+formatDiscout = (doc) => {
+    if (doc.discountKeywords === null) 
+        return [];
+    else 
+        return Object.keys(doc.discountKeywords);
+}
+formatDeposit = (doc) => {
+    if (doc.deposit === null)
+        return '문의';
+    else
+        return `${doc.deposit}`
+}
+formatPrice = (doc) => {
+    if (doc.price === null)
+        return '문의';
+    else
+        return `${doc.price}`
+}
+formatLine1 = (doc) => {
+    if (doc.locationS === null)
+        return '';
+    else
+        return Object.keys(doc.locationS).join(' ')
+}
+formatLine2 = (doc) => {
+    let arr = [];
+    if (doc.roomType !== null) 
+        arr.push(doc.roomType);
+    if (doc.floor !== null)
+        arr.push(doc.floor+'층');
+    if (doc.expense !== null)
+        arr.push(`관리비 ${doc.expense}만원`);
+    return arr.join(' | ');
+}
+formatKeywords = (doc) => {
+    let arr = [];
+    if (doc.keywords !== null)
+        arr = Object.keys(doc.keywords);
+    if (doc.pic !== null)
+        arr.push('사진O');
+    if (doc.only !== null)
+        arr = arr.concat( Object.keys(doc.only) );
+    return arr;
+}
+formatImageURL = (doc) => {
+    if (doc.images === null)
+        return null;
+    else
+        return doc.images[0];
+}
 
 router.get('/read/:univ/:articleNo', (req, res, next) => {
     var univ = req.params.univ;

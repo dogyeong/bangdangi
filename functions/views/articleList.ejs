@@ -121,10 +121,6 @@
       <% for ( room of roomList ) { %>
         <% if ( room.ad ) { %>
           <a class="request_container" href="/request">
-            <div class="request_title_container">
-              <div class="request_title_image"><img src="../../img/request/question.svg "></div>
-              <div class="request_title">이런 방 구해요</div>
-            </div>
             <div class="request_text_container">
                 찾고있는 방이 없나요?<br/>
                 방 요청을 등록하면 원하는 방을 무료로 찾아드립니다!
@@ -148,61 +144,37 @@
                         <img src='../../img/peterpanz_logo.png' style="width:35px;">
                         <% } else if (room.urlType === 'dabang') { %>
                         <img src='../../img/dabang_logo.png' style="width:65px;">
-                        <% } else { %>
-                        <img src='../../img/bangdangi_logo_2.png' style="width:40px;">
+                        <% } else if (room.imageURL !== null) { %>
+                        <img src='<%=room.imageURL%>' style="width:40px;">
                         <% } %>
                       </div>
                     </div>
                     <div class="list_upper_r">
                       <div class="tag_container">
-                        <% for (i in room['discountKeywords']) { %>
-                        <span><%= i %></span>
+                        <% if (room.period !== null) { %>
+                          <span><%= room.period %></span>
                         <% } %>
-                        <% for (i in room['dateKeywords']) { %>
-                        <span><%= i %></span>
-                        <% } %>
-                        <% for (i in room['locationL']) { %>
-                        <span><%= i %></span>
+                        <% for (i of room.discountKeywords) { %>
+                          <span><%= i %></span>
                         <% } %>
                       </div>
-                      <div class="price_container
-                                        <% if (room['createdAt'].toDate() >= new Date(new Date().getTime()-2*24*3600*1000)) { %>
-                                          new
-                                        <% } %>
-                                      ">
-                        <%= `${room['deposit']===null?'문의':room['deposit']}/${room['price']===null?'문의':room['price']}` %>
+                      <div class="price_container">
+                        <%= room.tradeType === null ? '' : room.tradeType %>
+                        <%= `${room.deposit}/${room.price}` %>
                       </div>
                     </div>
                   </div>
                   <div class="list_mid">
                     <div>
-                      <% let line1 = []; %>
-                      <% let period = (room['startDate']===null ? '' : new Date(room['startDate'].toMillis()).toLocaleDateString()); %>
-                      <% period = period + '~'; %>
-                      <% period = period + (room['endDate']===null ? '' : new Date(room['endDate'].toMillis()).toLocaleDateString()); %>
-                      <% var loc = (room['locationS']===null ? '' : Object.keys(room['locationS']).join(' ')); %>
-                      <% if (loc !== '') line1.push(loc); %>
-                      <% if (period !== '~') line1.push(period); %>
-                      <%= line1.join(' | ') %>
+                      <%= room.line1 %>
                     </div>
                     <div>
-                      <% var line2 = []; %>
-                      <% room['roomType']===null || line2.push(room['roomType']); %>
-                      <% room['tradeType']===null || line2.push(room['tradeType']); %>
-                      <% room['floor']===null || line2.push(room['floor']+'층'); %>
-                      <% room['expense']===null || line2.push(`관리비 ${room['expense']}만원`); %>
-                      <%= line2.join(' | ') %>
+                      <%= room.line2 %>
                     </div>
                   </div>
                   <div class="list_lower">
                     <div class="keywords_container">
-                      <% for(i in room['keywords']) { %>
-                      <span><%=i%></span>
-                      <% } %>
-                      <% if (room['pic']===true) { %>
-                      <span>사진O</span>
-                      <% } %>
-                      <% for(i in room['only']) { %>
+                      <% for(i of room.keywords) { %>
                       <span><%=i%></span>
                       <% } %>
                     </div>
