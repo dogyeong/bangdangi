@@ -663,27 +663,39 @@
                     arr.push(getOrientation(file));
                     filenames.push(file.name);
                 }
-                Promise.all(arr)
-                .then(orientationArr => 
-                    Promise.all(orientationArr.map(o => resetOrientation(o)))
+                showUpdateLoading();
+
+                Promise.all(arr) // 업로드된 사진들의 orientation을 구한다
+                .then(orientationArr =>
+                    Promise.all(orientationArr.map(o => resetOrientation(o))) // 구한 orientation에 맞춰서 캔버스에 그린 사진들을 회전시킨다
                 )
                 .then(canvasArr => 
-                    Promise.all(canvasArr.map(c => canvasToBlob(c)))
+                    Promise.all(canvasArr.map(c => canvasToBlob(c))) // 각 캔버스들을 blob으로 변환한다
                 )
-                .then(blobArr => {
+                .then(blobArr => { // blob들을 스토리지에 업로드한다
                     resultArr = [];
                     for(i=0; i<blobArr.length; i++) {
                         resultArr.push(
-                            // storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i])
-                            storage.ref(`images/TEST_${filenames[i]}`).put(blobArr[i])
+                            storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i])
                         );
                     }
                     return Promise.all(resultArr);
                 })
                 .then(resultArr => 
-                    Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL()))
+                    Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
                 )
-                .then(urlArr => console.log(urlArr))
+                .then(urlArr => { // 받아온 url을 입력창에 추가해준다
+                    urlArr.forEach(url => {
+                        document.querySelector(`.field_value[data-container="images"]`)
+                            .innerHTML += `
+                                <div>
+                                    <input type="text" data-field="images" value="${url}">
+                                    <i class="xi-minus" onclick="deleteField(this);"></i>   
+                                </div>
+                            `;
+                    })
+                    hideUpdateLoading();
+                })
                 .catch(err => console.log(err));                  
             }
         }
@@ -692,14 +704,16 @@
                 loadImage(file, function(img, data) {
                     if (data.exif) {
                         let flag = data.exif.get("Orientation");
-                        if (flag) return resolve(flag);
-                        else return resolve(1);
+                        if (flag) return resolve([flag, file]);
+                        else return resolve([1, file]);
                     }
-                    else return resolve(1);
+                    else return resolve([1, file]);
                 }, { meta: true });
             })  
         }
         var resetOrientation = (srcOrientation) => {
+            var orientation = srcOrientation[0];
+            var file = srcOrientation[1];
             return new Promise((resolve, reject) => {
                 var img = new Image();
                 img.onload = () => {
@@ -708,7 +722,7 @@
                         canvas = document.createElement('canvas'),
                         ctx = canvas.getContext("2d");
                     // set proper canvas dimensions before transform & export
-                    if (4 < srcOrientation && srcOrientation < 9) {
+                    if (4 < orientation && orientation < 9) {
                         canvas.width = height;
                         canvas.height = width;
                     } else {
@@ -716,7 +730,7 @@
                         canvas.height = height;
                     }
                     // transform context before drawing image
-                    switch (srcOrientation) {
+                    switch (orientation) {
                         case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
                         case 3: ctx.transform(-1, 0, 0, -1, width, height); break;
                         case 4: ctx.transform(1, 0, 0, -1, 0, height); break;
