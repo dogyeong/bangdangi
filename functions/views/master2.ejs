@@ -22,15 +22,17 @@
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
     <title>방단기 관리자센터</title>
-    <link rel=stylesheet type="text/css" href="css/masterTest.css" />
+    <link rel=stylesheet type="text/css" href="css/master2.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <!-- Date picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- handsontable : 스프레드시트 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
     <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/ko-KR.js"></script>
-    
+    <!-- JS-LOAD-IMAGE : 이미지 자동 회전을 위한 라이브러리 -->
+    <script src="https://bangdangi.web.app/js/load-image.all.min.js"></script>
 </head>
 
 <body>
@@ -254,7 +256,7 @@
                 </div>
                 <div class="field_value" data-container="images">
                     <div class="file_container">
-                        <input type="file" data-field="images" multiple>
+                        <input type="file" data-field="images" accept="image/*"multiple>
                         <button value="upload" onclick="uploadImage();">upload</button>
                     </div>
                 </div>
@@ -655,33 +657,89 @@
             let files = document.querySelector('input[type="file"]').files;
             let id = document.querySelector('.id_container').innerText;
             if (files.length > 0) {
-                showUpdateLoading();
-                let arr = [];
-                files.forEach(file => {
-                    arr.push(storage.ref(`images/${select.value}/${id}/${file.name}`).put(file));
-                });
+                var arr = [];
+                filenames = [];
+                for (file of files) {
+                    arr.push(getOrientation(file));
+                    filenames.push(file.name);
+                }
                 Promise.all(arr)
-                .then(resultArr => {
-                    return Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL()));
+                .then(orientationArr => 
+                    Promise.all(orientationArr.map(o => resetOrientation(o)))
+                )
+                .then(canvasArr => 
+                    Promise.all(canvasArr.map(c => canvasToBlob(c)))
+                )
+                .then(blobArr => {
+                    resultArr = [];
+                    for(i=0; i<blobArr.length; i++) {
+                        resultArr.push(
+                            // storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i])
+                            storage.ref(`images/TEST_${filenames[i]}`).put(blobArr[i])
+                        );
+                    }
+                    return Promise.all(resultArr);
                 })
-                .then(resultArr =>{
-                    console.log(resultArr);
-                    resultArr.forEach(url => {
-                        document.querySelector(`.field_value[data-container="images"]`)
-                            .innerHTML += `
-                                <div>
-                                    <input type="text" data-field="images" value="${url}">
-                                    <i class="xi-minus" onclick="deleteField(this);"></i>   
-                                </div>
-                            `;
-                    });
-                    hideUpdateLoading();
-                })
-                .catch(err => {
-                    console.log(err);
-                    window.alert(err.message);
-                })
+                .then(resultArr => 
+                    Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL()))
+                )
+                .then(urlArr => console.log(urlArr))
+                .catch(err => console.log(err));                  
             }
+        }
+        var getOrientation = (file) => {
+            return new Promise((resolve, reject) => {
+                loadImage(file, function(img, data) {
+                    if (data.exif) {
+                        let flag = data.exif.get("Orientation");
+                        if (flag) return resolve(flag);
+                        else return resolve(1);
+                    }
+                    else return resolve(1);
+                }, { meta: true });
+            })  
+        }
+        var resetOrientation = (srcOrientation) => {
+            return new Promise((resolve, reject) => {
+                var img = new Image();
+                img.onload = () => {
+                    var width = img.width,
+                        height = img.height,
+                        canvas = document.createElement('canvas'),
+                        ctx = canvas.getContext("2d");
+                    // set proper canvas dimensions before transform & export
+                    if (4 < srcOrientation && srcOrientation < 9) {
+                        canvas.width = height;
+                        canvas.height = width;
+                    } else {
+                        canvas.width = width;
+                        canvas.height = height;
+                    }
+                    // transform context before drawing image
+                    switch (srcOrientation) {
+                        case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
+                        case 3: ctx.transform(-1, 0, 0, -1, width, height); break;
+                        case 4: ctx.transform(1, 0, 0, -1, 0, height); break;
+                        case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
+                        case 6: ctx.transform(0, 1, -1, 0, height, 0); break;
+                        case 7: ctx.transform(0, -1, -1, 0, height, width); break;
+                        case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+                        default: break;
+                    }
+                    // draw image
+                    ctx.drawImage(img, 0, 0);
+                    // export canvas
+                    resolve(canvas);
+                };
+                img.src = URL.createObjectURL(file);
+            })
+        }
+        var canvasToBlob = (canvas) => {
+            return new Promise((resolve, reject) => {
+                canvas.toBlob(blob => {
+                    resolve(blob);
+                }, 'image/jpeg');
+            }) 
         }
         var getInputData = () => {
             let data = {};
@@ -763,12 +821,12 @@
     </script>
 </body>
     <script>
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log(user);
-            } else {
-                window.location.href = 'http://bangdangi.web.app/masterLogin';
-            }
-        });
+        // firebase.auth().onAuthStateChanged((user) => {
+        //     if (user) {
+        //         console.log(user);
+        //     } else {
+        //         window.location.href = 'http://bangdangi.web.app/masterLogin';
+        //     }
+        // });
     </script>
 </html>

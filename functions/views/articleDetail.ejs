@@ -386,7 +386,7 @@
             this.style.opacity = 0;
     });
 
-    function chekImage(url, target) {
+    function checkImage(url, target) {
         var div = target;
         loadImage(url, function (img, data) {
             if (data.exif) {
@@ -401,7 +401,7 @@
     window.onload = function () {
         document.querySelectorAll('.image_container > div').forEach(div => {
             let url = div.style.backgroundImage.replace('url(', '').replace(')', '').replace(/\"/gi, "");
-            chekImage(url, div);
+            checkImage(url, div);
         })
     }
 
