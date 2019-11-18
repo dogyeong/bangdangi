@@ -134,34 +134,20 @@
             <div class="list_wrapper">
               <div class="list_left">
                   <div class="list_upper">
-                    <div class="list_upper_l">
-                      <div class="icon_container">
-                        <% if (room.urlType === 'mypnu') { %>
-                        <img src='../../img/mypnu_logo.png' style="width:40px;">
-                        <% } else if (room.urlType === 'everytime') { %>
-                        <img src="../../img/everytime_logo.png" style="width:27px;">
-                        <% } else if (room.urlType === 'peterpanz') { %>
-                        <img src='../../img/peterpanz_logo.png' style="width:35px;">
-                        <% } else if (room.urlType === 'dabang') { %>
-                        <img src='../../img/dabang_logo.png' style="width:65px;">
-                        <% } else if (room.imageURL !== null) { %>
-                        <img src='<%=room.imageURL%>' style="width:40px;">
-                        <% } %>
-                      </div>
+                    <div class="tag_container">
+                      <% for (i of room.dateKeywords) { %>
+                        <span><%= i %></span>
+                      <% } %>
+                      <% for (i of room.discountKeywords) { %>
+                        <span class="discount"><%= i %></span>
+                      <% } %>
                     </div>
-                    <div class="list_upper_r">
-                      <div class="tag_container">
-                        <% if (room.period !== null) { %>
-                          <span><%= room.period %></span>
-                        <% } %>
-                        <% for (i of room.discountKeywords) { %>
-                          <span><%= i %></span>
-                        <% } %>
-                      </div>
-                      <div class="price_container">
-                        <%= room.tradeType === null ? '' : room.tradeType %>
-                        <%= `${room.deposit}/${room.price}` %>
-                      </div>
+                    <div class="price_container">
+                      <span class="roomType"><%= room.tradeType === null ? '' : room.tradeType %></span>
+                      <%= `${room.deposit}/${room.price}` %>
+                      <% if (room.new) { %>
+                        <span class="new"><i class="xi-new"></i></span>
+                      <% } %>
                     </div>
                   </div>
                   <div class="list_mid">
@@ -181,7 +167,21 @@
                   </div>
                 </div>
               <div class="list_right">
-                <div><img src="../../img/arrow.png"></div>
+                  <div class="pic_container">
+                    <% if (room.urlType === 'mypnu') { %>
+                      <div style="background: center / cover no-repeat url('../../img/mypnu_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.urlType === 'everytime') { %>
+                      <div style="background: center / cover no-repeat url('../../img/everytime_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.urlType === 'peterpanz') { %>
+                      <div style="background: center / cover no-repeat url('../../img/peterpanz_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.urlType === 'dabang') { %>
+                      <div style="background: center / cover no-repeat url('../../img/dabang_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.imageURL !== null) { %>
+                      <div style="background: center / cover no-repeat url('<%=room.imageURL%>');"></div>
+                    <% } else { %>
+                      <div style="background: center / cover no-repeat url('../../img/bangdangi_logo_3.png'), #f6f6f8;"></div>
+                    <% } %>
+                  </div>
               </div>
             </div>
           </a>

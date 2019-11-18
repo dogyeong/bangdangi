@@ -81,38 +81,6 @@
       
     }
 
-    /* mid */
-    div#mid {
-      width: 100%;
-      max-width: 500px;
-      display: flex;
-      margin: auto;
-      justify-content: space-evenly;
-      align-items: center;
-      padding: 32px 0;
-    }
-
-    .card {
-      width: 35%;
-      padding: 8px;
-      height: 100px;
-      border: 0.5px solid rgba(0,0,0,0.3);
-      display: flex;
-      justify-content: space-between;
-      flex-direction: column;
-      color: #333;
-      text-decoration: none;
-    }
-
-    .card_up {
-      font-size: 14px;
-      font-weight: 400;
-    }
-
-    .card_down {
-      text-align: right;
-      font-size: 14px;
-    }
 
     /* footer */
     div#footer{
@@ -213,14 +181,14 @@
       justify-content: center;
       align-items: center;
       background-color: #fff;
-      border: 1px solid rgba(0,0,0,0.1);
+      border-top: 1px solid rgba(0,0,0,0.05);
     }
-    #main a {
+    #main > a {
       display: block;
       box-sizing: border-box;
       text-decoration: none;
       color: #333;
-      padding: 12px;
+      padding: 24px 16px;
       background-color: white;
       width: 100%;
       border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -230,60 +198,84 @@
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: stretch;
+    }
+    .list_left {
+      width: calc(100% - 144px);
     }
     .list_upper {
-      display: flex;
-      flex-direction: row;
+      width: 100%;
+      margin-right: 4px;
     }
-    .icon_container {
-      width: 80px;
+    .pic_container {
+      width: 138px;
       height: 100%;
-      border: 1px solid rgba(0,0,0,0.1);
-      margin-right: 8px;
-      border-radius: 4px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+    .pic_container > div {
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
     }
     .tag_container {
       font-weight: 300;
       font-size: 14px;
       margin-bottom: 4px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      white-space: nowrap;
+      color: #fff;
+      padding: 2px 0;
     }
     .tag_container span {
-      color: #0ab9f1;
-      border: 0.5px solid #0ab9f1;
-      padding: 1px 4px;
+      color: #fff;
+      background-color: #0AB9F1;
+      padding: 1px 4px 2px 4px;
       border-radius: 2px;
       margin-right: 4px;
       margin-bottom: 2px;
       font-size: 14px;
-      display: inline-block;
+      display: inline;
+    }
+    .tag_container span.discount {
+      background-color: rgb(241, 83, 83);
     }
     
     .price_container {
+      color: #0AB9F1;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 22px;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
-    .new:after {
-      content: 'N';
-      font-size: 14px;
-      position: relative;
+    .new {
+      font-size: 20px;
       color: rgb(241, 83, 83)
     }
     .list_mid {
       margin: 8px 0;
       font-size: 14px;
       color: #777;  
+      width: 100%;
     }
-    .list_mid img {
-      width: 13px;
-      margin-right: 8px;
+    .list_mid > div {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .list_lower {
       font-size: 12px;
       color: rgba(0,0,0,0.4);
+    }
+    .keywords_container {
+      position: relative;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      white-space: nowrap;
     }
     .keywords_container span {
       padding: 2px 6px;

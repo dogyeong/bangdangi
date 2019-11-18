@@ -151,6 +151,13 @@
                     <input type="date" data-field="endDate">
                 </div>
             </div>
+            <!-- minTerm -->
+            <div class="field_container" data-field="minTerm" data-type="number">
+                <div class="field_title" data-field="minTerm">minTerm</div>
+                <div class="field_value" data-container="minTerm">
+                    <input type="number" data-field="minTerm">
+                </div>
+            </div>
             <!-- dateKeywords -->
             <div class="field_container" data-field="dateKeywords" data-type="object">
                 <div class="field_title" data-field="dateKeywords">
@@ -388,7 +395,7 @@
                         data: data,
                         rowHeaders: true,
                         colHeaders: true,
-                        colHeaders: ['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오'],
+                        colHeaders: ['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '최소계약기간', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오'],
                         //nestedHeaders: [['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오']],
                         columns: [
                             { data: 'id', renderer: textRenderer },
@@ -403,6 +410,7 @@
                             { data: 'text', renderer: textRenderer },
                             { data: 'startDate', renderer: textRenderer },
                             { data: 'endDate', renderer: textRenderer },
+                            { data: 'minTerm', renderer: textRenderer },
                             { data: 'dateKeywords', renderer: textRenderer },
                             { data: 'locationL', renderer: textRenderer },
                             { data: 'locationS', renderer: textRenderer },
@@ -500,7 +508,7 @@
         }
         var selectionCallback = (data, hot) => {
             //  check selection
-            if (data[3] !== 27 || data[0] !== data[2]) return;
+            if (data[3] !== 28 || data[0] !== data[2]) return;
             let id = hot.getDataAtRow(data[0])[0];
             openUpdateBox(id);
         }

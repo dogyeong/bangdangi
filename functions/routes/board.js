@@ -103,7 +103,7 @@ getRoomList = (arr) => {
     // 화면에 보여질 정보로 포맷을 맞춘다
     result = result.map(doc => {
         return {
-            period: formatPeriod(doc), // string or null
+            dateKeywords: formatDateKeywords(doc), // array
             discountKeywords: formatDiscout(doc), // array
             tradeType: doc.tradeType, // string or null
             deposit: formatDeposit(doc), // string
@@ -114,19 +114,15 @@ getRoomList = (arr) => {
             imageURL: formatImageURL(doc), // string or null
             urlType: doc.urlType, // string or null
             timeStamp: doc.createdAt.toMillis(), // string
-            views: doc.views // string
+            views: doc.views, // string
+            url: doc.url,
+            new: formatNewArticle(doc) // boolean
         }
     });
     // 길이가 5 이상이면 '이런방구해요'광고를 넣어준다
     if (result.length > 4) 
         result.splice(5, 0, { ad: true });
     return result;
-}
-formatPeriod = (doc) => {
-    if (doc.startDate === null && doc.endDate === null) 
-        return null;
-    else 
-        return `${formatDate(doc.startDate)}~${formatDate(doc.endDate)}`;
 }
 formatDate = (date) => {
     if (date === null) 
@@ -136,6 +132,16 @@ formatDate = (date) => {
     let m = dateObj.getMonth() + 1;
     let d = dateObj.getDate();
     return `${m}월 ${d}일`;
+}
+formatDateKeywords = (doc) => {
+    result = [];
+    if (doc.minTerm !== null) 
+        result.push(`${doc.minTerm}개월이상`);
+
+    if (doc.startDate !== null || doc.endDate !== null)
+        result.push(`${formatDate(doc.startDate)}~${formatDate(doc.endDate)}`);
+     
+    return result;
 }
 formatDiscout = (doc) => {
     if (doc.discountKeywords === null) 
@@ -186,6 +192,17 @@ formatImageURL = (doc) => {
         return null;
     else
         return doc.images[0];
+}
+formatNewArticle = (doc) => {
+    if (doc.createdAt === null)
+        return false;
+    let today = new Date();
+    let date3DaysAgo = today.setDate( today.getDate()-3 );
+    let createdAt = doc.createdAt.toDate();
+    if (createdAt > date3DaysAgo)
+        return true;
+    else
+        return false;
 }
 
 router.get('/read/:univ/:articleNo', (req, res, next) => {
