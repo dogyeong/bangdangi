@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,21 +28,21 @@
     <!-- SEO START -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
     <meta name="author" content="패러다임">
     <meta itemprop="name" content="방단기">
-    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta itemprop="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta name="twitter:title" content="방단기">
-    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta name="twitter:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta property="og:title" content="방단기">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="방단기">
-    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta property="og:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta property="og:url" content="https://bangdangi.web.app/">
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
-    <title>방단기</title>
+    <title><%=univKo%> 단기원룸, 직거래원룸 | 방단기</title>
     <link rel="shortcut icon" href="../../../img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../../../img/favicon.ico" type="image/x-icon">
     <link rel=stylesheet type="text/css" href="../../../css/common.css" />
@@ -386,14 +386,14 @@
             this.style.opacity = 0;
     });
 
+    // checkImage : url의 orientaion을 확인해서 회전되있으면 target을 정방향으로 회전시킨다
     function checkImage(url, target) {
-        var div = target;
         loadImage(url, function (img, data) {
             if (data.exif) {
                 let flag = data.exif.get("Orientation");
-                if (flag === 6) div.style.transform = 'rotate(90deg)';
-                else if (flag === 3) div.style.transform = 'rotate(180deg)';
-                else if (flag === 8) div.style.transform = 'rotate(270deg)';
+                if (flag === 6) target.style.transform = 'rotate(90deg)';
+                else if (flag === 3) target.style.transform = 'rotate(180deg)';
+                else if (flag === 8) target.style.transform = 'rotate(270deg)';
             }
         }, { meta: true });
     }

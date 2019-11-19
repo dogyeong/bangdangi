@@ -8,8 +8,16 @@ const url = require('url');
 const cors = require('cors')({
     origin: true
 });
+const UNIV_OBJ = {
+    pnu: '부산, 부산대',
+    cnu: '대전, 충남대',
+    mafo: '서울 마포구,서대문구',
+    seongdong: '서울 성동구',
+    gwanak: '서울 관악구',
+    dongdaemun: '서울 동대문구',
+}
 
-router.get('/list/:univ', (req, res, next) => {
+router.get('/list/:univ', (req, res, next) => {  
     var univ = req.params.univ;
     var db = admin.firestore();
     var selectedLocation = req.query.locationKeywords;
@@ -87,7 +95,8 @@ router.get('/list/:univ', (req, res, next) => {
             err = '매물이 존재하지 않습니다';
             console.log(roomList);
         }   
-        return res.render('articleList', { roomList, keywords, univ, selectedLocation, selectedDate, err });
+        let univKo = UNIV_OBJ[univ];
+        return res.render('articleList', { roomList, keywords, univ, univKo, selectedLocation, selectedDate, err });
     })
     .catch(err => {
         console.log(err);
@@ -248,7 +257,8 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
        return viewIncrement(docRef);
     })
     .then((newViews) => {
-        return res.render('articleDetail', { univ, articleNo, data, kakao, related });
+        let univKo = UNIV_OBJ[univ];
+        return res.render('articleDetail', { univ, univKo, articleNo, data, kakao, related });
     })
     .catch((err) => {
         console.log(err);

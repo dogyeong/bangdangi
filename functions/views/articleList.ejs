@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -24,24 +24,24 @@
   <!-- End Google Tag Manager -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- SEO START -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- SEO START -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+  <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
   <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
   <meta name="author" content="패러다임">
   <meta itemprop="name" content="방단기">
-  <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+  <meta itemprop="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
   <meta name="twitter:title" content="방단기">
-  <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+  <meta name="twitter:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
   <meta property="og:title" content="방단기">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="방단기">
-  <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+  <meta property="og:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
   <meta property="og:url" content="https://bangdangi.web.app/">
   <link rel="canonical" href="https://bangdangi.web.app/" />
   <!-- SEO END -->
-  <title>방단기</title>
+  <title><%=univKo%> 단기원룸, 직거래원룸 | 방단기</title>
   <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="../../img/favicon.ico" type="image/x-icon">
   <link rel=stylesheet type="text/css" href="../../css/common.css" />
@@ -68,6 +68,7 @@
     </div>
   </header>
   <div class="form_container">
+    <!-- form -->
     <form id="univ_form">
       <label for="univ_select">학교를 선택해주세요</label>
       <select name="univ" id="univ_select">
@@ -85,36 +86,45 @@
           <option value="pnu" <%= (univ==='pnu') ? 'selected' : '' %>>부산대학교</option>
         </optgroup>
       </select>
+      <div class="tune_container"><i class="xi-tune"></i></div>
     </form>
-  </div>
-
-  <div id="lower">
+    <!-- filter -->
     <div id="hashtag_container">
       <form action="https://bangdangi.web.app/board/list/<%=univ%>" method="get">
-        <div class="hashtag_title">장소 키워드</div>
-        <div class="hashtag_list">
-          <% for (i of keywords.locationKeywords) { %>
-          <input type="checkbox" name="locationKeywords[]" id="<%= i %>" value="<%= i %>"
-            <%= (selectedLocation!==undefined&&selectedLocation.includes(`${i}`)) ? 'checked' : '' %>>
-          <label for="<%= i %>"><span><%= i %></span></label>
-          <% } %>
-        </div>
-        <div class="hashtag_title">기간 키워드</div>
-        <div class="hashtag_list">
-          <% for (i of keywords.dateKeywords) { %>
-          <input type="checkbox" name="dateKeywords[]" id="<%= i %>" value="<%= i %>"
-            <%= (selectedDate!==undefined&&selectedDate.includes(`${i}`)) ? 'checked' : '' %>>
-          <label for="<%= i %>"><span><%= i %></span></label>
-          <% } %>
+        <div class="input_container">
+          <div class="hashtag_title">장소</div>
+          <div class="hashtag_list">
+            <% for (i of keywords.locationKeywords) { %>
+            <input type="checkbox" name="locationKeywords[]" id="<%= i %>" value="<%= i %>"
+              <%= (selectedLocation!==undefined&&selectedLocation.includes(`${i}`)) ? 'checked' : '' %>>
+            <label for="<%= i %>"><span><%= i %></span></label>
+            <% } %>
+          </div>
+          <div class="hashtag_title">기간</div>
+          <div class="hashtag_list">
+            <% for (i of keywords.dateKeywords) { %>
+            <input type="checkbox" name="dateKeywords[]" id="<%= i %>" value="<%= i %>"
+              <%= (selectedDate!==undefined&&selectedDate.includes(`${i}`)) ? 'checked' : '' %>>
+            <label for="<%= i %>"><span><%= i %></span></label>
+            <% } %>
+          </div>
+          <div class="hashtag_title">가격</div>
+          <div class="hashtag_list">
+            <input type="checkbox" name="locationKeywords[]" id="무보증금" value="무보증금">
+            <label for="무보증금"><span>무보증금</span></label>
+          </div>
         </div>
         <div class="submit_container">
-          <input type="submit" value="검색">
+          <input type="submit" value="적용">
           <a href="https://bangdangi.web.app/board/list/<%=univ%>">
             <i class="xi-renew"></i> 초기화
           </a>
         </div>
       </form>
     </div>
+  </div>
+
+  <div id="lower">
     <!-- 매물이 없을때는 에러메세지를 출력 -->
     <% if (!err) { %>
     <div id="main">
@@ -137,9 +147,6 @@
                     <div class="tag_container">
                       <% for (i of room.dateKeywords) { %>
                         <span><%= i %></span>
-                      <% } %>
-                      <% for (i of room.discountKeywords) { %>
-                        <span class="discount"><%= i %></span>
                       <% } %>
                     </div>
                     <div class="price_container">
@@ -180,6 +187,9 @@
                       <div style="background: center / cover no-repeat url('<%=room.imageURL%>');"></div>
                     <% } else { %>
                       <div style="background: center / cover no-repeat url('../../img/bangdangi_logo_3.png'), #f6f6f8;"></div>
+                    <% } %>
+                    <% for (i of room.discountKeywords) { %>
+                      <span class="discount"><%= i %></span>
                     <% } %>
                   </div>
               </div>
@@ -238,6 +248,7 @@
     var univSelect = document.getElementById('univ_select');
     var currentUniv = "<%= univ %>";
     var topBtn = document.getElementsByClassName('top_btn')[0];
+    const filterBtn = document.querySelector('.tune_container');
 
     /* 현재 선택된 셀렉트의 학교이름이 셀렉트의 label값으로 들어가게 한다 */
     document.querySelector('#univ_form label').innerText = univSelect.options[univSelect.selectedIndex].innerText;
@@ -250,8 +261,20 @@
       window.location.href = `https://bangdangi.web.app/board/list/${this.value}`;
     }
 
+    function toggleFilter() {
+      let filter = document.querySelector('#hashtag_container');
+      
+      if (filter.classList.toggle('visible')) {
+        filterBtn.innerHTML = '<i class="xi-close-thin"></i>';
+      }
+      else {
+        filterBtn.innerHTML = '<i class="xi-tune"></i>';
+      }
+    }
+
     univSelect.onchange = changeRoomList;
     topBtn.addEventListener('click', () => window.scrollTo(0, 0));
+    filterBtn.addEventListener('click', toggleFilter);
   </script>
   <!-- Channel Plugin Scripts -->
   <script>
