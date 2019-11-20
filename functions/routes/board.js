@@ -226,21 +226,14 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
 
     docRef.get()
     .then((doc) => {
-        if (doc.exists) {   
-            // 문서 존재함
+        if (doc.exists) { // 문서 존재함
             data = doc.data();
-            if (data.done !== true || ignoreDone !== undefined) { // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
-                // 카카오톡 공유하기 했을 때 공유될 정보 저장
-                kakao = getKaKaoShareObject(data);
-                // 최신 매물을 4개 가져온다
-                return db.collection(`article/live/${univ}`)
-                    .where('display', '==', true).where('done', '==', false)
-                    .orderBy('createdAt', 'desc').limit(4).get();
-            }
-            else { 
-                // 거래 완료됨
-                return res.render('articleDone', { univ });
-            }
+            // 카카오톡 공유하기 했을 때 공유될 정보 저장
+            kakao = getKaKaoShareObject(data);
+            // 최신 매물을 4개 가져온다
+            return db.collection(`article/live/${univ}`)
+                .where('display', '==', true).where('done', '==', false)
+                .orderBy('createdAt', 'desc').limit(4).get();
         }
         else {
             // 문서 존재하지 않음
@@ -253,12 +246,23 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         if (filtered.length === 4) filtered.pop();
         // 관련매물 정보를 배열에 담아 저장한다
         related = getRelatedArray(filtered);
-        // 조회수 1 증가
-       return viewIncrement(docRef);
+
+        if (data.done !== true || ignoreDone !== undefined) { 
+            // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
+            return viewIncrement(docRef); // 조회수 1 증가
+        }
+        else { 
+            // 거래 완료됨 : 상세페이지 + 거래완료 표시
+            return true;
+        }
     })
     .then((newViews) => {
         let univKo = UNIV_OBJ[univ];
-        return res.render('articleDetail', { univ, univKo, articleNo, data, kakao, related });
+        let done = false
+        if (newViews === true) // true면 거래완료된 상태
+            done = true;
+
+        return res.render('articleDetail', { univ, univKo, articleNo, data, kakao, related, done });
     })
     .catch((err) => {
         console.log(err);

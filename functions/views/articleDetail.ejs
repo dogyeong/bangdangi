@@ -42,7 +42,7 @@
     <meta property="og:url" content="https://bangdangi.web.app/">
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
-    <title><%=univKo%> 단기원룸, 직거래원룸 | 방단기</title>
+    <title><%= data.title || '매물 상세보기' %> | 방단기</title>
     <link rel="shortcut icon" href="../../../img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../../../img/favicon.ico" type="image/x-icon">
     <link rel=stylesheet type="text/css" href="../../../css/common.css" />
@@ -98,9 +98,11 @@
         <div class="block1">
             <div class="titleBlock">
                 <!-- 글 제목-->
-
                 <h1 class="title">
                     <%= data.title || '' %>
+                    <% if(done === true) {  %>
+                        <span class="done_container">거래완료</span>
+                    <% } %>
                 </h1>
                 <!-- 조회수 -->
                 <div class="views_container">
@@ -215,23 +217,32 @@
                 <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
                     <i class="xi-arrow-left"></i> &nbsp; 다른 단기 원룸 보러가기
                 </a>
-                <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
-                    <% if (data.contact && data.contact.length > 15) { %>
-                    <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>"
-                        href="javascript:void(0);">
-                        오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-                    </a>
-                    <% } else { %>
-                    <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>"
-                        href="javascript:void(0);">
-                        <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
-                    </a>
-                    <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
-                        href="javascript:void(0);">
-                        <i class="xi-mail-o"></i> &nbsp;&nbsp; 문자 연락하기
-                    </a>
-                    <% } %>
-                </div>
+                <% if (done === true) { %>
+                    <div class="contact_btn_container">
+                        <div class="contact_done">
+                            거래완료된 매물입니다
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
+                        <% if (data.contact && data.contact.length > 15) { %>
+                        <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>"
+                            href="javascript:void(0);">
+                            오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+                        </a>
+                        <% } else { %>
+                        <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>"
+                            href="javascript:void(0);">
+                            <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
+                        </a>
+                        <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
+                            href="javascript:void(0);">
+                            <i class="xi-mail-o"></i> &nbsp;&nbsp; 문자 연락하기
+                        </a>
+                        <% } %>
+                    </div>
+                <% } %>
+                
             </div>
             <!-- 연락하기 버튼 블럭 END -->
         </div>
@@ -302,18 +313,20 @@
         rightBtn.addEventListener('click', moveR);
     <% } %>
     
-    var contactBtn = document.querySelectorAll('.contact');
+    <% if (done === false) { %>
+        var contactBtn = document.querySelectorAll('.contact');
 
-    function contactCallback() {
-        var contact = this.dataset.contact;
-        var type = this.dataset.type;
+        function contactCallback() {
+            var contact = this.dataset.contact;
+            var type = this.dataset.type;
 
-        if (type === 'tel') window.location = `tel:${contact}`;
-        else if (type === 'sms') window.location = `sms:${contact}`;
-        else window.location = `${contact}`;
-    }
+            if (type === 'tel') window.location = `tel:${contact}`;
+            else if (type === 'sms') window.location = `sms:${contact}`;
+            else window.location = `${contact}`;
+        }
 
-    contactBtn.forEach(i => i.addEventListener('click', contactCallback));
+        contactBtn.forEach(i => i.addEventListener('click', contactCallback));
+    <% } %>
 </script>
 
 <!-- 공유하기 -->
