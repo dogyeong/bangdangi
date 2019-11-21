@@ -8,6 +8,7 @@ const url = require('url');
 const cors = require('cors')({
     origin: true
 });
+const db = admin.firestore();
 const UNIV_OBJ = {
     pnu: '부산, 부산대',
     cnu: '대전, 충남대',
@@ -17,33 +18,30 @@ const UNIV_OBJ = {
     dongdaemun: '서울 동대문구',
 }
 
-router.get('/list/:univ', (req, res, next) => {  
-    var univ = req.params.univ;
-    var db = admin.firestore();
-    var selectedLocation = req.query.locationKeywords;
-    var selectedDate = req.query.dateKeywords;
-
+router.get('/list/:univ', async (req, res, next) => {  
+    const univ = req.params.univ;
+    const selectedLocation = req.query.locationKeywords;
+    const selectedDate = req.query.dateKeywords;
+    const selectedDeposit = req.query.deposit;
     var err = false;
     var dateKeywords = [];
-    var discountKeywords = [];
     var locationKeywords = [];
     var keywords;
     var queryArr = [];
     var resultArr = [];
 
+
+    // 필터가 적용된 매물 리스트를 가져온다
+    await getFilteredArticleList(univ, selectedLocation, selectedDate, selectedDeposit);
+    
+
     var ref = db.collection(`article/live/${univ}`)
         .where('display','==',true).where('done','==',false);
     
     if (selectedLocation !== undefined) { 
-        if (selectedDate !== undefined) { // 장소, 기간 둘 다 선택한 경우
-            for (kwd of selectedLocation) {
-                let lRef = ref.where(`locationL.${kwd}`, '==', true);
-                for (kwd of selectedDate) queryArr.push(lRef.where(`dateKeywords.${kwd}`, '==', true).get());
-            }
-        }
-        else // 장소 키워드만 선택한 경우 
-            for (kwd of selectedLocation) queryArr.push(ref.where(`locationL.${kwd}`, '==', true).get());
-    } 
+        for (kwd of selectedLocation) 
+            queryArr.push(ref.where(`locationL.${kwd}`, '==', true).get());
+    }
     else {
         if (selectedDate !== undefined) // 기간 키워드만 선택한 경우
             for (kwd of selectedDate) queryArr.push(ref.where(`dateKeywords.${kwd}`, '==', true).get());
@@ -75,20 +73,17 @@ router.get('/list/:univ', (req, res, next) => {
             if (keywordList.id === 'dateKeywords') { 
                 dateKeywords = keywordList.data().keywords || [];
             }    
-            else if (keywordList.id === 'discountKeywords') { 
-                discountKeywords = keywordList.data().keywords || [];
-            }
             else if (keywordList.id === 'locationKeywords') { 
                 locationKeywords = keywordList.data().keywords || [];
             }  
         })
-        keywords = { dateKeywords, discountKeywords, locationKeywords };
+        keywords = { dateKeywords, locationKeywords };
         return null;
     })
     .then(() => {
         var roomList = [];
         if (resultArr.length > 0) { // 결과 존재
-            roomList = getRoomList(resultArr);
+            roomList = formatRoomList(resultArr);
         }
         else { // 결과 없음
             roomList = resultArr;
@@ -103,7 +98,60 @@ router.get('/list/:univ', (req, res, next) => {
         return next(createError(500));
     })
 });
-getRoomList = (arr) => {
+
+getFilteredArticleList = async (univ, selectedLocation, selectedDate, selectedDeposit) => {   
+    let result = await getLocationFiltered(univ, selectedLocation); // 장소 필터가 적용된 매물들을 불러온다
+    
+    if (selectedDate !== undefined) {
+        let dateFiltered = await getDateFilterd(univ, selectedDate); 
+        result = opAND(locationFiltered, dateFiltered); // 장소필터 && 기간필터
+    }
+    if (selectedDeposit !== undefined) {
+        let depositFiltered = await getDepositFiltered(univ, selectedDeposit); 
+        result = opAND(result, depositFiltered); // 장소필터 && 기간필터 && 가격(보증금)필터
+    }
+
+    return result;
+}
+getLocationFiltered = async (univ, selectedLocation) => {
+    let result;
+    let defaultRef = db.collection(`article/live/${univ}`).where('display','==',true).where('done','==',false);
+    
+    if (selectedLocation === undefined) {
+        result = await defaultRef.get().then(docs => docs.docs);
+    } 
+    else {
+        let queryArr = [];
+        for (kwd of selectedLocation) 
+            queryArr.push(defaultRef.where(`locationL.${kwd}`, '==', true).get());
+        result = await Promise.all(queryArr)
+            .then(result => opOR(result));
+    }
+    return result;
+}
+opAnd = (arr1, arr2) => {
+
+}
+opOR = (arrays) => {
+    let result;
+    // 배열들을 합친다
+    result = arrays.reduce((res, cur) => {
+            if (!cur.docs.empty) 
+                return res.concat(cur.docs); 
+            else 
+                return res; 
+        }, []);
+    // 합친 배열에서 중복을 제거한다
+    result = result.reduce((res, cur) => {
+            id = cur.id;
+            if (res.findIndex((doc) => doc.id === id) < 0) res.push(cur);
+            return res;
+        }, []);
+        
+    return result;
+}
+
+formatRoomList = (arr) => {
     var result = arr.map((doc) => doc.data());
     // 일단 등록시간순으로 정렬
     result.sort((a,b) => {
@@ -217,7 +265,6 @@ formatNewArticle = (doc) => {
 router.get('/read/:univ/:articleNo', (req, res, next) => {
     var univ = req.params.univ;
     var articleNo = req.params.articleNo;
-    var db = admin.firestore();
     var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
     var kakao = {}; // 카카오로 공유하기 했을 때 전달될 정보
     var data; // 상세페이지에서 보여질 매물정보
@@ -331,7 +378,6 @@ router.get('/create', (req, res, next) => {
 });
 
 router.post('/create_process', (req, res, next) => {
-    var db = admin.firestore();
     var title = req.body.title || null;
     var text = req.body.text || null;
     var tradeType = req.body.tradeType || null;
