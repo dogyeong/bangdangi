@@ -20,134 +20,134 @@ const UNIV_OBJ = {
 
 router.get('/list/:univ', async (req, res, next) => {  
     const univ = req.params.univ;
-    const selectedLocation = req.query.locationKeywords;
-    const selectedDate = req.query.dateKeywords;
-    const selectedDeposit = req.query.deposit;
-    var err = false;
-    var dateKeywords = [];
-    var locationKeywords = [];
-    var keywords;
-    var queryArr = [];
-    var resultArr = [];
+    const locationKeywords = req.query.locationKeywords;
+    const monthLimit = req.query.monthLimit;
+    const priceKeywords = req.query.priceKeywords;
+    let keywordList;
+    let resultArr = [];
 
-
+    // 선택한 지역의 장소 키워드 리스트를 가져온다
+    keywordList = await getKeywordList(univ);
     // 필터가 적용된 매물 리스트를 가져온다
-    await getFilteredArticleList(univ, selectedLocation, selectedDate, selectedDeposit);
+    resultArr = await getFilteredArticleList(univ, locationKeywords, monthLimit, priceKeywords);
     
-
-    var ref = db.collection(`article/live/${univ}`)
-        .where('display','==',true).where('done','==',false);
-    
-    if (selectedLocation !== undefined) { 
-        for (kwd of selectedLocation) 
-            queryArr.push(ref.where(`locationL.${kwd}`, '==', true).get());
+    let err = false;
+    let roomList;
+    if (resultArr.length > 0) { // 결과 존재
+        roomList = formatRoomList(resultArr);
     }
-    else {
-        if (selectedDate !== undefined) // 기간 키워드만 선택한 경우
-            for (kwd of selectedDate) queryArr.push(ref.where(`dateKeywords.${kwd}`, '==', true).get());
-            
-        else // 선택된 태그가 없으면 전부다 불러온다
-            queryArr.push(ref.get());    
-    }
-
-    Promise.all(queryArr)
-    .then(res => { // resolve된 결과배열들을 다 합친다
-        return res.reduce((result, current) => { 
-            if (current.docs !== undefined) return result.concat(current.docs); 
-            else return result; 
-        }, []);
-    })
-    .then((arr) => { // 합쳐진 배열에서 중복된 원소들을 제거한다
-        return arr.reduce((result, current) => {
-            id = current.id;
-            if (result.findIndex((doc) => doc.id === id) < 0) result.push(current);
-            return result;
-        }, []);
-    })
-    .then(arr => { // 결과 배열을 저장하고, 태그들을 불러온다
-        resultArr = arr;
-        return db.collection(`article/keywords/${univ}`).get();
-    })
-    .then(keywordLists => { // 불러온 태그들을 저장한다
-        keywordLists.forEach((keywordList) => {
-            if (keywordList.id === 'dateKeywords') { 
-                dateKeywords = keywordList.data().keywords || [];
-            }    
-            else if (keywordList.id === 'locationKeywords') { 
-                locationKeywords = keywordList.data().keywords || [];
-            }  
-        })
-        keywords = { dateKeywords, locationKeywords };
-        return null;
-    })
-    .then(() => {
-        var roomList = [];
-        if (resultArr.length > 0) { // 결과 존재
-            roomList = formatRoomList(resultArr);
-        }
-        else { // 결과 없음
-            roomList = resultArr;
-            err = '매물이 존재하지 않습니다';
-            console.log(roomList);
-        }   
-        let univKo = UNIV_OBJ[univ];
-        return res.render('articleList', { roomList, keywords, univ, univKo, selectedLocation, selectedDate, err });
-    })
-    .catch(err => {
-        console.log(err);
-        return next(createError(500));
-    })
+    else { // 결과 없음
+        roomList = resultArr;
+        err = '매물이 존재하지 않습니다';
+    }   
+    let univKo = UNIV_OBJ[univ];
+    let filterOption = { 
+        location: locationKeywords,
+        date: monthLimit,
+        price: priceKeywords
+     }
+    return res.render('articleList', { roomList, keywordList, univ, univKo, filterOption, err });
 });
 
-getFilteredArticleList = async (univ, selectedLocation, selectedDate, selectedDeposit) => {   
-    let result = await getLocationFiltered(univ, selectedLocation); // 장소 필터가 적용된 매물들을 불러온다
-    
-    if (selectedDate !== undefined) {
-        let dateFiltered = await getDateFilterd(univ, selectedDate); 
-        result = opAND(locationFiltered, dateFiltered); // 장소필터 && 기간필터
+getKeywordList = async (univ) => {
+    return await db.doc(`article/keywords/${univ}/locationKeywords`).get()
+        .then(doc => { // 불러온 태그들을 저장한다
+            if (doc.exists) {
+                return doc.data().keywords;
+            }
+            else {
+                return []; 
+            }
+        });
+}
+
+getFilteredArticleList = async (univ, locationKeywords, monthLimit, priceKeywords) => {   
+    let result = await getLocationFiltered(univ, locationKeywords); // 장소 필터가 적용된 매물들을 불러온다
+
+    if (monthLimit !== undefined) {
+        let dateFiltered = await getDateFilterd(univ, monthLimit);  
+        result = opAND(result, dateFiltered); // 장소필터 && 기간필터    
     }
-    if (selectedDeposit !== undefined) {
-        let depositFiltered = await getDepositFiltered(univ, selectedDeposit); 
-        result = opAND(result, depositFiltered); // 장소필터 && 기간필터 && 가격(보증금)필터
+    
+    if (priceKeywords !== undefined) {
+        let priceFiltered = await getPriceFiltered(univ, priceKeywords); 
+        result = opAND(result, priceFiltered); // 장소필터 && 기간필터 && 가격(보증금)필터
     }
 
     return result;
 }
-getLocationFiltered = async (univ, selectedLocation) => {
+
+getLocationFiltered = async (univ, locationKeywords) => {
     let result;
     let defaultRef = db.collection(`article/live/${univ}`).where('display','==',true).where('done','==',false);
     
-    if (selectedLocation === undefined) {
+    if (locationKeywords === undefined) {
         result = await defaultRef.get().then(docs => docs.docs);
     } 
     else {
         let queryArr = [];
-        for (kwd of selectedLocation) 
+        for (kwd of locationKeywords) 
             queryArr.push(defaultRef.where(`locationL.${kwd}`, '==', true).get());
         result = await Promise.all(queryArr)
-            .then(result => opOR(result));
+            .then(result => opOR(result.map(docs => docs.docs)));
     }
     return result;
 }
-opAnd = (arr1, arr2) => {
 
+getDateFilterd = async (univ, monthLimit) => {
+    // 선택한 달의 마지막 날을 구한다
+    let lastDay = getLastDayOfMonth(monthLimit);
+
+    // 선택한 달이랑 지금이랑 몇달 차이나는지 구한다
+    let dateDiff = getMonthDiff(monthLimit);
+
+    return await Promise.all([
+            db.collection(`article/live/${univ}`).where('endDate', '<=', lastDay).get(),
+            db.collection(`article/live/${univ}`).where('minTerm', '<=', dateDiff).get()  
+        ])
+        .then(result => opOR(result.map(docs => docs.docs)));
 }
+
+getPriceFiltered = async (univ, priceKeywords) => {
+    return await db.collection(`article/live/${univ}`).where('deposit', '<=', 100).get()
+        .then(docs => docs.docs);
+}
+
+getLastDayOfMonth = (selectedDate) => {
+    let currentDate = new Date();
+    let month = parseInt(selectedDate);
+    let year = (currentDate.getMonth() > month) ? currentDate.getFullYear()+1 : currentDate.getFullYear();
+
+    return new Date(year, month, 0);
+}
+
+getMonthDiff = (selectedDate) => {
+    let lastDay = getLastDayOfMonth(selectedDate);
+    let timeStampDiff = lastDay - new Date();
+
+    if (timeStampDiff < 0) 
+        return 0; 
+    else 
+        return parseInt( timeStampDiff / (3600 * 24 * 30 * 1000) );
+}
+
+opAND = (arr1, arr2) => {
+    let result = arr1.filter(doc => {
+        let id = doc.id;
+        for (doc of arr2) 
+            if (doc.id === id) return true;
+        return false;
+    });  
+    return result;
+}
+
 opOR = (arrays) => {
-    let result;
-    // 배열들을 합친다
-    result = arrays.reduce((res, cur) => {
-            if (!cur.docs.empty) 
-                return res.concat(cur.docs); 
-            else 
-                return res; 
-        }, []);
-    // 합친 배열에서 중복을 제거한다
-    result = result.reduce((res, cur) => {
-            id = cur.id;
-            if (res.findIndex((doc) => doc.id === id) < 0) res.push(cur);
+    let result = arrays.reduce((res, cur) => {
+        if (cur.length > 0)
+            return [...res, ...cur];
+        else   
             return res;
-        }, []);
-        
+    }, []);
     return result;
 }
 

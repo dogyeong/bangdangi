@@ -94,21 +94,23 @@
         <div class="input_container">
           <div class="hashtag_title">장소</div>
           <div class="hashtag_list">
-            <% for (i of keywords.locationKeywords) { %>
+            <% for (i of keywordList) { %>
             <input type="checkbox" name="locationKeywords[]" id="<%= i %>" value="<%= i %>"
-              <%= (selectedLocation!==undefined&&selectedLocation.includes(`${i}`)) ? 'checked' : '' %>>
+              <%= (filterOption.location!==undefined&&filterOption.location.includes(`${i}`)) ? 'checked' : '' %>>
             <label for="<%= i %>"><span><%= i %></span></label>
             <% } %>
           </div>
           <div class="hashtag_title">기간</div>
           <div class="hashtag_list">
-            <% for (i of keywords.dateKeywords) { %>
-            <input type="checkbox" name="dateKeywords[]" id="<%= i %>" value="<%= i %>"
-              <%= (selectedDate!==undefined&&selectedDate.includes(`${i}`)) ? 'checked' : '' %>>
-            <label for="<%= i %>"><span><%= i %></span></label>
-            <% } %>
+            <input type="range" name="monthLimit" oninput="updateRangeValue(this);" value="<%=filterOption.date || 1%>" min="1" max="12" step="1">
+            <span class="range_value"><%=filterOption.date || 1%></span>월까지
           </div>
-          
+          <div class="hashtag_title">가격</div>
+          <div class="hashtag_list">
+            <input type="checkbox" name="priceKeywords[]" id="무보증금" value="무보증금"
+              <%= (filterOption.price!==undefined) ? 'checked' : '' %>>
+            <label for="무보증금"><span>무보증금</span></label>
+          </div>
         </div>
         <div class="submit_container">
           <input type="submit" value="적용">
@@ -266,6 +268,11 @@
       else {
         filterBtn.innerHTML = '<i class="xi-tune"></i>';
       }
+    }
+
+    function updateRangeValue(range) {
+      let value = range.value;
+      document.querySelector('.range_value').innerText = value;
     }
 
     univSelect.onchange = changeRoomList;
