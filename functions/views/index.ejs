@@ -64,7 +64,7 @@
       </a>
       <ul class="nav">
         <li><a href="https://bangdangi.web.app/request">이런방구해요</a></li>
-        <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물등록</a></li>
+        <li><a href="register">매물등록</a></li>
       </ul>
     </div>
   </header>
@@ -114,7 +114,7 @@
         <a href="<%= i.url %>" class="b1_item">
           <div class="b1_item_content">
             <div class="b1_item_img"
-              style="background: url(<%= i.images ? i.images[0] : '' %>) center center / cover no-repeat;"></div>
+              style="background: url('<%= i.images ? i.images[0] : "" %>') center center / cover no-repeat;"></div>
             <div class="b1_item_text">
               <%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %>
               <br>
@@ -162,16 +162,8 @@
       </div>
     </div>
   </footer>
-  <script>
-    var univSelect = document.getElementById('univ_select');
-
-    function changeRoomList() {
-      if (this.value == "") return;
-      window.location.href = `https://bangdangi.web.app/board/list/${this.value}`;
-    }
-
-    univSelect.onchange = changeRoomList;
-  </script>
+  <script src="//cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
+  <script src="babel/dst/index.js"></script>
   <!-- Channel Plugin Scripts -->
   <script>
     (function () {

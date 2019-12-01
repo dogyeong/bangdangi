@@ -62,6 +62,10 @@ router.get('/request', (req, res) => {
   return res.render('request');
 })
 
+router.get('/register', (req, res) => {
+  return res.render('register');
+})
+
 async function getArticleList(collection) {
   let arr = [];
   await collection.where('done', '==', false).where('display', '==', true).get()

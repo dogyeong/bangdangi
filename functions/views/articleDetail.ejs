@@ -148,18 +148,13 @@
                             </div>
                             <div class="cell_data">
                                 <% if(data.startDate === null && data.endDate === null) { %>
-                                <% if(data['dateKeywords']) { %>
-                                <%=   Object.keys(data['dateKeywords'])[0] %>
-                                <% } %>
+                                    <% if(data['minTerm']) { %>
+                                    <%= data['minTerm']+'개월이상' %>
+                                    <% } %>
                                 <% } else { %>
-                                <%= data.startDate ? new Date(data.startDate.toMillis()).toLocaleDateString() : '' %>
-                                <%= (data.startDate || data.endDate) ? ' ~ ' : '' %>
-                                <%= data.endDate ? new Date(data.endDate.toMillis()).toLocaleDateString() : '' %>
-                                <% if (data['dateKeywords'] && data['dateKeywords']['6개월']) { %>
-                                <div class="cell_data_sub">
-                                    6개월
-                                </div>
-                                <% } %>
+                                    <%= data.startDate ? new Date(data.startDate.toMillis()).toLocaleDateString() : '' %>
+                                    <%= (data.startDate || data.endDate) ? ' ~ ' : '' %>
+                                    <%= data.endDate ? new Date(data.endDate.toMillis()).toLocaleDateString() : '' %>
                                 <% } %>
                             </div>
                         </div>
@@ -279,146 +274,22 @@
         </footer>
     </div>
 </body>
-
-<!-- 이미지 슬라이더, 연락하기 -->
-<script>
-    var imageContainer = document.getElementsByClassName('image_container')[0];
-    <% if (data.images !== null) { %>
-        var sliderCounter = document.getElementsByClassName('slider_counter')[0];
-        var imgNum = imageContainer.childElementCount;
-        var currentCount = 1;
-        var leftBtn = document.getElementsByClassName('slider_btn_l')[0];
-        var rightBtn = document.getElementsByClassName('slider_btn_r')[0];
-
-        sliderCounter.innerText = `${currentCount}/${imgNum}`;
-
-        function moveL() {
-            if (currentCount === 1)
-                currentCount = imgNum;
-            else
-                currentCount -= 1;
-            imageContainer.style.left = `${(currentCount - 1) * (-100)}%`;
-            sliderCounter.innerText = `${currentCount}/${imgNum}`;
-        }
-        function moveR() {
-            if (currentCount === imgNum)
-                currentCount = 1;
-            else
-                currentCount += 1;
-            imageContainer.style.left = `${(currentCount - 1) * (-100)}%`;
-            sliderCounter.innerText = `${currentCount}/${imgNum}`;
-        }
-
-        leftBtn.addEventListener('click', moveL);
-        rightBtn.addEventListener('click', moveR);
-    <% } %>
-    
-    <% if (done === false) { %>
-        var contactBtn = document.querySelectorAll('.contact');
-
-        function contactCallback() {
-            var contact = this.dataset.contact;
-            var type = this.dataset.type;
-
-            if (type === 'tel') window.location = `tel:${contact}`;
-            else if (type === 'sms') window.location = `sms:${contact}`;
-            else window.location = `${contact}`;
-        }
-
-        contactBtn.forEach(i => i.addEventListener('click', contactCallback));
-    <% } %>
-</script>
-
-<!-- 공유하기 -->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript">
-    //<![CDATA[
-    // // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('07ac8a4da1c7b6aa00a5947dc53f964a');
-    // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-    Kakao.Link.createDefaultButton({
-        container: '#kakao-link-btn',  // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id 
-        objectType: 'feed',
-        content: {  // 여기부터 실제 내용이 들어갑니다. 
-            title: '<%= kakao.title %>', // 본문 제목
-            description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
-            imageUrl: '<%= kakao.imageUrl %>', // 이미지
-            link: {
-                mobileWebUrl: '<%= kakao.link %>',
-                webUrl: '<%= kakao.link %>'
-            }
-        }
-    });
-    //]]>
-
-
-    var share_btn = document.querySelector('.share_btn');
-    var kakao_share = document.querySelector('.kakao_link_btn');
-    var url_share = document.querySelector('.url_link_btn');
-    var names = [
-        "webkitTransitionEnd",
-        "oTransitionEnd",
-        "otransitionend",
-        "transitionend",
-        "transitionEnd"];
-
-    function toggleShare() {
-        kakao_share.classList.toggle('kakao_visible');
-        url_share.classList.toggle('url_visible');
-
-        if (kakao_share.classList.contains('kakao_visible'))
-            kakao_share.style.opacity = 1;
-
-        if (url_share.classList.contains('url_visible'))
-            url_share.style.opacity = 1;
-    }
-    function transitionEvent(element, callback) {
-        for (var i = 0; i < names.length; i++) {
-            element.addEventListener(names[i], callback, false);
+<script>
+    var dataImages = <%= data.images ? true : false %>;
+    var dataDone = <%= done %>;
+    var dataKakao = {
+        title: '<%= kakao.title %>', // 본문 제목
+        description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
+        imageUrl: '<%= kakao.imageUrl %>', // 이미지
+        link: {
+            mobileWebUrl: '<%= kakao.link %>',
+            webUrl: '<%= kakao.link %>'
         }
     }
-
-    function copyURL() {
-        var t = document.createElement("textarea");
-        document.body.appendChild(t);
-        t.value = `<%= kakao.link %>`;
-        t.select();
-        document.execCommand('copy');
-        document.body.removeChild(t);
-        window.alert('URL이 복사되었습니다.')
-    }
-
-    share_btn.addEventListener('click', toggleShare);
-    url_share.addEventListener('click', copyURL);
-    transitionEvent(kakao_share, function () {
-        if (!this.classList.contains('kakao_visible'))
-            this.style.opacity = 0;
-    });
-    transitionEvent(url_share, function () {
-        if (!this.classList.contains('url_visible'))
-            this.style.opacity = 0;
-    });
-
-    // checkImage : url의 orientaion을 확인해서 회전되있으면 target을 정방향으로 회전시킨다
-    function checkImage(url, target) {
-        loadImage(url, function (img, data) {
-            if (data.exif) {
-                let flag = data.exif.get("Orientation");
-                if (flag === 6) target.style.transform = 'rotate(90deg)';
-                else if (flag === 3) target.style.transform = 'rotate(180deg)';
-                else if (flag === 8) target.style.transform = 'rotate(270deg)';
-            }
-        }, { meta: true });
-    }
-
-    window.onload = function () {
-        document.querySelectorAll('.image_container > div').forEach(div => {
-            let url = div.style.backgroundImage.replace('url(', '').replace(')', '').replace(/\"/gi, "");
-            checkImage(url, div);
-        })
-    }
-
 </script>
+<script src="../../../babel/dst/articleDetail.js"></script>
+
 <!-- Channel Plugin Scripts -->
 <script>
     (function () {

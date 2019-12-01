@@ -181,6 +181,7 @@ formatRoomList = (arr) => {
         result.splice(5, 0, { ad: true });
     return result;
 }
+
 formatDate = (date) => {
     if (date === null) 
         return '';
@@ -238,8 +239,6 @@ formatKeywords = (doc) => {
     let arr = [];
     if (doc.keywords !== null)
         arr = Object.keys(doc.keywords);
-    if (doc.pic !== null)
-        arr.push('사진O');
     if (doc.only !== null)
         arr = arr.concat( Object.keys(doc.only) );
     return arr;

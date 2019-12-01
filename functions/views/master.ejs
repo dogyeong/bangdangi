@@ -77,7 +77,7 @@
         <div>
             <div>시작날짜</div>
             <div>끝날짜</div>
-            <div>날짜키워드</div>
+            <div>최소계약기간</div>
             <div>큰위치</div>
             <div>세부위치</div>
         </div>
@@ -96,7 +96,6 @@
             <div style="display: flex;">
                 <div>형태</div>
                 <div>성별</div>
-                <div>사진여부</div>
             </div>
             <div>
                 특징
@@ -279,7 +278,7 @@
               <div>
                 <div class="updateDate" data-key=${key} data-target='startDate'>${article.startDate !== null ? article.startDate.toDate().toLocaleDateString() : null}</div>
                 <div class="updateDate" data-key=${key} data-target='endDate'>${article.endDate !== null ? article.endDate.toDate().toLocaleDateString() : null}</div>
-                <div class="modify" data-type="map" data-key=${key} data-target='dateKeywords'>${article.dateKeywords !== null ? Object.keys(article.dateKeywords).join(',') : null}</div>
+                <div class="modify" data-type="num" data-key=${key} data-target='minTerm'>${article.minTerm}</div>
                 <div class="modify" data-type="map" data-key=${key} data-target='locationL'>${article.locationL !== null ? Object.keys(article.locationL).join(',') : null}</div>
                 <div class="modify" data-type="map" data-key=${key} data-target='locationS'>${article.locationS !== null ? Object.keys(article.locationS).join(',') : null}</div>
               </div>
@@ -298,7 +297,6 @@
                 <div>
                   <div class="modify" data-type="str" data-key=${key} data-target='roomType'>${article.roomType}</div>
                   <div class="modify" data-type="map" data-key=${key} data-target='only'>${article.only !== null ? Object.keys(article.only).join(',') : null}</div>
-                  <div class="modify" data-type="bool" data-key=${key} data-target='pic'>${article.pic}</div>
                 </div>
                 <div class="modify" data-type="map" data-key=${key} data-target='keywords'>${article.keywords !== null ? Object.keys(article.keywords).join(',') : null}</div>
               </div>
@@ -500,7 +498,6 @@
                     locationS: null,
                     roomType: null,
                     only: null,
-                    pic: false,
                     floor: null,
                     images: null,
                     urlType: null,
