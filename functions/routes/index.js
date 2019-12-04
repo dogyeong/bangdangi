@@ -14,6 +14,8 @@ const cors = require('cors')({
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
+  return res.render('notice');
+  /*
   var db = admin.firestore();
   // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
   Promise.all([
@@ -44,6 +46,7 @@ router.get('/', (req, res, next) => {
     console.log(error);
     return next(createError(500));
   })
+  */
 });
 
 router.get('/master', (req, res) => {
@@ -59,11 +62,17 @@ router.get('/masterLogin', (req, res) => {
 })
 
 router.get('/request', (req, res) => {
-  return res.render('request');
+  return res.render('notice');
+  // return res.render('request');
 })
 
 router.get('/register', (req, res) => {
-  return res.render('register');
+  return res.render('notice');
+  // return res.render('register');
+})
+
+router.get('/notice', (req, res) => {
+  return res.render('notice');
 })
 
 async function getArticleList(collection) {

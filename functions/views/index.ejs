@@ -41,7 +41,7 @@
   <meta property="og:url" content="https://bangdangi.web.app/">
   <link rel="canonical" href="https://bangdangi.web.app/" />
   <!-- SEO END -->
-  <title>단기원룸, 직거래원룸 찾아다닐 필요없이 한번에 | 방단기</title>
+  <title>단기원룸 찾아다닐 필요없이 한번에 | 방단기</title>
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel=stylesheet type="text/css" href="css/common.css" />
@@ -75,7 +75,7 @@
         <div class="mainCopy">
           <h1>찾아다닐 필요없이<br>모든 단기원룸을 한번에</h1>
           <p>
-            방단기는 20개가 넘는 부동산 커뮤니티에서<br/>직거래 단기 원룸을 찾아 매일 업로드하고 있습니다.<br/>
+            방단기는 20개가 넘는 부동산 커뮤니티에서<br/>단기 원룸을 찾아 매일 업로드하고 있습니다.<br/>
             지금 무료로 원하는 방을 찾아보세요.
           </p>
         </div>
@@ -118,7 +118,15 @@
             <div class="b1_item_text">
               <%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %>
               <br>
-              <%= i.dateKeywords ? Object.keys(i.dateKeywords)[0] : '' %>
+              <% if(i.startDate === null && i.endDate === null) { %>
+                <% if(i['minTerm']) { %>
+                <%= i['minTerm']+'개월이상' %>
+                <% } %>
+              <% } else { %>
+                <%= i.startDate ? new Date(i.startDate.toMillis()).toLocaleDateString() : '' %>
+                <%= (i.startDate || i.endDate) ? ' ~ ' : '' %>
+                <%= i.endDate ? new Date(i.endDate.toMillis()).toLocaleDateString() : '' %>
+              <% } %>
             </div>
           </div>
         </a>

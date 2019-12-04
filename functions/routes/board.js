@@ -18,7 +18,9 @@ const UNIV_OBJ = {
     dongdaemun: '서울 동대문구',
 }
 
-router.get('/list/:univ', async (req, res, next) => {  
+router.get('/list/:univ', async (req, res, next) => { 
+    return res.render('notice');
+    /* 
     const univ = req.params.univ;
     const locationKeywords = req.query.locationKeywords;
     const monthLimit = req.query.monthLimit;
@@ -47,6 +49,7 @@ router.get('/list/:univ', async (req, res, next) => {
         price: priceKeywords
      }
     return res.render('articleList', { roomList, keywordList, univ, univKo, filterOption, err });
+    */
 });
 
 getKeywordList = async (univ) => {
@@ -262,6 +265,8 @@ formatNewArticle = (doc) => {
 }
 
 router.get('/read/:univ/:articleNo', (req, res, next) => {
+    return res.render('notice');
+    /*
     var univ = req.params.univ;
     var articleNo = req.params.articleNo;
     var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
@@ -314,6 +319,7 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         console.log(err);
         return next(createError(500));
     })
+    */
 });
 
 getRelatedArray = (arr) => {
