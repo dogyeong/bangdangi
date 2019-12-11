@@ -63,6 +63,21 @@
 
     <div id="article" style="margin-top: 80px;"></div>
 
+    <div id="notification">
+        <span>
+            title<input type="text" name="push-title">
+            body<input type="text" name="push-body">
+        </span>
+        <div>
+            <div>createdAt</div>
+            <div>endpoint</div>
+            <div>expirationTime</div>
+            <div>auth</div>
+            <div>p256dh</div>
+            <div>button</div>
+        </div>
+    </div>
+
     <div class="update_container">
         <div class="update_header">
             <div class="id_container"></div>
@@ -161,14 +176,14 @@
                     dateKeywords
                     <span class="field_value_add" data-field="dateKeywords">
                         <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>   
+                    </span>
                 </div>
                 <div class="field_value" data-container="dateKeywords"></div>
             </div>
             <!-- locationL -->
             <div class="field_container" data-field="locationL" data-type="object">
                 <div class="field_title" data-field="locationL">
-                    locationL 
+                    locationL
                     <span class="field_value_add" data-field="locationL">
                         <i class="xi-plus" onclick="addField(this);"></i>
                     </span>
@@ -180,7 +195,7 @@
                 <div class="field_title" data-field="locationS">
                     locationS
                     <span class="field_value_add" data-field="locationS">
-                            <i class="xi-plus" onclick="addField(this);"></i>
+                        <i class="xi-plus" onclick="addField(this);"></i>
                     </span>
                 </div>
                 <div class="field_value" data-container="locationS"></div>
@@ -211,7 +226,7 @@
                 <div class="field_title" data-field="discountKeywords">
                     discountKeywords
                     <span class="field_value_add" data-field="discountKeywords">
-                            <i class="xi-plus" onclick="addField(this);"></i>
+                        <i class="xi-plus" onclick="addField(this);"></i>
                     </span>
                 </div>
                 <div class="field_value" data-container="discountKeywords"></div>
@@ -222,7 +237,7 @@
                     keywords
                     <span class="field_value_add" data-field="keywords">
                         <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>    
+                    </span>
                 </div>
                 <div class="field_value" data-container="keywords"></div>
             </div>
@@ -246,7 +261,7 @@
                     only
                     <span class="field_value_add" data-field="only">
                         <i class="xi-plus" onclick="addField(this);"></i>
-                    </span> 
+                    </span>
                 </div>
                 <div class="field_value" data-container="only"></div>
             </div>
@@ -256,11 +271,11 @@
                     images
                     <span class="field_value_add" data-field="images">
                         <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>   
+                    </span>
                 </div>
                 <div class="field_value" data-container="images">
                     <div class="file_container">
-                        <input type="file" data-field="images" accept="image/*"multiple>
+                        <input type="file" data-field="images" accept="image/*" multiple>
                         <button value="upload" onclick="uploadImage();">upload</button>
                     </div>
                 </div>
@@ -320,6 +335,8 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
     </script>
+
+    <!-- 매물관리 코드 -->
     <script>
         var loading = document.querySelector('#loading_container');
         var select = document.querySelector('#univ_select');
@@ -333,12 +350,12 @@
         var storage = firebase.storage();
         var hot;
         var exportPlugin;
-        
+
         var textRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-                Handsontable.renderers.TextRenderer.apply(this, arguments);
-                td.className = 'textNoWrap';
-                return cellProperties;
-            };
+            Handsontable.renderers.TextRenderer.apply(this, arguments);
+            td.className = 'textNoWrap';
+            return cellProperties;
+        };
         var showLoading = () => { loading.style.display = 'initial' };
         var hideLoading = () => { loading.style.display = 'none' };
         var showUpdateLoading = () => { updateLoading.style.display = 'flex' };
@@ -346,7 +363,7 @@
         var loadData = (univ) => {
             if (univ === "") return;
             document.querySelector('#article').innerHTML = '';
-            
+
             // 로딩이미지 출력
             showLoading();
             // 데이터 불러오기
@@ -467,7 +484,7 @@
             }
         }
         var exportCSV = () => {
-            if(exportPlugin === undefined) {
+            if (exportPlugin === undefined) {
                 window.alert('데이터를 먼저 불러오세요');
             }
             else {
@@ -502,16 +519,16 @@
             // id, 매물 데이터를 가져온다 
             document.querySelector('.id_container').innerText = id;
             firebase.firestore().doc(`article/live/${select.value}/${id}`).get()
-            .then(doc => {
-                return parseDoc(doc.data()); // DB에서 가져온 데이터 파싱
-            })
-            .then(() => {
-                hideUpdateLoading(); // 로딩창 숨기기
-            })
-            .catch(err => {
-                console.log(err);
-                window.alert(err.message);
-            })
+                .then(doc => {
+                    return parseDoc(doc.data()); // DB에서 가져온 데이터 파싱
+                })
+                .then(() => {
+                    hideUpdateLoading(); // 로딩창 숨기기
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert(err.message);
+                })
         }
         var closeUpdateBox = () => {
             document.querySelector('.update_container').classList.remove('update_open');
@@ -547,14 +564,14 @@
                 else if (type === 'text') {
                     document.querySelector(`textarea[data-field="${field}"]`).value = '';
                 }
-            })    
+            })
             // null 초기화
             document.querySelectorAll('.null').forEach(i => i.classList.remove('null'));
         }
         var parseDoc = (data) => {
             // 데이터 파싱 후 렌더
             for (i in data) {
-                let type  = typeof(data[i]);
+                let type = typeof (data[i]);
                 if (data[i] === null) { // null
                     document.querySelector(`.field_title[data-field="${i}"]`).classList.add('null');
                     document.querySelector(`.field_value[data-container="${i}"]`).classList.add('null');
@@ -602,9 +619,9 @@
                 }
             }
         }
-        var toggleNull = function() {
-            let fieldValue = document.querySelector(`.field_value[data-container="${this.dataset.field}"]`); 
-            if (this.classList.toggle('null')) 
+        var toggleNull = function () {
+            let fieldValue = document.querySelector(`.field_value[data-container="${this.dataset.field}"]`);
+            if (this.classList.toggle('null'))
                 fieldValue.classList.add('null');
             else
                 fieldValue.classList.remove('null');
@@ -615,14 +632,14 @@
                 day = '' + d.getDate(),
                 year = d.getFullYear();
 
-            if (month.length < 2) 
+            if (month.length < 2)
                 month = '0' + month;
-            if (day.length < 2) 
+            if (day.length < 2)
                 day = '0' + day;
 
             return [year, month, day].join('-');
         }
-        var addField = function(target) {
+        var addField = function (target) {
             event.stopPropagation();
             let field = target.parentNode.dataset.field;
             let value = document.querySelector(`.field_value[data-container="${field}"]`);
@@ -634,7 +651,7 @@
                 </div>
                 `;
             value.appendChild(div);
-            
+
         }
         var deleteField = function (target) {
             event.stopPropagation();
@@ -653,42 +670,42 @@
                 showUpdateLoading();
 
                 Promise.all(arr) // 업로드된 사진들의 orientation을 구한다
-                .then(orientationArr =>
-                    Promise.all(orientationArr.map(o => resetOrientation(o))) // 구한 orientation에 맞춰서 캔버스에 그린 사진들을 회전시킨다
-                )
-                .then(canvasArr => 
-                    Promise.all(canvasArr.map(c => canvasToBlob(c))) // 각 캔버스들을 blob으로 변환한다
-                )
-                .then(blobArr => { // blob들을 스토리지에 업로드한다
-                    resultArr = [];
-                    for(i=0; i<blobArr.length; i++) {
-                        resultArr.push(
-                            storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i])
-                        );
-                    }
-                    return Promise.all(resultArr);
-                })
-                .then(resultArr => 
-                    Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
-                )
-                .then(urlArr => { // 받아온 url을 입력창에 추가해준다
-                    urlArr.forEach(url => {
-                        document.querySelector(`.field_value[data-container="images"]`)
-                            .innerHTML += `
+                    .then(orientationArr =>
+                        Promise.all(orientationArr.map(o => resetOrientation(o))) // 구한 orientation에 맞춰서 캔버스에 그린 사진들을 회전시킨다
+                    )
+                    .then(canvasArr =>
+                        Promise.all(canvasArr.map(c => canvasToBlob(c))) // 각 캔버스들을 blob으로 변환한다
+                    )
+                    .then(blobArr => { // blob들을 스토리지에 업로드한다
+                        resultArr = [];
+                        for (i = 0; i < blobArr.length; i++) {
+                            resultArr.push(
+                                storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i])
+                            );
+                        }
+                        return Promise.all(resultArr);
+                    })
+                    .then(resultArr =>
+                        Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
+                    )
+                    .then(urlArr => { // 받아온 url을 입력창에 추가해준다
+                        urlArr.forEach(url => {
+                            document.querySelector(`.field_value[data-container="images"]`)
+                                .innerHTML += `
                                 <div>
                                     <input type="text" data-field="images" value="${url}">
                                     <i class="xi-minus" onclick="deleteField(this);"></i>   
                                 </div>
                             `;
+                        })
+                        hideUpdateLoading();
                     })
-                    hideUpdateLoading();
-                })
-                .catch(err => console.log(err));                  
+                    .catch(err => console.log(err));
             }
         }
         var getOrientation = (file) => {
             return new Promise((resolve, reject) => {
-                loadImage(file, function(img, data) {
+                loadImage(file, function (img, data) {
                     if (data.exif) {
                         let flag = data.exif.get("Orientation");
                         if (flag) return resolve([flag, file]);
@@ -696,7 +713,7 @@
                     }
                     else return resolve([1, file]);
                 }, { meta: true });
-            })  
+            })
         }
         var resetOrientation = (srcOrientation) => {
             var orientation = srcOrientation[0];
@@ -740,7 +757,7 @@
                 canvas.toBlob(blob => {
                     resolve(blob);
                 }, 'image/jpeg');
-            }) 
+            })
         }
         var getInputData = () => {
             let data = {};
@@ -773,12 +790,12 @@
                     let obj = {};
                     document.querySelectorAll(`input[data-field="${field}"]`).forEach(i => obj[i.value] = true);
                     data[field] = obj;
-                }   
+                }
                 else if (type === 'array') {
                     let arr = [];
                     document.querySelectorAll(`input[type="text"][data-field="${field}"]`).forEach(i => arr.push(i.value));
                     data[field] = arr;
-                }            
+                }
             })
             return data;
         }
@@ -787,30 +804,30 @@
             let univ = select.value;
             let id = document.querySelector('.id_container').innerText;
             firebase.firestore().doc(`article/live/${univ}/${id}`).update(getInputData())
-            .then(() => {
-                hideUpdateLoading();
-                closeUpdateBox();
-                reloadData();
-            })
-            .catch(err => {
-                console.log(err);
-                window.alert(err.message);
-            })
+                .then(() => {
+                    hideUpdateLoading();
+                    closeUpdateBox();
+                    reloadData();
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert(err.message);
+                })
         }
         var deleteData = () => {
             showUpdateLoading();
             let univ = select.value;
             let id = document.querySelector('.id_container').innerText;
             firebase.firestore().doc(`article/live/${univ}/${id}`).delete()
-            .then(() => {
-                hideUpdateLoading();
-                closeUpdateBox();
-                reloadData();
-            })
-            .catch(err => {
-                console.log(err);
-                window.alert(err.message);
-            })
+                .then(() => {
+                    hideUpdateLoading();
+                    closeUpdateBox();
+                    reloadData();
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert(err.message);
+                })
         }
 
         fieldTitle.forEach(i => i.addEventListener('click', toggleNull));
@@ -820,14 +837,77 @@
         updateBtn.addEventListener('click', updateData);
         deleteBtn.addEventListener('click', deleteData);
     </script>
-</body>
+
+    <!-- 푸시알림 코드 -->
     <script>
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                console.log(user);
-            } else {
-                window.location.href = 'http://bangdangi.web.app/masterLogin';
+        let db = firebase.firestore();
+        let notiContainer = document.getElementById('notification');
+
+        db.collection('subscription').get()
+            .then(docs => docs.docs)
+            .then(docs => docs.forEach(doc => {
+                notiContainer.innerHTML += `
+                    <div>
+                        <div>${doc.data().createdAt.toDate().toLocaleString()}</div>
+                        <div>${doc.data().subscription.endpoint}</div>
+                        <div>${doc.data().subscription.expirationTime}</div>
+                        <div>${doc.data().subscription.keys.auth}</div>
+                        <div>${doc.data().subscription.keys.p256dh}</div>
+                        <div><a href="javascript:;" onclick="sendNotification(this);">send</a></div>
+                    </div>
+                `;
+            }))
+            .catch(err => console.log(err));
+
+        function sendNotification(target) {
+            let pushTitle = document.querySelector('input[name="push-title"]');
+            let pushBody = document.querySelector('input[name="push-body"]');
+            let row = target.parentNode.parentNode;
+            let endpoint = row.children[1].innerText;
+            let expirationTime = null;
+            let auth = row.children[3].innerText;
+            let p256dh = row.children[4].innerText;
+            let subscription = {
+                endpoint,
+                expirationTime,
+                keys: {
+                    auth,
+                    p256dh
+                }
             }
-        });
+            return fetch('https://bangdangi.web.app/notification/send', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    subscription,
+                    data: {
+                        title: pushTitle.value,
+                        body: pushBody.value,
+                        params: {
+                            url: '/pwa'
+                        }
+                    }
+                })
+            }).then(res => res.text())
+                .then(res => alert(res))
+                .catch(err => console.log(err));
+        }
     </script>
+
+    <!-- 로그인 -->
+    <script>
+        // firebase.auth().onAuthStateChanged((user) => {
+        //     if (user) {
+        //         console.log(user);
+        //     } else {
+        //         window.location.href = 'http://bangdangi.web.app/masterLogin';
+        //     }
+        // });
+    </script>
+</body>
+
+
 </html>

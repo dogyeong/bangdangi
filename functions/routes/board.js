@@ -19,8 +19,10 @@ const UNIV_OBJ = {
 }
 
 router.get('/list/:univ', async (req, res, next) => { 
-    return res.render('notice');
-    /* 
+    // ?v 없으면 공지 띄우기
+    var ignoreDone = req.query.v;
+    if (ignoreDone === undefined) return res.render('notice');
+    
     const univ = req.params.univ;
     const locationKeywords = req.query.locationKeywords;
     const monthLimit = req.query.monthLimit;
@@ -49,7 +51,6 @@ router.get('/list/:univ', async (req, res, next) => {
         price: priceKeywords
      }
     return res.render('articleList', { roomList, keywordList, univ, univKo, filterOption, err });
-    */
 });
 
 getKeywordList = async (univ) => {
@@ -264,9 +265,7 @@ formatNewArticle = (doc) => {
         return false;
 }
 
-router.get('/read/:univ/:articleNo', (req, res, next) => {
-    return res.render('notice');
-    /*
+router.get('/read/:univ/:articleNo', (req, res, next) => { 
     var univ = req.params.univ;
     var articleNo = req.params.articleNo;
     var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
@@ -274,7 +273,10 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var data; // 상세페이지에서 보여질 매물정보
     var related = []; // 관련 매물 정보
     var docRef = db.doc(`article/live/${univ}/${articleNo}`);
-
+    
+    // ?v 없으면 공지 띄우기
+    if (ignoreDone === undefined) return res.render('notice');
+    
     docRef.get()
     .then((doc) => {
         if (doc.exists) { // 문서 존재함
@@ -312,14 +314,13 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         let done = false
         if (newViews === true) // true면 거래완료된 상태
             done = true;
-
+        
         return res.render('articleDetail', { univ, univKo, articleNo, data, kakao, related, done });
     })
     .catch((err) => {
         console.log(err);
         return next(createError(500));
     })
-    */
 });
 
 getRelatedArray = (arr) => {

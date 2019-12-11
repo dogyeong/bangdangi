@@ -48,7 +48,15 @@
   <link rel=stylesheet type="text/css" href="css/index.css" />
   <link rel=stylesheet type="text/css" href="css/headerBar.css" />
   <link rel=stylesheet type="text/css" href="css/footer.css" />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <!-- PWA START-->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="방단기">
+  <link rel="apple-touch-icon" href="/img/icons/icon-152x152.png">
+  <meta name="theme-color" content="#0AB9F1" />
+  <!-- PWA END -->
 </head>
 
 <body>
@@ -144,7 +152,7 @@
         매물을 등록하시면<br>방단기에서 무료로 홍보해 드립니다
       </div>
       <div class="b2_button">
-        <a href="http://pf.kakao.com/_HxcGdT/chat">
+        <a href="//pf.kakao.com/_HxcGdT/chat">
           <button>지금 등록하기</button>
         </a>
 
@@ -156,7 +164,7 @@
     <div class="footerContainer">
       <div class="footer_left">
         <a href="/aboutUs">방단기 소개</a>
-        <a href="http://pf.kakao.com/_HxcGdT">문의하기</a>
+        <a href="//pf.kakao.com/_HxcGdT">문의하기</a>
         <a href="#header_inner">TOP</a>
       </div>
       <!-- SNS 버튼 -->
@@ -170,8 +178,16 @@
       </div>
     </div>
   </footer>
-  <script src="//cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
+  <!-- PWA Button START -->
+  <button id="butInstall" aria-label="Install" hidden>방단기 앱 추가하기</button>
+  <!-- PWA Button END -->
+  <script src="https://cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
+  <script>
+    // index.js 에서 사용할 푸시알림을 위한 key
+    const vapidPublicKey = "<%= vapidPublicKey %>";
+  </script>
   <script src="babel/dst/index.js"></script>
+  <script src="babel/dst/install.js"></script>
   <!-- Channel Plugin Scripts -->
   <script>
     (function () {
@@ -216,5 +232,4 @@
   </script>
   <!-- End Channel Plugin -->
 </body>
-
 </html>

@@ -268,3 +268,18 @@
         }
     }
 
+
+    /* PWA */
+    button#butInstall {
+        position: fixed;
+        bottom: 60px;
+        left: calc(50% - 90px);
+        width: 180px;
+        height: 40px;
+        -webkit-appearance: none;
+        border: none;
+        border-radius: 100px;
+        background-color: dodgerblue;
+        color: #fff;
+        font-size: 15px;
+    }

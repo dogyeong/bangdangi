@@ -26,10 +26,12 @@ app.use(express.static(path.join(__dirname, 'static')));
 const indexRouter = require('./routes/index');
 const boardRouter = require('./routes/board');
 const userRouter = require('./routes/user');
+const notiRouter = require('./routes/notification');
 
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
 app.use('/user', userRouter);
+app.use('/notification', notiRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
