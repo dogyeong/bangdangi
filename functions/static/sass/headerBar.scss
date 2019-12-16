@@ -1,0 +1,82 @@
+/*
+*   headerBar.scss
+*   헤더바
+*/
+
+
+/* 변수 import */
+@import "variables.scss";
+
+
+/* headerBar local variables */
+$header_max_width: 1064px;
+$header_height: 58px;
+
+
+header {
+    display: block;
+    box-sizing: border-box;
+    word-break: keep-all;
+    width: 100%;
+    background-color: $white;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .07);
+
+    #header_inner {
+        max-width: $header_max_width;
+        height: $header_height;
+        padding: 0 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+
+        .header_logo {
+            display: inline-block;
+            padding: 16px 20px;
+
+            >img {
+                display: block;
+                height: 26px;
+            }
+        }
+
+        .nav {
+            li {
+                display: inline-block;
+                padding: 0 16px;
+                height: 36px;
+                line-height: 36px;
+                color: $font_color;
+                font: {
+                    size: $fs_sm;
+                    weight: $fw_regular;
+                }
+                
+                >a {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $break_small) {
+    header {
+        #header_inner {
+            .header_logo {
+                padding: 16px 0px;
+            }
+    
+            .nav li {
+                font-size: $fs_sm;
+                padding: 0px 4px;
+            }
+        }
+    }
+    
+}

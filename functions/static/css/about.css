@@ -1,0 +1,49 @@
+@charset "UTF-8";
+/*
+*   about.scss
+*/
+/* 변수 import */
+/* 
+*   SCSS variables
+*/
+/* colors */
+/* font-weight */
+/* font-family */
+/* font-size */
+/* line-height */
+/* media query */
+img {
+  width: 100%; }
+
+#main {
+  width: 100%;
+  max-width: 500px;
+  margin: auto; }
+  #main .textBox {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px; }
+  #main .big {
+    font-size: 24px;
+    font-weight: 400;
+    word-break: keep-all;
+    text-align: center;
+    margin-bottom: 8px; }
+  #main .small {
+    font-size: 14px;
+    font-weight: 300;
+    word-break: keep-all;
+    text-align: center; }
+  #main #btn {
+    margin-top: 16px;
+    background-color: #0ab9f1;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300; }

@@ -1,0 +1,331 @@
+/*
+*   index.scss
+*   메인페이지
+*/
+
+
+/* 변수 import */
+@import "variables.scss";
+
+
+/* local variables */
+$bg_url: '../img/main_bg.jpg';
+$header_height: 58px;
+$content_max_width: 1104px;
+
+
+/* CSS */
+html,
+body {
+    height: 100%;
+}
+
+/* main block */
+.mainBlock {
+    height: calc(100% - #{$header_height});
+    position: relative;
+    width: 100%;
+    background: url($bg_url) center center / cover no-repeat;
+    background-color: rgba(44, 40, 40, 0.45);
+    background-blend-mode: multiply;
+
+    .mainBlockContainer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: calc(50% - 200px);
+        width: 100%;
+
+        .mainBlockDivider {
+            max-width: $content_max_width;
+            padding: 0 40px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: space-between;
+
+            .mainCopy {
+                color: $white;
+                font-size: $fs_lg;
+                font-weight: $fw_light;
+                text-shadow: 4px 0px 9px rgba(58, 62, 49, .35);
+
+                >h1 {
+                    margin: 0 0 28px;
+                    font-size: $fs_3xl;
+                    font-weight: $fw_regular;
+                    line-height: 1.36;
+                    color: $white;
+                    @include respond-to(handhelds) {
+                        font-size: $fs_md;
+                    }
+                }
+
+
+                /* university select */
+                #univ_form {
+                    position: relative;
+                    width: 360px;
+                    height: 47px;
+                    border: 3px solid $main_color;
+                    z-index: 1;
+                    background-color: rgba(240, 240, 240, 0.85);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+#univ_form:before {
+    /* 화살표 대체 */
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 0;
+    height: 0;
+    margin-top: -1px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #999;
+}
+
+#univ_form label {
+    position: absolute;
+    top: 1px;
+    /* 위치정렬 */
+    left: 5px;
+    /* 위치정렬 */
+    font-size: 14px;
+    padding: .8em .5em;
+    /* select의 여백 크기 만큼 */
+    z-index: -1;
+    /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
+}
+
+#univ_select {
+    width: 100%;
+    height: auto;
+    /* 높이 초기화 */
+    line-height: normal;
+    /* line-height 초기화 */
+    font-family: inherit;
+    /* 폰트 상속 */
+    padding: .8em .5em;
+    /* 여백과 높이 결정 */
+    border: 0;
+    opacity: 0;
+    /* 숨기기 */
+    font-size: 14px;
+    filter: alpha(opacity=0);
+    /* IE8 숨기기 */
+    -webkit-appearance: none;
+    /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+@media screen and (max-width: 600px) {
+    .mainBlockDivider {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .mainCopy {
+        font-size: 14px;
+    }
+
+    .mainCopy>h1 {
+        font-size: 28px;
+    }
+
+    #univ_form {
+        width: 100%;
+        margin: 80px 0;
+    }
+}
+
+/*
+* sub block
+*/
+.subBlock {
+    width: 100%;
+    padding: 200px 0;
+    position: relative;
+}
+
+.b1 {
+    background-color: #fafafa;
+}
+
+.subBlock_container {
+    max-width: 1024px;
+    width: 95%;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+}
+
+.b1_title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.b1_cards {
+    width: 100%;
+    height: 258px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.b1_item {
+    position: relative;
+    top: 0;
+    width: 278px;
+    height: 258px;
+    display: inline-block;
+    margin: 0 12px;
+    box-shadow: 4px 6px 9px 0 rgba(58, 62, 49, .05), 8px 22px 60px 0 rgba(57, 58, 48, .07);
+    transition: all 0.45s ease-in-out;
+}
+
+.b1_item:hover {
+    top: -12px;
+}
+
+.b1_item_content {
+    width: 278px;
+    height: 258px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+.b1_item_img {
+    width: 100%;
+    height: 180px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    background-color: #ebeef1;
+}
+
+.b1_item_text {
+    width: 100%;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 14px;
+    height: 78px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    .subBlock_container {
+        width: 100%;
+        margin: 0;
+        padding: 0 8px;
+    }
+
+    .subBlock {
+        padding: 180px 0;
+    }
+
+    .b1_cards {
+        overflow: scroll;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        margin-top: 60px;
+    }
+
+    .b1_item {
+        box-shadow: none;
+    }
+
+    .b1_item:hover {
+        top: 0;
+    }
+}
+
+
+/* 두 번째 subBlock */
+.b2_title {
+    font-size: 34px;
+    font-weight: 300;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.b2_text {
+    font-size: 16px;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.b2_button {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.b2_button button {
+    width: 200px;
+    padding: 16px 28px;
+    background: rgba(0, 0, 0, .75);
+    border: 1px solid rgba(0, 0, 0, .75);
+    display: inline-block;
+    border-radius: 100px;
+    color: white;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    text-transform: none;
+    margin: 0;
+    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+    box-sizing: border-box;
+}
+
+.b2_button button:hover {
+    background-color: transparent;
+    color: #3b3b46;
+    border: 1px solid transparent;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 7px 50px;
+}
+
+@media screen and (max-width: 600px) {
+    .b2_title {
+        font-size: 24px;
+        font-weight: 400;
+    }
+
+    .b2_text {
+        font-weight: 300;
+    }
+}
+
+
+/* PWA */
+button#butInstall {
+    position: fixed;
+    bottom: 60px;
+    left: calc(50% - 90px);
+    width: 180px;
+    height: 40px;
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 100px;
+    background-color: dodgerblue;
+    color: #fff;
+    font-size: 15px;
+}
