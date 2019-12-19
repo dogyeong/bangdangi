@@ -90,6 +90,10 @@ router.get('/pwa', (req, res, next) => {
   })
 });
 
+router.get('/aboutUs', (req, res) => {
+  return res.render('aboutUs');
+})
+
 router.get('/master', (req, res) => {
   return res.render('master');
 })

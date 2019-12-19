@@ -6,6 +6,7 @@
 /* 변수 import */
 @import "variables.scss";
 
+
 img {
     width: 100%;
 }
@@ -26,7 +27,7 @@ img {
     
     .big {
         font: {
-            size: 24px;
+            size: $fs_xl;
             weight: $fw_regular;
         }
         word-break: keep-all;
@@ -36,7 +37,7 @@ img {
     
     .small {
         font: {
-            size: 14px;
+            size: $fs_sm;
             weight: $fw_light;
         }
         word-break: keep-all;
@@ -52,7 +53,7 @@ img {
         letter-spacing: 0.3px;
         text-decoration: none;
         font: {
-            size: 14px;
+            size: $fs_sm;
             weight: $fw_light;
         }
     }

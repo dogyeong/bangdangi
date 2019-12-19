@@ -16,7 +16,7 @@ const requestMeUrl = 'https://kapi.kakao.com/v1/user/me?secure_resource=true';
 
 router.get('/login', (req, res, next) => {
     return res.render('notice');
-    //return res.render('login');
+    // return res.render('login');
 });
 
 router.post('/sessionLogin', (req, res, next) => {

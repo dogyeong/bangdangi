@@ -6,6 +6,9 @@
 $white: #fff;
 $main_color: #0ab9f1;
 $font_color: #3b3b46;
+$article_bg_color: #ebeef1;
+$kakao_yellow: #ffe812;
+
 
 
 /* font-weight */
@@ -31,7 +34,7 @@ $fs_xs: 12px;
 $fs_sm: 14px;
 $fs_md: 16px;
 $fs_lg: 18px;
-$fs_xl: 21px;
+$fs_xl: 24px;
 $fs_2xl: 36px;
 $fs_3xl: 48px;
 $fs_4xl: 60px;
@@ -45,7 +48,7 @@ $break_small: 600px;
 $breek_large: 1024px;
 
 @mixin respond-to($media) {
-    @if $media == handhelds {
+    @if $media == phone {
         @media only screen and (max-width: $break_small) {
             @content;
         }
