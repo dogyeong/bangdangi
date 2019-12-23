@@ -1,15 +1,4 @@
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
-    * {
-      padding: 0;
-      margin: 0;
-    }
-    body {
-      font-family: Noto Sans KR, AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
-      font-weight: 300;
-      background-color: #fff;
-      color: #333;
-      width: 100%;
-    }
+
     /* upper */
     .form_container {
       padding: 16px 40px;

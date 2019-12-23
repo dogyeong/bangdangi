@@ -39,6 +39,10 @@ header {
             display: inline-block;
             padding: 16px 20px;
 
+            @include respond-to(phone) {
+                padding: 16px 0px;
+            }
+
             >img {
                 display: block;
                 height: 26px;
@@ -52,31 +56,21 @@ header {
                 height: 36px;
                 line-height: 36px;
                 color: $font_color;
+
                 font: {
                     size: $fs_sm;
                     weight: $fw_regular;
                 }
-                
+
+                @include respond-to(phone) {
+                    font-size: $fs_sm;
+                    padding: 0px 4px;
+                }
+
                 >a {
                     width: 100%;
                 }
             }
         }
     }
-}
-
-@media screen and (max-width: $break_small) {
-    header {
-        #header_inner {
-            .header_logo {
-                padding: 16px 0px;
-            }
-    
-            .nav li {
-                font-size: $fs_sm;
-                padding: 0px 4px;
-            }
-        }
-    }
-    
 }

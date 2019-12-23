@@ -1,6 +1,5 @@
 (() => {    
     const univSelect = document.getElementById('univ_select');
-    const topBtn = document.getElementsByClassName('top_btn')[0];
     const filterBtn = document.querySelector('.tune_container');
     const rangeInput = document.querySelector('input[type="range"]');
     const sortBtn = document.querySelectorAll('.sortBtn');
@@ -9,7 +8,6 @@
     document.querySelector('#univ_form label').innerText = univSelect.options[univSelect.selectedIndex].innerText;
 
     document.getElementById('lower').style.display = 'block';
-    if (window.innerWidth >= 530) topBtn.style.display = 'block';
 
     function changeRoomList() {
       if (this.value === "") return;
@@ -59,7 +57,6 @@
       let main = document.querySelector('#main');
       main.innerHTML = '';
       main.append(...list);
-      console.log(list);
     }
 
     function sortByTime(list) {
@@ -76,7 +73,6 @@
     }
 
     univSelect.onchange = changeRoomList;
-    topBtn.addEventListener('click', () => window.scrollTo(0, 0));
     filterBtn.addEventListener('click', toggleFilter);
     rangeInput.addEventListener('input', updateRangeValue);
     sortBtn.forEach(i => i.addEventListener('click', sortList));

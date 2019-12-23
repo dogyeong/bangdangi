@@ -10,7 +10,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 (function () {
   var univSelect = document.getElementById('univ_select');
-  var topBtn = document.getElementsByClassName('top_btn')[0];
   var filterBtn = document.querySelector('.tune_container');
   var rangeInput = document.querySelector('input[type="range"]');
   var sortBtn = document.querySelectorAll('.sortBtn');
@@ -18,7 +17,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   document.querySelector('#univ_form label').innerText = univSelect.options[univSelect.selectedIndex].innerText;
   document.getElementById('lower').style.display = 'block';
-  if (window.innerWidth >= 530) topBtn.style.display = 'block';
 
   function changeRoomList() {
     if (this.value === "") return;
@@ -71,7 +69,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     var main = document.querySelector('#main');
     main.innerHTML = '';
     main.append.apply(main, _toConsumableArray(list));
-    console.log(list);
   }
 
   function sortByTime(list) {
@@ -87,9 +84,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   univSelect.onchange = changeRoomList;
-  topBtn.addEventListener('click', function () {
-    return window.scrollTo(0, 0);
-  });
   filterBtn.addEventListener('click', toggleFilter);
   rangeInput.addEventListener('input', updateRangeValue);
   sortBtn.forEach(function (i) {
