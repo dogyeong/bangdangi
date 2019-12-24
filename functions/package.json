@@ -8,7 +8,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "babel": "babel static/babel/src -w -d static/babel/dst"
+    "babel": "babel static/babel/src -w -d static/babel/dst",
+    "sass": "node-sass --watch static/sass --output static/css"
   },
   "engines": {
     "node": "8"

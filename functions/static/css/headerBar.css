@@ -37,6 +37,9 @@ header {
     header #header_inner .header_logo {
       display: inline-block;
       padding: 16px 20px; }
+      @media only screen and (max-width: 600px) {
+        header #header_inner .header_logo {
+          padding: 16px 0px; } }
       header #header_inner .header_logo > img {
         display: block;
         height: 26px; }
@@ -48,12 +51,9 @@ header {
       color: #3b3b46;
       font-size: 14px;
       font-weight: 400; }
+      @media only screen and (max-width: 600px) {
+        header #header_inner .nav li {
+          font-size: 14px;
+          padding: 0px 4px; } }
       header #header_inner .nav li > a {
         width: 100%; }
-
-@media screen and (max-width: 600px) {
-  header #header_inner .header_logo {
-    padding: 16px 0px; }
-  header #header_inner .nav li {
-    font-size: 14px;
-    padding: 0px 4px; } }

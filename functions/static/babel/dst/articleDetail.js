@@ -8,14 +8,14 @@
   /* 이미지 슬라이더, 연락하기 */
 
 
-  var imageContainer = document.getElementsByClassName('image_container')[0];
+  var imageContainer = document.getElementsByClassName("image_container")[0];
 
   if (dataImages) {
-    var sliderCounter = document.getElementsByClassName('slider_counter')[0];
+    var sliderCounter = document.getElementsByClassName("slider_counter")[0];
     var imgNum = imageContainer.childElementCount;
     var currentCount = 1;
-    var leftBtn = document.getElementsByClassName('slider_btn_l')[0];
-    var rightBtn = document.getElementsByClassName('slider_btn_r')[0];
+    var leftBtn = document.getElementsByClassName("slider_btn_l")[0];
+    var rightBtn = document.getElementsByClassName("slider_btn_r")[0];
     sliderCounter.innerText = "".concat(currentCount, "/").concat(imgNum);
 
     var moveL = function moveL() {
@@ -30,26 +30,26 @@
       sliderCounter.innerText = "".concat(currentCount, "/").concat(imgNum);
     };
 
-    leftBtn.addEventListener('click', moveL);
-    rightBtn.addEventListener('click', moveR);
+    leftBtn.addEventListener("click", moveL);
+    rightBtn.addEventListener("click", moveR);
   }
 
   if (!dataDone) {
-    var contactBtn = document.querySelectorAll('.contact');
+    var contactBtn = document.querySelectorAll(".contact");
 
     var contactCallback = function contactCallback() {
       var contact = this.dataset.contact;
       var type = this.dataset.type;
-      if (type === 'tel') window.location = "tel:".concat(contact);else if (type === 'sms') window.location = "sms:".concat(contact).concat(checkMobile() === 'iphone' ? '&' : '?', "body=\uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uC5F0\uB77D\uB4DC\uB824\uC694~");else window.location = "".concat(contact);
+      if (type === "tel") window.location = "tel:".concat(contact);else if (type === "sms") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=\uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uC5F0\uB77D\uB4DC\uB824\uC694~");else window.location = "".concat(contact);
     };
 
     var checkMobile = function checkMobile() {
       var UA = navigator.userAgent.toLocaleLowerCase();
-      if (UA.indexOf('android') > -1) return 'android';else if (UA.indexOf('iphone') > -1) return 'iphone';else return 'other';
+      if (UA.indexOf("android") > -1) return "android";else if (UA.indexOf("iphone") > -1) return "iphone";else return "other";
     };
 
     contactBtn.forEach(function (i) {
-      return i.addEventListener('click', contactCallback);
+      return i.addEventListener("click", contactCallback);
     });
   }
   /* 카카오 공유하기 */
@@ -57,14 +57,14 @@
   // // 사용할 앱의 JavaScript 키를 설정해 주세요.
 
 
-  Kakao.init('07ac8a4da1c7b6aa00a5947dc53f964a'); // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+  Kakao.init("07ac8a4da1c7b6aa00a5947dc53f964a"); // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
 
   Kakao.Link.createDefaultButton({
-    container: '#kakao-link-btn',
-    // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id 
-    objectType: 'feed',
+    container: "#kakao-link-btn",
+    // 컨테이너는 아까 위에 버튼이 쓰여진 부분 id
+    objectType: "feed",
     content: {
-      // 여기부터 실제 내용이 들어갑니다. 
+      // 여기부터 실제 내용이 들어갑니다.
       title: dataKakao.title,
       // 본문 제목
       description: dataKakao.description,
@@ -80,16 +80,16 @@
 
   /* 공유하기 */
 
-  var share_btn = document.querySelector('.share_btn');
-  var kakao_share = document.querySelector('.kakao_link_btn');
-  var url_share = document.querySelector('.url_link_btn');
+  var share_btn = document.querySelector(".share_btn");
+  var kakao_share = document.querySelector(".kakao_link_btn");
+  var url_share = document.querySelector(".url_link_btn");
   var names = ["webkitTransitionEnd", "oTransitionEnd", "otransitionend", "transitionend", "transitionEnd"];
 
   function toggleShare() {
-    kakao_share.classList.toggle('kakao_visible');
-    url_share.classList.toggle('url_visible');
-    if (kakao_share.classList.contains('kakao_visible')) kakao_share.style.opacity = 1;
-    if (url_share.classList.contains('url_visible')) url_share.style.opacity = 1;
+    kakao_share.classList.toggle("kakao_visible");
+    url_share.classList.toggle("url_visible");
+    if (kakao_share.classList.contains("kakao_visible")) kakao_share.style.opacity = 1;
+    if (url_share.classList.contains("url_visible")) url_share.style.opacity = 1;
   }
 
   function transitionEvent(element, callback) {
@@ -103,25 +103,25 @@
     document.body.appendChild(t);
     t.value = dataKakao.link.mobileWebUrl;
     t.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(t);
-    window.alert('URL이 복사되었습니다.');
+    window.alert("URL이 복사되었습니다.");
   }
 
-  share_btn.addEventListener('click', toggleShare);
-  url_share.addEventListener('click', copyURL);
+  share_btn.addEventListener("click", toggleShare);
+  url_share.addEventListener("click", copyURL);
   transitionEvent(kakao_share, function () {
-    if (!this.classList.contains('kakao_visible')) this.style.opacity = 0;
+    if (!this.classList.contains("kakao_visible")) this.style.opacity = 0;
   });
   transitionEvent(url_share, function () {
-    if (!this.classList.contains('url_visible')) this.style.opacity = 0;
+    if (!this.classList.contains("url_visible")) this.style.opacity = 0;
   }); // checkImage : url의 orientaion을 확인해서 회전되있으면 target을 정방향으로 회전시킨다
 
   function checkImage(url, target) {
     loadImage(url, function (img, data) {
       if (data.exif) {
         var flag = data.exif.get("Orientation");
-        if (flag === 6) target.style.transform = 'rotate(90deg)';else if (flag === 3) target.style.transform = 'rotate(180deg)';else if (flag === 8) target.style.transform = 'rotate(270deg)';
+        if (flag === 6) target.style.transform = "rotate(90deg)";else if (flag === 3) target.style.transform = "rotate(180deg)";else if (flag === 8) target.style.transform = "rotate(270deg)";
       }
     }, {
       meta: true
@@ -129,8 +129,8 @@
   }
 
   window.onload = function () {
-    document.querySelectorAll('.image_container > div').forEach(function (div) {
-      var url = div.style.backgroundImage.replace('url("', '').replace('")', '');
+    document.querySelectorAll(".image_container > div").forEach(function (div) {
+      var url = div.style.backgroundImage.replace('url("', "").replace('")', "");
       checkImage(url, div);
     });
   };

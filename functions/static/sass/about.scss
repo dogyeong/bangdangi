@@ -2,10 +2,8 @@
 *   about.scss
 */
 
-
 /* 변수 import */
 @import "variables.scss";
-
 
 img {
     width: 100%;
@@ -23,8 +21,8 @@ img {
         justify-content: center;
         align-items: center;
         padding: 0 16px;
-    }  
-    
+    }
+
     .big {
         font: {
             size: $fs_xl;
@@ -34,7 +32,7 @@ img {
         text-align: center;
         margin-bottom: 8px;
     }
-    
+
     .small {
         font: {
             size: $fs_sm;
@@ -43,7 +41,7 @@ img {
         word-break: keep-all;
         text-align: center;
     }
-    
+
     #btn {
         margin-top: 16px;
         background-color: $main_color;

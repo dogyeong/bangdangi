@@ -1,854 +1,905 @@
 <!DOCTYPE html>
 <html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- SEO START -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금" />
+        <meta name="author" content="패러다임" />
+        <meta itemprop="name" content="방단기" />
+        <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta name="twitter:title" content="방단기" />
+        <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta property="og:title" content="방단기" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="방단기" />
+        <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta property="og:url" content="https://bangdangi.web.app/" />
+        <link rel="canonical" href="https://bangdangi.web.app/" />
+        <!-- SEO END -->
+        <title>방단기 관리자센터</title>
+        <link rel="stylesheet" type="text/css" href="css/master2.css" />
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
+        <!-- handsontable : 스프레드시트 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/ko-KR.js"></script>
+        <!-- JS-LOAD-IMAGE : 이미지 자동 회전을 위한 라이브러리 -->
+        <script src="https://bangdangi.web.app/js/load-image.all.min.js"></script>
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- SEO START -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
-    <meta name="author" content="패러다임">
-    <meta itemprop="name" content="방단기">
-    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta name="twitter:title" content="방단기">
-    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta property="og:title" content="방단기">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="방단기">
-    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta property="og:url" content="https://bangdangi.web.app/">
-    <link rel="canonical" href="https://bangdangi.web.app/" />
-    <!-- SEO END -->
-    <title>방단기 관리자센터</title>
-    <link rel=stylesheet type="text/css" href="css/master2.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-    <!-- handsontable : 스프레드시트 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/ko-KR.js"></script>
-    <!-- JS-LOAD-IMAGE : 이미지 자동 회전을 위한 라이브러리 -->
-    <script src="https://bangdangi.web.app/js/load-image.all.min.js"></script>
-</head>
+    <body>
+        <header>
+            <div><img src="img/logo_w.png" />관리자센터</div>
+            <form id="univ_form">
+                <select name="univ" id="univ_select" onchange="loadData(this.value);">
+                    <option value="" selected>학교를 선택해 주세요</option>
+                    <optgroup label="서울">
+                        <option value="cuk">카톨릭대학교</option>
+                        <option value="mafo">마포구,서대문구(연세대/이화여대/홍익대)</option>
+                        <option value="gwanak">관악구(서울대)</option>
+                        <option value="skku">성균관대학교</option>
+                        <option value="dongdaemun">동대문구(한국외대/경희대/서울시립대학교)</option>
+                        <option value="seongdong">성동구(한양대)</option>
+                    </optgroup>
+                    <optgroup label="대전">
+                        <option value="cnu">충남대학교</option>
+                    </optgroup>
+                    <optgroup label="부산">
+                        <option value="pnu">부산대학교</option>
+                    </optgroup>
+                </select>
+            </form>
+            <div id="reload"><i class="xi-refresh"></i> 다시 불러오기</div>
+            <div id="add"><i class="xi-plus-circle"></i> 빈매물추가</div>
+            <div id="download"><i class="xi-download"></i> CSV파일 다운로드</div>
+        </header>
 
-<body>
-    <header>
-        <div>
-            <img src="img/logo_w.png">관리자센터
+        <div id="article" style="margin-top: 80px;"></div>
+
+        <div id="notification">
+            <span> title<input type="text" name="push-title" /> body<input type="text" name="push-body" /> </span>
+            <div>
+                <div>createdAt</div>
+                <div>endpoint</div>
+                <div>expirationTime</div>
+                <div>auth</div>
+                <div>p256dh</div>
+                <div>button</div>
+            </div>
         </div>
-        <form id="univ_form">
-            <select name="univ" id="univ_select" onchange="loadData(this.value);">
-                <option value="" selected>학교를 선택해 주세요</option>
-                <optgroup label="서울">
-                    <option value="cuk">카톨릭대학교</option>
-                    <option value="mafo">마포구,서대문구(연세대/이화여대/홍익대)</option>
-                    <option value="gwanak">관악구(서울대)</option>
-                    <option value="skku">성균관대학교</option>
-                    <option value="dongdaemun">동대문구(한국외대/경희대/서울시립대학교)</option>
-                    <option value="seongdong">성동구(한양대)</option>
-                </optgroup>
-                <optgroup label="대전">
-                    <option value="cnu">충남대학교</option>
-                </optgroup>
-                <optgroup label="부산">
-                    <option value="pnu">부산대학교</option>
-                </optgroup>
-            </select>
-        </form>
-        <div id="reload"><i class="xi-refresh"></i> 다시 불러오기</div>
-        <div id="add"><i class="xi-plus-circle"></i> 빈매물추가</div>
-        <div id="download"><i class="xi-download"></i> CSV파일 다운로드</div>
-    </header>
 
-    <div id="article" style="margin-top: 80px;"></div>
-
-    <div id="notification">
-        <span>
-            title<input type="text" name="push-title">
-            body<input type="text" name="push-body">
-        </span>
-        <div>
-            <div>createdAt</div>
-            <div>endpoint</div>
-            <div>expirationTime</div>
-            <div>auth</div>
-            <div>p256dh</div>
-            <div>button</div>
-        </div>
-    </div>
-
-    <div class="update_container">
-        <div class="update_header">
-            <div class="id_container"></div>
-            <div class="update_close" onclick="closeUpdateBox();"><i class="xi-close"></i></div>
-        </div>
-        <div class="update_content">
-            <!-- urlType -->
-            <div class="field_container" data-field="urlType" data-type="string">
-                <div class="field_title" data-field="urlType">urlType</div>
-                <div class="field_value" data-container="urlType">
-                    <input type="text" data-field="urlType">
-                </div>
+        <div class="update_container">
+            <div class="update_header">
+                <div class="id_container"></div>
+                <div class="update_close" onclick="closeUpdateBox();"><i class="xi-close"></i></div>
             </div>
-            <!-- createdAt -->
-            <div class="field_container" data-field="createdAt" data-type="date">
-                <div class="field_title" data-field="createdAt">createdAt</div>
-                <div class="field_value" data-container="createdAt">
-                    <input type="date" data-field="createdAt">
-                </div>
-            </div>
-            <!-- views -->
-            <div class="field_container" data-field="views" data-type="number">
-                <div class="field_title" data-field="views">views</div>
-                <div class="field_value" data-container="views">
-                    <input type="number" data-field="views">
-                </div>
-            </div>
-            <!-- display -->
-            <div class="field_container" data-field="display" data-type="boolean">
-                <div class="field_title" data-field="display">display</div>
-                <div class="field_value" data-container="display">
-                    <input type="radio" name="display" data-field="display" value="true"> true
-                    <input type="radio" name="display" data-field="display" value="false"> false
-                </div>
-            </div>
-            <!-- done -->
-            <div class="field_container" data-field="done" data-type="boolean">
-                <div class="field_title" data-field="done">done</div>
-                <div class="field_value" data-container="done">
-                    <input type="radio" name="done" data-field="done" value="true"> true
-                    <input type="radio" name="done" data-field="done" value="false"> false
-                </div>
-            </div>
-            <!-- title -->
-            <div class="field_container" data-field="title" data-type="string">
-                <div class="field_title" data-field="title">title</div>
-                <div class="field_value" data-container="title">
-                    <input type="text" data-field="title">
-                </div>
-            </div>
-            <!-- reason -->
-            <div class="field_container" data-field="reason" data-type="string">
-                <div class="field_title" data-field="reason">reason</div>
-                <div class="field_value" data-container="reason">
-                    <input type="text" data-field="reason">
-                </div>
-            </div>
-            <!-- tradeType -->
-            <div class="field_container" data-field="tradeType" data-type="string">
-                <div class="field_title" data-field="tradeType">tradeType</div>
-                <div class="field_value" data-container="tradeType">
-                    <input type="text" data-field="tradeType">
-                </div>
-            </div>
-            <!-- text -->
-            <div class="field_container" data-field="text" data-type="text">
-                <div class="field_title" data-field="text">text</div>
-                <div class="field_value" data-container="text">
-                    <textarea data-field="text"></textarea>
-                </div>
-            </div>
-            <!-- startDate -->
-            <div class="field_container" data-field="startDate" data-type="date">
-                <div class="field_title" data-field="startDate">startDate</div>
-                <div class="field_value" data-container="startDate">
-                    <input type="date" data-field="startDate">
-                </div>
-            </div>
-            <!-- endDate -->
-            <div class="field_container" data-field="endDate" data-type="date">
-                <div class="field_title" data-field="endDate">endDate</div>
-                <div class="field_value" data-container="endDate">
-                    <input type="date" data-field="endDate">
-                </div>
-            </div>
-            <!-- minTerm -->
-            <div class="field_container" data-field="minTerm" data-type="number">
-                <div class="field_title" data-field="minTerm">minTerm</div>
-                <div class="field_value" data-container="minTerm">
-                    <input type="number" data-field="minTerm">
-                </div>
-            </div>
-            <!-- dateKeywords -->
-            <div class="field_container" data-field="dateKeywords" data-type="object">
-                <div class="field_title" data-field="dateKeywords">
-                    dateKeywords
-                    <span class="field_value_add" data-field="dateKeywords">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="dateKeywords"></div>
-            </div>
-            <!-- locationL -->
-            <div class="field_container" data-field="locationL" data-type="object">
-                <div class="field_title" data-field="locationL">
-                    locationL
-                    <span class="field_value_add" data-field="locationL">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="locationL"></div>
-            </div>
-            <!-- locationS -->
-            <div class="field_container" data-field="locationS" data-type="object">
-                <div class="field_title" data-field="locationS">
-                    locationS
-                    <span class="field_value_add" data-field="locationS">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="locationS"></div>
-            </div>
-            <!-- price -->
-            <div class="field_container" data-field="price" data-type="number">
-                <div class="field_title" data-field="price">price</div>
-                <div class="field_value" data-container="price">
-                    <input type="number" data-field="price">
-                </div>
-            </div>
-            <!-- deposit -->
-            <div class="field_container" data-field="deposit" data-type="number">
-                <div class="field_title" data-field="deposit">deposit</div>
-                <div class="field_value" data-container="deposit">
-                    <input type="number" data-field="deposit">
-                </div>
-            </div>
-            <!-- expense -->
-            <div class="field_container" data-field="expense" data-type="number">
-                <div class="field_title" data-field="expense">expense</div>
-                <div class="field_value" data-container="expense">
-                    <input type="number" data-field="expense">
-                </div>
-            </div>
-            <!-- discountKeywords -->
-            <div class="field_container" data-field="discountKeywords" data-type="object">
-                <div class="field_title" data-field="discountKeywords">
-                    discountKeywords
-                    <span class="field_value_add" data-field="discountKeywords">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="discountKeywords"></div>
-            </div>
-            <!-- keywords -->
-            <div class="field_container" data-field="keywords" data-type="object">
-                <div class="field_title" data-field="keywords">
-                    keywords
-                    <span class="field_value_add" data-field="keywords">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="keywords"></div>
-            </div>
-            <!-- floor -->
-            <div class="field_container" data-field="floor" data-type="number">
-                <div class="field_title" data-field="floor">floor</div>
-                <div class="field_value" data-container="floor">
-                    <input type="number" data-field="floor">
-                </div>
-            </div>
-            <!-- roomType -->
-            <div class="field_container" data-field="roomType" data-type="string">
-                <div class="field_title" data-field="roomType">roomType</div>
-                <div class="field_value" data-container="roomType">
-                    <input type="text" data-field="roomType">
-                </div>
-            </div>
-            <!-- only -->
-            <div class="field_container" data-field="only" data-type="object">
-                <div class="field_title" data-field="only">
-                    only
-                    <span class="field_value_add" data-field="only">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="only"></div>
-            </div>
-            <!-- images -->
-            <div class="field_container" data-field="images" data-type="array">
-                <div class="field_title" data-field="images">
-                    images
-                    <span class="field_value_add" data-field="images">
-                        <i class="xi-plus" onclick="addField(this);"></i>
-                    </span>
-                </div>
-                <div class="field_value" data-container="images">
-                    <div class="file_container">
-                        <input type="file" data-field="images" accept="image/*" multiple>
-                        <button value="upload" onclick="uploadImage();">upload</button>
+            <div class="update_content">
+                <!-- urlType -->
+                <div class="field_container" data-field="urlType" data-type="string">
+                    <div class="field_title" data-field="urlType">urlType</div>
+                    <div class="field_value" data-container="urlType">
+                        <input type="text" data-field="urlType" />
                     </div>
                 </div>
-            </div>
-            <!-- url -->
-            <div class="field_container" data-field="url" data-type="string">
-                <div class="field_title" data-field="url">url</div>
-                <div class="field_value" data-container="url">
-                    <input type="text" data-field="url">
+                <!-- createdAt -->
+                <div class="field_container" data-field="createdAt" data-type="date">
+                    <div class="field_title" data-field="createdAt">createdAt</div>
+                    <div class="field_value" data-container="createdAt">
+                        <input type="date" data-field="createdAt" />
+                    </div>
+                </div>
+                <!-- views -->
+                <div class="field_container" data-field="views" data-type="number">
+                    <div class="field_title" data-field="views">views</div>
+                    <div class="field_value" data-container="views">
+                        <input type="number" data-field="views" />
+                    </div>
+                </div>
+                <!-- display -->
+                <div class="field_container" data-field="display" data-type="boolean">
+                    <div class="field_title" data-field="display">display</div>
+                    <div class="field_value" data-container="display">
+                        <input type="radio" name="display" data-field="display" value="true" /> true
+                        <input type="radio" name="display" data-field="display" value="false" /> false
+                    </div>
+                </div>
+                <!-- done -->
+                <div class="field_container" data-field="done" data-type="boolean">
+                    <div class="field_title" data-field="done">done</div>
+                    <div class="field_value" data-container="done">
+                        <input type="radio" name="done" data-field="done" value="true" /> true
+                        <input type="radio" name="done" data-field="done" value="false" /> false
+                    </div>
+                </div>
+                <!-- title -->
+                <div class="field_container" data-field="title" data-type="string">
+                    <div class="field_title" data-field="title">title</div>
+                    <div class="field_value" data-container="title">
+                        <input type="text" data-field="title" />
+                    </div>
+                </div>
+                <!-- reason -->
+                <div class="field_container" data-field="reason" data-type="string">
+                    <div class="field_title" data-field="reason">reason</div>
+                    <div class="field_value" data-container="reason">
+                        <input type="text" data-field="reason" />
+                    </div>
+                </div>
+                <!-- tradeType -->
+                <div class="field_container" data-field="tradeType" data-type="string">
+                    <div class="field_title" data-field="tradeType">tradeType</div>
+                    <div class="field_value" data-container="tradeType">
+                        <input type="text" data-field="tradeType" />
+                    </div>
+                </div>
+                <!-- text -->
+                <div class="field_container" data-field="text" data-type="text">
+                    <div class="field_title" data-field="text">text</div>
+                    <div class="field_value" data-container="text">
+                        <textarea data-field="text"></textarea>
+                    </div>
+                </div>
+                <!-- startDate -->
+                <div class="field_container" data-field="startDate" data-type="date">
+                    <div class="field_title" data-field="startDate">startDate</div>
+                    <div class="field_value" data-container="startDate">
+                        <input type="date" data-field="startDate" />
+                    </div>
+                </div>
+                <!-- endDate -->
+                <div class="field_container" data-field="endDate" data-type="date">
+                    <div class="field_title" data-field="endDate">endDate</div>
+                    <div class="field_value" data-container="endDate">
+                        <input type="date" data-field="endDate" />
+                    </div>
+                </div>
+                <!-- minTerm -->
+                <div class="field_container" data-field="minTerm" data-type="number">
+                    <div class="field_title" data-field="minTerm">minTerm</div>
+                    <div class="field_value" data-container="minTerm">
+                        <input type="number" data-field="minTerm" />
+                    </div>
+                </div>
+                <!-- dateKeywords -->
+                <div class="field_container" data-field="dateKeywords" data-type="object">
+                    <div class="field_title" data-field="dateKeywords">
+                        dateKeywords
+                        <span class="field_value_add" data-field="dateKeywords">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="dateKeywords"></div>
+                </div>
+                <!-- locationL -->
+                <div class="field_container" data-field="locationL" data-type="object">
+                    <div class="field_title" data-field="locationL">
+                        locationL
+                        <span class="field_value_add" data-field="locationL">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="locationL"></div>
+                </div>
+                <!-- locationS -->
+                <div class="field_container" data-field="locationS" data-type="object">
+                    <div class="field_title" data-field="locationS">
+                        locationS
+                        <span class="field_value_add" data-field="locationS">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="locationS"></div>
+                </div>
+                <!-- price -->
+                <div class="field_container" data-field="price" data-type="number">
+                    <div class="field_title" data-field="price">price</div>
+                    <div class="field_value" data-container="price">
+                        <input type="number" data-field="price" />
+                    </div>
+                </div>
+                <!-- deposit -->
+                <div class="field_container" data-field="deposit" data-type="number">
+                    <div class="field_title" data-field="deposit">deposit</div>
+                    <div class="field_value" data-container="deposit">
+                        <input type="number" data-field="deposit" />
+                    </div>
+                </div>
+                <!-- expense -->
+                <div class="field_container" data-field="expense" data-type="number">
+                    <div class="field_title" data-field="expense">expense</div>
+                    <div class="field_value" data-container="expense">
+                        <input type="number" data-field="expense" />
+                    </div>
+                </div>
+                <!-- discountKeywords -->
+                <div class="field_container" data-field="discountKeywords" data-type="object">
+                    <div class="field_title" data-field="discountKeywords">
+                        discountKeywords
+                        <span class="field_value_add" data-field="discountKeywords">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="discountKeywords"></div>
+                </div>
+                <!-- keywords -->
+                <div class="field_container" data-field="keywords" data-type="object">
+                    <div class="field_title" data-field="keywords">
+                        keywords
+                        <span class="field_value_add" data-field="keywords">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="keywords"></div>
+                </div>
+                <!-- floor -->
+                <div class="field_container" data-field="floor" data-type="number">
+                    <div class="field_title" data-field="floor">floor</div>
+                    <div class="field_value" data-container="floor">
+                        <input type="number" data-field="floor" />
+                    </div>
+                </div>
+                <!-- roomType -->
+                <div class="field_container" data-field="roomType" data-type="string">
+                    <div class="field_title" data-field="roomType">roomType</div>
+                    <div class="field_value" data-container="roomType">
+                        <input type="text" data-field="roomType" />
+                    </div>
+                </div>
+                <!-- only -->
+                <div class="field_container" data-field="only" data-type="object">
+                    <div class="field_title" data-field="only">
+                        only
+                        <span class="field_value_add" data-field="only">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="only"></div>
+                </div>
+                <!-- images -->
+                <div class="field_container" data-field="images" data-type="array">
+                    <div class="field_title" data-field="images">
+                        images
+                        <span class="field_value_add" data-field="images">
+                            <i class="xi-plus" onclick="addField(this);"></i>
+                        </span>
+                    </div>
+                    <div class="field_value" data-container="images">
+                        <div class="file_container">
+                            <input type="file" data-field="images" accept="image/*" multiple />
+                            <button value="upload" onclick="uploadImage();">upload</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- url -->
+                <div class="field_container" data-field="url" data-type="string">
+                    <div class="field_title" data-field="url">url</div>
+                    <div class="field_value" data-container="url">
+                        <input type="text" data-field="url" />
+                    </div>
+                </div>
+                <!-- contact -->
+                <div class="field_container" data-field="contact" data-type="string">
+                    <div class="field_title" data-field="contact">contact</div>
+                    <div class="field_value" data-container="contact">
+                        <input type="text" data-field="contact" />
+                    </div>
+                </div>
+                <div class="update_footer">
+                    <div class="update_confirm"><i class="xi-check-circle-o"></i>업데이트</div>
+                    <div class="update_delete"><i class="xi-close-circle-o"></i>삭제</div>
                 </div>
             </div>
-            <!-- contact -->
-            <div class="field_container" data-field="contact" data-type="string">
-                <div class="field_title" data-field="contact">contact</div>
-                <div class="field_value" data-container="contact">
-                    <input type="text" data-field="contact">
-                </div>
-            </div>
-            <div class="update_footer">
-                <div class="update_confirm"><i class="xi-check-circle-o"></i>업데이트</div>
-                <div class="update_delete"><i class="xi-close-circle-o"></i>삭제</div>
-            </div>
+            <div class="update_loading"><i class="xi-spinner-5 xi-spin"></i></div>
         </div>
-        <div class="update_loading"><i class="xi-spinner-5 xi-spin"></i></div>
-    </div>
 
-    <div id="loading_container">
-        <div class="loading">
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
+        <div id="loading_container">
+            <div class="loading">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
         </div>
-    </div>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCLqttykBqdLHT5lKFuBFJnbUNtbCxfRIg",
-            authDomain: "bangdangi.firebaseapp.com",
-            databaseURL: "https://bangdangi.firebaseio.com",
-            projectId: "bangdangi",
-            storageBucket: "bangdangi.appspot.com",
-            messagingSenderId: "602303647933",
-            appId: "1:602303647933:web:ff96ef9e79c4815f",
-            measurementId: "G-G90HPG3485"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
-    </script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyCLqttykBqdLHT5lKFuBFJnbUNtbCxfRIg",
+                authDomain: "bangdangi.firebaseapp.com",
+                databaseURL: "https://bangdangi.firebaseio.com",
+                projectId: "bangdangi",
+                storageBucket: "bangdangi.appspot.com",
+                messagingSenderId: "602303647933",
+                appId: "1:602303647933:web:ff96ef9e79c4815f",
+                measurementId: "G-G90HPG3485",
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
 
-    <!-- 매물관리 코드 -->
-    <script>
-        var loading = document.querySelector('#loading_container');
-        var select = document.querySelector('#univ_select');
-        var reloadBtn = document.getElementById('reload');
-        var addBtn = document.getElementById('add');
-        var downloadBtn = document.getElementById('download');
-        var updateBtn = document.querySelector('.update_confirm');
-        var deleteBtn = document.querySelector('.update_delete');
-        var updateLoading = document.querySelector('.update_loading');
-        var fieldTitle = document.querySelectorAll('.field_title');
-        var storage = firebase.storage();
-        var hot;
-        var exportPlugin;
+        <!-- 매물관리 코드 -->
+        <script>
+            var loading = document.querySelector("#loading_container");
+            var select = document.querySelector("#univ_select");
+            var reloadBtn = document.getElementById("reload");
+            var addBtn = document.getElementById("add");
+            var downloadBtn = document.getElementById("download");
+            var updateBtn = document.querySelector(".update_confirm");
+            var deleteBtn = document.querySelector(".update_delete");
+            var updateLoading = document.querySelector(".update_loading");
+            var fieldTitle = document.querySelectorAll(".field_title");
+            var storage = firebase.storage();
+            var hot;
+            var exportPlugin;
 
-        var textRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-            Handsontable.renderers.TextRenderer.apply(this, arguments);
-            td.className = 'textNoWrap';
-            return cellProperties;
-        };
-        var showLoading = () => { loading.style.display = 'initial' };
-        var hideLoading = () => { loading.style.display = 'none' };
-        var showUpdateLoading = () => { updateLoading.style.display = 'flex' };
-        var hideUpdateLoading = () => { updateLoading.style.display = 'none' };
-        var loadData = (univ) => {
-            if (univ === "") return;
-            document.querySelector('#article').innerHTML = '';
+            var textRenderer = function(instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+                td.className = "textNoWrap";
+                return cellProperties;
+            };
+            var showLoading = () => {
+                loading.style.display = "initial";
+            };
+            var hideLoading = () => {
+                loading.style.display = "none";
+            };
+            var showUpdateLoading = () => {
+                updateLoading.style.display = "flex";
+            };
+            var hideUpdateLoading = () => {
+                updateLoading.style.display = "none";
+            };
+            var loadData = univ => {
+                if (univ === "") return;
+                document.querySelector("#article").innerHTML = "";
 
-            // 로딩이미지 출력
-            showLoading();
-            // 데이터 불러오기
-            firebase.firestore().collection(`article/live/${univ}`).orderBy('createdAt', 'desc').get()
-                .then(docs => {
-                    let data = [];
-                    docs.forEach(doc => {
-                        let d = doc.data();
-                        data.push({
-                            ...d,
-                            id: doc.id,
-                            createdAt: d.createdAt ? d.createdAt.toDate().toLocaleDateString() : null,
-                            startDate: d.startDate ? d.startDate.toDate().toLocaleDateString() : null,
-                            endDate: d.endDate ? d.endDate.toDate().toLocaleDateString() : null,
-                            dateKeywords: d.dateKeywords ? Object.keys(d.dateKeywords).join(',') : null,
-                            locationL: d.locationL ? Object.keys(d.locationL).join(',') : null,
-                            locationS: d.locationS ? Object.keys(d.locationS).join(',') : null,
-                            keywords: d.keywords ? Object.keys(d.keywords).join(',') : null,
-                            discountKeywords: d.discountKeywords ? Object.keys(d.discountKeywords).join(',') : null,
-                            only: d.only ? Object.keys(d.only).join(',') : null,
-                            images: d.images ? d.images.length : null,
+                // 로딩이미지 출력
+                showLoading();
+                // 데이터 불러오기
+                firebase
+                    .firestore()
+                    .collection(`article/live/${univ}`)
+                    .orderBy("createdAt", "desc")
+                    .get()
+                    .then(docs => {
+                        let data = [];
+                        docs.forEach(doc => {
+                            let d = doc.data();
+                            data.push({
+                                ...d,
+                                id: doc.id,
+                                createdAt: d.createdAt ? d.createdAt.toDate().toLocaleDateString() : null,
+                                startDate: d.startDate ? d.startDate.toDate().toLocaleDateString() : null,
+                                endDate: d.endDate ? d.endDate.toDate().toLocaleDateString() : null,
+                                dateKeywords: d.dateKeywords ? Object.keys(d.dateKeywords).join(",") : null,
+                                locationL: d.locationL ? Object.keys(d.locationL).join(",") : null,
+                                locationS: d.locationS ? Object.keys(d.locationS).join(",") : null,
+                                keywords: d.keywords ? Object.keys(d.keywords).join(",") : null,
+                                discountKeywords: d.discountKeywords ? Object.keys(d.discountKeywords).join(",") : null,
+                                only: d.only ? Object.keys(d.only).join(",") : null,
+                                images: d.images ? d.images.length : null,
+                            });
                         });
-                    });
-                    return data;
-                })
-                .then(data => {
-                    hot = new Handsontable(document.getElementById('article'), {
-                        data: data,
+                        return data;
+                    })
+                    .then(data => {
+                        hot = new Handsontable(document.getElementById("article"), {
+                            data: data,
+                            rowHeaders: true,
+                            colHeaders: true,
+                            colHeaders: [
+                                "id",
+                                "url타입",
+                                "등록시간",
+                                "조회수",
+                                "매물표시여부",
+                                "거래성사여부",
+                                "제목",
+                                "이유",
+                                "거래형태",
+                                "본문",
+                                "시작날짜",
+                                "끝날짜",
+                                "최소계약기간",
+                                "날짜키워드",
+                                "큰위치",
+                                "세부위치",
+                                "월세",
+                                "보증금",
+                                "관리비",
+                                "할인키워드",
+                                "일반키워드",
+                                "방층수",
+                                "방형태",
+                                "남성/여성전용",
+                                "사진개수",
+                                "url",
+                                "연락처",
+                            ],
+                            //nestedHeaders: [['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오']],
+                            columns: [
+                                { data: "id", renderer: textRenderer },
+                                { data: "urlType", renderer: textRenderer },
+                                { data: "createdAt", renderer: textRenderer },
+                                { data: "views", renderer: textRenderer },
+                                { data: "display", renderer: textRenderer },
+                                { data: "done", renderer: textRenderer },
+                                { data: "title", renderer: textRenderer },
+                                { data: "reason", renderer: textRenderer },
+                                { data: "tradeType", renderer: textRenderer },
+                                { data: "text", renderer: textRenderer },
+                                { data: "startDate", renderer: textRenderer },
+                                { data: "endDate", renderer: textRenderer },
+                                { data: "minTerm", renderer: textRenderer },
+                                { data: "dateKeywords", renderer: textRenderer },
+                                { data: "locationL", renderer: textRenderer },
+                                { data: "locationS", renderer: textRenderer },
+                                { data: "price", renderer: textRenderer },
+                                { data: "deposit", renderer: textRenderer },
+                                { data: "expense", renderer: textRenderer },
+                                { data: "discountKeywords", renderer: textRenderer },
+                                { data: "keywords", renderer: textRenderer },
+                                { data: "floor", renderer: textRenderer },
+                                { data: "roomType", renderer: textRenderer },
+                                { data: "only", renderer: textRenderer },
+                                { data: "images", renderer: textRenderer },
+                                { data: "url", renderer: textRenderer },
+                                { data: "contact", renderer: textRenderer },
+                            ],
+                            columnSorting: true,
+                            manualColumnResize: true,
+                            contextMenu: true,
+                            allowRemoveColumn: true,
+                            hiddenColumns: true,
+                            filters: true,
+                            dropdownMenu: true,
+                            afterSelection: function() {
+                                selectionCallback(arguments, hot);
+                            },
+                            language: "ko-KR",
+                            licenseKey: "non-commercial-and-evaluation",
+                        });
+                        exportPlugin = hot.getPlugin("exportFile");
+                    })
+                    .then(() => hideLoading())
+                    .catch(err => console.log(err));
+            };
+            var reloadData = () => {
+                loadData(select.value);
+            };
+            var addEmptyArticle = () => {
+                if (select.value !== "") {
+                    firebase
+                        .firestore()
+                        .collection(`article/live/${select.value}`)
+                        .add({
+                            createdAt: new Date(),
+                            display: false,
+                            tradeType: null,
+                            reason: null,
+                            startDate: null,
+                            endDate: null,
+                            minTerm: null,
+                            dateKeywords: null,
+                            keywords: null,
+                            discountKeywords: null,
+                            price: null,
+                            deposit: null,
+                            expense: null,
+                            locationL: null,
+                            locationS: null,
+                            roomType: null,
+                            only: null,
+                            floor: null,
+                            images: null,
+                            urlType: null,
+                            url: null,
+                            contact: null,
+                            done: false,
+                            text: null,
+                            title: null,
+                            views: 0,
+                        })
+                        .then(docRef => {
+                            return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.value}/${docRef.id}` });
+                        })
+                        .then(() => {
+                            reloadData();
+                        })
+                        .catch(err => {
+                            window.alert(err.message);
+                        });
+                } else {
+                    window.alert("위치를 먼저 선택해주세요.");
+                }
+            };
+            var exportCSV = () => {
+                if (exportPlugin === undefined) {
+                    window.alert("데이터를 먼저 불러오세요");
+                } else {
+                    exportPlugin.downloadFile("csv", {
+                        bom: false,
+                        columnDelimiter: ",",
+                        columnHeaders: true,
+                        exportHiddenColumns: true,
+                        exportHiddenRows: true,
+                        fileExtension: "csv",
+                        filename: `bangdangi-${select.value}_[YYYY]-[MM]-[DD]`,
+                        mimeType: "text/csv",
+                        rowDelimiter: "\r\n",
                         rowHeaders: true,
-                        colHeaders: true,
-                        colHeaders: ['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '최소계약기간', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '방형태', '남성/여성전용', '사진개수', 'url', '연락처'],
-                        //nestedHeaders: [['id', 'url타입', '등록시간', '조회수', '매물표시여부', '거래성사여부', '제목', '이유', '거래형태', '본문', '시작날짜', '끝날짜', '날짜키워드', '큰위치', '세부위치', '월세', '보증금', '관리비', '할인키워드', '일반키워드', '방층수', '방형태', '남성/여성전용', '사진여부', '사진개수', 'url', '연락처', '오픈카카오']],
-                        columns: [
-                            { data: 'id', renderer: textRenderer },
-                            { data: 'urlType', renderer: textRenderer },
-                            { data: 'createdAt', renderer: textRenderer },
-                            { data: 'views', renderer: textRenderer },
-                            { data: 'display', renderer: textRenderer },
-                            { data: 'done', renderer: textRenderer },
-                            { data: 'title', renderer: textRenderer },
-                            { data: 'reason', renderer: textRenderer },
-                            { data: 'tradeType', renderer: textRenderer },
-                            { data: 'text', renderer: textRenderer },
-                            { data: 'startDate', renderer: textRenderer },
-                            { data: 'endDate', renderer: textRenderer },
-                            { data: 'minTerm', renderer: textRenderer },
-                            { data: 'dateKeywords', renderer: textRenderer },
-                            { data: 'locationL', renderer: textRenderer },
-                            { data: 'locationS', renderer: textRenderer },
-                            { data: 'price', renderer: textRenderer },
-                            { data: 'deposit', renderer: textRenderer },
-                            { data: 'expense', renderer: textRenderer },
-                            { data: 'discountKeywords', renderer: textRenderer },
-                            { data: 'keywords', renderer: textRenderer },
-                            { data: 'floor', renderer: textRenderer },
-                            { data: 'roomType', renderer: textRenderer },
-                            { data: 'only', renderer: textRenderer },
-                            { data: 'images', renderer: textRenderer },
-                            { data: 'url', renderer: textRenderer },
-                            { data: 'contact', renderer: textRenderer },
-                        ],
-                        columnSorting: true,
-                        manualColumnResize: true,
-                        contextMenu: true,
-                        allowRemoveColumn: true,
-                        hiddenColumns: true,
-                        filters: true,
-                        dropdownMenu: true,
-                        afterSelection: function () { selectionCallback(arguments, hot) },
-                        language: 'ko-KR',
-                        licenseKey: 'non-commercial-and-evaluation',
                     });
-                    exportPlugin = hot.getPlugin('exportFile');
-                })
-                .then(() => hideLoading())
-                .catch(err => console.log(err));
-        }
-        var reloadData = () => { loadData(select.value) };
-        var addEmptyArticle = () => {
-            if (select.value !== "") {
-                firebase.firestore().collection(`article/live/${select.value}`).add({
-                    createdAt: new Date(),
-                    display: false,
-                    tradeType: null,
-                    reason: null,
-                    startDate: null,
-                    endDate: null,
-                    minTerm: null,
-                    dateKeywords: null,
-                    keywords: null,
-                    discountKeywords: null,
-                    price: null,
-                    deposit: null,
-                    expense: null,
-                    locationL: null,
-                    locationS: null,
-                    roomType: null,
-                    only: null,
-                    floor: null,
-                    images: null,
-                    urlType: null,
-                    url: null,
-                    contact: null,
-                    done: false,
-                    text: null,
-                    title: null,
-                    views: 0,
-                })
-                    .then(docRef => {
-                        return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.value}/${docRef.id}` });
+                }
+            };
+            var selectionCallback = (data, hot) => {
+                //  check selection
+                if (data[3] !== 26 || data[0] !== data[2]) return;
+                let id = hot.getDataAtRow(data[0])[0];
+                openUpdateBox(id);
+            };
+            var openUpdateBox = id => {
+                // 일단 닫혀있으면 연다
+                let box = document.querySelector(".update_container");
+                if (!box.classList.contains("update_open")) box.classList.add("update_open");
+                // 로딩 이미지 켜준다
+                showUpdateLoading();
+                // 입력폼 초기화
+                initUpdateBox();
+                // id, 매물 데이터를 가져온다
+                document.querySelector(".id_container").innerText = id;
+                firebase
+                    .firestore()
+                    .doc(`article/live/${select.value}/${id}`)
+                    .get()
+                    .then(doc => {
+                        return parseDoc(doc.data()); // DB에서 가져온 데이터 파싱
                     })
                     .then(() => {
-                        reloadData();
+                        hideUpdateLoading(); // 로딩창 숨기기
                     })
-                    .catch((err) => { window.alert(err.message) })
-            } else {
-                window.alert("위치를 먼저 선택해주세요.");
-            }
-        }
-        var exportCSV = () => {
-            if (exportPlugin === undefined) {
-                window.alert('데이터를 먼저 불러오세요');
-            }
-            else {
-                exportPlugin.downloadFile('csv', {
-                    bom: false,
-                    columnDelimiter: ',',
-                    columnHeaders: true,
-                    exportHiddenColumns: true,
-                    exportHiddenRows: true,
-                    fileExtension: 'csv',
-                    filename: `bangdangi-${select.value}_[YYYY]-[MM]-[DD]`,
-                    mimeType: 'text/csv',
-                    rowDelimiter: '\r\n',
-                    rowHeaders: true
+                    .catch(err => {
+                        console.log(err);
+                        window.alert(err.message);
+                    });
+            };
+            var closeUpdateBox = () => {
+                document.querySelector(".update_container").classList.remove("update_open");
+            };
+            var initUpdateBox = () => {
+                // 각각의 field-container에 대해서
+                document.querySelectorAll(".field_container").forEach(f => {
+                    let type = f.dataset.type;
+                    let field = f.dataset.field;
+                    // 타입에 따라 다르게 초기화
+                    if (type === "string") {
+                        document.querySelector(`input[type="text"][data-field="${field}"]`).value = "";
+                    } else if (type === "number") {
+                        document.querySelector(`input[type="number"][data-field="${field}"]`).value = "";
+                    } else if (type === "boolean") {
+                        document.querySelectorAll(`input[type="radio"][data-field="${field}"]`).forEach(i => (i.checked = false));
+                    } else if (type === "object") {
+                        document.querySelector(`.field_value[data-container="${field}"]`).innerHTML = "";
+                    } else if (type === "array") {
+                        document.querySelectorAll(`.field_value[data-container="${field}"] > div`).forEach((i, idx) => (idx !== 0 ? i.remove() : ""));
+                        document.querySelector('input[type="file"]').value = "";
+                    } else if (type === "date") {
+                        document.querySelector(`input[type="date"][data-field="${field}"]`).value = "";
+                    } else if (type === "text") {
+                        document.querySelector(`textarea[data-field="${field}"]`).value = "";
+                    }
                 });
-            }
-        }
-        var selectionCallback = (data, hot) => {
-            //  check selection
-            if (data[3] !== 26 || data[0] !== data[2]) return;
-            let id = hot.getDataAtRow(data[0])[0];
-            openUpdateBox(id);
-        }
-        var openUpdateBox = (id) => {
-            // 일단 닫혀있으면 연다
-            let box = document.querySelector('.update_container');
-            if (!box.classList.contains('update_open')) box.classList.add('update_open');
-            // 로딩 이미지 켜준다
-            showUpdateLoading();
-            // 입력폼 초기화
-            initUpdateBox();
-            // id, 매물 데이터를 가져온다 
-            document.querySelector('.id_container').innerText = id;
-            firebase.firestore().doc(`article/live/${select.value}/${id}`).get()
-                .then(doc => {
-                    return parseDoc(doc.data()); // DB에서 가져온 데이터 파싱
-                })
-                .then(() => {
-                    hideUpdateLoading(); // 로딩창 숨기기
-                })
-                .catch(err => {
-                    console.log(err);
-                    window.alert(err.message);
-                })
-        }
-        var closeUpdateBox = () => {
-            document.querySelector('.update_container').classList.remove('update_open');
-        }
-        var initUpdateBox = () => {
-            // 각각의 field-container에 대해서
-            document.querySelectorAll('.field_container').forEach(f => {
-                let type = f.dataset.type;
-                let field = f.dataset.field;
-                // 타입에 따라 다르게 초기화
-                if (type === 'string') {
-                    document.querySelector(`input[type="text"][data-field="${field}"]`).value = '';
-                }
-                else if (type === 'number') {
-                    document.querySelector(`input[type="number"][data-field="${field}"]`).value = '';
-                }
-                else if (type === 'boolean') {
-                    document.querySelectorAll(`input[type="radio"][data-field="${field}"]`)
-                        .forEach(i => i.checked = false);
-                }
-                else if (type === 'object') {
-                    document.querySelector(`.field_value[data-container="${field}"]`)
-                        .innerHTML = '';
-                }
-                else if (type === 'array') {
-                    document.querySelectorAll(`.field_value[data-container="${field}"] > div`)
-                        .forEach((i, idx) => idx !== 0 ? i.remove() : '');
-                    document.querySelector('input[type="file"]').value = '';
-                }
-                else if (type === 'date') {
-                    document.querySelector(`input[type="date"][data-field="${field}"]`).value = '';
-                }
-                else if (type === 'text') {
-                    document.querySelector(`textarea[data-field="${field}"]`).value = '';
-                }
-            })
-            // null 초기화
-            document.querySelectorAll('.null').forEach(i => i.classList.remove('null'));
-        }
-        var parseDoc = (data) => {
-            // 데이터 파싱 후 렌더
-            for (i in data) {
-                let type = typeof (data[i]);
-                if (data[i] === null) { // null
-                    document.querySelector(`.field_title[data-field="${i}"]`).classList.add('null');
-                    document.querySelector(`.field_value[data-container="${i}"]`).classList.add('null');
-                }
-                else if (i === 'text') {
-                    document.querySelector(`textarea[data-field="${i}"]`).value = data[i];
-                }
-                else if (type === 'string') // string
-                    document.querySelector(`input[data-field="${i}"]`).value = data[i];
-                else if (type === 'number') // number
-                    document.querySelector(`input[data-field="${i}"]`).value = parseFloat(data[i]);
-                else if (type === 'boolean') { // boolean
-                    if (data[i]) document.querySelector(`input[data-field="${i}"][value="true"]`).checked = true;
-                    else document.querySelector(`input[data-field="${i}"][value="false"]`).checked = true;
-                }
-                else if (Array.isArray(data[i])) { // array
-                    // 새 input 추가
-                    for (img of data[i]) {
-                        document.querySelector(`.field_value[data-container="${i}"]`)
-                            .innerHTML += `
+                // null 초기화
+                document.querySelectorAll(".null").forEach(i => i.classList.remove("null"));
+            };
+            var parseDoc = data => {
+                // 데이터 파싱 후 렌더
+                for (i in data) {
+                    let type = typeof data[i];
+                    if (data[i] === null) {
+                        // null
+                        document.querySelector(`.field_title[data-field="${i}"]`).classList.add("null");
+                        document.querySelector(`.field_value[data-container="${i}"]`).classList.add("null");
+                    } else if (i === "text") {
+                        document.querySelector(`textarea[data-field="${i}"]`).value = data[i];
+                    } else if (type === "string")
+                        // string
+                        document.querySelector(`input[data-field="${i}"]`).value = data[i];
+                    else if (type === "number")
+                        // number
+                        document.querySelector(`input[data-field="${i}"]`).value = parseFloat(data[i]);
+                    else if (type === "boolean") {
+                        // boolean
+                        if (data[i]) document.querySelector(`input[data-field="${i}"][value="true"]`).checked = true;
+                        else document.querySelector(`input[data-field="${i}"][value="false"]`).checked = true;
+                    } else if (Array.isArray(data[i])) {
+                        // array
+                        // 새 input 추가
+                        for (img of data[i]) {
+                            document.querySelector(`.field_value[data-container="${i}"]`).innerHTML += `
                                 <div>
                                     <input type="text" data-field="${i}" value="${img}">
                                     <i class="xi-minus" onclick="deleteField(this);"></i>   
                                 </div>
                             `;
-                    };
-                }
-                else if (type === 'object') { // object
-                    if (data[i].toDate) { // date 객체
-                        let d = data[i].toDate();
-                        document.querySelector(`input[data-field="${i}"]`).value = formatDate(d);
-                    }
-                    else { // map 객체 (object)
-                        // 새 input 추가
-                        Object.keys(data[i]).forEach(key => {
-                            document.querySelector(`.field_value[data-container="${i}"]`)
-                                .innerHTML += `
+                        }
+                    } else if (type === "object") {
+                        // object
+                        if (data[i].toDate) {
+                            // date 객체
+                            let d = data[i].toDate();
+                            document.querySelector(`input[data-field="${i}"]`).value = formatDate(d);
+                        } else {
+                            // map 객체 (object)
+                            // 새 input 추가
+                            Object.keys(data[i]).forEach(key => {
+                                document.querySelector(`.field_value[data-container="${i}"]`).innerHTML += `
                                     <div>
                                         <input type="text" data-field="${i}" value="${key}">
                                         <i class="xi-minus" onclick="deleteField(this);"></i>   
                                     </div>
                                 `;
-                        });
+                            });
+                        }
                     }
                 }
-            }
-        }
-        var toggleNull = function () {
-            let fieldValue = document.querySelector(`.field_value[data-container="${this.dataset.field}"]`);
-            if (this.classList.toggle('null'))
-                fieldValue.classList.add('null');
-            else
-                fieldValue.classList.remove('null');
-        }
-        var formatDate = (date) => {
-            var d = date,
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
+            };
+            var toggleNull = function() {
+                let fieldValue = document.querySelector(`.field_value[data-container="${this.dataset.field}"]`);
+                if (this.classList.toggle("null")) fieldValue.classList.add("null");
+                else fieldValue.classList.remove("null");
+            };
+            var formatDate = date => {
+                var d = date,
+                    month = "" + (d.getMonth() + 1),
+                    day = "" + d.getDate(),
+                    year = d.getFullYear();
 
-            if (month.length < 2)
-                month = '0' + month;
-            if (day.length < 2)
-                day = '0' + day;
+                if (month.length < 2) month = "0" + month;
+                if (day.length < 2) day = "0" + day;
 
-            return [year, month, day].join('-');
-        }
-        var addField = function (target) {
-            event.stopPropagation();
-            let field = target.parentNode.dataset.field;
-            let value = document.querySelector(`.field_value[data-container="${field}"]`);
-            let div = document.createElement('div');
-            div.innerHTML = `
+                return [year, month, day].join("-");
+            };
+            var addField = function(target) {
+                event.stopPropagation();
+                let field = target.parentNode.dataset.field;
+                let value = document.querySelector(`.field_value[data-container="${field}"]`);
+                let div = document.createElement("div");
+                div.innerHTML = `
                 <div>
                     <input type="text" data-field="${field}">
                     <i class="xi-minus" onclick="deleteField(this);"></i>
                 </div>
                 `;
-            value.appendChild(div);
+                value.appendChild(div);
+            };
+            var deleteField = function(target) {
+                event.stopPropagation();
+                target.parentNode.remove();
+            };
+            var uploadImage = () => {
+                let files = document.querySelector('input[type="file"]').files;
+                let id = document.querySelector(".id_container").innerText;
+                if (files.length > 0) {
+                    var arr = [];
+                    filenames = [];
+                    for (file of files) {
+                        arr.push(getOrientation(file));
+                        filenames.push(file.name);
+                    }
+                    showUpdateLoading();
 
-        }
-        var deleteField = function (target) {
-            event.stopPropagation();
-            target.parentNode.remove();
-        }
-        var uploadImage = () => {
-            let files = document.querySelector('input[type="file"]').files;
-            let id = document.querySelector('.id_container').innerText;
-            if (files.length > 0) {
-                var arr = [];
-                filenames = [];
-                for (file of files) {
-                    arr.push(getOrientation(file));
-                    filenames.push(file.name);
-                }
-                showUpdateLoading();
-
-                Promise.all(arr) // 업로드된 사진들의 orientation을 구한다
-                    .then(orientationArr =>
-                        Promise.all(orientationArr.map(o => resetOrientation(o))) // 구한 orientation에 맞춰서 캔버스에 그린 사진들을 회전시킨다
-                    )
-                    .then(canvasArr =>
-                        Promise.all(canvasArr.map(c => canvasToBlob(c))) // 각 캔버스들을 blob으로 변환한다
-                    )
-                    .then(blobArr => { // blob들을 스토리지에 업로드한다
-                        resultArr = [];
-                        for (i = 0; i < blobArr.length; i++) {
-                            resultArr.push(
-                                storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i])
-                            );
-                        }
-                        return Promise.all(resultArr);
-                    })
-                    .then(resultArr =>
-                        Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
-                    )
-                    .then(urlArr => { // 받아온 url을 입력창에 추가해준다
-                        urlArr.forEach(url => {
-                            document.querySelector(`.field_value[data-container="images"]`)
-                                .innerHTML += `
+                    Promise.all(arr) // 업로드된 사진들의 orientation을 구한다
+                        .then(
+                            orientationArr => Promise.all(orientationArr.map(o => resetOrientation(o))) // 구한 orientation에 맞춰서 캔버스에 그린 사진들을 회전시킨다
+                        )
+                        .then(
+                            canvasArr => Promise.all(canvasArr.map(c => canvasToBlob(c))) // 각 캔버스들을 blob으로 변환한다
+                        )
+                        .then(blobArr => {
+                            // blob들을 스토리지에 업로드한다
+                            resultArr = [];
+                            for (i = 0; i < blobArr.length; i++) {
+                                resultArr.push(storage.ref(`images/${select.value}/${id}/${filenames[i]}`).put(blobArr[i]));
+                            }
+                            return Promise.all(resultArr);
+                        })
+                        .then(
+                            resultArr => Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
+                        )
+                        .then(urlArr => {
+                            // 받아온 url을 입력창에 추가해준다
+                            urlArr.forEach(url => {
+                                document.querySelector(`.field_value[data-container="images"]`).innerHTML += `
                                 <div>
                                     <input type="text" data-field="images" value="${url}">
                                     <i class="xi-minus" onclick="deleteField(this);"></i>   
                                 </div>
                             `;
+                            });
+                            hideUpdateLoading();
                         })
+                        .catch(err => console.log(err));
+                }
+            };
+            var getOrientation = file => {
+                return new Promise((resolve, reject) => {
+                    loadImage(
+                        file,
+                        function(img, data) {
+                            if (data.exif) {
+                                let flag = data.exif.get("Orientation");
+                                if (flag) return resolve([flag, file]);
+                                else return resolve([1, file]);
+                            } else return resolve([1, file]);
+                        },
+                        { meta: true }
+                    );
+                });
+            };
+            var resetOrientation = srcOrientation => {
+                var orientation = srcOrientation[0];
+                var file = srcOrientation[1];
+                return new Promise((resolve, reject) => {
+                    var img = new Image();
+                    img.onload = () => {
+                        var width = img.width,
+                            height = img.height,
+                            canvas = document.createElement("canvas"),
+                            ctx = canvas.getContext("2d");
+                        // set proper canvas dimensions before transform & export
+                        if (4 < orientation && orientation < 9) {
+                            canvas.width = height;
+                            canvas.height = width;
+                        } else {
+                            canvas.width = width;
+                            canvas.height = height;
+                        }
+                        // transform context before drawing image
+                        switch (orientation) {
+                            case 2:
+                                ctx.transform(-1, 0, 0, 1, width, 0);
+                                break;
+                            case 3:
+                                ctx.transform(-1, 0, 0, -1, width, height);
+                                break;
+                            case 4:
+                                ctx.transform(1, 0, 0, -1, 0, height);
+                                break;
+                            case 5:
+                                ctx.transform(0, 1, 1, 0, 0, 0);
+                                break;
+                            case 6:
+                                ctx.transform(0, 1, -1, 0, height, 0);
+                                break;
+                            case 7:
+                                ctx.transform(0, -1, -1, 0, height, width);
+                                break;
+                            case 8:
+                                ctx.transform(0, -1, 1, 0, 0, width);
+                                break;
+                            default:
+                                break;
+                        }
+                        // draw image
+                        ctx.drawImage(img, 0, 0);
+                        // export canvas
+                        resolve(canvas);
+                    };
+                    img.src = URL.createObjectURL(file);
+                });
+            };
+            var canvasToBlob = canvas => {
+                return new Promise((resolve, reject) => {
+                    canvas.toBlob(blob => {
+                        resolve(blob);
+                    }, "image/jpeg");
+                });
+            };
+            var getInputData = () => {
+                let data = {};
+                let fields = document.querySelectorAll(".field_container");
+                fields.forEach(f => {
+                    let type = f.dataset.type;
+                    let field = f.dataset.field;
+                    if (document.querySelector(`.field_title[data-field="${field}"]`).classList.contains("null")) {
+                        data[field] = null;
+                    } else if (type === "string") {
+                        data[field] = document.querySelector(`input[data-field="${field}"]`).value;
+                    } else if (type === "number") {
+                        data[field] = parseFloat(document.querySelector(`input[data-field="${field}"]`).value);
+                    } else if (type === "text") {
+                        data[field] = document.querySelector(`textarea[data-field="${field}"]`).value;
+                    } else if (type === "boolean") {
+                        if (document.querySelector(`input[data-field="${field}"]:checked`).value === "true") data[field] = true;
+                        else data[field] = false;
+                    } else if (type === "date") {
+                        data[field] = new Date(document.querySelector(`input[data-field="${field}"]`).value);
+                    } else if (type === "object") {
+                        let obj = {};
+                        document.querySelectorAll(`input[data-field="${field}"]`).forEach(i => (obj[i.value] = true));
+                        data[field] = obj;
+                    } else if (type === "array") {
+                        let arr = [];
+                        document.querySelectorAll(`input[type="text"][data-field="${field}"]`).forEach(i => arr.push(i.value));
+                        data[field] = arr;
+                    }
+                });
+                return data;
+            };
+            var updateData = () => {
+                showUpdateLoading();
+                let univ = select.value;
+                let id = document.querySelector(".id_container").innerText;
+                firebase
+                    .firestore()
+                    .doc(`article/live/${univ}/${id}`)
+                    .update(getInputData())
+                    .then(() => {
                         hideUpdateLoading();
+                        closeUpdateBox();
+                        reloadData();
                     })
-                    .catch(err => console.log(err));
-            }
-        }
-        var getOrientation = (file) => {
-            return new Promise((resolve, reject) => {
-                loadImage(file, function (img, data) {
-                    if (data.exif) {
-                        let flag = data.exif.get("Orientation");
-                        if (flag) return resolve([flag, file]);
-                        else return resolve([1, file]);
-                    }
-                    else return resolve([1, file]);
-                }, { meta: true });
-            })
-        }
-        var resetOrientation = (srcOrientation) => {
-            var orientation = srcOrientation[0];
-            var file = srcOrientation[1];
-            return new Promise((resolve, reject) => {
-                var img = new Image();
-                img.onload = () => {
-                    var width = img.width,
-                        height = img.height,
-                        canvas = document.createElement('canvas'),
-                        ctx = canvas.getContext("2d");
-                    // set proper canvas dimensions before transform & export
-                    if (4 < orientation && orientation < 9) {
-                        canvas.width = height;
-                        canvas.height = width;
-                    } else {
-                        canvas.width = width;
-                        canvas.height = height;
-                    }
-                    // transform context before drawing image
-                    switch (orientation) {
-                        case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-                        case 3: ctx.transform(-1, 0, 0, -1, width, height); break;
-                        case 4: ctx.transform(1, 0, 0, -1, 0, height); break;
-                        case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-                        case 6: ctx.transform(0, 1, -1, 0, height, 0); break;
-                        case 7: ctx.transform(0, -1, -1, 0, height, width); break;
-                        case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
-                        default: break;
-                    }
-                    // draw image
-                    ctx.drawImage(img, 0, 0);
-                    // export canvas
-                    resolve(canvas);
-                };
-                img.src = URL.createObjectURL(file);
-            })
-        }
-        var canvasToBlob = (canvas) => {
-            return new Promise((resolve, reject) => {
-                canvas.toBlob(blob => {
-                    resolve(blob);
-                }, 'image/jpeg');
-            })
-        }
-        var getInputData = () => {
-            let data = {};
-            let fields = document.querySelectorAll('.field_container');
-            fields.forEach(f => {
-                let type = f.dataset.type;
-                let field = f.dataset.field;
-                if (document.querySelector(`.field_title[data-field="${field}"]`).classList.contains('null')) {
-                    data[field] = null;
-                }
-                else if (type === 'string') {
-                    data[field] = document.querySelector(`input[data-field="${field}"]`).value;
-                }
-                else if (type === 'number') {
-                    data[field] = parseFloat(document.querySelector(`input[data-field="${field}"]`).value);
-                }
-                else if (type === 'text') {
-                    data[field] = document.querySelector(`textarea[data-field="${field}"]`).value;
-                }
-                else if (type === 'boolean') {
-                    if (document.querySelector(`input[data-field="${field}"]:checked`).value === 'true')
-                        data[field] = true;
-                    else
-                        data[field] = false;
-                }
-                else if (type === 'date') {
-                    data[field] = new Date(document.querySelector(`input[data-field="${field}"]`).value);
-                }
-                else if (type === 'object') {
-                    let obj = {};
-                    document.querySelectorAll(`input[data-field="${field}"]`).forEach(i => obj[i.value] = true);
-                    data[field] = obj;
-                }
-                else if (type === 'array') {
-                    let arr = [];
-                    document.querySelectorAll(`input[type="text"][data-field="${field}"]`).forEach(i => arr.push(i.value));
-                    data[field] = arr;
-                }
-            })
-            return data;
-        }
-        var updateData = () => {
-            showUpdateLoading();
-            let univ = select.value;
-            let id = document.querySelector('.id_container').innerText;
-            firebase.firestore().doc(`article/live/${univ}/${id}`).update(getInputData())
-                .then(() => {
-                    hideUpdateLoading();
-                    closeUpdateBox();
-                    reloadData();
-                })
-                .catch(err => {
-                    console.log(err);
-                    window.alert(err.message);
-                })
-        }
-        var deleteData = () => {
-            showUpdateLoading();
-            let univ = select.value;
-            let id = document.querySelector('.id_container').innerText;
-            firebase.firestore().doc(`article/live/${univ}/${id}`).delete()
-                .then(() => {
-                    hideUpdateLoading();
-                    closeUpdateBox();
-                    reloadData();
-                })
-                .catch(err => {
-                    console.log(err);
-                    window.alert(err.message);
-                })
-        }
+                    .catch(err => {
+                        console.log(err);
+                        window.alert(err.message);
+                    });
+            };
+            var deleteData = () => {
+                showUpdateLoading();
+                let univ = select.value;
+                let id = document.querySelector(".id_container").innerText;
+                firebase
+                    .firestore()
+                    .doc(`article/live/${univ}/${id}`)
+                    .delete()
+                    .then(() => {
+                        hideUpdateLoading();
+                        closeUpdateBox();
+                        reloadData();
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        window.alert(err.message);
+                    });
+            };
 
-        fieldTitle.forEach(i => i.addEventListener('click', toggleNull));
-        reloadBtn.addEventListener('click', reloadData);
-        addBtn.addEventListener('click', addEmptyArticle);
-        downloadBtn.addEventListener('click', exportCSV);
-        updateBtn.addEventListener('click', updateData);
-        deleteBtn.addEventListener('click', deleteData);
-    </script>
+            fieldTitle.forEach(i => i.addEventListener("click", toggleNull));
+            reloadBtn.addEventListener("click", reloadData);
+            addBtn.addEventListener("click", addEmptyArticle);
+            downloadBtn.addEventListener("click", exportCSV);
+            updateBtn.addEventListener("click", updateData);
+            deleteBtn.addEventListener("click", deleteData);
+        </script>
 
-    <!-- 푸시알림 코드 -->
-    <script>
-        let db = firebase.firestore();
-        let notiContainer = document.getElementById('notification');
+        <!-- 푸시알림 코드 -->
+        <script>
+            let db = firebase.firestore();
+            let notiContainer = document.getElementById("notification");
 
-        db.collection('subscription').get()
-            .then(docs => docs.docs)
-            .then(docs => docs.forEach(doc => {
-                notiContainer.innerHTML += `
+            db.collection("subscription")
+                .get()
+                .then(docs => docs.docs)
+                .then(docs =>
+                    docs.forEach(doc => {
+                        notiContainer.innerHTML += `
                     <div>
-                        <div>${doc.data().createdAt.toDate().toLocaleString()}</div>
+                        <div>${doc
+                            .data()
+                            .createdAt.toDate()
+                            .toLocaleString()}</div>
                         <div>${doc.data().subscription.endpoint}</div>
                         <div>${doc.data().subscription.expirationTime}</div>
                         <div>${doc.data().subscription.keys.auth}</div>
@@ -856,58 +907,58 @@
                         <div><a href="javascript:;" onclick="sendNotification(this);">send</a></div>
                     </div>
                 `;
-            }))
-            .catch(err => console.log(err));
-
-        function sendNotification(target) {
-            let pushTitle = document.querySelector('input[name="push-title"]');
-            let pushBody = document.querySelector('input[name="push-body"]');
-            let row = target.parentNode.parentNode;
-            let endpoint = row.children[1].innerText;
-            let expirationTime = null;
-            let auth = row.children[3].innerText;
-            let p256dh = row.children[4].innerText;
-            let subscription = {
-                endpoint,
-                expirationTime,
-                keys: {
-                    auth,
-                    p256dh
-                }
-            }
-            return fetch('https://bangdangi.web.app/notification/send', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    subscription,
-                    data: {
-                        title: pushTitle.value,
-                        body: pushBody.value,
-                        params: {
-                            url: '/pwa'
-                        }
-                    }
-                })
-            }).then(res => res.text())
-                .then(res => alert(res))
+                    })
+                )
                 .catch(err => console.log(err));
-        }
-    </script>
 
-    <!-- 로그인 -->
-    <script>
-        // firebase.auth().onAuthStateChanged((user) => {
-        //     if (user) {
-        //         console.log(user);
-        //     } else {
-        //         window.location.href = 'http://bangdangi.web.app/masterLogin';
-        //     }
-        // });
-    </script>
-</body>
+            function sendNotification(target) {
+                let pushTitle = document.querySelector('input[name="push-title"]');
+                let pushBody = document.querySelector('input[name="push-body"]');
+                let row = target.parentNode.parentNode;
+                let endpoint = row.children[1].innerText;
+                let expirationTime = null;
+                let auth = row.children[3].innerText;
+                let p256dh = row.children[4].innerText;
+                let subscription = {
+                    endpoint,
+                    expirationTime,
+                    keys: {
+                        auth,
+                        p256dh,
+                    },
+                };
+                return fetch("https://bangdangi.web.app/notification/send", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        subscription,
+                        data: {
+                            title: pushTitle.value,
+                            body: pushBody.value,
+                            params: {
+                                url: "/pwa",
+                            },
+                        },
+                    }),
+                })
+                    .then(res => res.text())
+                    .then(res => alert(res))
+                    .catch(err => console.log(err));
+            }
+        </script>
 
-
+        <!-- 로그인 -->
+        <script>
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    console.log(user);
+                } else {
+                    window.location.href = "/masterLogin";
+                }
+            });
+        </script>
+    </body>
 </html>

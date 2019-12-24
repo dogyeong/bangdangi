@@ -1,5 +1,5 @@
 (() => {
-    var univSelect = document.getElementById('univ_select');
+    var univSelect = document.getElementById("univ_select");
 
     function changeRoomList() {
         if (this.value === "") return;
@@ -15,11 +15,11 @@
     let swRegist = null;
 
     function urlB64ToUint8Array(base64String) {
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
         const base64 = (base64String + padding)
             // eslint-disable-next-line no-useless-escape
-            .replace(/\-/g, '+')
-            .replace(/_/g, '/');
+            .replace(/\-/g, "+")
+            .replace(/_/g, "/");
 
         const rawData = window.atob(base64);
         const outputArray = new Uint8Array(rawData.length);
@@ -41,15 +41,16 @@
         //     }
         // });
 
-        swRegist.pushManager.getSubscription()
+        swRegist.pushManager
+            .getSubscription()
             .then(subscription => {
                 isSubscribed = !(subscription === null);
                 updateSubscription(subscription);
 
                 if (isSubscribed) {
-                    console.log('User is subscribed.');
+                    console.log("User is subscribed.");
                 } else {
-                    console.log('User is NOT subscribed.');
+                    console.log("User is NOT subscribed.");
                     subscribe();
                 }
 
@@ -75,8 +76,7 @@
         // TODO: 구독 정보 서버로 전송
         try {
             console.log(JSON.stringify(subscription));
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
         }
     }
@@ -84,54 +84,57 @@
     // 알림 구독
     function subscribe() {
         const applicationServerKey = urlB64ToUint8Array(appServerPublicKey);
-        swRegist.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: applicationServerKey
-        })
+        swRegist.pushManager
+            .subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey,
+            })
             .then(subscription => {
-                console.log('User is subscribed.');
+                console.log("User is subscribed.");
                 updateSubscription(subscription);
                 isSubscribed = true;
 
-                return fetch('https://bangdangi.web.app/notification/save-subscription', {
-                    method: 'POST',
+                return fetch("https://bangdangi.web.app/notification/save-subscription", {
+                    method: "POST",
                     headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ subscription })
+                    body: JSON.stringify({ subscription }),
                 });
             })
             .then(res => res.text())
             .then(res => console.log(res))
             .catch(err => {
-                console.log('Failed to subscribe the user: ', err);
+                console.log("Failed to subscribe the user: ", err);
             });
     }
 
-
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
         // 서비스워커 등록
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js').then(regist => {
-                swRegist = regist;
-                console.log('Service Worker Registered');
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(regist => {
+                    swRegist = regist;
+                    console.log("Service Worker Registered");
 
-                // TODO: Push 기능 초기화
-                initPush();
-                
-                return regist.addEventListener('updatefound', () => {
-                    const newWorker = regist.installing;
-                    console.log('Service Worker update found!');
+                    // TODO: Push 기능 초기화
+                    initPush();
 
-                    newWorker.addEventListener('statechange', function () {
-                        console.log('Service Worker state changed:', this.state);
+                    return regist.addEventListener("updatefound", () => {
+                        const newWorker = regist.installing;
+                        console.log("Service Worker update found!");
+
+                        newWorker.addEventListener("statechange", function() {
+                            console.log("Service Worker state changed:", this.state);
+                        });
                     });
-                });
-            }).catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
 
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-                console.log('Controller changed');
+            navigator.serviceWorker.addEventListener("controllerchange", () => {
+                console.log("Controller changed");
             });
         });
     }

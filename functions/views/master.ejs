@@ -1,259 +1,262 @@
 <!DOCTYPE html>
 <html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- SEO START -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금" />
+        <meta name="author" content="패러다임" />
+        <meta itemprop="name" content="방단기" />
+        <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta name="twitter:title" content="방단기" />
+        <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta property="og:title" content="방단기" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="방단기" />
+        <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도" />
+        <meta property="og:url" content="https://bangdangi.web.app/" />
+        <link rel="canonical" href="https://bangdangi.web.app/" />
+        <!-- SEO END -->
+        <title>방단기 관리자센터</title>
+        <link rel="stylesheet" type="text/css" href="css/master.css" />
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
+        <!-- Date picker -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- SEO START -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
-    <meta name="author" content="패러다임">
-    <meta itemprop="name" content="방단기">
-    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta name="twitter:title" content="방단기">
-    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta property="og:title" content="방단기">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="방단기">
-    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta property="og:url" content="https://bangdangi.web.app/">
-    <link rel="canonical" href="https://bangdangi.web.app/" />
-    <!-- SEO END -->
-    <title>방단기 관리자센터</title>
-    <link rel=stylesheet type="text/css" href="css/master.css" />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-    <!-- Date picker -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <body>
+        <header>
+            <div><img src="img/logo_w.png" />관리자센터 Beta</div>
+            <form id="univ_form">
+                <select name="univ" id="univ_select">
+                    <option value="" selected>학교를 선택해 주세요</option>
+                    <optgroup label="서울">
+                        <option value="cuk">카톨릭대학교</option>
+                        <option value="mafo">마포구,서대문구(연세대/이화여대/홍익대)</option>
+                        <option value="gwanak">관악구(서울대)</option>
+                        <option value="skku">성균관대학교</option>
+                        <option value="dongdaemun">동대문구(한국외대/경희대/서울시립대학교)</option>
+                        <option value="seongdong">성동구(한양대)</option>
+                    </optgroup>
+                    <optgroup label="대전">
+                        <option value="cnu">충남대학교</option>
+                    </optgroup>
+                    <optgroup label="부산">
+                        <option value="pnu">부산대학교</option>
+                    </optgroup>
+                </select>
+            </form>
+            <div id="reload"><i class="xi-refresh"></i> 다시 불러오기</div>
+            <div id="add"><i class="xi-plus-circle"></i> 빈매물추가</div>
+        </header>
 
-</head>
-
-<body>
-    <header>
-        <div>
-            <img src="img/logo_w.png">관리자센터 Beta
-        </div>
-        <form id="univ_form">
-            <select name="univ" id="univ_select">
-                <option value="" selected>학교를 선택해 주세요</option>
-                <optgroup label="서울">
-                    <option value="cuk">카톨릭대학교</option>
-                    <option value="mafo">마포구,서대문구(연세대/이화여대/홍익대)</option>
-                    <option value="gwanak">관악구(서울대)</option>
-                    <option value="skku">성균관대학교</option>
-                    <option value="dongdaemun">동대문구(한국외대/경희대/서울시립대학교)</option>
-                    <option value="seongdong">성동구(한양대)</option>
-                </optgroup>
-                <optgroup label="대전">
-                    <option value="cnu">충남대학교</option>
-                </optgroup>      
-                <optgroup label="부산">
-                    <option value="pnu">부산대학교</option>
-                </optgroup>
-            </select>
-        </form>
-        <div id="reload"><i class="xi-refresh"></i> 다시 불러오기</div>
-        <div id="add"><i class="xi-plus-circle"></i> 빈매물추가</div>
-    </header>
-
-    <div class="article" style="position: fixed; top: 80px; border-bottom: 1px solid black">
-        <div>
-            <div>매물번호</div>
-            <div>url타입</div>
-            <div>display</div>
-            <div>거래완료(done)</div>
-            <div>삭제 휴지통</div>
-        </div>
-        <div>
-            <div>등록일</div>
-            <div>거래형태</div>
-            <div>이유</div>
-        </div>
-        <div>
-            <div>본문</div>
-        </div>
-        <div>
-            <div>시작날짜</div>
-            <div>끝날짜</div>
-            <div>최소계약기간</div>
-            <div>큰위치</div>
-            <div>세부위치</div>
-        </div>
-        <div>
+        <div class="article" style="position: fixed; top: 80px; border-bottom: 1px solid black">
             <div>
-                <div>월세(가격)</div>
-                <div>보증금</div>
-                <div>관리비</div>
+                <div>매물번호</div>
+                <div>url타입</div>
+                <div>display</div>
+                <div>거래완료(done)</div>
+                <div>삭제 휴지통</div>
             </div>
             <div>
-                <div>할인키워드</div>
-                <div>층수</div>
-            </div>
-        </div>
-        <div>
-            <div style="display: flex;">
-                <div>형태</div>
-                <div>성별</div>
+                <div>등록일</div>
+                <div>거래형태</div>
+                <div>이유</div>
             </div>
             <div>
-                특징
+                <div>본문</div>
+            </div>
+            <div>
+                <div>시작날짜</div>
+                <div>끝날짜</div>
+                <div>최소계약기간</div>
+                <div>큰위치</div>
+                <div>세부위치</div>
+            </div>
+            <div>
+                <div>
+                    <div>월세(가격)</div>
+                    <div>보증금</div>
+                    <div>관리비</div>
+                </div>
+                <div>
+                    <div>할인키워드</div>
+                    <div>층수</div>
+                </div>
+            </div>
+            <div>
+                <div style="display: flex;">
+                    <div>형태</div>
+                    <div>성별</div>
+                </div>
+                <div>
+                    특징
+                </div>
+            </div>
+            <div>
+                <div>url(출처)</div>
+                <div>contact</div>
             </div>
         </div>
-        <div>
-            <div>url(출처)</div>
-            <div>contact</div>
+
+        <div id="main">
+            <div id="articles"></div>
         </div>
-    </div>
 
-    <div id="main">
-        <div id="articles">
-
+        <div id="loading_container">
+            <div class="loading">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
         </div>
-    </div>
 
-    <div id="loading_container">
-        <div class="loading">
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-        </div>
-    </div>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="/__/firebase/6.1.0/firebase-app.js"></script>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="/__/firebase/6.1.0/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+        <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#reserved-urls -->
-    <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
-    <script src="/__/firebase/6.1.0/firebase-database.js"></script>
-    <script src="/__/firebase/6.1.0/firebase-messaging.js"></script>
-    <script src="/__/firebase/6.1.0/firebase-storage.js"></script>
-    <script src="/__/firebase/6.1.0/firebase-firestore.js"></script>
-    <!-- Initialize Firebase -->
-    <script src="/__/firebase/init.js"></script>
-    <script>
-        var roomList = [];
-        var hashtagList = [];
-        var univSelect = document.getElementById('univ_select');
-        var loading = document.getElementById('loading_container');
-        var currentPath = '';
-        var currentUniv = '';
-        const articleDBPath = 'article/live/';
-        const deletedDBPath = 'article/deleted/';
+        <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
+        <script src="/__/firebase/6.1.0/firebase-database.js"></script>
+        <script src="/__/firebase/6.1.0/firebase-messaging.js"></script>
+        <script src="/__/firebase/6.1.0/firebase-storage.js"></script>
+        <script src="/__/firebase/6.1.0/firebase-firestore.js"></script>
+        <!-- Initialize Firebase -->
+        <script src="/__/firebase/init.js"></script>
+        <script>
+            var roomList = [];
+            var hashtagList = [];
+            var univSelect = document.getElementById("univ_select");
+            var loading = document.getElementById("loading_container");
+            var currentPath = "";
+            var currentUniv = "";
+            const articleDBPath = "article/live/";
+            const deletedDBPath = "article/deleted/";
 
-        if (firebase.messaging.isSupported()) {
-            const messaging = firebase.messaging();
-            messaging.usePublicVapidKey('BLA8vZ38R6OfxxBdm2jYSaSsPoG4z4rmAlfY08W5vHSw2ApGsdgkvcRTNLZMWWYkpdLDr1bZXEHRfoi9iqi4rr8');
-            // [START request_permission]
-            Notification.requestPermission().then((permission) => {
-                if (permission === 'granted') {
-                    console.log('Notification permission granted.');
-                    // TODO(developer): Retrieve an Instance ID token for use with FCM.
-                    // [START_EXCLUDE]
-                    // In many cases once an app has been granted notification permission,
-                    // it should update its UI reflecting this.
-                    // resetUI();
-                    // [END_EXCLUDE]
-                } else {
-                    console.log('Unable to get permission to notify.');
-                }
-            });
-            // [END request_permission]
-        }
-        
-        loadData = (univ) => {
-            roomList = [];
-            firebase.firestore().collection(articleDBPath + univ).get()
-                .then((docs) => {
-                    currentPath = articleDBPath + univ;
-                    currentUniv = univ;
-                    if (docs.empty) alert("데이터 없음");
-                    else makeArticle(docs);
-                    hideLoading();
-                })
-                .catch((e) => console.log(e))
-        }
-        var sDate, sStr, sIns;
-        makeArticle = (docs) => {
-            document.getElementById('articles').innerHTML = '';
-            docs.forEach((doc) => {
-                roomList.push({
-                    key: doc.id,
-                    ...doc.data()
-                })
-            })
-            roomList.sort(function (a, b) {
-                return b.createdAt.toMillis() - a.createdAt.toMillis();
-            })
-            addArticles(roomList);
-            Array.from(document.getElementsByClassName('text')).forEach((i) => i.addEventListener('click', toggleText));
-            Array.from(document.getElementsByClassName('displayBtn')).forEach((i) => i.addEventListener('click', toggleDisplay));
-            Array.from(document.getElementsByClassName('doneBtn')).forEach((i) => i.addEventListener('click', toggleDone));
-            Array.from(document.getElementsByClassName('xi-close')).forEach((i) => i.addEventListener('click', deleteArticle));
-            Array.from(document.getElementsByClassName('xi-trash-o')).forEach((i) => i.addEventListener('click', toTrash));
-            Array.from(document.getElementsByClassName('modify')).forEach((i) => i.addEventListener('click', modifyData));
-            Array.from(document.getElementsByClassName('updateText')).forEach((i) => i.addEventListener('click', updateText));
-            Array.from(document.getElementsByClassName('articleId')).forEach((i) => i.addEventListener('click', copyId));
-            flatpickr(".updateDate", { // 날짜 수정하기 위해 이벤트 걸어주기
-                onValueUpdate: function (selectedDates, dateStr, instance) {
-                    let _this = instance.element;
-                    let key = _this.dataset.key;
-                    let target = _this.dataset.target;
-                    sDate = selectedDates;
-                    sStr = dateStr;
-                    sIns = instance;
-                    selectedDates[0].setHours(9); //DB에서 가져올떄 9시간을 뺴기 떄문에 저장할 때 9시간을 더해준다.
-                    firebase.firestore().doc(`${currentPath}/${key}`)
-                        .update({ [target]: selectedDates[0] })
-                        .then(() => { _this.innerHTML = selectedDates[0].toLocaleDateString() })
-                        .catch((e) => window.alert(e.message))
-                }
-            });
-        }
-
-        function copyId() {
-            var t = document.createElement("textarea");
-            document.body.appendChild(t);
-            t.value = this.dataset.key;
-            t.select();
-            document.execCommand('copy');
-            document.body.removeChild(t);
-        }
-
-        // 본문 클릭하면 수정 시작
-        function updateText() {
-            let iT = this.innerText;
-            let element = this;
-            let e_w = this.offsetWidth;
-            let e_h = this.offsetHeight;
-            if (this.classList.contains('onEdit')) return;
-            else {
-                this.classList.toggle('onEdit');
-                this.innerHTML = `<textarea style="width:${e_w}px;height:${e_h}px;font-size:12px;" autofocus>${iT}</textarea>`;
-                this.children[0].onblur = endUpdateText;
+            if (firebase.messaging.isSupported()) {
+                const messaging = firebase.messaging();
+                messaging.usePublicVapidKey("BLA8vZ38R6OfxxBdm2jYSaSsPoG4z4rmAlfY08W5vHSw2ApGsdgkvcRTNLZMWWYkpdLDr1bZXEHRfoi9iqi4rr8");
+                // [START request_permission]
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        console.log("Notification permission granted.");
+                        // TODO(developer): Retrieve an Instance ID token for use with FCM.
+                        // [START_EXCLUDE]
+                        // In many cases once an app has been granted notification permission,
+                        // it should update its UI reflecting this.
+                        // resetUI();
+                        // [END_EXCLUDE]
+                    } else {
+                        console.log("Unable to get permission to notify.");
+                    }
+                });
+                // [END request_permission]
             }
-        }
 
-        // 본문 blur되면 수정 끝내기
-        function endUpdateText(e) {
-            let text = e.target.value;
-            let elem = e.target.parentNode;
-            let key = e.target.parentNode.dataset.key;
-            elem.classList.toggle('onEdit');
-            elem.innerHTML = text;
-            firebase.firestore().doc(`${currentPath}/${key}`)
-            .update({ text: text })
-            .catch((e) => window.alert("본문 수정중 에러 발생." + e.message))
-        }
+            loadData = univ => {
+                roomList = [];
+                firebase
+                    .firestore()
+                    .collection(articleDBPath + univ)
+                    .get()
+                    .then(docs => {
+                        currentPath = articleDBPath + univ;
+                        currentUniv = univ;
+                        if (docs.empty) alert("데이터 없음");
+                        else makeArticle(docs);
+                        hideLoading();
+                    })
+                    .catch(e => console.log(e));
+            };
+            var sDate, sStr, sIns;
+            makeArticle = docs => {
+                document.getElementById("articles").innerHTML = "";
+                docs.forEach(doc => {
+                    roomList.push({
+                        key: doc.id,
+                        ...doc.data(),
+                    });
+                });
+                roomList.sort(function(a, b) {
+                    return b.createdAt.toMillis() - a.createdAt.toMillis();
+                });
+                addArticles(roomList);
+                Array.from(document.getElementsByClassName("text")).forEach(i => i.addEventListener("click", toggleText));
+                Array.from(document.getElementsByClassName("displayBtn")).forEach(i => i.addEventListener("click", toggleDisplay));
+                Array.from(document.getElementsByClassName("doneBtn")).forEach(i => i.addEventListener("click", toggleDone));
+                Array.from(document.getElementsByClassName("xi-close")).forEach(i => i.addEventListener("click", deleteArticle));
+                Array.from(document.getElementsByClassName("xi-trash-o")).forEach(i => i.addEventListener("click", toTrash));
+                Array.from(document.getElementsByClassName("modify")).forEach(i => i.addEventListener("click", modifyData));
+                Array.from(document.getElementsByClassName("updateText")).forEach(i => i.addEventListener("click", updateText));
+                Array.from(document.getElementsByClassName("articleId")).forEach(i => i.addEventListener("click", copyId));
+                flatpickr(".updateDate", {
+                    // 날짜 수정하기 위해 이벤트 걸어주기
+                    onValueUpdate: function(selectedDates, dateStr, instance) {
+                        let _this = instance.element;
+                        let key = _this.dataset.key;
+                        let target = _this.dataset.target;
+                        sDate = selectedDates;
+                        sStr = dateStr;
+                        sIns = instance;
+                        selectedDates[0].setHours(9); //DB에서 가져올떄 9시간을 뺴기 떄문에 저장할 때 9시간을 더해준다.
+                        firebase
+                            .firestore()
+                            .doc(`${currentPath}/${key}`)
+                            .update({ [target]: selectedDates[0] })
+                            .then(() => {
+                                _this.innerHTML = selectedDates[0].toLocaleDateString();
+                            })
+                            .catch(e => window.alert(e.message));
+                    },
+                });
+            };
 
-        addArticles = (articles) => {
-            for (article of articles) {
-                var key = article.key;
-                document.getElementById('articles').innerHTML +=
-                    `
+            function copyId() {
+                var t = document.createElement("textarea");
+                document.body.appendChild(t);
+                t.value = this.dataset.key;
+                t.select();
+                document.execCommand("copy");
+                document.body.removeChild(t);
+            }
+
+            // 본문 클릭하면 수정 시작
+            function updateText() {
+                let iT = this.innerText;
+                let element = this;
+                let e_w = this.offsetWidth;
+                let e_h = this.offsetHeight;
+                if (this.classList.contains("onEdit")) return;
+                else {
+                    this.classList.toggle("onEdit");
+                    this.innerHTML = `<textarea style="width:${e_w}px;height:${e_h}px;font-size:12px;" autofocus>${iT}</textarea>`;
+                    this.children[0].onblur = endUpdateText;
+                }
+            }
+
+            // 본문 blur되면 수정 끝내기
+            function endUpdateText(e) {
+                let text = e.target.value;
+                let elem = e.target.parentNode;
+                let key = e.target.parentNode.dataset.key;
+                elem.classList.toggle("onEdit");
+                elem.innerHTML = text;
+                firebase
+                    .firestore()
+                    .doc(`${currentPath}/${key}`)
+                    .update({ text: text })
+                    .catch(e => window.alert("본문 수정중 에러 발생." + e.message));
+            }
+
+            addArticles = articles => {
+                for (article of articles) {
+                    var key = article.key;
+                    document.getElementById("articles").innerHTML += `
             <div class="article">
               <div>
                 <div class="articleId" data-key=${key}>${key}</div>
@@ -276,11 +279,19 @@
                 <div class="updateText" data-key=${key}>${article.text}</div>
               </div>
               <div>
-                <div class="updateDate" data-key=${key} data-target='startDate'>${article.startDate !== null ? article.startDate.toDate().toLocaleDateString() : null}</div>
-                <div class="updateDate" data-key=${key} data-target='endDate'>${article.endDate !== null ? article.endDate.toDate().toLocaleDateString() : null}</div>
+                <div class="updateDate" data-key=${key} data-target='startDate'>${
+                        article.startDate !== null ? article.startDate.toDate().toLocaleDateString() : null
+                    }</div>
+                <div class="updateDate" data-key=${key} data-target='endDate'>${
+                        article.endDate !== null ? article.endDate.toDate().toLocaleDateString() : null
+                    }</div>
                 <div class="modify" data-type="num" data-key=${key} data-target='minTerm'>${article.minTerm}</div>
-                <div class="modify" data-type="map" data-key=${key} data-target='locationL'>${article.locationL !== null ? Object.keys(article.locationL).join(',') : null}</div>
-                <div class="modify" data-type="map" data-key=${key} data-target='locationS'>${article.locationS !== null ? Object.keys(article.locationS).join(',') : null}</div>
+                <div class="modify" data-type="map" data-key=${key} data-target='locationL'>${
+                        article.locationL !== null ? Object.keys(article.locationL).join(",") : null
+                    }</div>
+                <div class="modify" data-type="map" data-key=${key} data-target='locationS'>${
+                        article.locationS !== null ? Object.keys(article.locationS).join(",") : null
+                    }</div>
               </div>
               <div>
                 <div>
@@ -289,241 +300,285 @@
                   <div class="modify" data-type="num" data-key=${key} data-target='expense'>${article.expense}</div>  
                 </div>
                 <div>
-                  <div class="modify" data-type="map" data-key=${key} data-target='discountKeywords'>${article.discountKeywords !== null ? Object.keys(article.discountKeywords).join(',') : null}</div>
+                  <div class="modify" data-type="map" data-key=${key} data-target='discountKeywords'>${
+                        article.discountKeywords !== null ? Object.keys(article.discountKeywords).join(",") : null
+                    }</div>
                   <div class="modify" data-type="num" data-key=${key} data-target='floor'>${article.floor}</div>
                 </div>
               </div>
               <div>
                 <div>
                   <div class="modify" data-type="str" data-key=${key} data-target='roomType'>${article.roomType}</div>
-                  <div class="modify" data-type="map" data-key=${key} data-target='only'>${article.only !== null ? Object.keys(article.only).join(',') : null}</div>
+                  <div class="modify" data-type="map" data-key=${key} data-target='only'>${
+                        article.only !== null ? Object.keys(article.only).join(",") : null
+                    }</div>
                 </div>
-                <div class="modify" data-type="map" data-key=${key} data-target='keywords'>${article.keywords !== null ? Object.keys(article.keywords).join(',') : null}</div>
+                <div class="modify" data-type="map" data-key=${key} data-target='keywords'>${
+                        article.keywords !== null ? Object.keys(article.keywords).join(",") : null
+                    }</div>
               </div>
               <div>
-                <div>${article.url === null ? article.url :
-                        `<a data-key=${key} href="${article.url}" target="_blank"><i class="xi-link"></i></a></div>`}
+                <div>${article.url === null ? article.url : `<a data-key=${key} href="${article.url}" target="_blank"><i class="xi-link"></i></a></div>`}
                 <div class="modify" data-type="str" data-key=${key} data-target='contact'>${article.contact}</div>
               </div>
             </div>
-          `
-            }
-        }
+          `;
+                }
+            };
 
-        function toggleDisplay() {
-            // 디스플레이 항목을 토글하는 함수
-            var icon = this.children[0];
-            let key = this.dataset.key;
-            var displayRef = firebase.firestore().doc(`${currentPath}/${key}`);
-            return firebase.firestore().runTransaction((transaction) => {
-                return transaction.get(displayRef).then((doc) => {
-                    if (!doc.exists) {
-                        throw "Document does not exist!";
+            function toggleDisplay() {
+                // 디스플레이 항목을 토글하는 함수
+                var icon = this.children[0];
+                let key = this.dataset.key;
+                var displayRef = firebase.firestore().doc(`${currentPath}/${key}`);
+                return firebase
+                    .firestore()
+                    .runTransaction(transaction => {
+                        return transaction.get(displayRef).then(doc => {
+                            if (!doc.exists) {
+                                throw "Document does not exist!";
+                            }
+                            // 반대로 업데이트
+                            transaction.update(displayRef, { display: !doc.data().display });
+                        });
+                    })
+                    .then(function() {
+                        // 토글에 성공하면, 아이콘을 바꾼다
+                        icon.classList.toggle("xi-eye-o");
+                        icon.classList.toggle("xi-eye-off-o");
+                    })
+                    .catch(function(error) {
+                        // 에러가 발생하면 메세지 출력
+                        console.log("Transaction failed: ", error);
+                    });
+            }
+            function toggleDone() {
+                // 거래완료 항목을 토글하는 함수
+                var icon = this.children[0];
+                let key = this.dataset.key;
+                var doneRef = firebase.firestore().doc(`${currentPath}/${key}`);
+                return firebase
+                    .firestore()
+                    .runTransaction(transaction => {
+                        return transaction.get(doneRef).then(doc => {
+                            if (!doc.exists) {
+                                throw "Document does not exist!";
+                            }
+                            // 반대로 업데이트
+                            transaction.update(doneRef, { done: !doc.data().done });
+                        });
+                    })
+                    .then(function() {
+                        // 토글에 성공하면, 아이콘을 바꾼다
+                        icon.classList.toggle("xi-check-square-o");
+                        icon.classList.toggle("xi-checkbox-blank");
+                    })
+                    .catch(function(error) {
+                        // 에러가 발생하면 메세지 출력
+                        console.log("Transaction failed: ", error);
+                    });
+            }
+
+            function deleteArticle() {
+                let key = this.dataset.key;
+                if (window.confirm("삭제?")) {
+                    firebase
+                        .firestore()
+                        .doc(`${currentPath}/${key}`)
+                        .delete()
+                        .then(() => {
+                            window.alert("삭제 성공");
+                            this.parentNode.parentNode.parentNode.style.display = "none";
+                        })
+                        .catch(e => {
+                            window.alert("삭제 실패");
+                            console.log(e);
+                        });
+                }
+            }
+
+            async function toTrash() {
+                if (window.confirm("휴지통으로 이동?")) {
+                    try {
+                        let key = this.dataset.key;
+                        var data;
+                        await firebase
+                            .firestore()
+                            .doc(`${currentPath}/${key}`)
+                            .get()
+                            .then(doc => (data = doc.data()));
+                        await firebase
+                            .firestore()
+                            .doc(`${deletedDBPath}${currentUniv}/${key}`)
+                            .set(data);
+                        await firebase
+                            .firestore()
+                            .doc(`${currentPath}/${key}`)
+                            .delete();
+                        window.alert("이동 성공");
+                        this.parentNode.parentNode.parentNode.style.display = "none";
+                    } catch (e) {
+                        alert(`Error : ${e.message}`);
+                        console.log(e.message);
                     }
-                    // 반대로 업데이트
-                    transaction.update(displayRef, { display: !doc.data().display });
-                });
-            }).then(function () {
-                // 토글에 성공하면, 아이콘을 바꾼다
-                icon.classList.toggle('xi-eye-o');
-                icon.classList.toggle('xi-eye-off-o');
-            }).catch(function (error) {
-                // 에러가 발생하면 메세지 출력
-                console.log("Transaction failed: ", error);
-            });
-        }
-        function toggleDone() {
-            // 거래완료 항목을 토글하는 함수
-            var icon = this.children[0];
-            let key = this.dataset.key;
-            var doneRef = firebase.firestore().doc(`${currentPath}/${key}`);
-            return firebase.firestore().runTransaction((transaction) => {
-                return transaction.get(doneRef).then((doc) => {
-                    if (!doc.exists) {
-                        throw "Document does not exist!";
-                    }
-                    // 반대로 업데이트
-                    transaction.update(doneRef, { done: !doc.data().done });
-                });
-            }).then(function () {
-                // 토글에 성공하면, 아이콘을 바꾼다
-                icon.classList.toggle('xi-check-square-o');
-                icon.classList.toggle('xi-checkbox-blank');
-            }).catch(function (error) {
-                // 에러가 발생하면 메세지 출력
-                console.log("Transaction failed: ", error);
-            });
-        }
-
-        function deleteArticle() {
-            let key = this.dataset.key;
-            if (window.confirm("삭제?")) {
-                firebase.firestore().doc(`${currentPath}/${key}`).delete()
-                    .then(() => { window.alert("삭제 성공"); this.parentNode.parentNode.parentNode.style.display = 'none'; })
-                    .catch((e) => { window.alert("삭제 실패"); console.log(e); })
-            }
-        }
-
-        async function toTrash() {
-            if (window.confirm("휴지통으로 이동?")) {
-                try {
-                    let key = this.dataset.key;
-                    var data;
-                    await firebase.firestore().doc(`${currentPath}/${key}`).get().then((doc) => data = doc.data());
-                    await firebase.firestore().doc(`${deletedDBPath}${currentUniv}/${key}`).set(data);
-                    await firebase.firestore().doc(`${currentPath}/${key}`).delete();
-                    window.alert("이동 성공");
-                    this.parentNode.parentNode.parentNode.style.display = 'none';
                 }
-                catch (e) {
-                    alert(`Error : ${e.message}`);
-                    console.log(e.message);
-                }
-            }
-        }
-
-        function modifyData() {
-            let key = this.dataset.key;
-            let target = this.dataset.target;
-            let currentText = this.innerText;
-            let type = this.dataset.type;
-            let newText = '';
-            let newData = undefined;
-
-            // 1. 먼저 데이터를 입력받는다!
-            if (type === "str") { // 문자열 타입
-                newText = window.prompt("입력해주세요.", currentText);
-            }
-            else if (type === "map") { // 오브젝트 타입
-                newText = window.prompt("쉼표로 구분해서 입력해주세요. 쉼표로 시작하거나 끝나면 안됨!", currentText);
-            }
-            else if (type === "num") { // 숫자 타입
-                newText = window.prompt("숫자를 입력해주세요.", currentText);
-            }
-            else if (type === "bool") { // 불리언 타입
-                newText = window.prompt("true 또는 false 입력.", currentText);
-            }
-            else {
-                window.alert("data type error");
-                return;
             }
 
-            // 2. 데이터 체크한다.
-            if (currentText != newText) {
-                if (newText === null || newText === undefined) return; // 취소
-                else if (newText === '') { // 삭제 (빈칸입력)
-                    newData = null;
-                    this.innerText = 'null';
-                }
-                else if (type === "str") {
-                    newData = newText;
-                    this.innerText = newText;
-                }
-                else if (type === "map") {
-                    newData = newText.split(',').reduce((prev, curr) => { // 문자열을 원하는 오브젝트 형식으로 바꾼다
-                        prev[curr] = true;
-                        return prev;
-                    }, {});
-                    this.innerText = newText;
-                }
-                else if (type === "num") {
-                    newData = parseFloat(newText);
-                    this.innerText = newData;
-                }
-                else if (type === "bool") {
-                    if (newText === 'true') {
-                        newData = true;
-                        this.innerText = 'true';
-                    }
-                    else if (newText === 'false') {
-                        newData = false;
-                        this.innerText = 'false';
-                    }
-                    else return window.alert("잘못된 입력입니다.");
-                }
-                else {
+            function modifyData() {
+                let key = this.dataset.key;
+                let target = this.dataset.target;
+                let currentText = this.innerText;
+                let type = this.dataset.type;
+                let newText = "";
+                let newData = undefined;
+
+                // 1. 먼저 데이터를 입력받는다!
+                if (type === "str") {
+                    // 문자열 타입
+                    newText = window.prompt("입력해주세요.", currentText);
+                } else if (type === "map") {
+                    // 오브젝트 타입
+                    newText = window.prompt("쉼표로 구분해서 입력해주세요. 쉼표로 시작하거나 끝나면 안됨!", currentText);
+                } else if (type === "num") {
+                    // 숫자 타입
+                    newText = window.prompt("숫자를 입력해주세요.", currentText);
+                } else if (type === "bool") {
+                    // 불리언 타입
+                    newText = window.prompt("true 또는 false 입력.", currentText);
+                } else {
                     window.alert("data type error");
                     return;
                 }
+
+                // 2. 데이터 체크한다.
+                if (currentText != newText) {
+                    if (newText === null || newText === undefined) return;
+                    // 취소
+                    else if (newText === "") {
+                        // 삭제 (빈칸입력)
+                        newData = null;
+                        this.innerText = "null";
+                    } else if (type === "str") {
+                        newData = newText;
+                        this.innerText = newText;
+                    } else if (type === "map") {
+                        newData = newText.split(",").reduce((prev, curr) => {
+                            // 문자열을 원하는 오브젝트 형식으로 바꾼다
+                            prev[curr] = true;
+                            return prev;
+                        }, {});
+                        this.innerText = newText;
+                    } else if (type === "num") {
+                        newData = parseFloat(newText);
+                        this.innerText = newData;
+                    } else if (type === "bool") {
+                        if (newText === "true") {
+                            newData = true;
+                            this.innerText = "true";
+                        } else if (newText === "false") {
+                            newData = false;
+                            this.innerText = "false";
+                        } else return window.alert("잘못된 입력입니다.");
+                    } else {
+                        window.alert("data type error");
+                        return;
+                    }
+                } else return;
+
+                // 3. 데이터를 DB에 저장한다.
+                firebase
+                    .firestore()
+                    .doc(`${currentPath}/${key}`)
+                    .update({ [target]: newData })
+                    .catch(e => {
+                        window.alert(e.message);
+                    });
             }
-            else return;
 
-            // 3. 데이터를 DB에 저장한다.
-            firebase.firestore().doc(`${currentPath}/${key}`)
-                .update({ [target]: newData })
-                .catch((e) => { window.alert(e.message) })
-        }
-
-        function toggleText() {
-            this.classList.toggle('showAll');
-        }
-
-        function showLoading() {
-            loading.style.display = 'initial';
-        }
-
-        function hideLoading() {
-            loading.style.display = 'none';
-        }
-
-        function changeRoomList() {
-            if (this.value == "") return;
-            showLoading();
-            loadData(this.value);
-        }
-
-        function reloadData() {
-            let value = document.getElementById('univ_select').value;
-            if (value == "") return;
-            showLoading();
-            loadData(value);
-        }
-
-        function addEmptyArticle() {
-            if (currentUniv != "") {
-                firebase.firestore().collection(articleDBPath + currentUniv).add({
-                    createdAt: new Date(),
-                    display: false,
-                    tradeType: null,
-                    reason: null,
-                    startDate: null,
-                    endDate: null,
-                    dateKeywords: null,
-                    keywords: null,
-                    discountKeywords: null,
-                    price: null,
-                    deposit: null,
-                    expense: null,
-                    locationL: null,
-                    locationS: null,
-                    roomType: null,
-                    only: null,
-                    floor: null,
-                    images: null,
-                    urlType: null,
-                    url: null,
-                    contact: null,
-                    done: false,
-                    text: null,
-                    title: null,
-                    views: 0,
-                })
-                    .then(async (docRef) => {
-                        await docRef.update({ url: `https://bangdangi.web.app/board/read/${currentUniv}/${docRef.id}` });
-                    })
-                    .then(() => {
-                        reloadData();
-                    })
-                    .catch((err) => { window.alert(err.message) })
-            } else {
-                window.alert("위치를 먼저 선택해주세요.");
+            function toggleText() {
+                this.classList.toggle("showAll");
             }
-        }
 
-        univSelect.onchange = changeRoomList;
-        document.getElementById('reload').addEventListener('click', reloadData);
-        document.getElementById('add').addEventListener('click', addEmptyArticle);
-    </script>
-</body>
+            function showLoading() {
+                loading.style.display = "initial";
+            }
 
+            function hideLoading() {
+                loading.style.display = "none";
+            }
+
+            function changeRoomList() {
+                if (this.value == "") return;
+                showLoading();
+                loadData(this.value);
+            }
+
+            function reloadData() {
+                let value = document.getElementById("univ_select").value;
+                if (value == "") return;
+                showLoading();
+                loadData(value);
+            }
+
+            function addEmptyArticle() {
+                if (currentUniv != "") {
+                    firebase
+                        .firestore()
+                        .collection(articleDBPath + currentUniv)
+                        .add({
+                            createdAt: new Date(),
+                            display: false,
+                            tradeType: null,
+                            reason: null,
+                            startDate: null,
+                            endDate: null,
+                            dateKeywords: null,
+                            keywords: null,
+                            discountKeywords: null,
+                            price: null,
+                            deposit: null,
+                            expense: null,
+                            locationL: null,
+                            locationS: null,
+                            roomType: null,
+                            only: null,
+                            floor: null,
+                            images: null,
+                            urlType: null,
+                            url: null,
+                            contact: null,
+                            done: false,
+                            text: null,
+                            title: null,
+                            views: 0,
+                        })
+                        .then(async docRef => {
+                            await docRef.update({ url: `https://bangdangi.web.app/board/read/${currentUniv}/${docRef.id}` });
+                        })
+                        .then(() => {
+                            reloadData();
+                        })
+                        .catch(err => {
+                            window.alert(err.message);
+                        });
+                } else {
+                    window.alert("위치를 먼저 선택해주세요.");
+                }
+            }
+
+            univSelect.onchange = changeRoomList;
+            document.getElementById("reload").addEventListener("click", reloadData);
+            document.getElementById("add").addEventListener("click", addEmptyArticle);
+        </script>
+        <!-- 로그인 -->
+        <script>
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    console.log(user);
+                } else {
+                    window.location.href = "/masterLogin";
+                }
+            });
+        </script>
+    </body>
 </html>

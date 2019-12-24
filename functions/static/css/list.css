@@ -69,14 +69,14 @@
       left: 28px;
       /* 위치정렬 */
       font-size: 16px;
-      padding: .5em .5em;
+      padding: 0.5em 0.5em;
       /* select의 여백 크기 만큼 */
       z-index: -1;
       /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */ }
       @media only screen and (max-width: 600px) {
         .form_container #univ_form label {
           font-size: 14px;
-          padding: .8em .5em; } }
+          padding: 0.8em 0.5em; } }
     .form_container #univ_form #univ_select {
       flex: 1;
       height: auto;
@@ -85,7 +85,7 @@
       /* line-height 초기화 */
       font-family: inherit;
       /* 폰트 상속 */
-      padding: .8em .5em;
+      padding: 0.8em 0.5em;
       /* 여백과 높이 결정 */
       border: 0;
       opacity: 0;
@@ -157,7 +157,7 @@
             border-radius: 50%;
             border: 1px solid #fff;
             cursor: pointer;
-            transition: transform .2s ease-in-out; }
+            transition: transform 0.2s ease-in-out; }
           .form_container #hashtag_container > form .input_container .hashtag_list ​ input[type="range"]::-webkit-slider-thumb:hover {
             background-color: #fff;
             border: 2px solid #0ab9f1; }

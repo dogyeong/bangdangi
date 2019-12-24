@@ -3,16 +3,13 @@
 *   메인페이지
 */
 
-
 /* 변수 import */
 @import "variables.scss";
 
-
 /* local variables */
-$bg_url: '../img/main_bg.jpg';
+$bg_url: "../img/main_bg.jpg";
 $header_height: 58px;
 $content_max_width: 1104px;
-
 
 /* CSS */
 html,
@@ -50,8 +47,10 @@ body {
 
             .mainCopy {
                 color: $white;
-                text-shadow: 4px 0px 9px rgba(58, 62, 49, .35);
-                @include respond-to(phone) { font-size: $fs_sm; }
+                text-shadow: 4px 0px 9px rgba(58, 62, 49, 0.35);
+                @include respond-to(phone) {
+                    font-size: $fs_sm;
+                }
 
                 > h1 {
                     margin: 0 0 28px;
@@ -59,13 +58,17 @@ body {
                     font-weight: $fw_regular;
                     line-height: 1.36;
                     color: $white;
-                    @include respond-to(phone) { font-size: $fs_xl; }
+                    @include respond-to(phone) {
+                        font-size: $fs_xl;
+                    }
                 }
 
                 > p {
                     font-size: $fs_lg;
                     font-weight: $fw_light;
-                    @include respond-to(phone) { font-size: $fs_md; }
+                    @include respond-to(phone) {
+                        font-size: $fs_md;
+                    }
                 }
             }
 
@@ -77,7 +80,7 @@ body {
                 border: 3px solid $main_color;
                 z-index: 1;
                 background-color: rgba(240, 240, 240, 0.85);
-                @include respond-to(phone){
+                @include respond-to(phone) {
                     width: 100%;
                     margin: 80px 0;
                 }
@@ -103,7 +106,7 @@ body {
                     left: 5px;
                     /* 위치정렬 */
                     font-size: 14px;
-                    padding: .8em .5em;
+                    padding: 0.8em 0.5em;
                     /* select의 여백 크기 만큼 */
                     z-index: -1;
                     /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
@@ -117,7 +120,7 @@ body {
                     /* line-height 초기화 */
                     font-family: inherit;
                     /* 폰트 상속 */
-                    padding: .8em .5em;
+                    padding: 0.8em 0.5em;
                     /* 여백과 높이 결정 */
                     border: 0;
                     opacity: 0;
@@ -142,7 +145,9 @@ body {
     width: 100%;
     padding: 200px 0;
     position: relative;
-    @include respond-to(phone) { padding: 180px 0; }
+    @include respond-to(phone) {
+        padding: 180px 0;
+    }
 
     .subBlock_container {
         max-width: 1024px;
@@ -190,13 +195,17 @@ body {
                 height: 258px;
                 display: inline-block;
                 margin: 0 12px;
-                box-shadow: 4px 6px 9px 0 rgba(58, 62, 49, .05), 8px 22px 60px 0 rgba(57, 58, 48, .07);
+                box-shadow: 4px 6px 9px 0 rgba(58, 62, 49, 0.05), 8px 22px 60px 0 rgba(57, 58, 48, 0.07);
                 transition: all 0.45s ease-in-out;
-                @include respond-to(phone) { box-shadow: none; }
+                @include respond-to(phone) {
+                    box-shadow: none;
+                }
 
-                &:hover { 
+                &:hover {
                     top: -12px;
-                    @include respond-to(phone) { top: 0; }
+                    @include respond-to(phone) {
+                        top: 0;
+                    }
                 }
 
                 .b1_item_content {
@@ -204,7 +213,7 @@ body {
                     height: 258px;
                     background-color: rgb(255, 255, 255);
                     border-radius: 5px;
-                    
+
                     .b1_item_img {
                         width: 100%;
                         height: 180px;
@@ -251,7 +260,9 @@ body {
             }
             text-align: center;
             margin-top: 32px;
-            @include respond-to(phone) { font-weight: $fw_light; }
+            @include respond-to(phone) {
+                font-weight: $fw_light;
+            }
         }
 
         .b2_button {
@@ -261,8 +272,8 @@ body {
             button {
                 width: 200px;
                 padding: 16px 28px;
-                background: rgba(0, 0, 0, .75);
-                border: 1px solid rgba(0, 0, 0, .75);
+                background: rgba(0, 0, 0, 0.75);
+                border: 1px solid rgba(0, 0, 0, 0.75);
                 display: inline-block;
                 border-radius: 100px;
                 color: white;

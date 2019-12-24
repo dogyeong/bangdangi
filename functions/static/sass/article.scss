@@ -6,12 +6,10 @@
 /* 변수 import */
 @import "variables.scss";
 
-
 /* local variables */
 $content_max_width: 800px;
 $contact_color: #073e59;
 $contact_bg_color: rgba(8, 186, 241, 0.18);
-
 
 #wrapper {
     width: 100%;
@@ -56,7 +54,7 @@ header {
             justify-content: center;
             align-items: center;
 
-            >li {
+            > li {
                 position: absolute;
                 display: inline-block;
                 width: 32px;
@@ -77,7 +75,7 @@ header {
                     border-radius: 100px;
                     overflow: hidden;
 
-                    >img {
+                    > img {
                         width: 100%;
                     }
                 }
@@ -194,7 +192,7 @@ header {
                     left: 0;
                     transition: left 0.5s ease-in-out;
 
-                    >div {
+                    > div {
                         min-width: 100%;
                         min-height: 100%;
                         display: flex;
@@ -283,10 +281,9 @@ header {
     }
 }
 
-
 .done_container {
     color: white;
-    background-color: #0AB9F1;
+    background-color: #0ab9f1;
     padding: 2px 8px;
     border-radius: 100px;
     font-size: 14px;
@@ -383,7 +380,7 @@ header {
                 justify-content: center;
                 align-items: center;
             }
-            
+
             .contact_done {
                 background-color: rgb(245, 247, 248);
                 color: $font_color;
@@ -456,7 +453,9 @@ header {
             }
 
             &:first-child {
-                @include respond-to(phone) { padding-top: 0; }
+                @include respond-to(phone) {
+                    padding-top: 0;
+                }
             }
             &:last-child {
                 @include respond-to(phone) {
@@ -473,8 +472,10 @@ header {
                 padding-bottom: 50%;
                 border: 1px solid rgba(0, 0, 0, 0.1);
                 flex: 1;
-                @include respond-to(phone) { margin-bottom: 8px; }
-                
+                @include respond-to(phone) {
+                    margin-bottom: 8px;
+                }
+
                 .related_img {
                     position: absolute;
                     width: 100%;

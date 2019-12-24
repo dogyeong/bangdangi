@@ -9,25 +9,14 @@ $font_color: #3b3b46;
 $article_bg_color: #ebeef1;
 $kakao_yellow: #ffe812;
 
-
-
 /* font-weight */
 $fw_thin: 100;
 $fw_light: 300;
 $fw_regular: 400;
 $fw_bold: 700;
 
-
 /* font-family */
-$font_family: Spoqa Han Sans,
-Noto Sans KR,
-AppleSDGothicNeo-Regular,
-'Malgun Gothic',
-'맑은 고딕',
-dotum,
-'돋움',
-sans-serif !default;
-
+$font_family: Spoqa Han Sans, Noto Sans KR, AppleSDGothicNeo-Regular, "Malgun Gothic", "맑은 고딕", dotum, "돋움", sans-serif !default;
 
 /* font-size */
 $fs_xs: 12px;
@@ -42,25 +31,20 @@ $fs_4xl: 60px;
 /* line-height */
 $line_height: percentage(20px / $fs_md);
 
-
 /* media query */
 $break_small: 600px;
 $breek_large: 1024px;
 
 @mixin respond-to($media) {
-    @if $media == phone {
+    @if $media==phone {
         @media only screen and (max-width: $break_small) {
             @content;
         }
-    }
-
-    @else if $media == medium-screens {
+    } @else if $media==medium-screens {
         @media only screen and (min-width: $break_small + 1) and (max-width: $break_large - 1) {
             @content;
         }
-    }
-
-    @else if $media == wide-screens {
+    } @else if $media==wide-screens {
         @media only screen and (min-width: $break_large) {
             @content;
         }

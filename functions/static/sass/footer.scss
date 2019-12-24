@@ -3,10 +3,8 @@
 *   푸터
 */
 
-
 /* 변수 import */
 @import "variables.scss";
-
 
 footer {
     position: relative;
@@ -14,7 +12,9 @@ footer {
     padding: 80px 0;
     background-color: $font_color;
     color: $white;
-    @include respond-to(phone){ padding: 40px 0; }
+    @include respond-to(phone) {
+        padding: 40px 0;
+    }
 
     .footerContainer {
         max-width: 1064px;
@@ -35,13 +35,17 @@ footer {
         .footer_left {
             font-size: $fs_md;
             font-weight: $fw_regular;
-            @include respond-to(phone) { margin-bottom: 20px; }
+            @include respond-to(phone) {
+                margin-bottom: 20px;
+            }
 
             > a {
                 display: inline-block;
                 color: inherit;
                 margin-right: 56px;
-                @include respond-to(phone) { margin: 0 16px; }
+                @include respond-to(phone) {
+                    margin: 0 16px;
+                }
             }
         }
 
@@ -50,10 +54,14 @@ footer {
                 display: inline-block;
                 color: inherit;
                 margin-left: 12px;
-                @include respond-to(phone) { margin: 0 6px; }
+                @include respond-to(phone) {
+                    margin: 0 6px;
+                }
             }
 
-            i { font-size: $fs_xl; }
+            i {
+                font-size: $fs_xl;
+            }
         }
     }
 }

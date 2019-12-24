@@ -9,14 +9,14 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 (function () {
-  var univSelect = document.getElementById('univ_select');
-  var filterBtn = document.querySelector('.tune_container');
+  var univSelect = document.getElementById("univ_select");
+  var filterBtn = document.querySelector(".tune_container");
   var rangeInput = document.querySelector('input[type="range"]');
-  var sortBtn = document.querySelectorAll('.sortBtn');
+  var sortBtn = document.querySelectorAll(".sortBtn");
   /* 현재 선택된 셀렉트의 학교이름이 셀렉트의 label값으로 들어가게 한다 */
 
-  document.querySelector('#univ_form label').innerText = univSelect.options[univSelect.selectedIndex].innerText;
-  document.getElementById('lower').style.display = 'block';
+  document.querySelector("#univ_form label").innerText = univSelect.options[univSelect.selectedIndex].innerText;
+  document.getElementById("lower").style.display = "block";
 
   function changeRoomList() {
     if (this.value === "") return;
@@ -24,9 +24,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   function toggleFilter() {
-    var filter = document.querySelector('#hashtag_container');
+    var filter = document.querySelector("#hashtag_container");
 
-    if (filter.classList.toggle('visible')) {
+    if (filter.classList.toggle("visible")) {
       filterBtn.innerHTML = '<i class="xi-close-thin"></i>';
     } else {
       filterBtn.innerHTML = '<i class="xi-tune"></i>';
@@ -35,14 +35,14 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   function updateRangeValue() {
     var value = this.value;
-    document.querySelector('.range_value').innerText = value;
+    document.querySelector(".range_value").innerText = value;
   }
 
   function sortList() {
-    if (this.classList.contains('active')) return;
-    var list = Array.from(document.querySelectorAll('#main > a'));
+    if (this.classList.contains("active")) return;
+    var list = Array.from(document.querySelectorAll("#main > a"));
     var ad = list.filter(function (i) {
-      return i.classList.contains('request_container');
+      return i.classList.contains("request_container");
     });
     var idx;
 
@@ -54,20 +54,20 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
     if (this.dataset.sortby === "time") {
       list = sortByTime(list);
-      this.classList.toggle('active');
-      document.querySelector('.sortBtn[data-sortby="view"]').classList.toggle('active');
+      this.classList.toggle("active");
+      document.querySelector('.sortBtn[data-sortby="view"]').classList.toggle("active");
     } else {
       list = sortByView(list);
-      this.classList.toggle('active');
-      document.querySelector('.sortBtn[data-sortby="time"]').classList.toggle('active');
+      this.classList.toggle("active");
+      document.querySelector('.sortBtn[data-sortby="time"]').classList.toggle("active");
     }
 
     if (ad.length > 0) {
       list.splice(idx, 0, ad[0]); // 리스트에 광고 삽입
     }
 
-    var main = document.querySelector('#main');
-    main.innerHTML = '';
+    var main = document.querySelector("#main");
+    main.innerHTML = "";
     main.append.apply(main, _toConsumableArray(list));
   }
 
@@ -84,9 +84,9 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   univSelect.onchange = changeRoomList;
-  filterBtn.addEventListener('click', toggleFilter);
-  rangeInput.addEventListener('input', updateRangeValue);
+  filterBtn.addEventListener("click", toggleFilter);
+  rangeInput.addEventListener("input", updateRangeValue);
   sortBtn.forEach(function (i) {
-    return i.addEventListener('click', sortList);
+    return i.addEventListener("click", sortList);
   });
 })();

@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  var univSelect = document.getElementById('univ_select');
+  var univSelect = document.getElementById("univ_select");
 
   function changeRoomList() {
     if (this.value === "") return;
@@ -17,9 +17,9 @@
   var swRegist = null;
 
   function urlB64ToUint8Array(base64String) {
-    var padding = '='.repeat((4 - base64String.length % 4) % 4);
+    var padding = "=".repeat((4 - base64String.length % 4) % 4);
     var base64 = (base64String + padding). // eslint-disable-next-line no-useless-escape
-    replace(/\-/g, '+').replace(/_/g, '/');
+    replace(/\-/g, "+").replace(/_/g, "/");
     var rawData = window.atob(base64);
     var outputArray = new Uint8Array(rawData.length);
 
@@ -45,9 +45,9 @@
       updateSubscription(subscription);
 
       if (isSubscribed) {
-        console.log('User is subscribed.');
+        console.log("User is subscribed.");
       } else {
-        console.log('User is NOT subscribed.');
+        console.log("User is NOT subscribed.");
         subscribe();
       }
 
@@ -84,14 +84,14 @@
       userVisibleOnly: true,
       applicationServerKey: applicationServerKey
     }).then(function (subscription) {
-      console.log('User is subscribed.');
+      console.log("User is subscribed.");
       updateSubscription(subscription);
       isSubscribed = true;
-      return fetch('https://bangdangi.web.app/notification/save-subscription', {
-        method: 'POST',
+      return fetch("https://bangdangi.web.app/notification/save-subscription", {
+        method: "POST",
         headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           subscription: subscription
@@ -102,30 +102,30 @@
     }).then(function (res) {
       return console.log(res);
     })["catch"](function (err) {
-      console.log('Failed to subscribe the user: ', err);
+      console.log("Failed to subscribe the user: ", err);
     });
   }
 
-  if ('serviceWorker' in navigator && 'PushManager' in window) {
+  if ("serviceWorker" in navigator && "PushManager" in window) {
     // 서비스워커 등록
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('./service-worker.js').then(function (regist) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./service-worker.js").then(function (regist) {
         swRegist = regist;
-        console.log('Service Worker Registered'); // TODO: Push 기능 초기화
+        console.log("Service Worker Registered"); // TODO: Push 기능 초기화
 
         initPush();
-        return regist.addEventListener('updatefound', function () {
+        return regist.addEventListener("updatefound", function () {
           var newWorker = regist.installing;
-          console.log('Service Worker update found!');
-          newWorker.addEventListener('statechange', function () {
-            console.log('Service Worker state changed:', this.state);
+          console.log("Service Worker update found!");
+          newWorker.addEventListener("statechange", function () {
+            console.log("Service Worker state changed:", this.state);
           });
         });
       })["catch"](function (err) {
         return console.log(err);
       });
-      navigator.serviceWorker.addEventListener('controllerchange', function () {
-        console.log('Controller changed');
+      navigator.serviceWorker.addEventListener("controllerchange", function () {
+        console.log("Controller changed");
       });
     });
   }
