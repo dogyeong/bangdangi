@@ -41,7 +41,7 @@
             var type = this.dataset.type;
 
             if (type === "tel") window.location = `tel:${contact}`;
-            else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=방단기에서 단기원룸 글 보고 연락드려요~`;
+            else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
             else window.location = `${contact}`;
         };
 

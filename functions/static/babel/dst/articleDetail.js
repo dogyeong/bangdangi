@@ -40,7 +40,7 @@
     var contactCallback = function contactCallback() {
       var contact = this.dataset.contact;
       var type = this.dataset.type;
-      if (type === "tel") window.location = "tel:".concat(contact);else if (type === "sms") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=\uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uC5F0\uB77D\uB4DC\uB824\uC694~");else window.location = "".concat(contact);
+      if (type === "tel") window.location = "tel:".concat(contact);else if (type === "sms") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=").concat(window.location.href, " \uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uBB38\uC758\uB4DC\uB824\uC694~");else window.location = "".concat(contact);
     };
 
     var checkMobile = function checkMobile() {
