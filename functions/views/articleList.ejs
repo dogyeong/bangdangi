@@ -73,25 +73,7 @@
   </header>
   <div class="form_container">
     <!-- form -->
-    <form id="univ_form">
-      <label for="univ_select">학교를 선택해주세요</label>
-      <select name="univ" id="univ_select">
-        <option value="">학교를 선택해 주세요</option>
-        <optgroup label="서울">
-          <option value="mafo" <%= (univ==='mafo') ? 'selected' : '' %>>마포구,서대문구(연세대/이대/홍대)</option>
-          <option value="gwanak" <%= (univ==='gwanak') ? 'selected' : '' %>>관악구(서울대)</option>
-          <option value="dongdaemun" <%= (univ==='dongdaemun') ? 'selected' : '' %>>동대문구(외대/경희대/시립대)</option>
-          <option value="seongdong" <%= (univ==='seongdong') ? 'selected' : '' %>>성동구(한양대)</option>
-        </optgroup>
-        <optgroup label="대전">
-          <option value="cnu" <%= (univ==='cnu') ? 'selected' : '' %>>충남대학교</option>
-        </optgroup>
-        <optgroup label="부산">
-          <option value="pnu" <%= (univ==='pnu') ? 'selected' : '' %>>부산대학교</option>
-        </optgroup>
-      </select>
-      <div class="tune_container"><i class="xi-tune"></i></div>
-    </form>
+    <%- include('templates/selectForm') %>
     <!-- filter -->
     <div id="hashtag_container">
       <form action="https://bangdangi.web.app/board/list/<%=univ%>" method="get">
@@ -227,25 +209,8 @@
     <% } %>
   </div>
 
-  <!-- 푸터 -->
-  <footer>
-    <div class="footerContainer">
-      <div class="footer_left">
-        <a href="/aboutUs">방단기 소개</a>
-        <a href="//pf.kakao.com/_HxcGdT">문의하기</a>
-        <a href="#header_inner" onclick="javascript:window.scrollTo(0,0);">TOP</a>
-      </div>
-      <!-- SNS 버튼 -->
-      <div class="footer_right">
-        <a href="https://www.instagram.com/bang_dangi/?hl=ko">
-          <i class="xi-instagram"></i>
-        </a>
-        <a href="https://blog.naver.com/bangdangi">
-          <i class="xi-naver-square"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
+  <!-- footer -->
+  <%- include('templates/footer') %>
 
   <script>
     var currentUniv = "<%= univ %>";

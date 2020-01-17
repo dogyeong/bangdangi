@@ -14,12 +14,12 @@
   </script>
   <!-- Google Tag Manager -->
   <script>(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-      'gtm.start':
-        new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+          new Date().getTime(), event: 'gtm.js'
+      }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-TC8GC5C');</script>
   <!-- End Google Tag Manager -->
   <meta charset="utf-8">
@@ -85,31 +85,14 @@
         <div class="mainCopy">
           <h1>찾아다닐 필요없이<br>모든 단기원룸을 한번에</h1>
           <p>
-            방단기는 20개가 넘는 부동산 커뮤니티에서<br/>단기 원룸을 찾아 매일 업로드하고 있습니다.<br/>
+            방단기는 20개가 넘는 부동산 커뮤니티에서<br />단기 원룸을 찾아 매일 업로드하고 있습니다.<br />
             지금 무료로 원하는 방을 찾아보세요.
           </p>
         </div>
+
         <!-- 셀렉트 폼 -->
-        <form id="univ_form">
-          <label for="univ_select">지역을 선택해주세요</label>
-          <select name="univ" id="univ_select">
-            <option value="" selected>지역을 선택해 주세요</option>
-            <optgroup label="서울">
-              <!-- <option value="cuk">카톨릭대학교</option>
-                  <option value="skku">성균관대학교</option> -->
-              <option value="mafo">마포구,서대문구(연세대/이대/홍대)</option>
-              <option value="gwanak">관악구(서울대)</option>
-              <option value="dongdaemun">동대문구(외대/경희대/시립대)</option>
-              <option value="seongdong">성동구(한양대)</option>
-            </optgroup>
-            <optgroup label="대전">
-              <option value="cnu">충남대학교</option>
-            </optgroup>
-            <optgroup label="부산">
-              <option value="pnu">부산대학교</option>
-            </optgroup>
-          </select>
-        </form>
+        <%- include('templates/selectForm') %>
+
       </div>
     </div>
   </div>
@@ -118,6 +101,9 @@
     <div class="subBlock_container">
       <div class="b1_title">
         새로 등록된 매물
+      </div>
+      <div class="b1-sub">
+        방단기의 새로운 매물들을 알려드립니다
       </div>
       <div class="b1_cards">
         <% for (i of newArticleArr) { %>
@@ -129,18 +115,26 @@
               <%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %>
               <br>
               <% if(i.startDate === null && i.endDate === null) { %>
-                <% if(i['minTerm']) { %>
-                <%= i['minTerm']+'개월이상' %>
-                <% } %>
+              <% if(i['minTerm']) { %>
+              <%= i['minTerm']+'개월이상' %>
+              <% } %>
               <% } else { %>
-                <%= i.startDate ? new Date(i.startDate.toMillis()).toLocaleDateString() : '' %>
-                <%= (i.startDate || i.endDate) ? ' ~ ' : '' %>
-                <%= i.endDate ? new Date(i.endDate.toMillis()).toLocaleDateString() : '' %>
+              <%= i.startDate ? new Date(i.startDate.toMillis()).toLocaleDateString() : '' %>
+              <%= (i.startDate || i.endDate) ? ' ~ ' : '' %>
+              <%= i.endDate ? new Date(i.endDate.toMillis()).toLocaleDateString() : '' %>
               <% } %>
             </div>
           </div>
         </a>
         <% } %>
+        <a href="#" class="b1_item">
+          <div class="b1_item_content b1-more">
+            다른 단기 원룸 보러가기 
+            <div class="b1-more-icon">
+              <i class="xi-arrow-right"></i>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -161,25 +155,10 @@
       </div>
     </div>
   </div>
-  <!-- 푸터 -->
-  <footer>
-    <div class="footerContainer">
-      <div class="footer_left">
-        <a href="/aboutUs">방단기 소개</a>
-        <a href="//pf.kakao.com/_HxcGdT">문의하기</a>
-        <a href="#header_inner">TOP</a>
-      </div>
-      <!-- SNS 버튼 -->
-      <div class="footer_right">
-        <a href="https://www.instagram.com/bang_dangi/?hl=ko">
-          <i class="xi-instagram"></i>
-        </a>
-        <a href="https://blog.naver.com/bangdangi">
-          <i class="xi-naver-square"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
+
+  <!-- footer -->
+  <%- include('templates/footer') %>
+
   <!-- PWA Button START -->
   <button id="butInstall" aria-label="Install" hidden>방단기 앱 추가하기</button>
   <!-- PWA Button END -->
@@ -234,4 +213,5 @@
   </script> -->
   <!-- End Channel Plugin -->
 </body>
+
 </html>

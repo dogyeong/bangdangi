@@ -143,10 +143,10 @@ body {
 */
 .subBlock {
     width: 100%;
-    padding: 200px 0;
+    padding: 160px 0;
     position: relative;
     @include respond-to(phone) {
-        padding: 180px 0;
+        padding: 120px 0;
     }
 
     .subBlock_container {
@@ -164,54 +164,46 @@ body {
 
     /* 첫 번째 subBlock */
     &.b1 {
-        background-color: #fafafa;
+        background-color: $article_bg_color;
 
         .b1_title {
             text-align: center;
-            font-size: 24px;
-            font-weight: 400;
+            font-size: $fs_xl;
+            font-weight: $fw_regular;
+        }
+        .b1-sub {
+            font-size: $fs_md;
+            font-weight: $fw_light;
+            text-align: center;
         }
 
         .b1_cards {
-            width: 100%;
+            width: 1024px;
             height: 258px;
             position: relative;
             display: flex;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: flex-start;
             align-items: center;
-            margin-top: 80px;
+            margin-top: 60px;
+            overflow: scroll;
+            overflow-x: auto;
+            overflow-y: hidden;
             @include respond-to(phone) {
-                overflow: scroll;
-                overflow-x: auto;
-                overflow-y: hidden;
-                justify-content: flex-start;
-                margin-top: 60px;
+                width: 100%;
             }
 
             .b1_item {
                 position: relative;
                 top: 0;
-                width: 278px;
-                height: 258px;
-                display: inline-block;
+                width: 232px;
+                height: 100%;
+                display: flex;
                 margin: 0 12px;
-                box-shadow: 4px 6px 9px 0 rgba(58, 62, 49, 0.05), 8px 22px 60px 0 rgba(57, 58, 48, 0.07);
-                transition: all 0.45s ease-in-out;
-                @include respond-to(phone) {
-                    box-shadow: none;
-                }
-
-                &:hover {
-                    top: -12px;
-                    @include respond-to(phone) {
-                        top: 0;
-                    }
-                }
 
                 .b1_item_content {
-                    width: 278px;
-                    height: 258px;
-                    background-color: rgb(255, 255, 255);
+                    width: 232px;
+                    background-color: $white;
                     border-radius: 5px;
 
                     .b1_item_img {
@@ -219,23 +211,51 @@ body {
                         height: 180px;
                         border-top-right-radius: 5px;
                         border-top-left-radius: 5px;
-                        background-color: #ebeef1;
+                        background-color: $grey_border_color;
                     }
 
                     .b1_item_text {
                         width: 100%;
                         border-bottom-right-radius: 5px;
                         border-bottom-left-radius: 5px;
+                        border-bottom: 1px solid $grey_border_color;
+                        border-left: 1px solid $grey_border_color;
+                        border-right: 1px solid $grey_border_color;
                         padding: 14px;
                         height: 78px;
-                        font-size: 16px;
-                        font-weight: 400;
+                        font-size: $fs_md;
+                        font-weight: $fw_light;
                         line-height: 24px;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
                     }
                 }
+                .b1-more {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid $main_color;
+                    color: $main_color;
+                    font-size: $fs_md;
+                    font-weight: $fw_regular;
+                }
+                .b1-more-icon {
+                    margin-top: 12px;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #0ab9f1;
+                    border-radius: 20px;
+                    color: white;
+                    i {
+                        font-size: $fs_md;
+                    }
+                }
+
             }
         }
     }

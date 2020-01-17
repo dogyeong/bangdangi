@@ -13,6 +13,7 @@
 /* font-size */
 /* line-height */
 /* media query */
+/* style */
 footer {
   position: relative;
   width: 100%;
@@ -26,36 +27,51 @@ footer {
     max-width: 1064px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 20px;
-    color: inherit;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center; }
+    padding: 0 40px;
+    color: inherit; }
     @media only screen and (max-width: 600px) {
       footer .footerContainer {
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center; } }
-    footer .footerContainer .footer_left {
+        padding: 0 20px; } }
+    footer .footerContainer .footer-1 {
       font-size: 16px;
       font-weight: 400; }
-      @media only screen and (max-width: 600px) {
-        footer .footerContainer .footer_left {
-          margin-bottom: 20px; } }
-      footer .footerContainer .footer_left > a {
+      footer .footerContainer .footer-1 a {
         display: inline-block;
         color: inherit;
         margin-right: 56px; }
         @media only screen and (max-width: 600px) {
-          footer .footerContainer .footer_left > a {
-            margin: 0 16px; } }
-    footer .footerContainer .footer_right a {
-      display: inline-block;
-      color: inherit;
-      margin-left: 12px; }
+          footer .footerContainer .footer-1 a {
+            margin-right: 28px; } }
+    footer .footerContainer .footer-2 {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center; }
       @media only screen and (max-width: 600px) {
-        footer .footerContainer .footer_right a {
-          margin: 0 6px; } }
-    footer .footerContainer .footer_right i {
-      font-size: 24px; }
+        footer .footerContainer .footer-2 {
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start; } }
+      @media only screen and (max-width: 600px) {
+        footer .footerContainer .footer-2 .business-info {
+          margin-bottom: 60px; } }
+      footer .footerContainer .footer-2 .title {
+        font-size: 16px;
+        font-weight: 400;
+        padding-bottom: 8px; }
+      footer .footerContainer .footer-2 .text {
+        font-size: 14px;
+        font-weight: 300;
+        word-break: keep-all; }
+    footer .footerContainer .footer-3 {
+      margin-top: 60px; }
+      footer .footerContainer .footer-3 a {
+        display: inline-block;
+        color: inherit;
+        margin-left: 12px; }
+        @media only screen and (max-width: 600px) {
+          footer .footerContainer .footer-3 a {
+            margin: 0 6px; } }
+      footer .footerContainer .footer-3 i {
+        font-size: 24px; }

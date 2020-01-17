@@ -4,7 +4,7 @@
         NodeList.prototype.forEach = Array.prototype.forEach;
     }
 
-    /* 이미지 슬라이더, 연락하기 */
+    /* 이미지 슬라이더 */
     var imageContainer = document.getElementsByClassName("image_container")[0];
 
     if (dataImages) {
@@ -33,16 +33,18 @@
         rightBtn.addEventListener("click", moveR);
     }
 
+    /* 연락하기 */
     if (!dataDone) {
         var contactBtn = document.querySelectorAll(".contact");
 
         var contactCallback = function() {
-            var contact = this.dataset.contact;
-            var type = this.dataset.type;
+            // 집주인 보여주기용으로 잠시 주석처리
+            // var contact = this.dataset.contact;
+            // var type = this.dataset.type;
 
-            if (type === "tel") window.location = `tel:${contact}`;
-            else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
-            else window.location = `${contact}`;
+            // if (type === "tel") window.location = `tel:${contact}`;
+            // else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
+            // else window.location = `${contact}`;
         };
 
         var checkMobile = function() {

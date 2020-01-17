@@ -20,8 +20,8 @@ const UNIV_OBJ = {
 
 router.get('/list/:univ', async (req, res, next) => { 
     // ?v 없으면 공지 띄우기
-    var ignoreDone = req.query.v;
-    if (ignoreDone === undefined) return res.render('notice');
+    // var ignoreDone = req.query.v;
+    // if (ignoreDone === undefined) return res.render('notice');
     
     const univ = req.params.univ;
     const locationKeywords = req.query.locationKeywords;
@@ -275,7 +275,7 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var docRef = db.doc(`article/live/${univ}/${articleNo}`);
     
     // ?v 없으면 공지 띄우기
-    if (ignoreDone === undefined) return res.render('notice');
+    // if (ignoreDone === undefined) return res.render('notice');
     
     docRef.get()
     .then((doc) => {

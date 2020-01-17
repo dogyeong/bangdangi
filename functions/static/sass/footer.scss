@@ -3,9 +3,12 @@
 *   푸터
 */
 
+
 /* 변수 import */
 @import "variables.scss";
 
+
+/* style */
 footer {
     position: relative;
     width: 100%;
@@ -20,36 +23,55 @@ footer {
         max-width: 1064px;
         margin-left: auto;
         margin-right: auto;
-        padding: 0 20px;
+        padding: 0 40px;
         color: inherit;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
         @include respond-to(phone) {
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
+            padding: 0 20px;
         }
-
-        .footer_left {
+        
+        .footer-1 {
             font-size: $fs_md;
             font-weight: $fw_regular;
-            @include respond-to(phone) {
-                margin-bottom: 20px;
-            }
-
-            > a {
+            a {
                 display: inline-block;
                 color: inherit;
                 margin-right: 56px;
                 @include respond-to(phone) {
-                    margin: 0 16px;
+                    margin-right: 28px;
                 }
             }
         }
+        
+        .footer-2 {
+            margin-top: 60px;    
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            @include respond-to(phone) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+            .business-info {
+                @include respond-to(phone) {
+                    margin-bottom: 60px;
+                }
+            }
+            .title {
+                font-size: $fs_md;
+                font-weight: $fw_regular;
+                padding-bottom: 8px;
+            }
+            .text {
+                font-size: $fs_sm;
+                font-weight: $fw_light;
+                word-break: keep-all;
+            }
+        }
 
-        .footer_right {
+        .footer-3 {
+            margin-top: 60px;
             a {
                 display: inline-block;
                 color: inherit;
@@ -58,7 +80,6 @@ footer {
                     margin: 0 6px;
                 }
             }
-
             i {
                 font-size: $fs_xl;
             }

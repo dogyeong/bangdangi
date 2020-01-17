@@ -5,7 +5,7 @@
   if (window.NodeList && !NodeList.prototype.forEach) {
     NodeList.prototype.forEach = Array.prototype.forEach;
   }
-  /* 이미지 슬라이더, 연락하기 */
+  /* 이미지 슬라이더 */
 
 
   var imageContainer = document.getElementsByClassName("image_container")[0];
@@ -33,14 +33,18 @@
     leftBtn.addEventListener("click", moveL);
     rightBtn.addEventListener("click", moveR);
   }
+  /* 연락하기 */
+
 
   if (!dataDone) {
     var contactBtn = document.querySelectorAll(".contact");
 
-    var contactCallback = function contactCallback() {
-      var contact = this.dataset.contact;
-      var type = this.dataset.type;
-      if (type === "tel") window.location = "tel:".concat(contact);else if (type === "sms") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=").concat(window.location.href, " \uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uBB38\uC758\uB4DC\uB824\uC694~");else window.location = "".concat(contact);
+    var contactCallback = function contactCallback() {// 집주인 보여주기용으로 잠시 주석처리
+      // var contact = this.dataset.contact;
+      // var type = this.dataset.type;
+      // if (type === "tel") window.location = `tel:${contact}`;
+      // else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
+      // else window.location = `${contact}`;
     };
 
     var checkMobile = function checkMobile() {
