@@ -3,12 +3,16 @@
 
     function changeRoomList() {
         if (this.value === "") return;
-        window.location.href = `https://bangdangi.web.app/board/list/${this.value}`;
+        else if (this.value === "other") window.location.href = '//pf.kakao.com/_HxcGdT/chat';
+        else window.location.href = `/board/list/${this.value}`;
     }
 
     univSelect.onchange = changeRoomList;
 })();
 
+
+//  PWA 코드 
+/*
 (() => {
     let appServerPublicKey = vapidPublicKey;
     let isSubscribed = false;
@@ -32,15 +36,6 @@
 
     // Push 초기화
     function initPush() {
-        // const pushButton = document.getElementById('subscribe')
-        // pushButton.addEventListener('click', () => {
-        //     if (isSubscribed) {
-        //         // TODO: 구독 취소 처리
-        //     } else {
-        //         subscribe();
-        //     }
-        // });
-
         swRegist.pushManager
             .getSubscription()
             .then(subscription => {
@@ -97,7 +92,7 @@
                 return fetch("https://bangdangi.web.app/notification/save-subscription", {
                     method: "POST",
                     headers: {
-                        Accept: "application/json, text/plain, */*",
+                        Accept: "application/json, text/plain",
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({ subscription }),
@@ -139,3 +134,4 @@
         });
     }
 })();
+*/

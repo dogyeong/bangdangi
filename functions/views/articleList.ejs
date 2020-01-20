@@ -66,17 +66,22 @@
         <img src="../../img/bangdangi_logo_2.png" alt="방단기 로고">
       </a>
       <ul class="nav">
-        <li><a href="https://bangdangi.web.app/request">이런방구해요</a></li>
+        <li><a href="/request">이런방구해요</a></li>
         <li><a href="http://pf.kakao.com/_HxcGdT/chat">매물등록</a></li>
       </ul>
     </div>
   </header>
   <div class="form_container">
     <!-- form -->
-    <%- include('templates/selectForm') %>
+    <div class="form-inner">
+      <%- include('templates/selectForm') %>
+      <div class="tune_container">
+        <i class="xi-tune"></i>
+      </div>
+    </div>
     <!-- filter -->
     <div id="hashtag_container">
-      <form action="https://bangdangi.web.app/board/list/<%=univ%>" method="get">
+      <form action="/board/list/<%=univ%>" method="get">
         <div class="input_container">
           <div class="hashtag_title">장소</div>
           <div class="hashtag_list">
@@ -101,7 +106,7 @@
         </div>
         <div class="submit_container">
           <input type="submit" value="적용">
-          <a href="https://bangdangi.web.app/board/list/<%=univ%>">
+          <a href="/board/list/<%=univ%>">
             <i class="xi-renew"></i> 초기화
           </a>
         </div>
@@ -217,6 +222,12 @@
   </script>
   <script src="//cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
   <script src="../../../babel/dst/articleList.js"></script>
+  <script>
+    /* 현재 선택된 셀렉트의 학교이름이 셀렉트의 label값으로 들어가게 한다 */
+    let univSelect = document.getElementById("univ_select");
+    document.querySelector("option[value='<%=univ%>']").selected = true
+    document.querySelector("#univ_form label").innerText = univSelect.options[univSelect.selectedIndex].innerText;
+  </script>
   <!-- Channel Plugin Scripts -->
   <!-- <script>
     (function () {

@@ -255,7 +255,6 @@ body {
                         font-size: $fs_md;
                     }
                 }
-
             }
         }
     }
@@ -311,6 +310,55 @@ body {
                     color: #3b3b46;
                     border: 1px solid transparent;
                     box-shadow: rgba(0, 0, 0, 0.3) 0px 7px 50px;
+                }
+            }
+        }
+    }
+
+    &.b3 {
+        border-bottom: 1px solid $grey_border_color;
+
+        .b3-title {
+            text-align: center;
+            font-size: $fs_xl;
+            font-weight: $fw_regular;
+        }
+
+        .b3-contents {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            @include respond-to(phone) {
+                flex-direction: column;
+            }
+
+            .b3-content {
+                flex-basis: 33.3%;
+                padding: 0 40px;
+                .b3-img {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    object {
+                        width: 100%;
+                    }
+                }
+                .b3-text {
+                    width: 100%;
+                    word-break: keep-all;
+
+                    .title {
+                        font-size: $fs_md;
+                        font-weight: $fw_regular;
+                        padding-bottom: 8px;
+                    }
+                    .text {
+                        font-size: $fs_md;
+                        font-weight: $fw_light;
+                    }
                 }
             }
         }

@@ -13,14 +13,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   var filterBtn = document.querySelector(".tune_container");
   var rangeInput = document.querySelector('input[type="range"]');
   var sortBtn = document.querySelectorAll(".sortBtn");
-  /* 현재 선택된 셀렉트의 학교이름이 셀렉트의 label값으로 들어가게 한다 */
-
-  document.querySelector("#univ_form label").innerText = univSelect.options[univSelect.selectedIndex].innerText;
   document.getElementById("lower").style.display = "block";
 
   function changeRoomList() {
-    if (this.value === "") return;
-    window.location.href = "https://bangdangi.web.app/board/list/".concat(this.value);
+    if (this.value === "") return;else if (this.value === "other") window.location.href = '//pf.kakao.com/_HxcGdT/chat';else window.location.href = "/board/list/".concat(this.value);
   }
 
   function toggleFilter() {

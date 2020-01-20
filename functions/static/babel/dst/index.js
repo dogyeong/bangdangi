@@ -4,129 +4,132 @@
   var univSelect = document.getElementById("univ_select");
 
   function changeRoomList() {
-    if (this.value === "") return;
-    window.location.href = "https://bangdangi.web.app/board/list/".concat(this.value);
+    if (this.value === "") return;else if (this.value === "other") window.location.href = '//pf.kakao.com/_HxcGdT/chat';else window.location.href = "/board/list/".concat(this.value);
   }
 
   univSelect.onchange = changeRoomList;
-})();
+})(); //  PWA 코드 
 
-(function () {
-  var appServerPublicKey = vapidPublicKey;
-  var isSubscribed = false;
-  var swRegist = null;
+/*
+(() => {
+    let appServerPublicKey = vapidPublicKey;
+    let isSubscribed = false;
+    let swRegist = null;
 
-  function urlB64ToUint8Array(base64String) {
-    var padding = "=".repeat((4 - base64String.length % 4) % 4);
-    var base64 = (base64String + padding). // eslint-disable-next-line no-useless-escape
-    replace(/\-/g, "+").replace(/_/g, "/");
-    var rawData = window.atob(base64);
-    var outputArray = new Uint8Array(rawData.length);
+    function urlB64ToUint8Array(base64String) {
+        const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+        const base64 = (base64String + padding)
+            // eslint-disable-next-line no-useless-escape
+            .replace(/\-/g, "+")
+            .replace(/_/g, "/");
 
-    for (var i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
     }
 
-    return outputArray;
-  } // Push 초기화
+    // Push 초기화
+    function initPush() {
+        swRegist.pushManager
+            .getSubscription()
+            .then(subscription => {
+                isSubscribed = !(subscription === null);
+                updateSubscription(subscription);
 
+                if (isSubscribed) {
+                    console.log("User is subscribed.");
+                } else {
+                    console.log("User is NOT subscribed.");
+                    subscribe();
+                }
 
-  function initPush() {
-    // const pushButton = document.getElementById('subscribe')
-    // pushButton.addEventListener('click', () => {
+                return null;
+            })
+            .catch(err => console.log(err));
+    }
+
+    // function updateButton() {
+    //     // TODO: 알림 권한 거부 처리
+
+    //     const pushButton = document.getElementById('subscribe')
     //     if (isSubscribed) {
-    //         // TODO: 구독 취소 처리
+    //         pushButton.textContent = 'Disable Push Messaging';
     //     } else {
-    //         subscribe();
+    //         pushButton.textContent = 'Enable Push Messaging';
     //     }
-    // });
-    swRegist.pushManager.getSubscription().then(function (subscription) {
-      isSubscribed = !(subscription === null);
-      updateSubscription(subscription);
+    //     pushButton.disabled = false;
+    // }
 
-      if (isSubscribed) {
-        console.log("User is subscribed.");
-      } else {
-        console.log("User is NOT subscribed.");
-        subscribe();
-      }
-
-      return null;
-    })["catch"](function (err) {
-      return console.log(err);
-    });
-  } // function updateButton() {
-  //     // TODO: 알림 권한 거부 처리
-  //     const pushButton = document.getElementById('subscribe')
-  //     if (isSubscribed) {
-  //         pushButton.textContent = 'Disable Push Messaging';
-  //     } else {
-  //         pushButton.textContent = 'Enable Push Messaging';
-  //     }
-  //     pushButton.disabled = false;
-  // }
-  // 구독 정보 갱신
-
-
-  function updateSubscription(subscription) {
-    // TODO: 구독 정보 서버로 전송
-    try {
-      console.log(JSON.stringify(subscription));
-    } catch (err) {
-      console.log(err);
+    // 구독 정보 갱신
+    function updateSubscription(subscription) {
+        // TODO: 구독 정보 서버로 전송
+        try {
+            console.log(JSON.stringify(subscription));
+        } catch (err) {
+            console.log(err);
+        }
     }
-  } // 알림 구독
 
+    // 알림 구독
+    function subscribe() {
+        const applicationServerKey = urlB64ToUint8Array(appServerPublicKey);
+        swRegist.pushManager
+            .subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: applicationServerKey,
+            })
+            .then(subscription => {
+                console.log("User is subscribed.");
+                updateSubscription(subscription);
+                isSubscribed = true;
 
-  function subscribe() {
-    var applicationServerKey = urlB64ToUint8Array(appServerPublicKey);
-    swRegist.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: applicationServerKey
-    }).then(function (subscription) {
-      console.log("User is subscribed.");
-      updateSubscription(subscription);
-      isSubscribed = true;
-      return fetch("https://bangdangi.web.app/notification/save-subscription", {
-        method: "POST",
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          subscription: subscription
-        })
-      });
-    }).then(function (res) {
-      return res.text();
-    }).then(function (res) {
-      return console.log(res);
-    })["catch"](function (err) {
-      console.log("Failed to subscribe the user: ", err);
-    });
-  }
+                return fetch("https://bangdangi.web.app/notification/save-subscription", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json, text/plain",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ subscription }),
+                });
+            })
+            .then(res => res.text())
+            .then(res => console.log(res))
+            .catch(err => {
+                console.log("Failed to subscribe the user: ", err);
+            });
+    }
 
-  if ("serviceWorker" in navigator && "PushManager" in window) {
-    // 서비스워커 등록
-    window.addEventListener("load", function () {
-      navigator.serviceWorker.register("./service-worker.js").then(function (regist) {
-        swRegist = regist;
-        console.log("Service Worker Registered"); // TODO: Push 기능 초기화
+    if ("serviceWorker" in navigator && "PushManager" in window) {
+        // 서비스워커 등록
+        window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(regist => {
+                    swRegist = regist;
+                    console.log("Service Worker Registered");
 
-        initPush();
-        return regist.addEventListener("updatefound", function () {
-          var newWorker = regist.installing;
-          console.log("Service Worker update found!");
-          newWorker.addEventListener("statechange", function () {
-            console.log("Service Worker state changed:", this.state);
-          });
+                    // TODO: Push 기능 초기화
+                    initPush();
+
+                    return regist.addEventListener("updatefound", () => {
+                        const newWorker = regist.installing;
+                        console.log("Service Worker update found!");
+
+                        newWorker.addEventListener("statechange", function() {
+                            console.log("Service Worker state changed:", this.state);
+                        });
+                    });
+                })
+                .catch(err => console.log(err));
+
+            navigator.serviceWorker.addEventListener("controllerchange", () => {
+                console.log("Controller changed");
+            });
         });
-      })["catch"](function (err) {
-        return console.log(err);
-      });
-      navigator.serviceWorker.addEventListener("controllerchange", function () {
-        console.log("Controller changed");
-      });
-    });
-  }
+    }
 })();
+*/

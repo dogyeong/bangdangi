@@ -36,11 +36,12 @@
             <div><img src="img/logo_w.png" />관리자센터</div>
             <form id="univ_form">
                 <select name="univ" id="univ_select" onchange="loadData(this.value);">
-                    <option value="" selected>학교를 선택해 주세요</option>
+                    <option value="" selected>지역을 선택해 주세요</option>
                     <optgroup label="서울">
+                        <option value="gangnam">서초구,강남구</option>
                         <option value="cuk">카톨릭대학교</option>
                         <option value="mafo">마포구,서대문구(연세대/이화여대/홍익대)</option>
-                        <option value="gwanak">관악구(서울대)</option>
+                        <option value="gwanak">관악구, 동작구</option>
                         <option value="skku">성균관대학교</option>
                         <option value="dongdaemun">동대문구(한국외대/경희대/서울시립대학교)</option>
                         <option value="seongdong">성동구(한양대)</option>
@@ -60,7 +61,8 @@
 
         <div id="article" style="margin-top: 80px;"></div>
 
-        <div id="notification">
+        <!-- PWA 개발할 때 사용한 알람 -->
+        <div id="notification" style="display:none;">
             <span> title<input type="text" name="push-title" /> body<input type="text" name="push-body" /> </span>
             <div>
                 <div>createdAt</div>
@@ -332,6 +334,7 @@
 
         <!-- 매물관리 코드 -->
         <script>
+            const ARTICLE_PATH = 'article/live';
             var loading = document.querySelector("#loading_container");
             var select = document.querySelector("#univ_select");
             var reloadBtn = document.getElementById("reload");
@@ -371,7 +374,7 @@
                 // 데이터 불러오기
                 firebase
                     .firestore()
-                    .collection(`article/live/${univ}`)
+                    .collection(`${ARTICLE_PATH}/${univ}`)
                     .orderBy("createdAt", "desc")
                     .get()
                     .then(docs => {
@@ -484,7 +487,7 @@
                 if (select.value !== "") {
                     firebase
                         .firestore()
-                        .collection(`article/live/${select.value}`)
+                        .collection(`${ARTICLE_PATH}/${select.value}`)
                         .add({
                             createdAt: new Date(),
                             display: false,
@@ -562,7 +565,7 @@
                 document.querySelector(".id_container").innerText = id;
                 firebase
                     .firestore()
-                    .doc(`article/live/${select.value}/${id}`)
+                    .doc(`${ARTICLE_PATH}/${select.value}/${id}`)
                     .get()
                     .then(doc => {
                         return parseDoc(doc.data()); // DB에서 가져온 데이터 파싱
@@ -845,7 +848,7 @@
                 let id = document.querySelector(".id_container").innerText;
                 firebase
                     .firestore()
-                    .doc(`article/live/${univ}/${id}`)
+                    .doc(`${ARTICLE_PATH}/${univ}/${id}`)
                     .update(getInputData())
                     .then(() => {
                         hideUpdateLoading();
@@ -863,7 +866,7 @@
                 let id = document.querySelector(".id_container").innerText;
                 firebase
                     .firestore()
-                    .doc(`article/live/${univ}/${id}`)
+                    .doc(`${ARTICLE_PATH}/${univ}/${id}`)
                     .delete()
                     .then(() => {
                         hideUpdateLoading();

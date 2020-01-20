@@ -20,7 +20,7 @@ header {
 
 /* upper */
 .form_container {
-    padding: 16px 40px;
+    padding: 8px 40px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 
     @include respond-to(phone) {
@@ -33,75 +33,85 @@ header {
         z-index: 3;
     }
 
-    /* 지역선택 */
-    #univ_form {
-        position: relative;
+    .form-inner {
         width: 100%;
         max-width: $content_max_width;
         margin: auto;
-        height: 47px;
-        z-index: 1;
         display: flex;
-        justify-content: center;
         align-items: center;
-
         @include respond-to(phone) {
-            border: none;
             border-bottom: 3px solid $main_color;
         }
 
-        &:before {
-            /* 화살표 대체 */
-            content: "";
-            position: absolute;
-            top: calc(50% - 2px);
-            left: 12px;
-            width: 0;
-            height: 0;
-            margin-top: -1px;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid #666;
-        }
+        /* 지역선택 */
+        #univ_form {
+            width: 100%;
+            position: relative;
+            max-width: $content_max_width;
+            margin: auto;
+            height: 47px;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-        label {
-            position: absolute;
-            top: 1px;
-            /* 위치정렬 */
-            left: 28px;
-            /* 위치정렬 */
-            font-size: $fs_md;
-            padding: 0.5em 0.5em;
-            /* select의 여백 크기 만큼 */
-            z-index: -1;
-
-            /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
             @include respond-to(phone) {
-                font-size: $fs_sm;
-                padding: 0.8em 0.5em;
+                border: none;
             }
-        }
 
-        #univ_select {
-            flex: 1;
-            height: auto;
-            /* 높이 초기화 */
-            line-height: normal;
-            /* line-height 초기화 */
-            font-family: inherit;
-            /* 폰트 상속 */
-            padding: 0.8em 0.5em;
-            /* 여백과 높이 결정 */
-            border: 0;
-            opacity: 0;
-            /* 숨기기 */
-            font-size: $fs_sm;
-            filter: alpha(opacity=0);
-            /* IE8 숨기기 */
-            -webkit-appearance: none;
-            /* 네이티브 외형 감추기 */
-            -moz-appearance: none;
-            appearance: none;
+            &:before {
+                /* 화살표 대체 */
+                content: "";
+                position: absolute;
+                top: calc(50% - 2px);
+                left: 12px;
+                width: 0;
+                height: 0;
+                margin-top: -1px;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid #666;
+            }
+
+            label {
+                position: absolute;
+                top: 1px;
+                /* 위치정렬 */
+                left: 28px;
+                /* 위치정렬 */
+                font-size: $fs_md;
+                padding: 0.5em 0.5em;
+                /* select의 여백 크기 만큼 */
+                z-index: -1;
+
+                /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
+                @include respond-to(phone) {
+                    font-size: $fs_sm;
+                    padding: 0.8em 0.5em;
+                }
+            }
+
+            #univ_select {
+                flex: 1;
+                height: auto;
+                /* 높이 초기화 */
+                line-height: normal;
+                /* line-height 초기화 */
+                font-family: inherit;
+                /* 폰트 상속 */
+                padding: 0.8em 0.5em;
+                /* 여백과 높이 결정 */
+                border: 0;
+                opacity: 0;
+                /* 숨기기 */
+                font-size: $fs_sm;
+                filter: alpha(opacity=0);
+                /* IE8 숨기기 */
+                -webkit-appearance: none;
+                /* 네이티브 외형 감추기 */
+                -moz-appearance: none;
+                appearance: none;
+            }
         }
 
         .tune_container {
@@ -113,7 +123,7 @@ header {
             margin-right: 12px;
             font-size: $fs_lg;
             cursor: pointer;
-        }
+        } 
     }
 
     /* 결과 필터 */
@@ -278,7 +288,7 @@ header {
     padding: 16px 0;
 
     @include respond-to(phone) {
-        margin-top: 104px;
+        margin-top: 116px;
         padding-top: 0;
         border: none;
     }
@@ -462,29 +472,29 @@ header {
                 }
             }
         }
+    }
+    .request_container {
+        margin: auto;
+        padding: 28px 12px !important;
+        width: 100%;
+        max-width: $content_max_width;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $white;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-top: none;
+        font-size: $fs_md;
+        font-weight: $fw_light;
+        color: #777;
+        text-align: center;
 
-        .request_container {
-            margin: auto;
-            padding: 28px 12px !important;
-            width: 100%;
-            max-width: $content_max_width;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: $white;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-top: none;
+        .request_button_container {
+            margin-top: 8px;
             font-size: $fs_md;
-            color: #777;
-            text-align: center;
-
-            .request_button_container {
-                margin-top: 8px;
-                font-size: $fs_md;
-                text-decoration: underline;
-                font-weight: $fw_regular;
-            }
+            text-decoration: underline;
+            font-weight: $fw_regular;
         }
     }
 }

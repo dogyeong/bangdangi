@@ -263,6 +263,40 @@ body {
         color: #3b3b46;
         border: 1px solid transparent;
         box-shadow: rgba(0, 0, 0, 0.3) 0px 7px 50px; }
+  .subBlock.b3 {
+    border-bottom: 1px solid #eee; }
+    .subBlock.b3 .b3-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 400; }
+    .subBlock.b3 .b3-contents {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: row;
+      width: 100%; }
+      @media only screen and (max-width: 600px) {
+        .subBlock.b3 .b3-contents {
+          flex-direction: column; } }
+      .subBlock.b3 .b3-contents .b3-content {
+        flex-basis: 33.3%;
+        padding: 0 40px; }
+        .subBlock.b3 .b3-contents .b3-content .b3-img {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center; }
+          .subBlock.b3 .b3-contents .b3-content .b3-img object {
+            width: 100%; }
+        .subBlock.b3 .b3-contents .b3-content .b3-text {
+          width: 100%;
+          word-break: keep-all; }
+          .subBlock.b3 .b3-contents .b3-content .b3-text .title {
+            font-size: 16px;
+            font-weight: 400;
+            padding-bottom: 8px; }
+          .subBlock.b3 .b3-contents .b3-content .b3-text .text {
+            font-size: 16px;
+            font-weight: 300; }
 
 /* PWA */
 button#butInstall {

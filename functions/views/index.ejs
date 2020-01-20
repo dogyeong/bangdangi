@@ -52,7 +52,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
   <!-- STYLE END -->
   <!-- PWA START-->
-  <link rel="manifest" href="/manifest.json">
+  <!-- <link rel="manifest" href="/manifest.json"> -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="방단기">
@@ -73,8 +73,8 @@
         <img src="img/bangdangi_logo_2.png" alt="방단기 로고">
       </a>
       <ul class="nav">
-        <li><a href="https://bangdangi.web.app/request">이런방구해요</a></li>
-        <li><a href="register">매물등록</a></li>
+        <li><a href="/request">이런방구해요</a></li>
+        <li><a href="/register">매물등록</a></li>
       </ul>
     </div>
   </header>
@@ -127,14 +127,63 @@
           </div>
         </a>
         <% } %>
-        <a href="#" class="b1_item">
+        <a href="/board/list/gwanak" class="b1_item">
           <div class="b1_item_content b1-more">
-            다른 단기 원룸 보러가기 
+            다른 단기 원룸 보러가기
             <div class="b1-more-icon">
               <i class="xi-arrow-right"></i>
             </div>
           </div>
         </a>
+      </div>
+    </div>
+  </div>
+  <!-- 방단기 이용 가이드 -->
+  <div class="subBlock b3">
+    <div class="subBlock_container">
+      <div class="b3-title">
+        방단기 이용 가이드
+      </div>
+      <div class="b3-contents">
+        <div class="b3-content">
+          <div class="b3-img">
+            <object data="/img/index/b3-01.svg" type="image/svg+xml"></object>
+          </div>
+          <div class="b3-text">
+            <div class="title">
+              STEP 01. 방 찾기
+            </div>
+            <div class="text">
+              방단기에서 원하는 기간, 조건의 방을 온라인으로 손쉽게 찾아보세요.
+            </div>
+          </div>
+        </div>
+        <div class="b3-content">
+          <div class="b3-img">
+            <object data="/img/index/b3-02.svg" type="image/svg+xml"></object>
+          </div>
+          <div class="b3-text">
+            <div class="title">
+              STEP 02. 연락하기
+            </div>
+            <div class="text">
+              마음에 드는 방을 발견하셨다면 연락하기 버튼을 눌러 방을 보러 갈 날짜를 조율하세요.
+            </div>
+          </div>
+        </div>
+        <div class="b3-content">
+          <div class="b3-img">
+            <object data="/img/index/b3-03.svg" type="image/svg+xml"></object>
+          </div>
+          <div class="b3-text">
+            <div class="title">
+              STEP 03. 안전 거래하기
+            </div>
+            <div class="text">
+              방단기에서 제공하는 가이드와 계약서를 통해 안전하게 계약을 완료하세요.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -160,15 +209,19 @@
   <%- include('templates/footer') %>
 
   <!-- PWA Button START -->
-  <button id="butInstall" aria-label="Install" hidden>방단기 앱 추가하기</button>
+  <!-- <button id="butInstall" aria-label="Install" hidden>방단기 앱 추가하기</button> -->
   <!-- PWA Button END -->
+
   <script src="https://cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
-  <script>
+  <script src="babel/dst/index.js"></script>
+
+  <!-- PWA JS -->
+  <!-- <script src="babel/dst/install.js"></script> -->
+  <!-- <script>
     // index.js 에서 사용할 푸시알림을 위한 key
     const vapidPublicKey = "<%= vapidPublicKey %>";
-  </script>
-  <script src="babel/dst/index.js"></script>
-  <script src="babel/dst/install.js"></script>
+  </script> -->
+
   <!-- Channel Plugin Scripts -->
   <!-- <script>
     (function () {

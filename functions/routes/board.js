@@ -12,17 +12,14 @@ const db = admin.firestore();
 const UNIV_OBJ = {
     pnu: '부산, 부산대',
     cnu: '대전, 충남대',
-    mafo: '서울 마포구,서대문구',
-    seongdong: '서울 성동구',
-    gwanak: '서울 관악구',
-    dongdaemun: '서울 동대문구',
+    mafo: '마포구,서대문구',
+    seongdong: '성동구',
+    gwanak: '관악구, 동작구',
+    dongdaemun: '동대문구',
+    gangnam: '서초구, 강남구',
 }
 
 router.get('/list/:univ', async (req, res, next) => { 
-    // ?v 없으면 공지 띄우기
-    // var ignoreDone = req.query.v;
-    // if (ignoreDone === undefined) return res.render('notice');
-    
     const univ = req.params.univ;
     const locationKeywords = req.query.locationKeywords;
     const monthLimit = req.query.monthLimit;
@@ -69,7 +66,7 @@ getFilteredArticleList = async (univ, locationKeywords, monthLimit, priceKeyword
     let result = await getLocationFiltered(univ, locationKeywords); // 장소 필터가 적용된 매물들을 불러온다
 
     if (monthLimit !== undefined) {
-        let dateFiltered = await getDateFilterd(univ, monthLimit);  
+        let dateFiltered = await getDateFiltered(univ, monthLimit);  
         result = opAND(result, dateFiltered); // 장소필터 && 기간필터    
     }
     
@@ -98,7 +95,7 @@ getLocationFiltered = async (univ, locationKeywords) => {
     return result;
 }
 
-getDateFilterd = async (univ, monthLimit) => {
+getDateFiltered = async (univ, monthLimit) => {
     // 선택한 달의 마지막 날을 구한다
     let lastDay = getLastDayOfMonth(monthLimit);
 
@@ -234,7 +231,7 @@ formatLine2 = (doc) => {
     if (doc.roomType !== null) 
         arr.push(doc.roomType);
     if (doc.floor !== null)
-        arr.push(doc.floor+'층');
+        arr.push((doc.floor === -1 ? '반지' : doc.floor) + '층');
     if (doc.expense !== null)
         arr.push(`관리비 ${doc.expense}만원`);
     return arr.join(' | ');
@@ -273,9 +270,6 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var data; // 상세페이지에서 보여질 매물정보
     var related = []; // 관련 매물 정보
     var docRef = db.doc(`article/live/${univ}/${articleNo}`);
-    
-    // ?v 없으면 공지 띄우기
-    // if (ignoreDone === undefined) return res.render('notice');
     
     docRef.get()
     .then((doc) => {

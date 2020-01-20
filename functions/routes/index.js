@@ -20,34 +20,30 @@ const vapidKeys = {
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-    // ?v 없으면 공지 띄우기
-    var ignoreDone = req.query.v;
-    if (ignoreDone === undefined) return res.render("notice");
-
     var db = admin.firestore();
     // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
     Promise.all([
         db
-            .collection("article/live/dongdaemun")
+            .collection("article/live/gwanak")
             .where("display", "==", true)
             .where("done", "==", false)
             .orderBy("createdAt", "desc")
             .limit(3)
             .get(),
         db
-            .collection("article/live/mafo")
+            .collection("article/live/gangnam")
             .where("display", "==", true)
             .where("done", "==", false)
             .orderBy("createdAt", "desc")
             .limit(3)
             .get(),
-        db
-            .collection("article/live/cnu")
-            .where("display", "==", true)
-            .where("done", "==", false)
-            .orderBy("createdAt", "desc")
-            .limit(3)
-            .get(),
+        // db
+        //     .collection("article/live/cnu")
+        //     .where("display", "==", true)
+        //     .where("done", "==", false)
+        //     .orderBy("createdAt", "desc")
+        //     .limit(3)
+        //     .get(),
     ])
         .then(result => {
             // 들고온 매물들을 배열로 만들고
@@ -143,13 +139,11 @@ router.get("/masterLogin", (req, res) => {
 });
 
 router.get("/request", (req, res) => {
-    return res.render("notice");
-    // return res.render('request');
+    return res.render('request');
 });
 
 router.get("/register", (req, res) => {
-    return res.render("notice");
-    // return res.render('register');
+    return res.render('register');
 });
 
 router.get("/notice", (req, res) => {
