@@ -22,42 +22,15 @@ const vapidKeys = {
 router.get("/", (req, res, next) => {
     var db = admin.firestore();
     // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
-    Promise.all([
-        db
-            .collection("article/live/gwanak")
-            .where("display", "==", true)
-            .where("done", "==", false)
-            .orderBy("createdAt", "desc")
-            .limit(3)
-            .get(),
-        db
-            .collection("article/live/gangnam")
-            .where("display", "==", true)
-            .where("done", "==", false)
-            .orderBy("createdAt", "desc")
-            .limit(3)
-            .get(),
-        // db
-        //     .collection("article/live/cnu")
-        //     .where("display", "==", true)
-        //     .where("done", "==", false)
-        //     .orderBy("createdAt", "desc")
-        //     .limit(3)
-        //     .get(),
-    ])
+    db.collectionGroup("articles")
+        .where("display", "==", true)
+        .where("done", "==", false)
+        .orderBy("createdAt", "desc")
+        .limit(3)
+        .get()
         .then(result => {
             // 들고온 매물들을 배열로 만들고
-            let newArticleArr = result.reduce((res, cur) => {
-                if (!cur.empty) {
-                    let arrHasImage = cur.docs.filter(doc => {
-                        return doc.data().images;
-                    });
-                    if (arrHasImage.length > 0) {
-                        res.push(arrHasImage[0].data());
-                    }
-                }
-                return res;
-            }, []);
+            let newArticleArr = result.docs.map(doc => doc.data()).filter(doc => (doc.images ? true : false));
             // index 렌더링할 때 넘겨준다
             return res.render("index", {
                 newArticleArr,
@@ -139,11 +112,11 @@ router.get("/masterLogin", (req, res) => {
 });
 
 router.get("/request", (req, res) => {
-    return res.render('request');
+    return res.render("request");
 });
 
 router.get("/register", (req, res) => {
-    return res.render('register');
+    return res.render("register");
 });
 
 router.get("/notice", (req, res) => {

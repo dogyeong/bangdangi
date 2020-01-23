@@ -184,9 +184,9 @@ body {
             width: 100%;
             height: 180px;
             border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
-            background-color: #eee; }
+            border-top-left-radius: 5px; }
           .subBlock.b1 .b1_cards .b1_item .b1_item_content .b1_item_text {
+            background-color: #fff;
             width: 100%;
             border-bottom-right-radius: 5px;
             border-bottom-left-radius: 5px;

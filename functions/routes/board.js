@@ -18,6 +18,8 @@ const UNIV_OBJ = {
     dongdaemun: '동대문구',
     gangnam: '서초구, 강남구',
 }
+const getArticlesPath = (place) => `article/${place}/articles`;
+const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
 
 router.get('/list/:univ', async (req, res, next) => { 
     const univ = req.params.univ;
@@ -27,7 +29,7 @@ router.get('/list/:univ', async (req, res, next) => {
     let keywordList;
     let resultArr = [];
 
-    // 선택한 지역의 장소 키워드 리스트를 가져온다
+    // 선택한 지역의 장소 키워드 리스트를 가져온다 ---- 장소키워드만!
     keywordList = await getKeywordList(univ);
     // 필터가 적용된 매물 리스트를 가져온다
     resultArr = await getFilteredArticleList(univ, locationKeywords, monthLimit, priceKeywords);
@@ -51,7 +53,7 @@ router.get('/list/:univ', async (req, res, next) => {
 });
 
 getKeywordList = async (univ) => {
-    return await db.doc(`article/keywords/${univ}/locationKeywords`).get()
+    return await db.doc(getLocKeywordsPath(univ)).get()
         .then(doc => { // 불러온 태그들을 저장한다
             if (doc.exists) {
                 return doc.data().keywords;
@@ -80,7 +82,7 @@ getFilteredArticleList = async (univ, locationKeywords, monthLimit, priceKeyword
 
 getLocationFiltered = async (univ, locationKeywords) => {
     let result;
-    let defaultRef = db.collection(`article/live/${univ}`).where('display','==',true).where('done','==',false);
+    let defaultRef = db.collection(getArticlesPath(univ)).where('display','==',true).where('done','==',false);
     
     if (locationKeywords === undefined) {
         result = await defaultRef.get().then(docs => docs.docs);
@@ -103,14 +105,14 @@ getDateFiltered = async (univ, monthLimit) => {
     let dateDiff = getMonthDiff(monthLimit);
 
     return await Promise.all([
-            db.collection(`article/live/${univ}`).where('endDate', '<=', lastDay).get(),
-            db.collection(`article/live/${univ}`).where('minTerm', '<=', dateDiff).get()  
+            db.collection(getArticlesPath(univ)).where('endDate', '<=', lastDay).get(),
+            db.collection(getArticlesPath(univ)).where('minTerm', '<=', dateDiff).get()  
         ])
         .then(result => opOR(result.map(docs => docs.docs)));
 }
 
 getPriceFiltered = async (univ, priceKeywords) => {
-    return await db.collection(`article/live/${univ}`).where('deposit', '<=', 100).get()
+    return await db.collection(getArticlesPath(univ)).where('deposit', '<=', 100).get()
         .then(docs => docs.docs);
 }
 
@@ -269,7 +271,7 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var kakao = {}; // 카카오로 공유하기 했을 때 전달될 정보
     var data; // 상세페이지에서 보여질 매물정보
     var related = []; // 관련 매물 정보
-    var docRef = db.doc(`article/live/${univ}/${articleNo}`);
+    var docRef = db.doc(`${getArticlesPath(univ)}/${articleNo}`);
     
     docRef.get()
     .then((doc) => {
@@ -278,7 +280,7 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
             // 카카오톡 공유하기 했을 때 공유될 정보 저장
             kakao = getKaKaoShareObject(data);
             // 최신 매물을 4개 가져온다
-            return db.collection(`article/live/${univ}`)
+            return db.collection(getArticlesPath(univ))
                 .where('display', '==', true).where('done', '==', false)
                 .orderBy('createdAt', 'desc').limit(4).get();
         }
@@ -361,7 +363,7 @@ router.get('/create', (req, res, next) => {
 
     // 키워드 받기
     var keywords = [];
-    return admin.firestore().doc(`article/keywords/${univ}/locationKeywords`).get()
+    return admin.firestore().doc(getLocKeywordsPath(univ)).get()
         .then(doc => {
             keywords = doc.data().keywords;
             // 세션쿠키 검사

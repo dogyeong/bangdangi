@@ -1,3 +1,4 @@
-# 모든 크롤링 금지
 User-agent: *
-Disallow: /
+Disallow: /master 
+Disallow: /master2
+Disallow: /masterLogin

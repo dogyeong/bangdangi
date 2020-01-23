@@ -38,13 +38,12 @@
         var contactBtn = document.querySelectorAll(".contact");
 
         var contactCallback = function() {
-            // 집주인 보여주기용으로 잠시 주석처리
-            // var contact = this.dataset.contact;
-            // var type = this.dataset.type;
+            var contact = this.dataset.contact;
+            var type = this.dataset.type;
 
-            // if (type === "tel") window.location = `tel:${contact}`;
-            // else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
-            // else window.location = `${contact}`;
+            if (type === "tel") window.location = `tel:${contact}`;
+            else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
+            else window.location = `${contact}`;
         };
 
         var checkMobile = function() {
