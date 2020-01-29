@@ -37,12 +37,31 @@
 
 
   if (!dataDone) {
-    var contactBtn = document.querySelectorAll(".contact");
+    var contactBtn = document.querySelectorAll(".contact"); // pc, 모바일 체크
+
+    var checkBrowser = function checkBrowser() {
+      var filter = "win16|win32|win64|mac|macintel";
+
+      if (navigator.platform) {
+        if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {
+          return "MOBILE";
+        } else {
+          return "PC";
+        }
+      }
+
+      return "MOBILE";
+    };
 
     var contactCallback = function contactCallback() {
       var contact = this.dataset.contact;
       var type = this.dataset.type;
-      if (type === "tel") window.location = "tel:".concat(contact);else if (type === "sms") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=").concat(window.location.href, " \uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uBB38\uC758\uB4DC\uB824\uC694~");else window.location = "".concat(contact);
+
+      if (type === "tel") {
+        if (checkBrowser() === "MOBILE") window.location = "tel:".concat(contact);else window.alert("\uBC29\uC774 \uB9C8\uC74C\uC5D0 \uB4DC\uC168\uB098\uC694? :) \uBB38\uC758\uC0AC\uD56D\uC740 ".concat(contact, "\uC73C\uB85C \uC5F0\uB77D\uD574\uC8FC\uC138\uC694."));
+      } else if (type === "sms") {
+        if (checkBrowser() === "MOBILE") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=").concat(window.location.href, " \uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uBB38\uC758\uB4DC\uB824\uC694~");else window.alert("\uBC29\uC774 \uB9C8\uC74C\uC5D0 \uB4DC\uC168\uB098\uC694? :) \uBB38\uC758\uC0AC\uD56D\uC740 ".concat(contact, "\uC73C\uB85C \uC5F0\uB77D\uD574\uC8FC\uC138\uC694."));
+      } else window.location = "".concat(contact);
     };
 
     var checkMobile = function checkMobile() {

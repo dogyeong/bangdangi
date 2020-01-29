@@ -325,8 +325,12 @@ getRelatedArray = (arr) => {
         return {
             'url': `${d.url}`,
             'img': `${d.images ? d.images[0] : ''}`,
-            'line1': `${d.dateKeywords ? Object.keys(d.dateKeywords)[0] : ''} ${d.locationL ? Object.keys(d.locationL).join(' '): ''}`,
-            'line2': `${d.deposit ? '보'+d.deposit : ''} ${d.price ? '월'+d.price : ''}`,
+            'line1': `${d.locationS ? Object.keys(d.locationS).join(' '): ''}`,
+            'line2': `${ (d.startDate !== null || d.endDate !== null) ? (
+                    (d.startDate ? new Date(d.startDate.toMillis()).toLocaleDateString() : '')
+                    +" ~ "+(d.endDate ? new Date(d.endDate.toMillis()).toLocaleDateString() : '')
+                ) : ''} ${d.minTerm ? d.minTerm+'개월 이상' : ''}`,
+            'line3': `${d.deposit ? '보'+d.deposit : ''} ${d.price ? '월'+d.price : ''}`,
         };
     });
     return resultArray;

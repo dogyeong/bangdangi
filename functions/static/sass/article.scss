@@ -398,6 +398,8 @@ header {
                 align-items: center;
                 background-color: $main_color;
                 color: $white;
+                font-size: $fs_lg;
+                font-weight: $fw_regular;
                 @include respond-to(phone) {
                     color: $contact_color;
                     background-color: $contact_bg_color;
@@ -408,6 +410,26 @@ header {
                 margin-right: 2px;
             }
         }
+    }
+    
+    .sub-info {
+        margin-top: 12px;
+        margin-left: 24px;
+        @include respond-to(phone) {
+            margin-left: 20px;
+        }
+        li  {
+            font-size: $fs_sm;
+            font-weight: $fw_light;
+            color: $grey;
+            line-height: $fs_lg;
+            
+            i {
+                font-size: $fs_sm;
+                font-weight: $fw_light;
+            }
+        }
+        
     }
 }
 

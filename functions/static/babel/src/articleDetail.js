@@ -37,12 +37,36 @@
     if (!dataDone) {
         var contactBtn = document.querySelectorAll(".contact");
 
+        // pc, 모바일 체크
+        let checkBrowser = function() {
+            let filter = "win16|win32|win64|mac|macintel";
+
+            if (navigator.platform) {
+                if (filter.indexOf(navigator.platform.toLowerCase()) < 0) {
+                    return "MOBILE";
+                } else {
+                    return "PC";
+                }
+            }
+            return  "MOBILE";
+        }
+
         var contactCallback = function() {
             var contact = this.dataset.contact;
             var type = this.dataset.type;
 
-            if (type === "tel") window.location = `tel:${contact}`;
-            else if (type === "sms") window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
+            if (type === "tel") {
+                if (checkBrowser() ===  "MOBILE")
+                    window.location = `tel:${contact}`;
+                else
+                    window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요.`);
+            }
+            else if (type === "sms") {
+                if (checkBrowser() ===  "MOBILE")
+                    window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
+                else
+                    window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요.`);  
+            }
             else window.location = `${contact}`;
         };
 

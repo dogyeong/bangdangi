@@ -316,7 +316,9 @@ header #header_inner {
         justify-content: center;
         align-items: center;
         background-color: #0ab9f1;
-        color: #fff; }
+        color: #fff;
+        font-size: 18px;
+        font-weight: 400; }
         @media only screen and (max-width: 600px) {
           .block2 .contact_container .contact_btn_container .contact_call,
           .block2 .contact_container .contact_btn_container .contact_sms {
@@ -324,6 +326,20 @@ header #header_inner {
             background-color: rgba(8, 186, 241, 0.18); } }
       .block2 .contact_container .contact_btn_container .contact_call {
         margin-right: 2px; }
+  .block2 .sub-info {
+    margin-top: 12px;
+    margin-left: 24px; }
+    @media only screen and (max-width: 600px) {
+      .block2 .sub-info {
+        margin-left: 20px; } }
+    .block2 .sub-info li {
+      font-size: 14px;
+      font-weight: 300;
+      color: #888888;
+      line-height: 18px; }
+      .block2 .sub-info li i {
+        font-size: 14px;
+        font-weight: 300; }
 
 /* 관련 매물 추천 */
 .block3 {

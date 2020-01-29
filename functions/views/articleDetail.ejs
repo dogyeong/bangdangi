@@ -226,13 +226,15 @@
                             오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
                         </a>
                         <% } else { %>
+                        <!-- 방단기에 문의하기 로 바꾸면서 주석처리
                         <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>"
                             href="javascript:void(0);">
                             <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
                         </a>
+                        -->
                         <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
                             href="javascript:void(0);">
-                            <i class="xi-mail-o"></i> &nbsp;&nbsp; 문자 연락하기
+                            <i class="xi-mail-o"></i> &nbsp;&nbsp; 방단기에 문의하기
                         </a>
                         <% } %>
                     </div>
@@ -240,6 +242,11 @@
                 
             </div>
             <!-- 연락하기 버튼 블럭 END -->
+            <ul class="sub-info xi-ul">
+                <li>
+                    <i class="xi-help-o xi-li"></i> 방단기의 모든 매물은 직거래 매물로 중개 수수료를 받지 않습니다. 다만, 안전을 위해 방단기 관리자가 계약까지 안내해 드리고 있습니다.
+                </li>
+            </ul>
         </div>
 
         <!-- 관련 매물 블럭 -->
@@ -256,6 +263,7 @@
                     </div>
                     <p><%= i.line1 %></p>
                     <p><%= i.line2 %></p>
+                    <p><%= i.line3 %></p>
                 </a>
                 <% } %>
             </div>

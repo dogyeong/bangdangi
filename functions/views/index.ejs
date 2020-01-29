@@ -68,15 +68,15 @@
   <!-- End Google Tag Manager (noscript) -->
   <!-- 헤더 -->
   <header>
-    <div id="header_inner">
+    <nav id="header_inner">
       <a class="header_logo" href="https://bangdangi.web.app/">
-        <img src="img/bangdangi_logo_2.png" alt="방단기 로고">
+        <img src="img/bangdangi_logo_2.png" alt="방단기 홈">
       </a>
       <ul class="nav">
         <li><a href="/request">이런방구해요</a></li>
         <li><a href="/register">매물등록</a></li>
       </ul>
-    </div>
+    </nav>
   </header>
   <!-- 메인 배너 -->
   <div class="mainBlock">
@@ -110,7 +110,8 @@
         <a href="<%= i.url %>" class="b1_item">
           <div class="b1_item_content">
             <div class="b1_item_img"
-              style="background: url('<%= i.images ? i.images[0] : "" %>') center center / cover no-repeat, #ddd;"></div>
+              style="background: url('<%= i.images ? i.images[0] : "" %>') center center / cover no-repeat, #ddd;">
+            </div>
             <div class="b1_item_text">
               <%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %>
               <br>
@@ -180,7 +181,7 @@
               STEP 03. 안전 거래하기
             </div>
             <div class="text">
-              방단기에서 제공하는 가이드와 계약서를 통해 안전하게 계약을 완료하세요.
+              방이 마음에 드셨다면, 방단기 관리자의 안내에 따라 안전하게 계약을 완료하세요.
             </div>
           </div>
         </div>
