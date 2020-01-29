@@ -291,6 +291,13 @@
                     <input type="text" data-field="contact" />
                 </div>
             </div>
+            <!-- position -->
+            <div class="field_container" data-field="position" data-type="geopoint">
+                <div class="field_title" data-field="position">position</div>
+                <div class="field_value" data-container="position">
+                    <div class="map" style="width:100%; height: 240px;"></div>
+                </div>
+            </div>
             <div class="update_footer">
                 <div class="update_confirm"><i class="xi-check-circle-o"></i>업데이트</div>
                 <div class="update_delete"><i class="xi-close-circle-o"></i>삭제</div>
@@ -359,12 +366,6 @@
         };
         var hideLoading = () => {
             loading.style.display = "none";
-        };
-        var showUpdateLoading = () => {
-            updateLoading.style.display = "flex";
-        };
-        var hideUpdateLoading = () => {
-            updateLoading.style.display = "none";
         };
         var loadData = univ => {
             if (univ === "") return;
@@ -516,6 +517,7 @@
                         text: null,
                         title: null,
                         views: 0,
+                        position: null,
                     })
                     .then(docRef => {
                         return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.value}/${docRef.id}` });
@@ -553,6 +555,20 @@
             if (data[3] !== 26 || data[0] !== data[2]) return;
             let id = hot.getDataAtRow(data[0])[0];
             openUpdateBox(id);
+        };
+
+        reloadBtn.addEventListener("click", reloadData);
+        addBtn.addEventListener("click", addEmptyArticle);
+        downloadBtn.addEventListener("click", exportCSV);
+    </script>
+
+    <!-- 업데이트박스 -->
+    <script>
+        var showUpdateLoading = () => {
+            updateLoading.style.display = "flex";
+        };
+        var hideUpdateLoading = () => {
+            updateLoading.style.display = "none";
         };
         var openUpdateBox = id => {
             // 일단 닫혀있으면 연다
@@ -604,6 +620,10 @@
                 } else if (type === "text") {
                     document.querySelector(`textarea[data-field="${field}"]`).value = "";
                 }
+                // 지도 초기화
+                let initialLatLon = new kakao.maps.LatLng(37.5642135, 127.0016985);
+                map.setCenter(initialLatLon);
+                marker.setPosition(initialLatLon);
             });
             // null 초기화
             document.querySelectorAll(".null").forEach(i => i.classList.remove("null"));
@@ -645,6 +665,13 @@
                         // date 객체
                         let d = data[i].toDate();
                         document.querySelector(`input[data-field="${i}"]`).value = formatDate(d);
+                    } else if (data[i].latitude) {
+                        // geopoint 객체
+                        let lat = data[i]._lat;
+                        let long = data[i]._long;
+                        let pos = new kakao.maps.LatLng(lat, long);
+                        map.setCenter(pos);
+                        marker.setPosition(pos);
                     } else {
                         // map 객체 (object)
                         // 새 input 추가
@@ -738,6 +765,86 @@
                     .catch(err => console.log(err));
             }
         };
+        var getInputData = () => {
+            let data = {};
+            let fields = document.querySelectorAll(".field_container");
+            fields.forEach(f => {
+                let type = f.dataset.type;
+                let field = f.dataset.field;
+                if (document.querySelector(`.field_title[data-field="${field}"]`).classList.contains("null")) {
+                    data[field] = null;
+                } else if (type === "string") {
+                    data[field] = document.querySelector(`input[data-field="${field}"]`).value;
+                } else if (type === "number") {
+                    data[field] = parseFloat(document.querySelector(`input[data-field="${field}"]`).value);
+                } else if (type === "text") {
+                    data[field] = document.querySelector(`textarea[data-field="${field}"]`).value;
+                } else if (type === "boolean") {
+                    if (document.querySelector(`input[data-field="${field}"]:checked`).value === "true") data[field] = true;
+                    else data[field] = false;
+                } else if (type === "date") {
+                    data[field] = new Date(document.querySelector(`input[data-field="${field}"]`).value);
+                } else if (type === "object") {
+                    let obj = {};
+                    document.querySelectorAll(`input[data-field="${field}"]`).forEach(i => (obj[i.value] = true));
+                    data[field] = obj;
+                } else if (type === "array") {
+                    let arr = [];
+                    document.querySelectorAll(`input[type="text"][data-field="${field}"]`).forEach(i => arr.push(i.value));
+                    data[field] = arr;
+                } else if (type === "geopoint") {
+                    let lat = marker.getPosition().getLat();
+                    let lng = marker.getPosition().getLng();
+                    let pos = new firebase.firestore.GeoPoint(lat, lng);
+                    data[field] = pos;
+                }
+            });
+            return data;
+        };
+        var updateData = () => {
+            showUpdateLoading();
+            let univ = select.value;
+            let id = document.querySelector(".id_container").innerText;
+            firebase
+                .firestore()
+                .doc(`${getArticlePath(univ)}/${id}`)
+                .update(getInputData())
+                .then(() => {
+                    hideUpdateLoading();
+                    closeUpdateBox();
+                    reloadData();
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert(err.message);
+                });
+        };
+        var deleteData = () => {
+            showUpdateLoading();
+            let univ = select.value;
+            let id = document.querySelector(".id_container").innerText;
+            firebase
+                .firestore()
+                .doc(`${getArticlePath(univ)}/${id}`)
+                .delete()
+                .then(() => {
+                    hideUpdateLoading();
+                    closeUpdateBox();
+                    reloadData();
+                })
+                .catch(err => {
+                    console.log(err);
+                    window.alert(err.message);
+                });
+        };
+
+        fieldTitle.forEach(i => i.addEventListener("click", toggleNull));
+        updateBtn.addEventListener("click", updateData);
+        deleteBtn.addEventListener("click", deleteData);
+    </script>
+
+    <!-- 이미지 회전 관련 함수 -->
+    <script>
         var getOrientation = file => {
             return new Promise((resolve, reject) => {
                 loadImage(
@@ -812,90 +919,15 @@
                 }, "image/jpeg");
             });
         };
-        var getInputData = () => {
-            let data = {};
-            let fields = document.querySelectorAll(".field_container");
-            fields.forEach(f => {
-                let type = f.dataset.type;
-                let field = f.dataset.field;
-                if (document.querySelector(`.field_title[data-field="${field}"]`).classList.contains("null")) {
-                    data[field] = null;
-                } else if (type === "string") {
-                    data[field] = document.querySelector(`input[data-field="${field}"]`).value;
-                } else if (type === "number") {
-                    data[field] = parseFloat(document.querySelector(`input[data-field="${field}"]`).value);
-                } else if (type === "text") {
-                    data[field] = document.querySelector(`textarea[data-field="${field}"]`).value;
-                } else if (type === "boolean") {
-                    if (document.querySelector(`input[data-field="${field}"]:checked`).value === "true") data[field] = true;
-                    else data[field] = false;
-                } else if (type === "date") {
-                    data[field] = new Date(document.querySelector(`input[data-field="${field}"]`).value);
-                } else if (type === "object") {
-                    let obj = {};
-                    document.querySelectorAll(`input[data-field="${field}"]`).forEach(i => (obj[i.value] = true));
-                    data[field] = obj;
-                } else if (type === "array") {
-                    let arr = [];
-                    document.querySelectorAll(`input[type="text"][data-field="${field}"]`).forEach(i => arr.push(i.value));
-                    data[field] = arr;
-                }
-            });
-            return data;
-        };
-        var updateData = () => {
-            showUpdateLoading();
-            let univ = select.value;
-            let id = document.querySelector(".id_container").innerText;
-            firebase
-                .firestore()
-                .doc(`${getArticlePath(univ)}/${id}`)
-                .update(getInputData())
-                .then(() => {
-                    hideUpdateLoading();
-                    closeUpdateBox();
-                    reloadData();
-                })
-                .catch(err => {
-                    console.log(err);
-                    window.alert(err.message);
-                });
-        };
-        var deleteData = () => {
-            showUpdateLoading();
-            let univ = select.value;
-            let id = document.querySelector(".id_container").innerText;
-            firebase
-                .firestore()
-                .doc(`${getArticlePath(univ)}/${id}`)
-                .delete()
-                .then(() => {
-                    hideUpdateLoading();
-                    closeUpdateBox();
-                    reloadData();
-                })
-                .catch(err => {
-                    console.log(err);
-                    window.alert(err.message);
-                });
-        };
-
-        fieldTitle.forEach(i => i.addEventListener("click", toggleNull));
-        reloadBtn.addEventListener("click", reloadData);
-        addBtn.addEventListener("click", addEmptyArticle);
-        downloadBtn.addEventListener("click", exportCSV);
-        updateBtn.addEventListener("click", updateData);
-        deleteBtn.addEventListener("click", deleteData);
     </script>
 
     <!-- 카카오 지도 -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a"></script>
-    <!--
     <script>
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        var mapContainer = document.querySelector('.map'), // 지도를 표시할 div 
             mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 
@@ -912,38 +944,29 @@
         // 지도에 클릭 이벤트를 등록합니다
         // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
         kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-
             // 클릭한 위도, 경도 정보를 가져옵니다 
             var latlng = mouseEvent.latLng;
-
             // 마커 위치를 클릭한 위치로 옮깁니다
             marker.setPosition(latlng);
-
-            var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-            message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-            var resultDiv = document.getElementById('clickLatlng');
-            resultDiv.innerHTML = message;
-
+        });
     </script>
-    -->
 
     <!-- 푸시알림 코드 -->
     <script>
-    let db = firebase.firestore();
-    let notiContainer = document.getElementById("notification");
+        let db = firebase.firestore();
+        let notiContainer = document.getElementById("notification");
 
-    db.collection("subscription")
-        .get()
-        .then(docs => docs.docs)
-        .then(docs =>
-            docs.forEach(doc => {
-                notiContainer.innerHTML += `
+        db.collection("subscription")
+            .get()
+            .then(docs => docs.docs)
+            .then(docs =>
+                docs.forEach(doc => {
+                    notiContainer.innerHTML += `
                     <div>
                         <div>${doc
-                        .data()
-                        .createdAt.toDate()
-                        .toLocaleString()}</div>
+                            .data()
+                            .createdAt.toDate()
+                            .toLocaleString()}</div>
                         <div>${doc.data().subscription.endpoint}</div>
                         <div>${doc.data().subscription.expirationTime}</div>
                         <div>${doc.data().subscription.keys.auth}</div>
@@ -951,58 +974,58 @@
                         <div><a href="javascript:;" onclick="sendNotification(this);">send</a></div>
                     </div>
                 `;
-            })
-        )
-        .catch(err => console.log(err));
-
-    function sendNotification(target) {
-        let pushTitle = document.querySelector('input[name="push-title"]');
-        let pushBody = document.querySelector('input[name="push-body"]');
-        let row = target.parentNode.parentNode;
-        let endpoint = row.children[1].innerText;
-        let expirationTime = null;
-        let auth = row.children[3].innerText;
-        let p256dh = row.children[4].innerText;
-        let subscription = {
-            endpoint,
-            expirationTime,
-            keys: {
-                auth,
-                p256dh,
-            },
-        };
-        return fetch("https://bangdangi.web.app/notification/send", {
-            method: "POST",
-            headers: {
-                Accept: "application/json, text/plain, */*",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                subscription,
-                data: {
-                    title: pushTitle.value,
-                    body: pushBody.value,
-                    params: {
-                        url: "/pwa",
-                    },
-                },
-            }),
-        })
-            .then(res => res.text())
-            .then(res => alert(res))
+                })
+            )
             .catch(err => console.log(err));
-    }
+
+        function sendNotification(target) {
+            let pushTitle = document.querySelector('input[name="push-title"]');
+            let pushBody = document.querySelector('input[name="push-body"]');
+            let row = target.parentNode.parentNode;
+            let endpoint = row.children[1].innerText;
+            let expirationTime = null;
+            let auth = row.children[3].innerText;
+            let p256dh = row.children[4].innerText;
+            let subscription = {
+                endpoint,
+                expirationTime,
+                keys: {
+                    auth,
+                    p256dh,
+                },
+            };
+            return fetch("https://bangdangi.web.app/notification/send", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    subscription,
+                    data: {
+                        title: pushTitle.value,
+                        body: pushBody.value,
+                        params: {
+                            url: "/pwa",
+                        },
+                    },
+                }),
+            })
+                .then(res => res.text())
+                .then(res => alert(res))
+                .catch(err => console.log(err));
+        }
     </script>
 
     <!-- 로그인 -->
     <script>
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            console.log(user);
-        } else {
-            window.location.href = "/masterLogin";
-        }
-    });
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                console.log(user);
+            } else {
+                window.location.href = "/masterLogin";
+            }
+        });
     </script>
 </body>
 
