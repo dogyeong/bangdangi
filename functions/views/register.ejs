@@ -63,7 +63,7 @@
                 <img src="img/bangdangi_logo_2.png">
             </a>
             <ul class="nav">
-                <li><a href="https://bangdangi.web.app/request">이런방구해요</a></li>
+                <li><a href="/request">이런방구해요</a></li>
                 <li><a href="#">매물등록</a></li>
             </ul>
         </div>
@@ -73,24 +73,7 @@
         <!-- 매물등록 소개 블럭 -->
         <div class="block1">
             <div class="block1_img_container">
-                <svg id="레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 575.1 442.39">
-                    <defs>
-                        <style>
-                            .cls-1{fill:none;stroke:#0ab9f1;stroke-miterlimit:10;stroke-width:30px;stroke-dasharray:2500 0;}
-                        </style>
-                    </defs>
-                    <title>check</title>
-                    <path id="svg-check" class="cls-1" d="M495.89,37.83l70.45,70.45L236.81,437.8,33.66,234.66l70.45-70.45,132.7,132.7Z" transform="translate(-12.45 -16.62)">
-                            <animate 
-                                attributeName="stroke-dashoffset" 
-                                begin="0s" 
-                                dur="2s"
-                                from="2500" 
-                                to="0"
-                                fill="freeze"/>
-                    </path>
-                    
-                </svg>
+                <object data="/img/register/01.svg" type="image/svg+xml"></object>
             </div>
             <div class="block1_text_container">
                 <div class="block1_text">
@@ -104,69 +87,8 @@
             </div>
         </div>
         <!-- 푸터 -->
-        <footer>
-            <div class="footerContainer">
-                <div class="footer_left">
-                    <a href="/aboutUs">방단기 소개</a>
-                    <a href="http://pf.kakao.com/_HxcGdT">문의하기</a>
-                    <a href="#header_inner">TOP</a>
-                </div>
-                <!-- SNS 버튼 -->
-                <div class="footer_right">
-                    <a href="https://www.instagram.com/bang_dangi/?hl=ko">
-                        <i class="xi-instagram"></i>
-                    </a>
-                    <a href="https://blog.naver.com/bangdangi">
-                        <i class="xi-naver-square"></i>
-                    </a>
-                </div>
-            </div>
-        </footer>
+        <%- include('templates/footer') %>
     </div>
-    
-    <!-- Channel Plugin Scripts -->
-    <script>
-        (function () {
-            var w = window;
-            if (w.ChannelIO) {
-                return (window.console.error || window.console.log || function () { })('ChannelIO script included twice.');
-            }
-            var d = window.document;
-            var ch = function () {
-                ch.c(arguments);
-            };
-            ch.q = [];
-            ch.c = function (args) {
-                ch.q.push(args);
-            };
-            w.ChannelIO = ch;
-            function l() {
-                if (w.ChannelIOInitialized) {
-                    return;
-                }
-                w.ChannelIOInitialized = true;
-                var s = document.createElement('script');
-                s.type = 'text/javascript';
-                s.async = true;
-                s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-                s.charset = 'UTF-8';
-                var x = document.getElementsByTagName('script')[0];
-                x.parentNode.insertBefore(s, x);
-            }
-            if (document.readyState === 'complete') {
-                l();
-            } else if (window.attachEvent) {
-                window.attachEvent('onload', l);
-            } else {
-                window.addEventListener('DOMContentLoaded', l, false);
-                window.addEventListener('load', l, false);
-            }
-        })();
-        ChannelIO('boot', {
-            "pluginKey": "5ce5e194-1fa1-4289-9d57-c84d88b225a0"
-        });
-    </script>
-    <!-- End Channel Plugin -->
 </body>
 
 </html>

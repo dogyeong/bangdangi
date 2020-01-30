@@ -18,12 +18,11 @@ html, body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: rgba(0,0,0,0.02);
 }
 .block1_img_container {
-    width: 180px;
+    width: 320px;
 }
-.block1_img_container img {
+.block1_img_container object {
     width: 100%;
 }
 .block1_text {
@@ -31,16 +30,12 @@ html, body {
     margin: 28px 0;
     word-break: keep-all;
 }
-.block1_text h3 {
-    font-size: 24px;
-    font-weight: 500;
-}
 .block1_text h1 {
     font-size: 32px;
     font-weight: 500;
 }
 .block1_text p {
-    margin-top: 4px;
+    margin-top: 8px;
 }
 .block1_text_container a {
     width: 200px;
@@ -65,23 +60,16 @@ html, body {
 }
 @media screen and (max-width: 600px) {
     .block1_img_container {
-        margin-left: -45px;
-        margin-right: -60px;
-        margin-top: -60px;
+        width: 240px;
+        margin-bottom: 20px;
     }
-    .block1_text h3 {
-        font-size: 18px;
+    .block1_text {
+        margin: 0;
     }
-    .block1_text_container {
-        margin-top: -60px;
-        margin-right: 12px;
+    .block1_text h1 {
+        font-size: 24px;
     }
-    .block1_text_container a {
-        width: 120px;
-        padding: 10px 16px;
-        font-size: 16px;
-        position: absolute;
-        bottom: 42px;
-        left: calc(50% - 60px);
+    .block1_text p {
+        font-size: 14px;
     }
 }

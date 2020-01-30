@@ -19,13 +19,13 @@
   <loc>https://bangdangi.web.app/request</loc>
   <lastmod>2019-11-19T06:54:42+00:00</lastmod>
   <changefreq>daily</changefreq>
-  <priority>0.80</priority>
+  <priority>0.90</priority>
 </url>
 <url>
   <loc>https://bangdangi.web.app/aboutUs</loc>
   <lastmod>2019-11-19T06:48:23+00:00</lastmod>
   <changefreq>daily</changefreq>
-  <priority>0.80</priority>
+  <priority>0.90</priority>
 </url>
 <url>
   <loc>https://bangdangi.web.app/board/list/dongdaemun</loc>
@@ -40,7 +40,7 @@
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://bangdangi.web.app/board/list/cnu</loc>
+  <loc>https://bangdangi.web.app/board/list/gangnam</loc>
   <lastmod>2019-11-19T06:54:42+00:00</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.80</priority>
@@ -51,17 +51,4 @@
   <changefreq>daily</changefreq>
   <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://bangdangi.web.app/board/list/seongdong</loc>
-  <lastmod>2019-11-19T06:54:42+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://bangdangi.web.app/board/list/pnu</loc>
-  <lastmod>2019-11-19T06:54:42+00:00</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.80</priority>
-</url>
-
 </urlset>
