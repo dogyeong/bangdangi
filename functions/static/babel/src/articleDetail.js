@@ -59,13 +59,13 @@
                 if (checkBrowser() ===  "MOBILE")
                     window.location = `tel:${contact}`;
                 else
-                    window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요.`);
+                    window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요. 보신 링크를 함께 문자로 남겨주시면 빠른 상담을 도와드리겠습니다.`);
             }
             else if (type === "sms") {
                 if (checkBrowser() ===  "MOBILE")
                     window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=${window.location.href} 방단기에서 단기원룸 글 보고 문의드려요~`;
                 else
-                    window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요.`);  
+                    window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요. 보신 링크를 함께 문자로 남겨주시면 빠른 상담을 도와드리겠습니다.`);  
             }
             else window.location = `${contact}`;
         };

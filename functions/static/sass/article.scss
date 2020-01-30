@@ -210,6 +210,7 @@ header {
                 height: 32px;
                 text-align: center;
                 text-shadow: 0 0 4px #333;
+                cursor: pointer;
             }
 
             .slider_btn_l {
@@ -430,6 +431,29 @@ header {
             }
         }
         
+    }
+}
+
+/* 지도 블럭 */
+.map-block {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    margin-top: 16px;
+    padding: 20px;
+    background-color: $white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+
+    .map-title {
+        font-size: $fs_md;
+        font-weight: $fw_regular;
+        margin-bottom: 24px;
+    }
+    .map {
+        width: 100%;
+        height: 300px;
+        background-color: $article_bg_color;
     }
 }
 

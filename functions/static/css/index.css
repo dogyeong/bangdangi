@@ -172,10 +172,10 @@ body {
       .subBlock.b1 .b1_cards .b1_item {
         position: relative;
         top: 0;
-        width: 232px;
+        width: 256px;
         height: 100%;
         display: flex;
-        margin: 0 12px; }
+        padding: 0 12px; }
         .subBlock.b1 .b1_cards .b1_item .b1_item_content {
           width: 232px;
           background-color: #fff;
@@ -211,7 +211,7 @@ body {
           font-size: 16px;
           font-weight: 400; }
         .subBlock.b1 .b1_cards .b1_item .b1-more-icon {
-          margin-top: 12px;
+          margin-bottom: 12px;
           width: 36px;
           height: 36px;
           display: flex;
@@ -222,6 +222,9 @@ body {
           color: white; }
           .subBlock.b1 .b1_cards .b1_item .b1-more-icon i {
             font-size: 16px; }
+        @media only screen and (max-width: 600px) {
+          .subBlock.b1 .b1_cards .b1_item:last-child {
+            margin-right: 20px; } }
   .subBlock.b2 .b2_title {
     font-size: 36px;
     font-weight: 300;
@@ -245,8 +248,8 @@ body {
     .subBlock.b2 .b2_button button {
       width: 200px;
       padding: 16px 28px;
-      background: rgba(0, 0, 0, 0.75);
-      border: 1px solid rgba(0, 0, 0, 0.75);
+      background: #0ab9f1;
+      border: 1px solid #0ab9f1;
       display: inline-block;
       border-radius: 100px;
       color: white;
@@ -256,13 +259,7 @@ body {
       cursor: pointer;
       text-transform: none;
       margin: 0;
-      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
       box-sizing: border-box; }
-      .subBlock.b2 .b2_button button:hover {
-        background-color: transparent;
-        color: #3b3b46;
-        border: 1px solid transparent;
-        box-shadow: rgba(0, 0, 0, 0.3) 0px 7px 50px; }
   .subBlock.b3 {
     border-bottom: 1px solid #eee; }
     .subBlock.b3 .b3-title {
@@ -297,6 +294,26 @@ body {
           .subBlock.b3 .b3-contents .b3-content .b3-text .text {
             font-size: 16px;
             font-weight: 300; }
+    .subBlock.b3 .b3-button-container {
+      text-align: center;
+      margin-top: 80px; }
+      .subBlock.b3 .b3-button-container .b3-button {
+        text-align: center; }
+        .subBlock.b3 .b3-button-container .b3-button button {
+          width: 200px;
+          padding: 16px 28px;
+          background: #0ab9f1;
+          border: 1px solid #0ab9f1;
+          display: inline-block;
+          border-radius: 100px;
+          color: #fff;
+          font: inherit;
+          font-size: 16px;
+          font-weight: 400;
+          cursor: pointer;
+          text-transform: none;
+          margin: 0;
+          box-sizing: border-box; }
 
 /* PWA */
 button#butInstall {

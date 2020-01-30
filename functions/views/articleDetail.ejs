@@ -28,17 +28,21 @@
     <!-- SEO START -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta name="description"
+        content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
     <meta name="author" content="패러다임">
     <meta itemprop="name" content="방단기">
-    <meta itemprop="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta itemprop="description"
+        content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta name="twitter:title" content="방단기">
-    <meta name="twitter:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta name="twitter:description"
+        content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta property="og:title" content="방단기">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="방단기">
-    <meta property="og:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    <meta property="og:description"
+        content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
     <meta property="og:url" content="https://bangdangi.web.app/">
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
@@ -101,7 +105,7 @@
                 <h1 class="title">
                     <%= data.title || '' %>
                     <% if(done === true) {  %>
-                        <span class="done_container">거래완료</span>
+                    <span class="done_container">거래완료</span>
                     <% } %>
                 </h1>
                 <!-- 조회수 -->
@@ -148,13 +152,13 @@
                             </div>
                             <div class="cell_data">
                                 <% if(data.startDate === null && data.endDate === null) { %>
-                                    <% if(data['minTerm']) { %>
-                                    <%= data['minTerm']+'개월이상' %>
-                                    <% } %>
+                                <% if(data['minTerm']) { %>
+                                <%= data['minTerm']+'개월이상' %>
+                                <% } %>
                                 <% } else { %>
-                                    <%= data.startDate ? new Date(data.startDate.toMillis()).toLocaleDateString() : '' %>
-                                    <%= (data.startDate || data.endDate) ? ' ~ ' : '' %>
-                                    <%= data.endDate ? new Date(data.endDate.toMillis()).toLocaleDateString() : '' %>
+                                <%= data.startDate ? new Date(data.startDate.toMillis()).toLocaleDateString() : '' %>
+                                <%= (data.startDate || data.endDate) ? ' ~ ' : '' %>
+                                <%= data.endDate ? new Date(data.endDate.toMillis()).toLocaleDateString() : '' %>
                                 <% } %>
                             </div>
                         </div>
@@ -213,41 +217,50 @@
                     <i class="xi-arrow-left"></i> &nbsp; 다른 단기 원룸 보러가기
                 </a>
                 <% if (done === true) { %>
-                    <div class="contact_btn_container">
-                        <div class="contact_done">
-                            거래완료된 매물입니다
-                        </div>
+                <div class="contact_btn_container">
+                    <div class="contact_done">
+                        거래완료된 매물입니다
                     </div>
+                </div>
                 <% } else { %>
-                    <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
-                        <% if (data.contact && data.contact.length > 15) { %>
-                        <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>"
-                            href="javascript:void(0);">
-                            오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-                        </a>
-                        <% } else { %>
-                        <!-- 방단기에 문의하기 로 바꾸면서 주석처리
+                <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
+                    <% if (data.contact && data.contact.length > 15) { %>
+                    <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>"
+                        href="javascript:void(0);">
+                        오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
+                    </a>
+                    <% } else { %>
+                    <!-- 방단기에 문의하기 로 바꾸면서 주석처리
                         <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>"
                             href="javascript:void(0);">
                             <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
                         </a>
                         -->
-                        <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
-                            href="javascript:void(0);">
-                            <i class="xi-mail-o"></i> &nbsp;&nbsp; 방단기에 문의하기
-                        </a>
-                        <% } %>
-                    </div>
+                    <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
+                        href="javascript:void(0);">
+                        <i class="xi-mail-o"></i> &nbsp;&nbsp; 방단기에 문의하기
+                    </a>
+                    <% } %>
+                </div>
                 <% } %>
-                
+
             </div>
             <!-- 연락하기 버튼 블럭 END -->
             <ul class="sub-info xi-ul">
                 <li>
-                    <i class="xi-help-o xi-li"></i> 방단기의 모든 매물은 직거래 매물로 중개 수수료를 받지 않습니다. 다만, 안전을 위해 방단기 관리자가 계약까지 안내해 드리고 있습니다.
+                    <i class="xi-help-o xi-li"></i> 방단기의 모든 매물은 직거래 매물로 중개 수수료를 받지 않습니다. 다만, 안전을 위해 방단기 관리자가 계약까지 안내해
+                    드리고 있습니다.
                 </li>
             </ul>
         </div>
+
+        <!-- 지도 블럭 -->
+        <% if (data.position && data.position.latitude) { %>
+        <section class="map-block">
+            <div class="map-title">위치</div>
+            <div class="map"></div>
+        </section>
+        <% } %>
 
         <!-- 관련 매물 블럭 -->
         <div class="block3">
@@ -297,6 +310,37 @@
     }
 </script>
 <script src="../../../babel/dst/articleDetail.js"></script>
+
+
+<!-- 카카오 지도 js -->
+<% if (data.position && data.position.latitude) { %>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a"></script>
+<script>
+    var mapContainer = document.querySelector('.map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(<%=data.position.latitude %>, <%=data.position.longitude %>), // 지도의 중심좌표
+            level: 4 // 지도의 확대 레벨
+        };
+
+    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+    // 지도에 표시할 원을 생성합니다
+    var circle = new kakao.maps.Circle({
+        center: new kakao.maps.LatLng(<%=data.position.latitude %>, <%=data.position.longitude %>),  // 원의 중심좌표 입니다 
+        radius: 150, // 미터 단위의 원의 반지름입니다 
+        strokeWeight: 2, // 선의 두께입니다 
+        strokeColor: '#0ab9f1', // 선의 색깔입니다
+        strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+        strokeStyle: 'solid', // 선의 스타일 입니다
+        fillColor: '#0ab9f1', // 채우기 색깔입니다
+        fillOpacity: 0.5  // 채우기 불투명도 입니다   
+    });
+
+    // 지도에 원을 표시합니다 
+    circle.setMap(map); 
+</script>
+<% } %>
+
 
 <!-- Channel Plugin Scripts -->
 <!-- <script>
