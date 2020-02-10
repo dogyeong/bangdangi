@@ -9,12 +9,13 @@ const cors = require('cors')({
     origin: true
 });
 const db = admin.firestore();
+const model = require('../modules/model');
 const UNIV_OBJ = {
     pnu: '부산, 부산대',
     cnu: '대전, 충남대',
     mafo: '마포구,서대문구',
     seongdong: '성동구',
-    gwanak: '관악구, 동작구',
+    gwanak: '관악구, 동작구, 영등포구',
     dongdaemun: '동대문구',
     gangnam: '서초구, 강남구',
 }
@@ -28,16 +29,23 @@ router.get('/list/:univ', async (req, res, next) => {
     const priceKeywords = req.query.priceKeywords;
     let keywordList;
     let resultArr = [];
+    let review = [];
 
     // 선택한 지역의 장소 키워드 리스트를 가져온다 ---- 장소키워드만!
     keywordList = await getKeywordList(univ);
+    
     // 필터가 적용된 매물 리스트를 가져온다
     resultArr = await getFilteredArticleList(univ, locationKeywords, monthLimit, priceKeywords);
-    
+
+    // 거래완료된 매물중에 리뷰가 있는 매물들을 가져온다
+    review = await model.getReview(univ);
+    review = formatRoomList(review);
+
     let err = false;
     let roomList;
     if (resultArr.length > 0) { // 결과 존재
-        roomList = formatRoomList(resultArr);
+        roomList = addAd(formatRoomList(resultArr));
+        
     }
     else { // 결과 없음
         roomList = resultArr;
@@ -49,7 +57,7 @@ router.get('/list/:univ', async (req, res, next) => {
         date: monthLimit,
         price: priceKeywords
      }
-    return res.render('articleList', { roomList, keywordList, univ, univKo, filterOption, err });
+    return res.render('articleList', { roomList, review, keywordList, univ, univKo, filterOption, err });
 });
 
 getKeywordList = async (univ) => {
@@ -179,10 +187,16 @@ formatRoomList = (arr) => {
             new: formatNewArticle(doc) // boolean
         }
     });
-    // 길이가 5 이상이면 '이런방구해요'광고를 넣어준다
-    if (result.length > 4) 
-        result.splice(5, 0, { ad: true });
+    
     return result;
+}
+
+addAd = (arr) => {
+    // 길이가 5 이상이면 '이런방구해요'광고를 넣어준다
+    if (arr.length > 4) 
+        arr.splice(5, 0, { ad: true });
+
+    return arr;
 }
 
 formatDate = (date) => {

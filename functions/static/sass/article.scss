@@ -434,6 +434,34 @@ header {
     }
 }
 
+/* 후기 블럭 */
+.review-block {
+    width: 100%;
+    max-width: $content_max_width;
+    margin: auto;
+    padding: 20px;
+    background-color: $white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin-bottom: 16px;
+
+    @include respond-to(phone) {
+        margin-bottom: 0;
+    }
+
+    .review-title {
+        font-size: $fs_md;
+        font-weight: $fw_regular;
+        margin-bottom: 24px;
+    }
+
+    .review-text {
+        white-space: pre-line;
+        font-size: $fs_md;
+        font-weight: $fw_light;
+    }
+}
+
 /* 지도 블럭 */
 .map-block {
     width: 100%;

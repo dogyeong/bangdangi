@@ -123,7 +123,7 @@ header {
             margin-right: 12px;
             font-size: $fs_lg;
             cursor: pointer;
-        } 
+        }
     }
 
     /* 결과 필터 */
@@ -336,6 +336,7 @@ header {
         border-top: 1px solid rgba(0, 0, 0, 0.05);
 
         > a {
+            height: 201px;
             display: block;
             box-sizing: border-box;
             text-decoration: none;
@@ -347,6 +348,7 @@ header {
 
             .list_wrapper {
                 width: 100%;
+                height: 100%;
                 box-sizing: border-box;
                 display: flex;
                 justify-content: space-between;
@@ -473,6 +475,7 @@ header {
             }
         }
     }
+
     .request_container {
         margin: auto;
         padding: 28px 12px !important;
@@ -495,6 +498,174 @@ header {
             font-size: $fs_md;
             text-decoration: underline;
             font-weight: $fw_regular;
+        }
+    }
+
+    .review {
+        width: 100%;
+        max-width: $content_max_width;
+        margin: auto;
+        background-color: $white;
+        margin-top: 16px;
+
+        .review-title {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            font-size: $fs_md;
+            font-weight: $fw_regular;
+        }
+
+        .review-content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+            > a {
+                height: 201px;
+                display: block;
+                box-sizing: border-box;
+                text-decoration: none;
+                color: #333;
+                padding: 24px 16px;
+                background-color: $white;
+                width: 100%;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    
+                .list_wrapper {
+                    width: 100%;
+                    height: 100%;
+                    box-sizing: border-box;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: stretch;
+    
+                    .list_left {
+                        width: calc(100% - 144px);
+    
+                        .list_upper {
+                            width: 100%;
+                            margin-right: 4px;
+    
+                            .tag_container {
+                                font-weight: $fw_light;
+                                font-size: $fs_sm;
+                                margin-bottom: 4px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                width: 100%;
+                                white-space: nowrap;
+                                color: $white;
+                                padding: 2px 0;
+    
+                                span {
+                                    color: $white;
+                                    background-color: $grey;
+                                    padding: 1px 4px 2px 4px;
+                                    border-radius: 2px;
+                                    margin-right: 4px;
+                                    margin-bottom: 2px;
+                                    font-size: $fs_sm;
+                                    display: inline;
+                                }
+                            }
+    
+                            .price_container {
+                                color: $grey;
+                                font-weight: $fw_regular;
+                                font-size: $fs_xl;
+                                width: 100%;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+    
+                                .roomType {
+                                    color: $grey;
+                                    font-size: 20px;
+                                    font-weight: 500;
+                                }
+    
+                                .new {
+                                    font-size: 20px;
+                                    color: rgb(241, 83, 83);
+                                }
+                            }
+                        }
+    
+                        .list_mid {
+                            margin: 8px 0;
+                            font-size: 14px;
+                            color: #777;
+                            width: 100%;
+    
+                            > div {
+                                width: 100%;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+    
+                        .list_lower {
+                            font-size: $fs_xs;
+                            color: rgba(0, 0, 0, 0.4);
+    
+                            .keywords_container {
+                                position: relative;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                width: 100%;
+                                white-space: nowrap;
+    
+                                span {
+                                    padding: 2px 6px;
+                                    background-color: rgba(0, 0, 0, 0.03);
+                                    color: #777;
+                                    border-radius: 2px;
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+    
+                    .list_right {
+                        img {
+                            width: 10px;
+                            margin-right: 4px;
+                        }
+    
+                        .pic_container {
+                            width: 138px;
+                            height: 100%;
+                            position: relative;
+    
+                            > div {
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 8px;
+                            }
+                            .discount {
+                                color: $white;
+                                background-color: rgb(241, 83, 83);
+                                padding: 1px 4px 2px 4px;
+                                border-top-right-radius: 8px;
+                                border-bottom-left-radius: 8px;
+                                font-size: $fs_sm;
+                                display: block;
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

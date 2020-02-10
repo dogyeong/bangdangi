@@ -278,6 +278,7 @@
     background-color: #fff;
     border-top: 1px solid rgba(0, 0, 0, 0.05); }
     #lower #main > a {
+      height: 201px;
       display: block;
       box-sizing: border-box;
       text-decoration: none;
@@ -288,6 +289,7 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
       #lower #main > a .list_wrapper {
         width: 100%;
+        height: 100%;
         box-sizing: border-box;
         display: flex;
         justify-content: space-between;
@@ -399,6 +401,131 @@
       font-size: 16px;
       text-decoration: underline;
       font-weight: 400; }
+  #lower .review {
+    width: 100%;
+    max-width: 640px;
+    margin: auto;
+    background-color: #fff;
+    margin-top: 16px; }
+    #lower .review .review-title {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 400; }
+    #lower .review .review-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid rgba(0, 0, 0, 0.05); }
+      #lower .review .review-content > a {
+        height: 201px;
+        display: block;
+        box-sizing: border-box;
+        text-decoration: none;
+        color: #333;
+        padding: 24px 16px;
+        background-color: #fff;
+        width: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
+        #lower .review .review-content > a .list_wrapper {
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: space-between;
+          align-items: stretch; }
+          #lower .review .review-content > a .list_wrapper .list_left {
+            width: calc(100% - 144px); }
+            #lower .review .review-content > a .list_wrapper .list_left .list_upper {
+              width: 100%;
+              margin-right: 4px; }
+              #lower .review .review-content > a .list_wrapper .list_left .list_upper .tag_container {
+                font-weight: 300;
+                font-size: 14px;
+                margin-bottom: 4px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+                white-space: nowrap;
+                color: #fff;
+                padding: 2px 0; }
+                #lower .review .review-content > a .list_wrapper .list_left .list_upper .tag_container span {
+                  color: #fff;
+                  background-color: #888888;
+                  padding: 1px 4px 2px 4px;
+                  border-radius: 2px;
+                  margin-right: 4px;
+                  margin-bottom: 2px;
+                  font-size: 14px;
+                  display: inline; }
+              #lower .review .review-content > a .list_wrapper .list_left .list_upper .price_container {
+                color: #888888;
+                font-weight: 400;
+                font-size: 24px;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; }
+                #lower .review .review-content > a .list_wrapper .list_left .list_upper .price_container .roomType {
+                  color: #888888;
+                  font-size: 20px;
+                  font-weight: 500; }
+                #lower .review .review-content > a .list_wrapper .list_left .list_upper .price_container .new {
+                  font-size: 20px;
+                  color: #f15353; }
+            #lower .review .review-content > a .list_wrapper .list_left .list_mid {
+              margin: 8px 0;
+              font-size: 14px;
+              color: #777;
+              width: 100%; }
+              #lower .review .review-content > a .list_wrapper .list_left .list_mid > div {
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis; }
+            #lower .review .review-content > a .list_wrapper .list_left .list_lower {
+              font-size: 12px;
+              color: rgba(0, 0, 0, 0.4); }
+              #lower .review .review-content > a .list_wrapper .list_left .list_lower .keywords_container {
+                position: relative;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+                white-space: nowrap; }
+                #lower .review .review-content > a .list_wrapper .list_left .list_lower .keywords_container span {
+                  padding: 2px 6px;
+                  background-color: rgba(0, 0, 0, 0.03);
+                  color: #777;
+                  border-radius: 2px;
+                  font-size: 12px; }
+          #lower .review .review-content > a .list_wrapper .list_right img {
+            width: 10px;
+            margin-right: 4px; }
+          #lower .review .review-content > a .list_wrapper .list_right .pic_container {
+            width: 138px;
+            height: 100%;
+            position: relative; }
+            #lower .review .review-content > a .list_wrapper .list_right .pic_container > div {
+              width: 100%;
+              height: 100%;
+              border-radius: 8px; }
+            #lower .review .review-content > a .list_wrapper .list_right .pic_container .discount {
+              color: #fff;
+              background-color: #f15353;
+              padding: 1px 4px 2px 4px;
+              border-top-right-radius: 8px;
+              border-bottom-left-radius: 8px;
+              font-size: 14px;
+              display: block;
+              position: absolute;
+              top: 0;
+              right: 0; }
 
 /* main + roomList */
 .error_container {

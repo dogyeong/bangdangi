@@ -27,22 +27,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- SEO START -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
-  <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
-  <meta name="author" content="패러다임">
+  <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+  <meta name="keyword" content="방단기, 단기방, 서울 단기임대, 서울 단기원룸, 무보증 원룸, 원룸양도, 방임대, 방양도, 전대차">
+  <meta name="author" content="방단기">
   <meta itemprop="name" content="방단기">
   <meta itemprop="description"
-    content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
   <meta name="twitter:title" content="방단기">
   <meta name="twitter:description"
-    content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
+    content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
   <meta property="og:title" content="방단기">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="방단기">
   <meta property="og:description"
-    content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 대전원룸, 부산대원룸, 서울원룸, 부산원룸, 부경대원룸">
-  <meta property="og:url" content="https://bangdangi.web.app/">
-  <link rel="canonical" href="https://bangdangi.web.app/" />
+    content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+  <meta property="og:url" content="https://bangdangi.web.app/board/list/<%=univ%>">
+  <link rel="canonical" href="https://bangdangi.web.app/board/list/<%=univ%>"/>
   <!-- SEO END -->
   <title><%=univKo%> 단기원룸 | 방단기</title>
   <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
@@ -116,6 +116,7 @@
 
 
   <div id="lower">
+    <!-- 매물 리스트-->
     <div class="listTitle">
       매물 리스트
       <div class="sortBtnContainer">
@@ -123,96 +124,166 @@
         <span class="sortBtn" data-sortby="view">조회순</span>
       </div>
     </div>
-    <!-- 매물이 없을때는 에러메세지를 출력 -->
-    <% if (!err) { %>
-    <div id="main">
-      <% for ( room of roomList ) { %>
-      <% if ( room.ad ) { %>
-      <a class="request_container" href="/request">
-        <div class="request_text_container">
-          찾고있는 방이 없나요?<br />
-          방 요청을 등록하면 원하는 방을 무료로 찾아드립니다!
-        </div>
-        <div class="request_button_container">
-          방 요청하기
-        </div>
-      </a>
-      <% } else { %>
-      <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %> data-timeStamp=<%= room.timeStamp %>
-        data-views=<%= room.views %>>
-        <div class="list_wrapper">
-          <div class="list_left">
-            <div class="list_upper">
-              <div class="tag_container">
-                <% for (i of room.dateKeywords) { %>
-                <span><%= i %></span>
-                <% } %>
-              </div>
-              <div class="price_container">
-                <span class="roomType"><%= room.tradeType === null ? '' : room.tradeType %></span>
-                <%= `${room.deposit}/${room.price}` %>
-                <% if (room.new) { %>
-                <span class="new"><i class="xi-new"></i></span>
-                <% } %>
-              </div>
-            </div>
-            <div class="list_mid">
-              <div>
-                <%= room.line1 %>
-              </div>
-              <div>
-                <%= room.line2 %>
-              </div>
-            </div>
-            <div class="list_lower">
-              <div class="keywords_container">
-                <% for(i of room.keywords) { %>
-                <span><%=i%></span>
-                <% } %>
-              </div>
-            </div>
-          </div>
-          <div class="list_right">
-            <div class="pic_container">
-              <% if (room.urlType === 'mypnu') { %>
-              <div style="background: center / cover no-repeat url('../../img/mypnu_logo.png'), #f6f6f8;"></div>
-              <% } else if (room.urlType === 'everytime') { %>
-              <div style="background: center / cover no-repeat url('../../img/everytime_logo.png'), #f6f6f8;"></div>
-              <% } else if (room.urlType === 'peterpanz') { %>
-              <div style="background: center / cover no-repeat url('../../img/peterpanz_logo.png'), #f6f6f8;"></div>
-              <% } else if (room.urlType === 'dabang') { %>
-              <div style="background: center / cover no-repeat url('../../img/dabang_logo.png'), #f6f6f8;"></div>
-              <% } else if (room.imageURL !== null) { %>
-              <div style="background: center / cover no-repeat url('<%=room.imageURL%>');"></div>
-              <% } else { %>
-              <div style="background: center / cover no-repeat url('../../img/bangdangi_logo_3.png'), #f6f6f8;"></div>
-              <% } %>
-              <% for (i of room.discountKeywords) { %>
-              <span class="discount"><%= i %></span>
-              <% } %>
-            </div>
-          </div>
-        </div>
-      </a>
-      <% } %>
 
-      <% } %>
-    </div>
+    <% if (!err) { %>
+      <!-- 매물 컨테이너 -->
+      <div id="main">
+        <% for ( room of roomList ) { %>
+        <% if ( room.ad ) { %>
+        <a class="request_container" href="/request">
+          <div class="request_text_container">
+            찾고있는 방이 없나요?<br />
+            방 요청을 등록하면 원하는 방을 무료로 찾아드립니다!
+          </div>
+          <div class="request_button_container">
+            방 요청하기
+          </div>
+        </a>
+        <% } else { %>
+        <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %> data-timeStamp=<%= room.timeStamp %>
+          data-views=<%= room.views %>>
+          <div class="list_wrapper">
+            <div class="list_left">
+              <div class="list_upper">
+                <div class="tag_container">
+                  <% for (i of room.dateKeywords) { %>
+                  <span><%= i %></span>
+                  <% } %>
+                </div>
+                <div class="price_container">
+                  <span class="roomType"><%= room.tradeType === null ? '' : room.tradeType %></span>
+                  <%= `${room.deposit}/${room.price}` %>
+                  <% if (room.new) { %>
+                  <span class="new"><i class="xi-new"></i></span>
+                  <% } %>
+                </div>
+              </div>
+              <div class="list_mid">
+                <div>
+                  <%= room.line1 %>
+                </div>
+                <div>
+                  <%= room.line2 %>
+                </div>
+              </div>
+              <div class="list_lower">
+                <div class="keywords_container">
+                  <% for(i of room.keywords) { %>
+                  <span><%=i%></span>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+            <div class="list_right">
+              <div class="pic_container">
+                <% if (room.urlType === 'mypnu') { %>
+                <div style="background: center / cover no-repeat url('../../img/mypnu_logo.png'), #f6f6f8;"></div>
+                <% } else if (room.urlType === 'everytime') { %>
+                <div style="background: center / cover no-repeat url('../../img/everytime_logo.png'), #f6f6f8;"></div>
+                <% } else if (room.urlType === 'peterpanz') { %>
+                <div style="background: center / cover no-repeat url('../../img/peterpanz_logo.png'), #f6f6f8;"></div>
+                <% } else if (room.urlType === 'dabang') { %>
+                <div style="background: center / cover no-repeat url('../../img/dabang_logo.png'), #f6f6f8;"></div>
+                <% } else if (room.imageURL !== null) { %>
+                <div style="background: center / cover no-repeat url('<%=room.imageURL%>');"></div>
+                <% } else { %>
+                <div style="background: center / cover no-repeat url('../../img/bangdangi_logo_3.png'), #f6f6f8;"></div>
+                <% } %>
+                <% for (i of room.discountKeywords) { %>
+                <span class="discount"><%= i %></span>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </a>
+        <% } %>
+
+        <% } %>
+      </div>
     <% } else { %>
-    <div class="error_container">
-      <i class="xi-error-o"> <%= err %></i>
-    </div>
+      <!-- 매물이 없을때는 에러메세지를 출력 -->
+      <div class="error_container">
+        <i class="xi-error-o"> <%= err %></i>
+      </div>
     <% } %>
+
+    <!-- 매물 수가 적을때는 아래에 '방 요청하기' 표시 -->
     <% if (roomList.length < 5) { %>
-    <div class="request_container">
-      <p>
-        찾고있는 방이 없나요?<br>
-        방 요청을 등록하면 원하는 방을 찾아드립니다!
-      </p>
-      <a href="http://pf.kakao.com/_fCxjwT/chat">방 요청하기</a>
-    </div>
+      <div class="request_container">
+        <p>
+          찾고있는 방이 없나요?<br>
+          방 요청을 등록하면 원하는 방을 찾아드립니다!
+        </p>
+        <a href="http://pf.kakao.com/_fCxjwT/chat">방 요청하기</a>
+      </div>
     <% } %>
-  </div>
+
+    <!-- 거래 완료된 매물 -->
+    <% if (review.length > 0) { %>
+      <div class="review">
+        <div class="review-title">거래 완료된 매물</div>
+        <div class="review-content">
+          <% for (room of review) { %>
+            <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %>>
+              <div class="list_wrapper">
+                <div class="list_left">
+                  <div class="list_upper">
+                    <div class="tag_container">
+                      <span>거래완료</span>
+                    </div>
+                    <div class="price_container">
+                      <span class="roomType"><%= room.tradeType === null ? '' : room.tradeType %></span>
+                      <%= `${room.deposit}/${room.price}` %>
+                      <% if (room.new) { %>
+                      <span class="new"><i class="xi-new"></i></span>
+                      <% } %>
+                    </div>
+                  </div>
+                  <div class="list_mid">
+                    <div>
+                      <%= room.line1 %>
+                    </div>
+                    <div>
+                      <%= room.line2 %>
+                    </div>
+                  </div>
+                  <div class="list_lower">
+                    <div class="keywords_container">
+                      <% for(i of room.keywords) { %>
+                      <span><%=i%></span>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+                <div class="list_right">
+                  <div class="pic_container">
+                    <% if (room.urlType === 'mypnu') { %>
+                    <div style="background: center / cover no-repeat url('../../img/mypnu_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.urlType === 'everytime') { %>
+                    <div style="background: center / cover no-repeat url('../../img/everytime_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.urlType === 'peterpanz') { %>
+                    <div style="background: center / cover no-repeat url('../../img/peterpanz_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.urlType === 'dabang') { %>
+                    <div style="background: center / cover no-repeat url('../../img/dabang_logo.png'), #f6f6f8;"></div>
+                    <% } else if (room.imageURL !== null) { %>
+                    <div style="background: center / cover no-repeat url('<%=room.imageURL%>');"></div>
+                    <% } else { %>
+                    <div style="background: center / cover no-repeat url('../../img/bangdangi_logo_3.png'), #f6f6f8;"></div>
+                    <% } %>
+                    <% for (i of room.discountKeywords) { %>
+                    <span class="discount"><%= i %></span>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </a>
+          <% } %>
+        </div>
+        
+      </div>
+    <% } %>
+  </div> <!-- END OF lower -->
+
 
   <!-- footer -->
   <%- include('templates/footer') %>

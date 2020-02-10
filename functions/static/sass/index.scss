@@ -7,7 +7,7 @@
 @import "variables.scss";
 
 /* local variables */
-$bg_url: "../img/main_bg.jpg";
+$bg_url: "../img/index/main_bg2.jpg";
 $header_height: 58px;
 $content_max_width: 1104px;
 
@@ -19,7 +19,7 @@ body {
 
 /* main block */
 .mainBlock {
-    height: calc(100% - #{$header_height});
+    height: 100%;
     position: relative;
     width: 100%;
     background: url($bg_url) center center / cover no-repeat;
@@ -139,7 +139,7 @@ body {
 }
 
 /*
-* sub block
+* sub blocks
 */
 .subBlock {
     width: 100%;
@@ -296,8 +296,8 @@ body {
             button {
                 width: 200px;
                 padding: 16px 28px;
-                background: $main_color;
-                border: 1px solid $main_color;
+                background: $font_color;
+                border: 1px solid $font_color;
                 display: inline-block;
                 border-radius: 100px;
                 color: white;
@@ -308,6 +308,12 @@ body {
                 text-transform: none;
                 margin: 0;
                 box-sizing: border-box;
+                transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+                    
+                &:hover {
+                    background: $main_color;
+                    border: 1px solid $main_color;
+                }
             }
         }
     }
@@ -369,8 +375,8 @@ body {
                 button {
                     width: 200px;
                     padding: 16px 28px;
-                    background: $main_color;
-                    border: 1px solid $main_color;
+                    background: $font_color;
+                    border: 1px solid $font_color;
                     display: inline-block;
                     border-radius: 100px;
                     color: $white;
@@ -381,6 +387,12 @@ body {
                     text-transform: none;
                     margin: 0;
                     box-sizing: border-box;
+                    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+
+                    &:hover {
+                        background: $main_color;
+                        border: 1px solid $main_color;
+                    }
                 }
             }
         }

@@ -11,6 +11,7 @@ const request = require("request-promise");
 const cors = require("cors")({
     origin: true,
 });
+const model = require("../modules/model.js")
 
 // VAPID keys should only be generated only once.
 const vapidKeys = {
@@ -20,18 +21,13 @@ const vapidKeys = {
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-    var db = admin.firestore();
-    // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
-    db.collectionGroup("articles")
-        .where("display", "==", true)
-        .where("done", "==", false)
-        .orderBy("createdAt", "desc")
-        .limit(3)
-        .get()
-        .then(result => {
-            // 들고온 매물들을 배열로 만들고
-            let newArticleArr = result.docs.map(doc => doc.data()).filter(doc => (doc.images ? true : false));
-            // index 렌더링할 때 넘겨준다
+
+    // display: true
+    // done: false
+    // limit: 3
+    model.getLatestArticles(3)
+        .then(newArticleArr => {
+
             return res.render("index", {
                 newArticleArr,
                 vapidPublicKey: vapidKeys.publicKey,
@@ -122,19 +118,5 @@ router.get("/register", (req, res) => {
 router.get("/notice", (req, res) => {
     return res.render("notice");
 });
-
-async function getArticleList(collection) {
-    let arr = [];
-    await collection
-        .where("done", "==", false)
-        .where("display", "==", true)
-        .get()
-        .then(docs => {
-            return (arr = docs.map(doc => doc.data()));
-        })
-        .catch(err => console.log(err));
-
-    return arr;
-}
 
 module.exports = router;

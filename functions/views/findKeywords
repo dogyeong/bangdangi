@@ -1,3 +1,5 @@
+// 키워드?
+
 async function f(u) {
 	console.log(`${u}: start..`);
 
@@ -47,3 +49,24 @@ async function f(u) {
 
 ['pnu','cnu','hanyang','hankyong','dongdaemun','pknu']
 .forEach((u) => f(u));
+
+
+
+// db에 필드 새로 추가하기 ----------------------------------------------------------
+
+function f(p) {
+    db.collection(`article/${p}/articles`)
+    .get()
+    .then(res => res.docs)
+    .then(docs => docs.forEach(doc => {
+                     
+        db.doc(`article/${p}/articles/${doc.id}`)
+        .update({
+            position:null // 새로운 필드
+        })
+    }))
+    .catch(err => console.log(err))
+} 
+
+['pnu','cnu','seongdong','dongdaemun','pknu', 'cuk', 'gangnam', 'gwanak', 'yangcheon', 'mafo']
+.forEach(i => f(i));

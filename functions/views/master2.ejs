@@ -41,11 +41,12 @@
                 <optgroup label="서울">
                     <option value="gangnam">서초구,강남구</option>
                     <option value="cuk">카톨릭대학교</option>
-                    <option value="mafo">마포구,서대문구(연세대/이화여대/홍익대)</option>
+                    <option value="mafo">마포구,서대문구</option>
                     <option value="gwanak">관악구,동작구,영등포구</option>
                     <option value="skku">성균관대학교</option>
-                    <option value="dongdaemun">동대문구(한국외대/경희대/서울시립대학교)</option>
-                    <option value="seongdong">성동구(한양대)</option>
+                    <option value="dongdaemun">동대문구</option>
+                    <option value="seongdong">성동구</option>
+                    <option value="yangcheon">양천구,강서구</option>
                 </optgroup>
                 <optgroup label="대전">
                     <option value="cnu">충남대학교</option>
@@ -81,7 +82,7 @@
                 <div class="id_container"></div>
                 <div class="update_confirm"><i class="xi-check-circle-o"></i>업데이트</div>
                 <div class="update_delete"><i class="xi-close-circle-o"></i>삭제</div>
-            </div>   
+            </div>
             <div class="update_close" onclick="closeUpdateBox();"><i class="xi-close"></i></div>
         </div>
         <div class="update_content">
@@ -148,6 +149,13 @@
                 <div class="field_title" data-field="text">text</div>
                 <div class="field_value" data-container="text">
                     <textarea data-field="text"></textarea>
+                </div>
+            </div>
+            <!-- review -->
+            <div class="field_container" data-field="review" data-type="text">
+                <div class="field_title" data-field="review">review</div>
+                <div class="field_value" data-container="review">
+                    <textarea data-field="review"></textarea>
                 </div>
             </div>
             <!-- startDate -->
@@ -314,15 +322,16 @@
             <div class="loading-dot"></div>
         </div>
     </div>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-messaging.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.3/firebase-analytics.js"></script>
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -430,6 +439,7 @@
                             "방층수",
                             "방형태",
                             "남성/여성전용",
+                            "후기",
                             "사진개수",
                             "url",
                             "연락처",
@@ -460,6 +470,7 @@
                             { data: "floor", renderer: textRenderer },
                             { data: "roomType", renderer: textRenderer },
                             { data: "only", renderer: textRenderer },
+                            { data: "review", renderer: textRenderer },
                             { data: "images", renderer: textRenderer },
                             { data: "url", renderer: textRenderer },
                             { data: "contact", renderer: textRenderer },
@@ -518,6 +529,7 @@
                         title: null,
                         views: 0,
                         position: null,
+                        review: null,
                     })
                     .then(docRef => {
                         return docRef.update({ url: `https://bangdangi.web.app/board/read/${select.value}/${docRef.id}` });
@@ -552,7 +564,7 @@
         };
         var selectionCallback = (data, hot) => {
             //  check selection
-            if (data[3] !== 26 || data[0] !== data[2]) return;
+            if (data[3] !== 27 || data[0] !== data[2]) return;
             let id = hot.getDataAtRow(data[0])[0];
             openUpdateBox(id);
         };
@@ -578,6 +590,8 @@
             showUpdateLoading();
             // 입력폼 초기화
             initUpdateBox();
+            // 지도 초기화
+            inintKakaoMap();
             // id, 매물 데이터를 가져온다
             document.querySelector(".id_container").innerText = id;
             firebase
@@ -636,7 +650,7 @@
                     // null
                     document.querySelector(`.field_title[data-field="${i}"]`).classList.add("null");
                     document.querySelector(`.field_value[data-container="${i}"]`).classList.add("null");
-                } else if (i === "text") {
+                } else if (i === "text" || i === "review") {
                     document.querySelector(`textarea[data-field="${i}"]`).value = data[i];
                 } else if (type === "string")
                     // string
@@ -925,30 +939,38 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a"></script>
     <script>
-        var mapContainer = document.querySelector('.map'), // 지도를 표시할 div 
+        var mapContainer, mapOption, map, marker;
+
+        var inintKakaoMap = function () {
+            mapContainer = document.querySelector('.map') // 지도를 표시할 div 
+            mapContainer.innerHTML = '';
+            
             mapOption = {
                 center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+            map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-        // 지도를 클릭한 위치에 표출할 마커입니다
-        var marker = new kakao.maps.Marker({
-            // 지도 중심좌표에 마커를 생성합니다 
-            position: map.getCenter()
-        });
-        // 지도에 마커를 표시합니다
-        marker.setMap(map);
+            // 지도를 클릭한 위치에 표출할 마커입니다
+            marker = new kakao.maps.Marker({
+                // 지도 중심좌표에 마커를 생성합니다 
+                position: map.getCenter()
+            });
+            // 지도에 마커를 표시합니다
+            marker.setMap(map);
 
-        // 지도에 클릭 이벤트를 등록합니다
-        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-            // 클릭한 위도, 경도 정보를 가져옵니다 
-            var latlng = mouseEvent.latLng;
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-        });
+            // 지도에 클릭 이벤트를 등록합니다
+            // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+            kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+                // 클릭한 위도, 경도 정보를 가져옵니다 
+                var latlng = mouseEvent.latLng;
+                // 마커 위치를 클릭한 위치로 옮깁니다
+                marker.setPosition(latlng);
+            });
+        }
+
+        inintKakaoMap();
     </script>
 
     <!-- 푸시알림 코드 -->

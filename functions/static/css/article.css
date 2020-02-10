@@ -342,6 +342,28 @@ header #header_inner {
         font-size: 14px;
         font-weight: 300; }
 
+/* 후기 블럭 */
+.review-block {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin-bottom: 16px; }
+  @media only screen and (max-width: 600px) {
+    .review-block {
+      margin-bottom: 0; } }
+  .review-block .review-title {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 24px; }
+  .review-block .review-text {
+    white-space: pre-line;
+    font-size: 16px;
+    font-weight: 300; }
+
 /* 지도 블럭 */
 .map-block {
   width: 100%;

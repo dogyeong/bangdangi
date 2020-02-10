@@ -75,13 +75,13 @@ footer {
             a {
                 display: inline-block;
                 color: inherit;
-                margin-left: 12px;
+                margin-right: 12px;
                 @include respond-to(phone) {
                     margin: 0 6px;
                 }
             }
             i {
-                font-size: $fs_xl;
+                font-size: $fs_2xl;
             }
         }
     }

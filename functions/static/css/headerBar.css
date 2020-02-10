@@ -15,12 +15,20 @@
 /* media query */
 /* headerBar local variables */
 header {
-  display: block;
+  position: fixed;
   box-sizing: border-box;
   word-break: keep-all;
   width: 100%;
-  background-color: #fff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07); }
+  background-color: transparent;
+  box-shadow: none;
+  top: 0;
+  left: 0;
+  z-index: 100; }
+  header.filled {
+    background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07); }
+    header.filled #header_inner .nav li > a {
+      color: #3b3b46; }
   header #header_inner {
     max-width: 1064px;
     height: 58px;
@@ -48,12 +56,13 @@ header {
       padding: 0 16px;
       height: 36px;
       line-height: 36px;
-      color: #3b3b46;
-      font-size: 14px;
-      font-weight: 400; }
+      color: #3b3b46; }
       @media only screen and (max-width: 600px) {
         header #header_inner .nav li {
           font-size: 14px;
           padding: 0px 4px; } }
       header #header_inner .nav li > a {
-        width: 100%; }
+        width: 100%;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700; }

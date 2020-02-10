@@ -7,17 +7,17 @@
     <!-- SEO START -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
-    <meta name="keyword" content="방단기, 원룸임대, 원룸양도, 방임대, 방양도, 보증금">
+    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="keyword" content="방단기, 단기방, 서울 단기임대, 서울 단기원룸, 무보증 원룸, 원룸양도, 방임대, 방양도, 전대차">
     <meta name="author" content="패러다임">
     <meta itemprop="name" content="방단기">
-    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
     <meta name="twitter:title" content="방단기">
-    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
     <meta property="og:title" content="방단기">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="방단기">
-    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도">
+    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
     <meta property="og:url" content="https://bangdangi.web.app/">
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
@@ -30,21 +30,21 @@
 <body>
     <div id="container">
         <div class="login_container">
-                <div class="logo_container">
-                    <a href="https://bangdangi.web.app/"><img src="../img/bangdangi_logo_2.png"></a>
-                </div>
-                <div class="btn_container">
-                    <p>다른 서비스 계정으로 간편하게 로그인/회원가입</p>
-                    <button class="google_btn">
-                        <img src="../img/google_logo.svg"><span>구글 계정으로 로그인</span>
-                    </button>
-                    <button class="kakao_btn">
-                        <img src="../img/kakao_logo.svg"><span>카카오 계정으로 로그인</span>
-                    </button>
+            <div class="logo_container">
+                <a href="https://bangdangi.web.app/"><img src="../img/bangdangi_logo_2.png"></a>
+            </div>
+            <div class="btn_container">
+                <p>다른 서비스 계정으로 간편하게 로그인/회원가입</p>
+                <button class="google_btn">
+                    <img src="../img/google_logo.svg"><span>구글 계정으로 로그인</span>
+                </button>
+                <button class="kakao_btn">
+                    <img src="../img/kakao_logo.svg"><span>카카오 계정으로 로그인</span>
+                </button>
                 </img>
+            </div>
+
         </div>
-          
-    </div>
 </body>
 <script src="/__/firebase/6.6.1/firebase-app.js"></script>
 <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
@@ -118,28 +118,28 @@
         Kakao.Auth.login({
             success: function (authObj) {
                 console.log(JSON.stringify(authObj));
-                fetch('https://bangdangi.web.app/user/kakaoLogin', { 
-                    method: 'POST', 
+                fetch('https://bangdangi.web.app/user/kakaoLogin', {
+                    method: 'POST',
                     headers: {
                         'Accept': 'application/json, text/plain, */*',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(authObj)
                 })
-                .then((res) => res.text())
-                .then((firebaseToken) => firebase.auth().signInWithCustomToken(firebaseToken))
-                .then((result) => {
-                    return result.user.getIdToken().then((idToken) => {
-                        return postIdTokenToSessionLogin('/user/sessionLogin', { idToken });
-                    })   
-                })
-                .then(() => {
-                    firebase.auth().signOut();
-                })
-                .catch((e) => {
-                    alert("로그인에 실패했습니다.");
-                    console.log(e);
-                });
+                    .then((res) => res.text())
+                    .then((firebaseToken) => firebase.auth().signInWithCustomToken(firebaseToken))
+                    .then((result) => {
+                        return result.user.getIdToken().then((idToken) => {
+                            return postIdTokenToSessionLogin('/user/sessionLogin', { idToken });
+                        })
+                    })
+                    .then(() => {
+                        firebase.auth().signOut();
+                    })
+                    .catch((e) => {
+                        alert("로그인에 실패했습니다.");
+                        console.log(e);
+                    });
             },
             fail: function (err) {
                 console.log(JSON.stringify(err));
@@ -147,7 +147,7 @@
         });
     };
     //]]>
-    
+
     googleBtn.addEventListener('click', googleSignIn);
     kakaoBtn.addEventListener('click', loginWithKakao);
 </script>

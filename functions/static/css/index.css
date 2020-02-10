@@ -21,10 +21,10 @@ body {
 
 /* main block */
 .mainBlock {
-  height: calc(100% - 58px);
+  height: 100%;
   position: relative;
   width: 100%;
-  background: url("../img/main_bg.jpg") center center/cover no-repeat;
+  background: url("../img/index/main_bg2.jpg") center center/cover no-repeat;
   background-color: rgba(44, 40, 40, 0.45);
   background-blend-mode: multiply; }
   .mainBlock .mainBlockContainer {
@@ -122,7 +122,7 @@ body {
           appearance: none; }
 
 /*
-* sub block
+* sub blocks
 */
 .subBlock {
   width: 100%;
@@ -248,8 +248,8 @@ body {
     .subBlock.b2 .b2_button button {
       width: 200px;
       padding: 16px 28px;
-      background: #0ab9f1;
-      border: 1px solid #0ab9f1;
+      background: #3b3b46;
+      border: 1px solid #3b3b46;
       display: inline-block;
       border-radius: 100px;
       color: white;
@@ -259,7 +259,11 @@ body {
       cursor: pointer;
       text-transform: none;
       margin: 0;
-      box-sizing: border-box; }
+      box-sizing: border-box;
+      transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s; }
+      .subBlock.b2 .b2_button button:hover {
+        background: #0ab9f1;
+        border: 1px solid #0ab9f1; }
   .subBlock.b3 {
     border-bottom: 1px solid #eee; }
     .subBlock.b3 .b3-title {
@@ -302,8 +306,8 @@ body {
         .subBlock.b3 .b3-button-container .b3-button button {
           width: 200px;
           padding: 16px 28px;
-          background: #0ab9f1;
-          border: 1px solid #0ab9f1;
+          background: #3b3b46;
+          border: 1px solid #3b3b46;
           display: inline-block;
           border-radius: 100px;
           color: #fff;
@@ -313,7 +317,11 @@ body {
           cursor: pointer;
           text-transform: none;
           margin: 0;
-          box-sizing: border-box; }
+          box-sizing: border-box;
+          transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s; }
+          .subBlock.b3 .b3-button-container .b3-button button:hover {
+            background: #0ab9f1;
+            border: 1px solid #0ab9f1; }
 
 /* PWA */
 button#butInstall {
