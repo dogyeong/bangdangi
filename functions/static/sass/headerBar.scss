@@ -10,23 +10,24 @@
 $header_max_width: 1064px;
 $header_height: 58px;
 
-header {
+header { 
     position: fixed;
     box-sizing: border-box;
     word-break: keep-all;
     width: 100%;
-    background-color: transparent;
-    box-shadow: none;
+    background-color: $white;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
     top: 0;
     left: 0;
     z-index: 100;
-
-    &.filled {
-        background-color: $white;
-        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
+    transition: all .2s ease-out;
+    
+    &.transparent {
+        background-color: transparent;
+        box-shadow: none;
 
         #header_inner .nav li > a {
-            color: $font_color;
+            color: $white;
         }
     }
 
@@ -73,10 +74,14 @@ header {
 
                 > a {
                     width: 100%;
-                    color: $white;
+                    color: $font_color;
+                    transition: color .2s ease-out;
                     font: {
                         size: $fs_md;
                         weight: $fw_bold;
+                    }
+                    &:hover {
+                        color: $main_color;
                     }
                 }
             }

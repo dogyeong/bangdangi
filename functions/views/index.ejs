@@ -50,6 +50,7 @@
   <link rel="stylesheet" type="text/css" href="css/headerBar.css" />
   <link rel="stylesheet" type="text/css" href="css/footer.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <link rel="stylesheet" type="text/css" href="css/polyfill.object-fit.css" />
   <!-- STYLE END -->
   <!-- PWA START-->
   <!-- <link rel="manifest" href="/manifest.json"> -->
@@ -67,25 +68,25 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <!-- 헤더 -->
-  <header>
-    <nav id="header_inner">
-      <a class="header_logo" href="https://bangdangi.web.app/">
-        <img src="img/bangdangi_logo_2.png" alt="방단기 홈">
-      </a>
-      <ul class="nav">
-        <li><a href="/request">이런방구해요</a></li>
-        <li><a href="/register">매물등록</a></li>
-      </ul>
-    </nav>
-  </header>
+
+  <!-- GNB -->
+  <%- include('templates/gnb') %>
+
   <!-- 메인 배너 -->
   <div class="mainBlock">
+
+    <!-- 메인배너 배경-->
+    <picture>
+      <source media="(max-width: 600px)" srcset="/img/index/bg_600.jpg">
+      <img src="/img/index/bg.jpg" alt="방단기 메인배너 배경사진">
+    </picture>
+
     <div class="mainBlockContainer">
       <div class="mainBlockDivider">
         <div class="mainCopy">
           <h1>찾아다닐 필요없이<br>모든 단기원룸을 한번에</h1>
           <p>
-            방단기는 20개가 넘는 부동산 커뮤니티에서<br />단기 원룸을 찾아 매일 업로드하고 있습니다.<br />
+            방단기는 여러 부동산 커뮤니티에서<br />단기 원룸을 찾아 매일 업로드하고 있습니다.<br />
             지금 무료로 원하는 방을 찾아보세요.
           </p>
         </div>
@@ -95,6 +96,22 @@
 
       </div>
     </div>
+
+    <!-- 스크롤 표시 -->
+    <i class="xi-angle-down-thin"></i>
+
+  </div>
+
+  <!-- 리뷰 -->
+  <div class="review-block subBlock">
+    <div class="subBlock_container">
+      <div class="review-title">
+        거래후기
+      </div>
+      <ul class="review-list">
+
+      </ul>
+    </div>
   </div>
   <!-- 새로 등록된 매물 -->
   <div class="subBlock b1">
@@ -102,97 +119,100 @@
       <div class="b1_title">
         새로 등록된 매물
       </div>
-      <div class="b1-sub">
-        방단기의 새로운 매물들을 알려드립니다
-      </div>
-      <div class="b1_cards">
+      <ul class="b1_cards">
         <% for (i of newArticleArr) { %>
-        <a href="<%= i.url %>" class="b1_item">
-          <div class="b1_item_content">
-            <div class="b1_item_img"
-              style="background: url('<%= i.images ? i.images[0] : "" %>') center center / cover no-repeat, #ddd;">
+        <li>
+
+          <a href="<%= i.url %>" class="b1_item">
+            <div class="b1_item_content">
+              <div class="b1_item_img"
+                style="background: url('<%= i.images ? i.images[0] : "" %>') center center / cover no-repeat, #ddd;">
+              </div>
+              <div class="b1_item_text">
+                <span class="new-text-1"><%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %></span><br />
+                <span class="new-text-2">
+                  <% if(i.startDate === null && i.endDate === null) { %>
+                  <% if(i['minTerm']) { %>
+                  <%= i['minTerm']+'개월이상' %>
+                  <% } %>
+                  <% } else { %>
+                  <%= i.startDate ? new Date(i.startDate.toMillis()).toLocaleDateString() : '' %>
+                  <%= (i.startDate || i.endDate) ? ' ~ ' : '' %>
+                  <%= i.endDate ? new Date(i.endDate.toMillis()).toLocaleDateString() : '' %>
+                  <% } %>
+                </span>
+              </div>
             </div>
-            <div class="b1_item_text">
-              <%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %>
-              <br>
-              <% if(i.startDate === null && i.endDate === null) { %>
-              <% if(i['minTerm']) { %>
-              <%= i['minTerm']+'개월이상' %>
-              <% } %>
-              <% } else { %>
-              <%= i.startDate ? new Date(i.startDate.toMillis()).toLocaleDateString() : '' %>
-              <%= (i.startDate || i.endDate) ? ' ~ ' : '' %>
-              <%= i.endDate ? new Date(i.endDate.toMillis()).toLocaleDateString() : '' %>
-              <% } %>
-            </div>
-          </div>
-        </a>
+          </a>
+
+        </li>
         <% } %>
-        <a href="/board/list/gwanak" class="b1_item">
-          <div class="b1_item_content b1-more">
-            <div class="b1-more-icon">
-              <i class="xi-arrow-right"></i>
-            </div>
-            다른 단기 원룸 보러가기
-          </div>
+      </ul>
+
+      <div class="b1-button-container">
+        <a class="b1-button">
+          <button>새 매물 더 보기 &#xE001;</button>
         </a>
       </div>
+
     </div>
   </div>
+
   <!-- 방단기 이용 가이드 -->
   <div class="subBlock b3">
     <div class="subBlock_container">
       <div class="b3-title">
         방단기 이용 가이드
       </div>
-      <div class="b3-contents">
-        <div class="b3-content">
+      <ol class="b3-contents">
+        <li class="b3-content">
           <div class="b3-img">
             <object data="/img/index/b3-01.svg" type="image/svg+xml"></object>
           </div>
           <div class="b3-text">
             <div class="title">
-              STEP 01. 방 찾기
+              1. 방 찾기
             </div>
             <div class="text">
               방단기에서 원하는 기간, 조건의 방을 온라인으로 손쉽게 찾아보세요.
             </div>
           </div>
-        </div>
-        <div class="b3-content">
+        </li>
+        <li class="b3-content">
           <div class="b3-img">
             <object data="/img/index/b3-02.svg" type="image/svg+xml"></object>
           </div>
           <div class="b3-text">
             <div class="title">
-              STEP 02. 연락하기
+              2. 연락하기
             </div>
             <div class="text">
               마음에 드는 방을 발견하셨다면 연락하기 버튼을 눌러 방을 보러 갈 날짜를 조율하세요.
             </div>
           </div>
-        </div>
-        <div class="b3-content">
+        </li>
+        <li class="b3-content">
           <div class="b3-img">
             <object data="/img/index/b3-03.svg" type="image/svg+xml"></object>
           </div>
           <div class="b3-text">
             <div class="title">
-              STEP 03. 안전 거래하기
+              3. 안전 거래하기
             </div>
             <div class="text">
               방이 마음에 드셨다면, 방단기 관리자의 안내에 따라 안전하게 계약을 완료하세요.
             </div>
           </div>
-        </div>
-      </div>
+        </li>
+      </ol>
       <div class="b3-button-container">
         <a class="b3-button">
-          <button>단기 원룸 보러가기</button>
+          <button>단기 원룸 보러가기 &#xE001;</button>
         </a>
       </div>
     </div>
   </div>
+
   <!-- 매물 등록하기 -->
   <div class="subBlock b2">
     <div class="subBlock_container">
@@ -203,8 +223,8 @@
         매물을 등록하시면<br>방단기에서 무료로 홍보해 드립니다
       </div>
       <div class="b2_button">
-        <a href="//pf.kakao.com/_HxcGdT/chat">
-          <button>지금 등록하기</button>
+        <a href="/register">
+          <button>지금 등록하기 &#xE001;</button>
         </a>
       </div>
     </div>
@@ -219,6 +239,16 @@
 
   <script src="https://cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
   <script src="babel/dst/index.js"></script>
+  <!--  배경 object-fit 속성 pollyfill -->
+  <script src="js/polyfill.object-fit.min.js"></script>
+  <script>
+    objectFit.polyfill({
+      selector: 'img', // this can be any CSS selector
+      fittype: 'cover', // either contain, cover, fill or none
+      disableCrossDomain: 'true' // either 'true' or 'false' to not parse external CSS files.
+    });
+  </script>
+
 
   <!-- PWA JS -->
   <!-- <script src="babel/dst/install.js"></script> -->

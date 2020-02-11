@@ -24,8 +24,8 @@ router.get("/", (req, res, next) => {
 
     // display: true
     // done: false
-    // limit: 3
-    model.getLatestArticles(3)
+    // limit: 4
+    model.getLatestArticles(4)
         .then(newArticleArr => {
 
             return res.render("index", {

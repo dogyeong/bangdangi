@@ -7,7 +7,6 @@
 @import "variables.scss";
 
 /* local variables */
-$bg_url: "../img/index/main_bg2.jpg";
 $header_height: 58px;
 $content_max_width: 1104px;
 
@@ -22,9 +21,24 @@ body {
     height: 100%;
     position: relative;
     width: 100%;
-    background: url($bg_url) center center / cover no-repeat;
-    background-color: rgba(44, 40, 40, 0.45);
-    background-blend-mode: multiply;
+
+    /* 배경사진 */
+    picture {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+            -webkit-filter: brightness(0.85);
+        }
+    }
 
     .mainBlockContainer {
         position: absolute;
@@ -32,6 +46,9 @@ body {
         right: 0;
         top: calc(50% - 200px);
         width: 100%;
+        @include respond-to(phone) {
+            top: calc(50% - 140px);
+        }
 
         .mainBlockDivider {
             max-width: $content_max_width;
@@ -39,7 +56,9 @@ body {
             margin-left: auto;
             margin-right: auto;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
+            align-items: center;
             @include respond-to(phone) {
                 flex-direction: column;
                 padding: 0 20px;
@@ -48,24 +67,27 @@ body {
             .mainCopy {
                 color: $white;
                 text-shadow: 4px 0px 9px rgba(58, 62, 49, 0.35);
+                text-align: center;
                 @include respond-to(phone) {
                     font-size: $fs_sm;
                 }
 
                 > h1 {
-                    margin: 0 0 28px;
+                    margin: 0 0 40px;
                     font-size: $fs_3xl;
-                    font-weight: $fw_regular;
+                    font-weight: $fw_bold;
                     line-height: 1.36;
+                    letter-spacing: 1px;
                     color: $white;
                     @include respond-to(phone) {
-                        font-size: $fs_xl;
+                        font-size: $fs_xl + 4px;
+                        letter-spacing: 0.4px;
                     }
                 }
 
                 > p {
                     font-size: $fs_lg;
-                    font-weight: $fw_light;
+                    font-weight: $fw_regular;
                     @include respond-to(phone) {
                         font-size: $fs_md;
                     }
@@ -75,52 +97,52 @@ body {
             /* university select */
             #univ_form {
                 position: relative;
-                width: 360px;
-                height: 47px;
-                border: 3px solid $main_color;
+                width: 240px;
+                height: 60px;
+                border: 1px solid #fff;
+                border-radius: 40px;
                 z-index: 1;
-                background-color: rgba(240, 240, 240, 0.85);
-                @include respond-to(phone) {
-                    width: 100%;
-                    margin: 80px 0;
+                margin-top: 60px;
+                transition: all .2s ease-out;
+                &:hover {
+                    background-color: $white;
                 }
-
-                &:before {
-                    /* 화살표 대체 */
-                    content: "";
-                    position: absolute;
-                    top: 50%;
-                    right: 15px;
-                    width: 0;
-                    height: 0;
-                    margin-top: -1px;
-                    border-left: 5px solid transparent;
-                    border-right: 5px solid transparent;
-                    border-top: 5px solid #999;
+                @include respond-to(phone) {
+                    width: 200px;
                 }
 
                 label {
                     position: absolute;
+                    width: 100%;
+                    color: $white;
                     top: 1px;
                     /* 위치정렬 */
-                    left: 5px;
+                    left: 0;
                     /* 위치정렬 */
-                    font-size: 14px;
-                    padding: 0.8em 0.5em;
+                    font-size: $fs_md;
+                    padding: 1em  0;
+                    text-align: center;
                     /* select의 여백 크기 만큼 */
                     z-index: -1;
                     /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
+                    transition: all .2s ease-out;
+                }
+                &:hover {
+                    label {
+                        color: $font_color;
+                    }
                 }
 
                 #univ_select {
                     width: 100%;
-                    height: auto;
+                    height: 100%;
+                    border-radius: 40px;
                     /* 높이 초기화 */
                     line-height: normal;
                     /* line-height 초기화 */
                     font-family: inherit;
                     /* 폰트 상속 */
-                    padding: 0.8em 0.5em;
+                    padding: 0.8em 0;
                     /* 여백과 높이 결정 */
                     border: 0;
                     opacity: 0;
@@ -132,9 +154,18 @@ body {
                     /* 네이티브 외형 감추기 */
                     -moz-appearance: none;
                     appearance: none;
+                    cursor: pointer;
                 }
             }
         }
+    }
+
+    i {
+        font-size: 32px;
+        color: $white;
+        position:absolute;
+        bottom: 12px;
+        left: calc(50% -  16px);
     }
 }
 
@@ -143,10 +174,10 @@ body {
 */
 .subBlock {
     width: 100%;
-    padding: 160px 0;
+    padding-top: 140px;
     position: relative;
     @include respond-to(phone) {
-        padding: 120px 0;
+        padding-top: 100px;
     }
 
     .subBlock_container {
@@ -162,44 +193,60 @@ body {
         }
     }
 
-    /* 첫 번째 subBlock */
+    /* 거래후기 */
+    &.review-block {
+        .review-title {
+            text-align: center;
+            font-size: $fs_xl;
+            font-weight: $fw_bold;
+        }
+    }
+
+    /* 새로 등록된 매물 */
     &.b1 {
-        background-color: $article_bg_color;
+        background-color: $white;
 
         .b1_title {
             text-align: center;
             font-size: $fs_xl;
-            font-weight: $fw_regular;
-        }
-        .b1-sub {
-            font-size: $fs_md;
-            font-weight: $fw_light;
-            text-align: center;
+            font-weight: $fw_bold;
         }
 
         .b1_cards {
-            width: 1024px;
+            width: 100%;
             height: 258px;
             position: relative;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
-            margin-top: 60px;
+            justify-content: center;
+            margin-top: 28px;
             overflow: scroll;
             overflow-x: auto;
             overflow-y: hidden;
+            -ms-overflow-style: none; // IE에서 스크롤바 감춤
+            &::-webkit-scrollbar { 
+                display: none !important; // 윈도우 크롬 등에서 스크롤바 감춤
+            }
             @include respond-to(phone) {
-                width: 100%;
+                justify-content: flex-start;
+            }
+
+            li {
+                list-style: none;
+                padding: 0 8px;
             }
 
             .b1_item {
                 position: relative;
                 top: 0;
-                width: 256px;
+                width: 232px;
                 height: 100%;
                 display: flex;
-                padding: 0 12px;
+                @include respond-to(phone) {
+                    padding: 0px;
+                }
 
                 .b1_item_content {
                     width: 232px;
@@ -209,19 +256,14 @@ body {
                     .b1_item_img {
                         width: 100%;
                         height: 180px;
-                        border-top-right-radius: 5px;
-                        border-top-left-radius: 5px;
+                        border-radius: 12px;
+                        border: 1px solid  $grey_border_color;
                     }
 
                     .b1_item_text {
                         background-color: $white;
                         width: 100%;
-                        border-bottom-right-radius: 5px;
-                        border-bottom-left-radius: 5px;
-                        border-bottom: 1px solid $grey_border_color;
-                        border-left: 1px solid $grey_border_color;
-                        border-right: 1px solid $grey_border_color;
-                        padding: 14px;
+                        padding: 12px 4px;
                         height: 78px;
                         font-size: $fs_md;
                         font-weight: $fw_light;
@@ -229,78 +271,95 @@ body {
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
+
+                        .new-text-2 {
+                            font-weight: $fw_regular;
+                        }
                     }
                 }
-                .b1-more {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    border: 1px solid $main_color;
-                    color: $main_color;
-                    font-size: $fs_md;
-                    font-weight: $fw_regular;
-                }
-                .b1-more-icon {
-                    margin-bottom: 12px;
-                    width: 36px;
-                    height: 36px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: #0ab9f1;
-                    border-radius: 20px;
-                    color: white;
-                    i {
-                        font-size: $fs_md;
-                    }
-                }
+                
                 &:last-child {
                     @include respond-to(phone) {
-                        margin-right: 20px;
+                        margin-right: 0px;
+                    }
+                }
+            }
+        }
+
+        .b1-button-container {
+            text-align: center;
+            margin-top: 20px;
+
+            .b1-button {
+                text-align: center;
+
+                button {
+                    width: 200px;
+                    padding: 16px 28px;
+                    background: $article_bg_color;
+                    border: 1px solid $article_bg_color;
+                    display: inline-block;
+                    border-radius: 100px;
+                    color: $font_color;
+                    font: inherit;
+                    font-size: $fs_md;
+                    font-weight: $fw_regular;
+                    cursor: pointer;
+                    text-transform: none;
+                    margin: 0;
+                    box-sizing: border-box;
+                    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
+
+                    &:hover {
+                        text-decoration: underline;
                     }
                 }
             }
         }
     }
 
-    /* 두 번째 subBlock */
+    /* 두 번째 subBlock - 다음 세입자 구해드립니다 */
     &.b2 {
+        padding-bottom: 120px;
+
         .b2_title {
             font-size: $fs_2xl;
-            font-weight: $fw_light;
+            font-weight: $fw_bold;
             line-height: 1.4;
             text-align: center;
             @include respond-to(phone) {
                 font-size: $fs_xl;
-                font-weight: $fw_regular;
             }
         }
 
         .b2_text {
             font: {
                 size: $fs_lg;
-                weight: $fw_thin;
+                weight: $fw_light;
             }
             text-align: center;
             margin-top: 32px;
             @include respond-to(phone) {
+                font-size: $fs_md;
                 font-weight: $fw_light;
             }
         }
 
         .b2_button {
-            margin-top: 80px;
+            margin-top: 60px;
             text-align: center;
+            @include respond-to(phone) {
+                margin-top: 40px;
+            }
 
             button {
                 width: 200px;
                 padding: 16px 28px;
-                background: $font_color;
-                border: 1px solid $font_color;
+                background: $article_bg_color;
+                border: 1px solid $article_bg_color;
                 display: inline-block;
                 border-radius: 100px;
-                color: white;
+                color: $font_color;
                 font: inherit;
                 font-size: 16px;
                 font-weight: 400;
@@ -309,36 +368,44 @@ body {
                 margin: 0;
                 box-sizing: border-box;
                 transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
-                    
+
                 &:hover {
-                    background: $main_color;
-                    border: 1px solid $main_color;
+                    text-decoration: underline;
                 }
             }
         }
     }
 
+    /* 세 번째 subBlock - 방단기 이용 가이드 */
     &.b3 {
-        border-bottom: 1px solid $grey_border_color;
-
         .b3-title {
             text-align: center;
             font-size: $fs_xl;
-            font-weight: $fw_regular;
+            font-weight: $fw_bold;
         }
 
         .b3-contents {
-            margin-top: 60px;
+            list-style: none;
+            margin-top: 12px;
             display: flex;
             flex-direction: row;
+            align-items: flex-start;
             width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            justify-content: space-between;
             @include respond-to(phone) {
-                flex-direction: column;
+                -ms-overflow-style: none; // IE에서 스크롤바 감춤
+                &::-webkit-scrollbar { 
+                    display: none !important; // 윈도우 크롬 등에서 스크롤바 감춤
+                }
             }
 
             .b3-content {
                 flex-basis: 33.3%;
-                padding: 0 40px;
+                padding: 0 12px;
+                min-width: 240px;
+
                 .b3-img {
                     width: 100%;
                     display: flex;
@@ -355,8 +422,9 @@ body {
 
                     .title {
                         font-size: $fs_md;
-                        font-weight: $fw_regular;
-                        padding-bottom: 8px;
+                        font-weight: $fw_bold;
+                        padding-bottom: 6px;
+                        
                     }
                     .text {
                         font-size: $fs_md;
@@ -367,19 +435,19 @@ body {
         }
         .b3-button-container {
             text-align: center;
-            margin-top: 80px;
-            
+            margin-top: 28px;
+
             .b3-button {
                 text-align: center;
-                
+
                 button {
                     width: 200px;
                     padding: 16px 28px;
-                    background: $font_color;
-                    border: 1px solid $font_color;
+                    background: $article_bg_color;
+                    border: 1px solid $article_bg_color;
                     display: inline-block;
                     border-radius: 100px;
-                    color: $white;
+                    color: $font_color;
                     font: inherit;
                     font-size: $fs_md;
                     font-weight: $fw_regular;
@@ -390,8 +458,7 @@ body {
                     transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s;
 
                     &:hover {
-                        background: $main_color;
-                        border: 1px solid $main_color;
+                        text-decoration: underline;
                     }
                 }
             }
