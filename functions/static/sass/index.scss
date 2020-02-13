@@ -200,6 +200,66 @@ body {
             font-size: $fs_xl;
             font-weight: $fw_bold;
         }
+        .review-list {
+            width: 100%;
+            height: 258px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            justify-content: center;
+            margin-top: 28px;
+            overflow: scroll;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -ms-overflow-style: none; // IE에서 스크롤바 감춤
+            &::-webkit-scrollbar { 
+                display: none !important; // 윈도우 크롬 등에서 스크롤바 감춤
+            }
+            @include respond-to(phone) {
+                justify-content: flex-start;
+            }
+
+            li {
+                list-style: none;
+                padding: 0 8px;
+
+                .review-item {
+                    display: block;
+                    width: 232px;
+                    height: 258px;
+
+                    .review-content {
+                        width: 100%;
+                        height: 100%;
+
+                        .review-img {
+                            width: 100%;
+                            height: 180px;
+                            border-radius: 12px;
+                            border: 1px solid $grey_border_color;
+                            object-fit: cover;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+
+                        .review-text {
+                            width: 100%;
+                            padding: 12px 4px;
+                            height: 78px;
+                            font-size: $fs_md;
+                            font-weight: $fw_light;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /* 새로 등록된 매물 */
@@ -244,14 +304,10 @@ body {
                 width: 232px;
                 height: 100%;
                 display: flex;
-                @include respond-to(phone) {
-                    padding: 0px;
-                }
 
                 .b1_item_content {
                     width: 232px;
                     background-color: $white;
-                    border-radius: 5px;
 
                     .b1_item_img {
                         width: 100%;
@@ -464,6 +520,7 @@ body {
             }
         }
     }
+
 }
 
 /* PWA */

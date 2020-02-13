@@ -78,7 +78,7 @@
     <!-- 메인배너 배경-->
     <picture>
       <source media="(max-width: 600px)" srcset="/img/index/bg_600.jpg">
-      <img src="/img/index/bg.jpg" alt="방단기 메인배너 배경사진">
+      <img src="/img/index/bg.jpg" alt="배경 방 사진">
     </picture>
 
     <div class="mainBlockContainer">
@@ -102,17 +102,6 @@
 
   </div>
 
-  <!-- 리뷰 -->
-  <div class="review-block subBlock">
-    <div class="subBlock_container">
-      <div class="review-title">
-        거래후기
-      </div>
-      <ul class="review-list">
-
-      </ul>
-    </div>
-  </div>
   <!-- 새로 등록된 매물 -->
   <div class="subBlock b1">
     <div class="subBlock_container">
@@ -120,7 +109,7 @@
         새로 등록된 매물
       </div>
       <ul class="b1_cards">
-        <% for (i of newArticleArr) { %>
+        <% for (i of newArticles) { %>
         <li>
 
           <a href="<%= i.url %>" class="b1_item">
@@ -150,13 +139,38 @@
       </ul>
 
       <div class="b1-button-container">
-        <a class="b1-button">
+        <a class="b1-button" href="/board/list/gwanak">
           <button>새 매물 더 보기 &#xE001;</button>
         </a>
       </div>
 
     </div>
   </div>
+
+  <!-- 리뷰 -->
+  <% if (false) { %>
+  <div class="review-block subBlock">
+    <div class="subBlock_container">
+      <div class="review-title">
+        거래후기
+      </div>
+      <ul class="review-list">
+        <% for (i of newReviews) { %>
+          <li>
+            <a href="<%= i.url %>" class="review-item">
+              <div class="review-content">
+                <img src="<%= i.images[0] %>" class="review-img">
+                <div class="review-text">
+                  <%= i.review %>
+                </div>
+              </div>
+            </a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+  <% } %>
 
   <!-- 방단기 이용 가이드 -->
   <div class="subBlock b3">
@@ -206,7 +220,7 @@
         </li>
       </ol>
       <div class="b3-button-container">
-        <a class="b3-button">
+        <a class="b3-button" href="/board/list/gwanak">
           <button>단기 원룸 보러가기 &#xE001;</button>
         </a>
       </div>

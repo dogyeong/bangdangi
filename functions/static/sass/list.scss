@@ -7,25 +7,19 @@
 @import "variables.scss";
 
 /* local variables */
-$content_max_width: 640px;
+$content_max_width: 1024px;
 
-/* 모바일에서 헤더를 고정시킨다 */
-header {
-    @include respond-to(phone) {
-        position: fixed;
-        top: 0;
-        z-index: 4;
-    }
-}
 
 /* upper */
 .form_container {
-    padding: 8px 40px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    margin-top: 64px;
+    padding: 0 40px;
+    border-bottom: 1px solid $grey_border_color;
 
     @include respond-to(phone) {
         position: fixed;
-        top: 58px;
+        top: 64px;
+        margin-top: 0;
         padding: 0;
         width: 100%;
         background-color: $white;
@@ -46,6 +40,7 @@ header {
         /* 지역선택 */
         #univ_form {
             width: 100%;
+            flex: 1;
             position: relative;
             max-width: $content_max_width;
             margin: auto;
@@ -115,14 +110,18 @@ header {
         }
 
         .tune_container {
-            width: 30px;
-            height: 30px;
+            width: 64px;
+            height: 64px;
+            border-left: 1px solid $grey_border_color;
+            border-right: 1px solid $grey_border_color;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-right: 12px;
-            font-size: $fs_lg;
             cursor: pointer;
+            i {
+                font-size: $fs_lg;
+            }
         }
     }
 
@@ -284,8 +283,8 @@ header {
 #lower {
     width: 100%;
     display: block;
-    background-color: #ebeef1;
-    padding: 16px 0;
+    background-color: $white;
+    padding: 28px 0;
 
     @include respond-to(phone) {
         margin-top: 116px;
@@ -304,12 +303,12 @@ header {
         align-items: center;
         background-color: $white;
         padding: 12px 16px;
-        font-size: $fs_md;
-        font-weight: $fw_regular;
+        font-size: $fs_xl;
+        font-weight: $fw_bold;
 
         .sortBtnContainer {
-            font-size: $fs_md;
-            font-weight: $fw_light;
+            font-size: $fs_lg;
+            font-weight: $fw_regular;
             color: #aaa;
 
             .sortBtn {
@@ -317,7 +316,7 @@ header {
                 cursor: pointer;
 
                 &.active {
-                    color: #333;
+                    color: $font_color;
                 }
             }
         }
@@ -333,18 +332,17 @@ header {
         justify-content: center;
         align-items: center;
         background-color: $white;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        border-top: 1px solid $grey_border_color;
 
         > a {
-            height: 201px;
+            height: 209px;
             display: block;
             box-sizing: border-box;
             text-decoration: none;
-            color: #333;
-            padding: 24px 16px;
+            color: $font_color;
+            padding: 28px 16px;
             background-color: $white;
             width: 100%;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 
             .list_wrapper {
                 width: 100%;
@@ -486,8 +484,6 @@ header {
         justify-content: center;
         align-items: center;
         background-color: $white;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-top: none;
         font-size: $fs_md;
         font-weight: $fw_light;
         color: #777;
@@ -515,8 +511,8 @@ header {
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            font-size: $fs_md;
-            font-weight: $fw_regular;
+            font-size: $fs_xl;
+            font-weight: $fw_bold;
         }
 
         .review-content {
@@ -525,7 +521,7 @@ header {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-top: 1px solid $grey_border_color;
 
             > a {
                 height: 201px;
@@ -536,7 +532,6 @@ header {
                 padding: 24px 16px;
                 background-color: $white;
                 width: 100%;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     
                 .list_wrapper {
                     width: 100%;
@@ -573,6 +568,11 @@ header {
                                     margin-bottom: 2px;
                                     font-size: $fs_sm;
                                     display: inline;
+                                }
+
+                                .color {
+                                    background-color: $main_color;
+                                    color: $white;
                                 }
                             }
     
@@ -689,6 +689,6 @@ header {
 
 /* footer */
 footer {
-    background-color: $white;
+    background-color: $grey_border_color;
     color: $font_color;
 }

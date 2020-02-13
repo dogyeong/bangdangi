@@ -635,7 +635,7 @@
                     document.querySelector(`textarea[data-field="${field}"]`).value = "";
                 }
                 // 지도 초기화
-                let initialLatLon = new kakao.maps.LatLng(37.5642135, 127.0016985);
+                let initialLatLon = new kakao.maps.LatLng(37.484235, 126.929907);
                 map.setCenter(initialLatLon);
                 marker.setPosition(initialLatLon);
             });
@@ -946,7 +946,7 @@
             mapContainer.innerHTML = '';
             
             mapOption = {
-                center: new kakao.maps.LatLng(37.5642135, 127.0016985), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(37.484235, 126.929907), // 지도의 중심좌표
                 level: 3 // 지도의 확대 레벨
             };
 

@@ -3,7 +3,7 @@ const db = admin.firestore();
 const COL_GROUP_ARTICLES = "articles"; //매물 컬렉션 그룹 이름
 const getArticlesPath = (place) => `article/${place}/articles`;
 
-const getLatestArticles = limit => {
+const getNewArticles = limit => {
     return db
         .collectionGroup(COL_GROUP_ARTICLES) // 모든 매물에 대해서
         .where("display", "==", true) // display 여부
@@ -15,6 +15,17 @@ const getLatestArticles = limit => {
 };
 
 const checkImg = docs => docs.map(doc => doc.data()).filter(doc => (doc.images ? true : false));
+
+const getNewReviews = limit => {
+    return db
+        .collectionGroup(COL_GROUP_ARTICLES) // 모든 매물에 대해서
+        .where("display", "==", true) // display 여부
+        .where("done", "==", true) // done 여부
+        .where("review", ">", "")
+        .limit(limit) // 갯수 설정
+        .get()
+        .then(result => checkImg(result.docs));
+}
 
 
 /* 
@@ -33,6 +44,7 @@ const getReview = async place => {
 };
 
 module.exports = {
-    getLatestArticles,
+    getNewArticles,
+    getNewReviews,
     getReview,
 };

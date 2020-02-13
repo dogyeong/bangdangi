@@ -8,7 +8,7 @@
 
 /* headerBar local variables */
 $header_max_width: 1064px;
-$header_height: 58px;
+$header_height: 64px;
 
 header { 
     position: fixed;
@@ -21,7 +21,7 @@ header {
     left: 0;
     z-index: 100;
     transition: all .2s ease-out;
-    
+
     &.transparent {
         background-color: transparent;
         box-shadow: none;
@@ -47,7 +47,7 @@ header {
 
         .header_logo {
             display: inline-block;
-            padding: 16px 20px;
+            padding: ($header_height - 28px) / 2 20px;
 
             @include respond-to(phone) {
                 padding: 16px 0px;
@@ -76,10 +76,12 @@ header {
                     width: 100%;
                     color: $font_color;
                     transition: color .2s ease-out;
-                    font: {
-                        size: $fs_md;
-                        weight: $fw_bold;
+                    font-size: $fs_md;
+                    font-weight: $fw_bold;
+                    @include respond-to(phone){
+                        font-size: $fs_sm;
                     }
+
                     &:hover {
                         color: $main_color;
                     }

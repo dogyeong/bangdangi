@@ -11,7 +11,7 @@ const request = require("request-promise");
 const cors = require("cors")({
     origin: true,
 });
-const model = require("../modules/model.js")
+const model = require("../modules/model.js");
 
 // VAPID keys should only be generated only once.
 const vapidKeys = {
@@ -21,15 +21,14 @@ const vapidKeys = {
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-
-    // display: true
-    // done: false
-    // limit: 4
-    model.getLatestArticles(4)
-        .then(newArticleArr => {
-
+    
+    // 새로 등록된 매물, 후기가 있는 거래완료된 매물을 4개씩 불러온다
+    Promise.all([model.getNewArticles(4)])
+        .then(result => {
+            let newArticles = result[0];
+            
             return res.render("index", {
-                newArticleArr,
+                newArticles,
                 vapidPublicKey: vapidKeys.publicKey,
             });
         })
