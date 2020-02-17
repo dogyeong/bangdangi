@@ -44,10 +44,10 @@
   <title><%=univKo%> 단기원룸 | 방단기</title>
   <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="../../img/favicon.ico" type="image/x-icon">
-  <link rel=stylesheet type="text/css" href="../../css/common.css" />
-  <link rel=stylesheet type="text/css" href="../../css/headerBar.css" />
-  <link rel=stylesheet type="text/css" href="../../css/footer.css" />
-  <link rel=stylesheet type="text/css" href="../../css/list.css" />
+  <link rel=stylesheet href="../../css/common.css" />
+  <link rel=stylesheet href="../../css/headerBar.css" />
+  <link rel=stylesheet href="../../css/footer.css" />
+  <link rel=stylesheet href="../../css/list.css" />
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 </head>
 
@@ -106,7 +106,7 @@
         </div>
         <div class="submit_container">
           <input type="submit" value="적용">
-          <a href="/board/list/<%=univ%>">취소</a>
+          <button class="filter-cancel">취소</button>
         </div>
       </form>
     </div>
@@ -115,32 +115,35 @@
   <section id="lower">
 
     <!-- 매물 리스트 -->
-    <div class="listTitle">
-      매물 리스트
-      <div class="sortBtnContainer">
-        <span class="sortBtn active" data-sortby="time">최신순</span>
-        <span class="sortBtn" data-sortby="view">조회순</span>
+    <% if (!err) { %>
+      <div class="listTitle">
+        매물 리스트
+        <div class="sortBtnContainer">
+          <span class="sortBtn active" data-sortby="time">최신순</span>
+          <span class="sortBtn" data-sortby="view">조회순</span>
+        </div>
       </div>
-    </div>
+    <% } %>
+    
 
     <% if (!err) { %>
     <!-- 매물 컨테이너 -->
     <div class="article-list">
       <% for ( room of roomList ) { %>
+      <!-- 광고 들어갈 자리에 광고삽입 -->
       <% if ( room.ad ) { %>
       <article class="article">
         <a class="request_container" href="/request">
           <div class="request_text_container">
-            찾고있는 방이 없나요?<br />
-            방 요청을 등록하면 원하는 방을 무료로 찾아드립니다!
+            <span>찾고있는 방이 없나요?</span>
+            방을 무료로<br>찾아드립니다!
           </div>
-          <div class="request_button_container">
-            방 요청하기
-          </div>
+          <div class="request_btn">신청하기 &#xE001;</div>
+          <img src="/img/list/undraw_gift1_sgf8.svg">
         </a>
       </article>
-
       <% } else { %>
+      <!-- 매물 삽입 -->
       <article class="article">
         <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %> data-timeStamp=<%= room.timeStamp %>
           data-views=<%= room.views %>>
@@ -179,17 +182,17 @@
             <div class="list_img">
               <div class="pic_container">
                 <% if (room.urlType === 'mypnu') { %>
-                <img src="../../img/mypnu_logo.png">
+                <img src="/img/mypnu_logo.png">
                 <% } else if (room.urlType === 'everytime') { %>
-                <img src="../../img/everytime_logo.png">
+                <img src="/img/everytime_logo.png">
                 <% } else if (room.urlType === 'peterpanz') { %>
-                <img src="../../img/peterpanz_logo.png">
+                <img src="/img/peterpanz_logo.png">
                 <% } else if (room.urlType === 'dabang') { %>
-                <img src="../../img/dabang_logo.png">
+                <img src="/img/dabang_logo.png">
                 <% } else if (room.imageURL !== null) { %>
                 <img src="<%=room.imageURL%>">
                 <% } else { %>
-                <img src="../../img/bangdangi_logo_3.png">
+                <img src="/img/bangdangi_logo_3.png">
                 <% } %>
                 <% for (i of room.discountKeywords) { %>
                 <span class="discount"><%= i %></span>
@@ -200,87 +203,92 @@
         </a>
       </article>
       <% } %>
+      <% } %>
 
+      <!-- 매물 수가 적을때는 아래에 '방 요청하기' 표시 -->
+      <% if (roomList.length < 5) { %>
+      <article class="article">
+        <a class="request_container" href="/request">
+          <div class="request_text_container">
+            <span>찾고있는 방이 없나요?</span>
+            방을 무료로<br>찾아드립니다!
+          </div>
+          <div class="request_btn">신청하기 &#xE001;</div>
+          <img src="/img/list/undraw_gift1_sgf8.svg">
+        </a>
+      </article>
       <% } %>
     </div>
 
     <% } else { %>
     <!-- 매물이 없을때는 에러메세지를 출력 -->
     <div class="error_container">
-      <i class="xi-error-o"> <%= err %></i>
-    </div>
-    <% } %>
-
-    <!-- 매물 수가 적을때는 아래에 '방 요청하기' 표시 -->
-    <% if (roomList.length < 5) { %>
-    <div class="request_container">
-      <p>
-        찾고있는 방이 없나요?<br>
-        방 요청을 등록하면 원하는 방을 찾아드립니다!
-      </p>
-      <a href="http://pf.kakao.com/_fCxjwT/chat">방 요청하기</a>
+      <object data="/img/list/undraw_no_data_qbuo.svg" type="image/svg+xml"></object>
+      <%= err %>
     </div>
     <% } %>
 
     <!-- 거래 완료된 매물 -->
-    <% if (review.length > 0) { %>
+    <% if (!err && review.length > 0) { %>
     <div class="review">
       <div class="review-title">거래 완료된 매물</div>
-      <div class="review-content">
+      <div class="article-list">
         <% for (room of review) { %>
-        <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %>>
-          <div class="list_wrapper">
-            <div class="list_left">
-              <div class="list_upper">
-                <div class="tag_container">
-                  <span>거래완료</span> <span class="color">거래후기</span>
+        <article class="article">
+          <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %>>
+            <div class="list_wrapper">
+              <div class="list_text">
+                <div class="list_upper">
+                  <div class="tag_container">
+                    <span class="review-grey">거래완료</span> <span>거래후기</span>
+                  </div>
+                  <div class="price_container review-grey">
+                    <span class="roomType"><%= room.tradeType === null ? '' : room.tradeType %></span>
+                    <%= `${room.deposit}/${room.price}` %>
+                    <% if (room.new) { %>
+                    <span class="new"><i class="xi-new"></i></span>
+                    <% } %>
+                  </div>
                 </div>
-                <div class="price_container">
-                  <span class="roomType"><%= room.tradeType === null ? '' : room.tradeType %></span>
-                  <%= `${room.deposit}/${room.price}` %>
-                  <% if (room.new) { %>
-                  <span class="new"><i class="xi-new"></i></span>
-                  <% } %>
+                <div class="list_mid">
+                  <div>
+                    <%= room.line1 %>
+                  </div>
+                  <div>
+                    <%= room.line2 %>
+                  </div>
+                </div>
+                <div class="list_lower">
+                  <div class="keywords_container">
+                    <% for(i of room.keywords) { %>
+                    <span><%=i%></span>
+                    <% } %>
+                  </div>
                 </div>
               </div>
-              <div class="list_mid">
-                <div>
-                  <%= room.line1 %>
-                </div>
-                <div>
-                  <%= room.line2 %>
-                </div>
-              </div>
-              <div class="list_lower">
-                <div class="keywords_container">
-                  <% for(i of room.keywords) { %>
-                  <span><%=i%></span>
+              <div class="list_img">
+                <div class="pic_container review-grey">
+                  <% if (room.urlType === 'mypnu') { %>
+                    <img src="/img/mypnu_logo.png">
+                    <% } else if (room.urlType === 'everytime') { %>
+                    <img src="/img/everytime_logo.png">
+                    <% } else if (room.urlType === 'peterpanz') { %>
+                    <img src="/img/peterpanz_logo.png">
+                    <% } else if (room.urlType === 'dabang') { %>
+                    <img src="/img/dabang_logo.png">
+                    <% } else if (room.imageURL !== null) { %>
+                    <img src="<%=room.imageURL%>">
+                    <% } else { %>
+                    <img src="/img/bangdangi_logo_3.png">
+                    <% } %>
+                  <% for (i of room.discountKeywords) { %>
+                  <span class="discount"><%= i %></span>
                   <% } %>
                 </div>
               </div>
             </div>
-            <div class="list_right">
-              <div class="pic_container">
-                <% if (room.urlType === 'mypnu') { %>
-                <div style="background: center / cover no-repeat url('../../img/mypnu_logo.png'), #f6f6f8;"></div>
-                <% } else if (room.urlType === 'everytime') { %>
-                <div style="background: center / cover no-repeat url('../../img/everytime_logo.png'), #f6f6f8;"></div>
-                <% } else if (room.urlType === 'peterpanz') { %>
-                <div style="background: center / cover no-repeat url('../../img/peterpanz_logo.png'), #f6f6f8;"></div>
-                <% } else if (room.urlType === 'dabang') { %>
-                <div style="background: center / cover no-repeat url('../../img/dabang_logo.png'), #f6f6f8;"></div>
-                <% } else if (room.imageURL !== null) { %>
-                <div style="background: center / cover no-repeat url('<%=room.imageURL%>');"></div>
-                <% } else { %>
-                <div style="background: center / cover no-repeat url('../../img/bangdangi_logo_3.png'), #f6f6f8;"></div>
-                <% } %>
-                <% for (i of room.discountKeywords) { %>
-                <span class="discount"><%= i %></span>
-                <% } %>
-              </div>
-            </div>
-          </div>
-        </a>
+          </a>
+        </article>
         <% } %>
       </div>
 

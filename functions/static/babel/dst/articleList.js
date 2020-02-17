@@ -11,8 +11,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 (function () {
   var univSelect = document.getElementById("univ_select");
   var filterBtn = document.querySelector(".tune");
+  var filterCancel = document.querySelector(".filter-cancel");
   var rangeInput = document.querySelector('input[type="range"]');
   var sortBtn = document.querySelectorAll(".sortBtn");
+  var filter = document.querySelector(".filter-container");
   document.getElementById("lower").style.display = "block";
 
   function changeRoomList() {
@@ -20,14 +22,18 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   function toggleFilter() {
-    var filter = document.querySelector(".filter-container");
-
     if (filter.classList.toggle("visible")) {
       filterBtn.classList.add('active');
     } else {
       filterBtn.classList.remove('active');
     }
 
+    event.preventDefault();
+  }
+
+  function hideFilter() {
+    filter.classList.remove("visible");
+    filterBtn.classList.remove("active");
     event.preventDefault();
   }
 
@@ -90,6 +96,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   univSelect.onchange = changeRoomList;
   filterBtn.addEventListener("click", toggleFilter);
+  filterCancel.addEventListener("click", hideFilter);
   rangeInput.addEventListener("input", updateRangeValue);
   sortBtn.forEach(function (i) {
     return i.addEventListener("click", sortList);

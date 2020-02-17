@@ -49,7 +49,7 @@ router.get('/list/:univ', async (req, res, next) => {
     }
     else { // 결과 없음
         roomList = resultArr;
-        err = '매물이 존재하지 않습니다';
+        err = '앗, 찾는 매물이 존재하지 않습니다.';
     }   
     let univKo = UNIV_OBJ[univ];
     let filterOption = { 

@@ -22,12 +22,12 @@
   top: 64px;
   left: 0;
   padding: 0 40px;
-  z-index: 3;
+  z-index: 11;
   border-bottom: 1px solid #c8c8c8; }
   @media only screen and (max-width: 600px) {
     .form_container {
       padding: 0;
-      border-bottom: none; } }
+      top: 48px; } }
   .form_container .form-inner {
     width: 100%;
     max-width: 1024px;
@@ -39,8 +39,8 @@
     /* 지역선택 */ }
     @media only screen and (max-width: 600px) {
       .form_container .form-inner {
-        border: none;
-        border-bottom: 3px solid #0ab9f1; } }
+        border-left: 0;
+        border-right: 0; } }
     .form_container .form-inner #univ_form {
       width: 100%;
       flex: 1;
@@ -48,7 +48,7 @@
       max-width: 1024px;
       margin: auto;
       height: 47px;
-      z-index: 1;
+      z-index: 11;
       display: flex;
       justify-content: center;
       align-items: center; }
@@ -60,7 +60,7 @@
         content: "";
         position: absolute;
         top: calc(50% - 2px);
-        left: 12px;
+        left: 16px;
         width: 0;
         height: 0;
         margin-top: -1px;
@@ -74,7 +74,7 @@
         left: 28px;
         /* 위치정렬 */
         font-size: 16px;
-        padding: 0.5em 0.5em;
+        padding: 10px 14px;
         /* select의 여백 크기 만큼 */
         z-index: -1;
         /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */ }
@@ -90,7 +90,7 @@
         /* line-height 초기화 */
         font-family: inherit;
         /* 폰트 상속 */
-        padding: 0.8em 0.5em;
+        padding: 1em 0.5em;
         /* 여백과 높이 결정 */
         border: 0;
         opacity: 0;
@@ -108,6 +108,11 @@
       padding: 22.5px;
       border-left: 1px solid #eeeeee;
       cursor: pointer; }
+      @media only screen and (max-width: 600px) {
+        .form_container .form-inner .tune {
+          width: 47px;
+          height: 48px;
+          padding: 14.5px; } }
       .form_container .form-inner .tune.active {
         background-color: #0ab9f1;
         color: #fff; }
@@ -115,11 +120,18 @@
       width: 63px;
       height: 64px;
       border-left: 1px solid #eeeeee; }
+      @media only screen and (max-width: 600px) {
+        .form_container .form-inner .renew {
+          width: 47px;
+          height: 48px; } }
       .form_container .form-inner .renew a {
         display: block;
         width: 100%;
         height: 100%;
         padding: 22.5px; }
+        @media only screen and (max-width: 600px) {
+          .form_container .form-inner .renew a {
+            padding: 14.5px; } }
     .form_container .form-inner i {
       font-size: 18px; }
 
@@ -134,8 +146,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 10;
   background-color: #fff; }
+  @media only screen and (max-width: 600px) {
+    .filter-container {
+      top: 96px; } }
   .filter-container.visible {
     visibility: visible; }
   .filter-container > form {
@@ -144,24 +159,49 @@
     margin: auto;
     z-index: 1;
     background-color: #fff;
-    padding: 20px 20px; }
+    padding: 20px 20px 40px 20px; }
+    @media only screen and (max-width: 600px) {
+      .filter-container > form {
+        padding: 16px 16px 40px 16px; } }
     .filter-container > form .input_container .hashtag_title {
-      font-size: 16px;
+      font-size: 24px;
       font-weight: 400;
-      margin: auto;
-      margin-top: 16px;
-      margin-bottom: 4px;
+      margin: 16px auto;
       width: 100%; }
+      @media only screen and (max-width: 600px) {
+        .filter-container > form .input_container .hashtag_title {
+          font-size: 18px; } }
     .filter-container > form .input_container .hashtag_list {
       margin: auto;
-      width: 100%; }
+      width: 100%;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #eeeeee; }
       .filter-container > form .input_container .hashtag_list input[type="checkbox"] {
         display: none; }
+      .filter-container > form .input_container .hashtag_list input[type="checkbox"] + label span {
+        color: #3b3b46;
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        clear: both;
+        margin: 4px 8px 4px 0;
+        padding: 4px 8px;
+        border: 1px solid #eeeeee;
+        border-radius: 40px;
+        font-size: 16px;
+        font-weight: 300; }
+      .filter-container > form .input_container .hashtag_list input[type="checkbox"]:checked + label span {
+        background-color: #0ab9f1;
+        border: 1px solid #0ab9f1;
+        color: #fff; }
       .filter-container > form .input_container .hashtag_list input[type="range"] {
         display: inline-block;
         -webkit-appearance: none;
         background-color: #bdc3c7;
         width: calc(100% - 100px);
+        max-width: 480px;
         height: 3px;
         margin-right: 4px;
         outline: 0; }
@@ -198,7 +238,7 @@
         border: 0;
         font-weight: 400;
         background-color: #fff; }
-      .filter-container > form .submit_container a {
+      .filter-container > form .submit_container .filter-cancel {
         width: 60px;
         box-sizing: border-box;
         display: inline-block;
@@ -207,24 +247,11 @@
         color: #888888;
         text-decoration: none;
         vertical-align: bottom;
-        line-height: 48px; }
-    .filter-container > form input[type="checkbox"] + label span {
-      color: rgba(0, 0, 0, 0.7);
-      position: relative;
-      display: inline-block;
-      vertical-align: middle;
-      cursor: pointer;
-      line-height: 1.2;
-      clear: both;
-      margin: 4px 8px 4px 0;
-      padding: 4px 8px;
-      border: 1px solid #eee;
-      border-radius: 40px;
-      font-size: 14px; }
-    .filter-container > form input[type="checkbox"]:checked + label span {
-      background-color: dodgerblue;
-      color: white;
-      border: 1px solid #eee0; }
+        line-height: 48px;
+        background-color: #fff;
+        border: 0;
+        appearance: none;
+        -webkit-appearance: none; }
 
 .top_btn {
   display: none;
@@ -245,325 +272,252 @@
   width: 100%;
   display: block;
   background-color: #fff;
-  padding: 36px 0;
-  /* list Title */
-  /* list */ }
+  padding: 36px 0; }
   @media only screen and (max-width: 600px) {
     #lower {
-      border: none; } }
-  #lower .listTitle {
-    margin: auto;
+      border: none;
+      margin-top: 88px; } }
+
+/* list Title */
+.listTitle {
+  margin: auto;
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px 16px;
+  font-size: 24px;
+  font-weight: 700; }
+  .listTitle .sortBtnContainer {
+    font-size: 18px;
+    font-weight: 400;
+    color: #aaa; }
+    .listTitle .sortBtnContainer .sortBtn {
+      margin: 0 2px;
+      cursor: pointer; }
+      .listTitle .sortBtnContainer .sortBtn.active {
+        color: #3b3b46; }
+
+/* list */
+.article-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 100%;
+  max-width: 1024px;
+  background-color: #fff; }
+  .article-list .article {
+    width: 33.33%;
+    float: left;
+    padding: 16px;
+    margin-bottom: 32px; }
+    @media only screen and (max-width: 600px) {
+      .article-list .article {
+        width: 100%;
+        clear: both;
+        padding: 0;
+        margin: 0;
+        border-top: 1px solid #eeeeee; } }
+    .article-list .article > a {
+      width: 100%;
+      height: 352px;
+      display: block;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: #3b3b46;
+      background-color: #fff; }
+      @media only screen and (max-width: 600px) {
+        .article-list .article > a {
+          height: 209px;
+          padding: 28px 16px; } }
+      .article-list .article > a:hover .pic_container > img {
+        transform: scale(1.1); }
+      .article-list .article > a .list_wrapper {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        align-items: stretch; }
+        @media only screen and (max-width: 600px) {
+          .article-list .article > a .list_wrapper {
+            flex-direction: row;
+            justify-content: space-between; } }
+        .article-list .article > a .list_wrapper .list_text {
+          width: 100%; }
+          @media only screen and (max-width: 600px) {
+            .article-list .article > a .list_wrapper .list_text {
+              width: calc(100% - 144px); } }
+          .article-list .article > a .list_wrapper .list_text .list_upper {
+            width: 100%;
+            margin-right: 4px; }
+            .article-list .article > a .list_wrapper .list_text .list_upper .tag_container {
+              font-weight: 300;
+              font-size: 14px;
+              margin-bottom: 4px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: 100%;
+              white-space: nowrap;
+              color: #fff;
+              padding: 2px 0; }
+              .article-list .article > a .list_wrapper .list_text .list_upper .tag_container span {
+                color: #fff;
+                background-color: #0ab9f1;
+                padding: 1px 6px 2px 6px;
+                border-radius: 2px;
+                margin-right: 4px;
+                margin-bottom: 2px;
+                font-size: 14px;
+                display: inline; }
+              .article-list .article > a .list_wrapper .list_text .list_upper .tag_container span.review-grey {
+                background-color: #c8c8c8; }
+            .article-list .article > a .list_wrapper .list_text .list_upper .price_container {
+              color: #0ab9f1;
+              font-weight: 700;
+              font-size: 24px;
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis; }
+              .article-list .article > a .list_wrapper .list_text .list_upper .price_container .roomType {
+                color: #1e90ff;
+                font-size: 18px;
+                font-weight: 700; }
+              .article-list .article > a .list_wrapper .list_text .list_upper .price_container .new {
+                font-size: 18px;
+                font-weight: 400;
+                color: #f15353; }
+              .article-list .article > a .list_wrapper .list_text .list_upper .price_container.review-grey {
+                color: #888888; }
+                .article-list .article > a .list_wrapper .list_text .list_upper .price_container.review-grey .roomType {
+                  color: inherit; }
+          .article-list .article > a .list_wrapper .list_text .list_mid {
+            margin-bottom: 4px;
+            width: 100%; }
+            .article-list .article > a .list_wrapper .list_text .list_mid > div {
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              font-size: 16px;
+              color: #888888; }
+              @media only screen and (max-width: 600px) {
+                .article-list .article > a .list_wrapper .list_text .list_mid > div {
+                  font-size: 14px; } }
+          .article-list .article > a .list_wrapper .list_text .list_lower {
+            font-size: 12px;
+            color: #888888; }
+            .article-list .article > a .list_wrapper .list_text .list_lower .keywords_container {
+              position: relative;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              width: 100%;
+              white-space: nowrap; }
+              .article-list .article > a .list_wrapper .list_text .list_lower .keywords_container span {
+                padding: 2px 6px;
+                background-color: #eeeeee;
+                color: #888888;
+                border-radius: 2px;
+                font-size: 12px; }
+        .article-list .article > a .list_wrapper .list_img .pic_container {
+          width: 100%;
+          height: 200px;
+          margin-bottom: 8px;
+          border-radius: 8px;
+          overflow: hidden;
+          border: 1px solid #eeeeee;
+          position: relative; }
+          @media only screen and (max-width: 600px) {
+            .article-list .article > a .list_wrapper .list_img .pic_container {
+              width: 138px;
+              height: 100%;
+              margin-bottom: 0; } }
+          .article-list .article > a .list_wrapper .list_img .pic_container > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease-in-out 0s; }
+          .article-list .article > a .list_wrapper .list_img .pic_container .discount {
+            color: #fff;
+            background-color: #f15353;
+            padding: 1px 4px 2px 4px;
+            border-top-right-radius: 8px;
+            border-bottom-left-radius: 8px;
+            font-size: 16px;
+            font-weight: 300;
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0; }
+            @media only screen and (max-width: 600px) {
+              .article-list .article > a .list_wrapper .list_img .pic_container .discount {
+                font-size: 14px; } }
+          .article-list .article > a .list_wrapper .list_img .pic_container.review-grey > img {
+            filter: brightness(0.5); }
+          .article-list .article > a .list_wrapper .list_img .pic_container.review-grey .discount {
+            background-color: #888888; }
+
+/* 거래후기 */
+.review {
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+  background-color: #fff;
+  margin-top: 16px; }
+  .review .review-title {
     width: 100%;
-    max-width: 1024px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
-    padding: 8px 16px;
+    padding: 12px 16px;
     font-size: 24px;
     font-weight: 700; }
-    #lower .listTitle .sortBtnContainer {
-      font-size: 18px;
-      font-weight: 400;
-      color: #aaa; }
-      #lower .listTitle .sortBtnContainer .sortBtn {
-        margin: 0 2px;
-        cursor: pointer; }
-        #lower .listTitle .sortBtnContainer .sortBtn.active {
-          color: #3b3b46; }
-  #lower .article-list {
-    margin: auto;
-    width: 100%;
-    max-width: 1024px;
-    background-color: #fff; }
-    #lower .article-list .article {
-      width: 33.33%;
-      float: left;
-      padding: 16px 16px; }
-      @media only screen and (max-width: 600px) {
-        #lower .article-list .article {
-          width: 100%;
-          clear: both;
-          padding: 0; } }
-      #lower .article-list .article > a {
-        width: 100%;
-        height: 352px;
-        display: block;
-        box-sizing: border-box;
-        text-decoration: none;
-        color: #3b3b46;
-        background-color: #fff; }
-        @media only screen and (max-width: 600px) {
-          #lower .article-list .article > a {
-            height: 209px;
-            padding: 28px 16px; } }
-        #lower .article-list .article > a:hover img {
-          transform: scale(1.1); }
-        #lower .article-list .article > a .list_wrapper {
-          width: 100%;
-          height: 100%;
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: column-reverse;
-          justify-content: flex-end;
-          align-items: stretch; }
-          @media only screen and (max-width: 600px) {
-            #lower .article-list .article > a .list_wrapper {
-              flex-direction: row;
-              justify-content: space-between; } }
-          #lower .article-list .article > a .list_wrapper .list_text {
-            width: 100%; }
-            @media only screen and (max-width: 600px) {
-              #lower .article-list .article > a .list_wrapper .list_text {
-                width: calc(100% - 144px); } }
-            #lower .article-list .article > a .list_wrapper .list_text .list_upper {
-              width: 100%;
-              margin-right: 4px; }
-              #lower .article-list .article > a .list_wrapper .list_text .list_upper .tag_container {
-                font-weight: 300;
-                font-size: 14px;
-                margin-bottom: 4px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: 100%;
-                white-space: nowrap;
-                color: #fff;
-                padding: 2px 0; }
-                #lower .article-list .article > a .list_wrapper .list_text .list_upper .tag_container span {
-                  color: #fff;
-                  background-color: #0ab9f1;
-                  padding: 1px 6px 2px 6px;
-                  border-radius: 2px;
-                  margin-right: 4px;
-                  margin-bottom: 2px;
-                  font-size: 14px;
-                  display: inline; }
-              #lower .article-list .article > a .list_wrapper .list_text .list_upper .price_container {
-                color: #0ab9f1;
-                font-weight: 700;
-                font-size: 24px;
-                width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis; }
-                #lower .article-list .article > a .list_wrapper .list_text .list_upper .price_container .roomType {
-                  color: #1e90ff;
-                  font-size: 18px;
-                  font-weight: 700; }
-                #lower .article-list .article > a .list_wrapper .list_text .list_upper .price_container .new {
-                  font-size: 18px;
-                  font-weight: 400;
-                  color: #f15353; }
-            #lower .article-list .article > a .list_wrapper .list_text .list_mid {
-              margin-bottom: 4px;
-              width: 100%; }
-              #lower .article-list .article > a .list_wrapper .list_text .list_mid > div {
-                width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                font-size: 16px;
-                color: #888888; }
-                @media only screen and (max-width: 600px) {
-                  #lower .article-list .article > a .list_wrapper .list_text .list_mid > div {
-                    font-size: 14px; } }
-            #lower .article-list .article > a .list_wrapper .list_text .list_lower {
-              font-size: 12px;
-              color: #888888; }
-              #lower .article-list .article > a .list_wrapper .list_text .list_lower .keywords_container {
-                position: relative;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: 100%;
-                white-space: nowrap; }
-                #lower .article-list .article > a .list_wrapper .list_text .list_lower .keywords_container span {
-                  padding: 2px 6px;
-                  background-color: #eeeeee;
-                  color: #888888;
-                  border-radius: 2px;
-                  font-size: 12px; }
-          #lower .article-list .article > a .list_wrapper .list_img .pic_container {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #eeeeee;
-            position: relative; }
-            @media only screen and (max-width: 600px) {
-              #lower .article-list .article > a .list_wrapper .list_img .pic_container {
-                width: 138px;
-                height: 100%;
-                margin-bottom: 0; } }
-            #lower .article-list .article > a .list_wrapper .list_img .pic_container > img {
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              transition: transform 0.2s ease-in-out 0s; }
-            #lower .article-list .article > a .list_wrapper .list_img .pic_container .discount {
-              color: #fff;
-              background-color: #f15353;
-              padding: 1px 4px 2px 4px;
-              border-top-right-radius: 8px;
-              border-bottom-left-radius: 8px;
-              font-size: 16px;
-              font-weight: 300;
-              display: block;
-              position: absolute;
-              top: 0;
-              right: 0; }
-              @media only screen and (max-width: 600px) {
-                #lower .article-list .article > a .list_wrapper .list_img .pic_container .discount {
-                  font-size: 14px; } }
-  #lower .request_container {
-    margin: auto;
-    padding: 28px 12px !important;
-    width: 100%;
-    max-width: 1024px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    font-size: 16px;
-    font-weight: 300;
-    color: #777;
-    text-align: center; }
-    #lower .request_container .request_button_container {
-      margin-top: 8px;
-      font-size: 16px;
-      text-decoration: underline;
-      font-weight: 400; }
-  #lower .review {
-    width: 100%;
-    max-width: 1024px;
-    margin: auto;
-    background-color: #fff;
-    margin-top: 16px; }
-    #lower .review .review-title {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      font-size: 24px;
-      font-weight: 700; }
-    #lower .review .review-content {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-top: 1px solid #eeeeee; }
-      #lower .review .review-content > a {
-        height: 201px;
-        display: block;
-        box-sizing: border-box;
-        text-decoration: none;
-        color: #3b3b46;
-        padding: 24px 16px;
-        background-color: #fff;
-        width: 100%; }
-        #lower .review .review-content > a .list_wrapper {
-          width: 100%;
-          height: 100%;
-          box-sizing: border-box;
-          display: flex;
-          justify-content: space-between;
-          align-items: stretch; }
-          #lower .review .review-content > a .list_wrapper .list_left {
-            width: calc(100% - 144px); }
-            #lower .review .review-content > a .list_wrapper .list_left .list_upper {
-              width: 100%;
-              margin-right: 4px; }
-              #lower .review .review-content > a .list_wrapper .list_left .list_upper .tag_container {
-                font-weight: 300;
-                font-size: 14px;
-                margin-bottom: 4px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: 100%;
-                white-space: nowrap;
-                color: #fff;
-                padding: 2px 0; }
-                #lower .review .review-content > a .list_wrapper .list_left .list_upper .tag_container span {
-                  color: #fff;
-                  background-color: #888888;
-                  padding: 1px 4px 2px 4px;
-                  border-radius: 2px;
-                  margin-right: 4px;
-                  margin-bottom: 2px;
-                  font-size: 14px;
-                  display: inline; }
-                #lower .review .review-content > a .list_wrapper .list_left .list_upper .tag_container .color {
-                  background-color: #0ab9f1;
-                  color: #fff; }
-              #lower .review .review-content > a .list_wrapper .list_left .list_upper .price_container {
-                color: #888888;
-                font-weight: 400;
-                font-size: 24px;
-                width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis; }
-                #lower .review .review-content > a .list_wrapper .list_left .list_upper .price_container .roomType {
-                  color: #888888;
-                  font-size: 20px;
-                  font-weight: 500; }
-                #lower .review .review-content > a .list_wrapper .list_left .list_upper .price_container .new {
-                  font-size: 20px;
-                  color: #f15353; }
-            #lower .review .review-content > a .list_wrapper .list_left .list_mid {
-              margin: 8px 0;
-              font-size: 14px;
-              color: #777;
-              width: 100%; }
-              #lower .review .review-content > a .list_wrapper .list_left .list_mid > div {
-                width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis; }
-            #lower .review .review-content > a .list_wrapper .list_left .list_lower {
-              font-size: 12px;
-              color: rgba(0, 0, 0, 0.4); }
-              #lower .review .review-content > a .list_wrapper .list_left .list_lower .keywords_container {
-                position: relative;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                width: 100%;
-                white-space: nowrap; }
-                #lower .review .review-content > a .list_wrapper .list_left .list_lower .keywords_container span {
-                  padding: 2px 6px;
-                  background-color: rgba(0, 0, 0, 0.03);
-                  color: #777;
-                  border-radius: 2px;
-                  font-size: 12px; }
-          #lower .review .review-content > a .list_wrapper .list_right img {
-            width: 10px;
-            margin-right: 4px; }
-          #lower .review .review-content > a .list_wrapper .list_right .pic_container {
-            width: 138px;
-            height: 100%;
-            position: relative; }
-            #lower .review .review-content > a .list_wrapper .list_right .pic_container > div {
-              width: 100%;
-              height: 100%;
-              border-radius: 8px; }
-            #lower .review .review-content > a .list_wrapper .list_right .pic_container .discount {
-              color: #fff;
-              background-color: #f15353;
-              padding: 1px 4px 2px 4px;
-              border-top-right-radius: 8px;
-              border-bottom-left-radius: 8px;
-              font-size: 14px;
-              display: block;
-              position: absolute;
-              top: 0;
-              right: 0; }
 
-/* main + roomList */
+.request_container {
+  margin: auto;
+  padding: 28px 12px !important;
+  width: 100%;
+  max-width: 1024px;
+  text-align: center;
+  background-color: #e2f3ff !important;
+  border-radius: 8px;
+  overflow: hidden; }
+  @media only screen and (max-width: 600px) {
+    .request_container {
+      border-radius: 0; } }
+  .request_container .request_text_container {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    position: relative;
+    z-index: 2; }
+    @media only screen and (max-width: 600px) {
+      .request_container .request_text_container {
+        margin-top: 12px; } }
+    .request_container .request_text_container > span {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: 300;
+      color: #888888; }
+  .request_container .request_btn {
+    margin-top: 8px; }
+  .request_container img {
+    width: 100%;
+    position: relative;
+    z-index: 1; }
+    @media only screen and (max-width: 600px) {
+      .request_container img {
+        top: -120px;
+        opacity: 0.2; } }
+
+/* 에러 메세지 */
 .error_container {
   margin: auto;
   padding: 60px 0;
@@ -574,10 +528,16 @@
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
   font-size: 18px;
-  color: #555;
-  letter-spacing: -0.4px; }
+  font-weight: 400;
+  color: #3b3b46; }
+  .error_container object {
+    padding: 0 40px;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    margin: auto; }
 
 /* footer */
 footer {

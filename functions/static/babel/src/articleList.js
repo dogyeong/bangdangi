@@ -1,8 +1,10 @@
 (() => {
     const univSelect = document.getElementById("univ_select");
     const filterBtn = document.querySelector(".tune");
+    const filterCancel = document.querySelector(".filter-cancel");
     const rangeInput = document.querySelector('input[type="range"]');
     const sortBtn = document.querySelectorAll(".sortBtn");
+    const filter = document.querySelector(".filter-container");
 
     document.getElementById("lower").style.display = "block";
 
@@ -13,14 +15,17 @@
     }
 
     function toggleFilter() {
-        let filter = document.querySelector(".filter-container");
-
         if (filter.classList.toggle("visible")) {
             filterBtn.classList.add('active');
         } else {
             filterBtn.classList.remove('active');
         }
+        event.preventDefault();
+    }
 
+    function hideFilter() {
+        filter.classList.remove("visible");
+        filterBtn.classList.remove("active");
         event.preventDefault();
     }
 
@@ -80,6 +85,7 @@
 
     univSelect.onchange = changeRoomList;
     filterBtn.addEventListener("click", toggleFilter);
+    filterCancel.addEventListener("click", hideFilter);
     rangeInput.addEventListener("input", updateRangeValue);
     sortBtn.forEach(i => i.addEventListener("click", sortList));
 })();

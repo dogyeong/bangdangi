@@ -10,52 +10,58 @@
 $header_max_width: 1064px;
 $header_height: 64px;
 
-header { 
-    position: fixed;
-    box-sizing: border-box;
-    word-break: keep-all;
-    width: 100%;
-    background-color: $white;
-    box-shadow: 0 0 0 1px $grey-border-color;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    transition: all .2s ease-out;
+@mixin style($header_height) {
+    header { 
+        position: fixed;
+        box-sizing: border-box;
+        word-break: keep-all;
+        width: 100%;
+        background-color: $white;
+        box-shadow: 0 0 0 1px $grey-border-color;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        transition: all .2s ease-out;
 
-    &.transparent {
-        background-color: transparent;
-        box-shadow: none;
+        &.transparent {
+            background-color: transparent;
+            box-shadow: none;
 
-        #header_inner .nav li > a {
-            color: $white;
-        }
-    }
-
-    #header_inner {
-        max-width: $header_max_width;
-        height: $header_height;
-        padding: 0 20px;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-
-        .header_logo {
-            display: inline-block;
-            padding: ($header_height - 28px) / 2 20px;
-
-            @include respond-to(phone) {
-                padding: 16px 0px;
+            #header_inner .nav li > a {
+                color: $white;
             }
+        }
 
-            > img {
-                display: block;
-                height: 26px;
+        #header_inner {
+            max-width: $header_max_width;
+            height: $header_height;
+            padding: 0 20px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+
+            .header_logo {
+                display: inline-block;
+                padding: ($header_height - 26.06px) / 2 20px;
+
+                @include respond-to(phone) {
+                    padding: ($header_height - 21.17px) / 2 0px;
+                }
+
+                > img {
+                    display: block;
+                    width: 64px;
+
+                    @include respond-to(phone) {
+                        width: 52px;
+                    }
+                }
             }
         }
 
@@ -89,4 +95,10 @@ header {
             }
         }
     }
+}
+
+@include style($header_height: 64px);
+
+@include respond-to(phone) {
+    @include style($header_height: 48px);
 }

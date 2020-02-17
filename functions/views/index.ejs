@@ -115,8 +115,8 @@
 
           <a href="<%= i.url %>" class="b1_item">
             <div class="b1_item_content">
-              <div class="b1_item_img"
-                style="background: url('<%= i.images ? i.images[0] : "" %>') center center / cover no-repeat, #ddd;">
+              <div class="b1_item_img">
+                <img src="<%= i.images ? i.images[0] : '' %>" alt="<%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %> 방 사진">
               </div>
               <div class="b1_item_text">
                 <span class="new-text-1"><%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %></span><br />
