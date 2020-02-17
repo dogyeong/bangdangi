@@ -10,7 +10,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 (function () {
   var univSelect = document.getElementById("univ_select");
-  var filterBtn = document.querySelector(".tune_container");
+  var filterBtn = document.querySelector(".tune");
   var rangeInput = document.querySelector('input[type="range"]');
   var sortBtn = document.querySelectorAll(".sortBtn");
   document.getElementById("lower").style.display = "block";
@@ -20,13 +20,15 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   function toggleFilter() {
-    var filter = document.querySelector("#hashtag_container");
+    var filter = document.querySelector(".filter-container");
 
     if (filter.classList.toggle("visible")) {
-      filterBtn.innerHTML = '<i class="xi-close-thin"></i>';
+      filterBtn.classList.add('active');
     } else {
-      filterBtn.innerHTML = '<i class="xi-tune"></i>';
+      filterBtn.classList.remove('active');
     }
+
+    event.preventDefault();
   }
 
   function updateRangeValue() {
@@ -36,7 +38,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
   function sortList() {
     if (this.classList.contains("active")) return;
-    var list = Array.from(document.querySelectorAll("#main > a"));
+    var list = Array.from(document.querySelectorAll(".article-list a"));
     var ad = list.filter(function (i) {
       return i.classList.contains("request_container");
     });
@@ -60,9 +62,16 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
     if (ad.length > 0) {
       list.splice(idx, 0, ad[0]); // 리스트에 광고 삽입
-    }
+    } // 리스트의 원소들을 다시 article로 감싸준다
 
-    var main = document.querySelector("#main");
+
+    list = list.map(function (a) {
+      var article = document.createElement('article');
+      article.classList.add('article');
+      article.append(a);
+      return article;
+    });
+    var main = document.querySelector(".article-list");
     main.innerHTML = "";
     main.append.apply(main, _toConsumableArray(list));
   }

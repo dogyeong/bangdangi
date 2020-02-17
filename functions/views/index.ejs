@@ -45,12 +45,12 @@
   <!-- STYLE START -->
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="css/common.css" />
-  <link rel="stylesheet" type="text/css" href="css/index.css" />
-  <link rel="stylesheet" type="text/css" href="css/headerBar.css" />
-  <link rel="stylesheet" type="text/css" href="css/footer.css" />
+  <link rel="stylesheet"  href="css/common.css" />
+  <link rel="stylesheet"  href="css/index.css" />
+  <link rel="stylesheet"  href="css/headerBar.css" />
+  <link rel="stylesheet"  href="css/footer.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-  <link rel="stylesheet" type="text/css" href="css/polyfill.object-fit.css" />
+  <link rel="stylesheet"  href="css/polyfill.object-fit.css" />
   <!-- STYLE END -->
   <!-- PWA START-->
   <!-- <link rel="manifest" href="/manifest.json"> -->
@@ -81,6 +81,7 @@
       <img src="/img/index/bg.jpg" alt="배경 방 사진">
     </picture>
 
+    <!-- 메인배너 카피 -->
     <div class="mainBlockContainer">
       <div class="mainBlockDivider">
         <div class="mainCopy">
@@ -105,9 +106,9 @@
   <!-- 새로 등록된 매물 -->
   <div class="subBlock b1">
     <div class="subBlock_container">
-      <div class="b1_title">
+      <h3 class="b1_title">
         새로 등록된 매물
-      </div>
+      </h3>
       <ul class="b1_cards">
         <% for (i of newArticles) { %>
         <li>
@@ -138,8 +139,8 @@
         <% } %>
       </ul>
 
-      <div class="b1-button-container">
-        <a class="b1-button" href="/board/list/gwanak">
+      <div class="button-container">
+        <a class="button" href="/board/list/gwanak">
           <button>새 매물 더 보기 &#xE001;</button>
         </a>
       </div>
@@ -151,9 +152,9 @@
   <% if (false) { %>
   <div class="review-block subBlock">
     <div class="subBlock_container">
-      <div class="review-title">
+      <h3 class="review-title">
         거래후기
-      </div>
+      </h3>
       <ul class="review-list">
         <% for (i of newReviews) { %>
           <li>
@@ -175,9 +176,9 @@
   <!-- 방단기 이용 가이드 -->
   <div class="subBlock b3">
     <div class="subBlock_container">
-      <div class="b3-title">
+      <h3 class="b3-title">
         방단기 이용 가이드
-      </div>
+      </h3>
       <ol class="b3-contents">
         <li class="b3-content">
           <div class="b3-img">
@@ -219,8 +220,8 @@
           </div>
         </li>
       </ol>
-      <div class="b3-button-container">
-        <a class="b3-button" href="/board/list/gwanak">
+      <div class="button-container">
+        <a class="button" href="/board/list/gwanak">
           <button>단기 원룸 보러가기 &#xE001;</button>
         </a>
       </div>
@@ -230,14 +231,14 @@
   <!-- 매물 등록하기 -->
   <div class="subBlock b2">
     <div class="subBlock_container">
-      <div class="b2_title">
+      <h3 class="b2_title">
         다음 세입자<br>방단기가 구해드립니다
-      </div>
+      </h3>
       <div class="b2_text">
         매물을 등록하시면<br>방단기에서 무료로 홍보해 드립니다
       </div>
-      <div class="b2_button">
-        <a href="/register">
+      <div class="button-container">
+        <a class="button" href="/register">
           <button>지금 등록하기 &#xE001;</button>
         </a>
       </div>

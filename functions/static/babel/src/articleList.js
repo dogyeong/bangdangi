@@ -1,6 +1,6 @@
 (() => {
     const univSelect = document.getElementById("univ_select");
-    const filterBtn = document.querySelector(".tune_container");
+    const filterBtn = document.querySelector(".tune");
     const rangeInput = document.querySelector('input[type="range"]');
     const sortBtn = document.querySelectorAll(".sortBtn");
 
@@ -13,13 +13,15 @@
     }
 
     function toggleFilter() {
-        let filter = document.querySelector("#hashtag_container");
+        let filter = document.querySelector(".filter-container");
 
         if (filter.classList.toggle("visible")) {
-            filterBtn.innerHTML = '<i class="xi-close-thin"></i>';
+            filterBtn.classList.add('active');
         } else {
-            filterBtn.innerHTML = '<i class="xi-tune"></i>';
+            filterBtn.classList.remove('active');
         }
+
+        event.preventDefault();
     }
 
     function updateRangeValue() {
@@ -30,7 +32,7 @@
     function sortList() {
         if (this.classList.contains("active")) return;
 
-        let list = Array.from(document.querySelectorAll("#main > a"));
+        let list = Array.from(document.querySelectorAll(".article-list a"));
         let ad = list.filter(i => i.classList.contains("request_container"));
         let idx;
         if (ad.length > 0) {
@@ -49,7 +51,17 @@
         if (ad.length > 0) {
             list.splice(idx, 0, ad[0]); // 리스트에 광고 삽입
         }
-        let main = document.querySelector("#main");
+
+        // 리스트의 원소들을 다시 article로 감싸준다
+        list = list.map((a) => {
+            let article = document.createElement('article');
+            article.classList.add('article');
+            article.append(a);
+            
+            return article;
+        });
+
+        let main = document.querySelector(".article-list");
         main.innerHTML = "";
         main.append(...list);
     }

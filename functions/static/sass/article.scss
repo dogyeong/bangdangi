@@ -17,7 +17,7 @@ $contact_bg_color: rgba(8, 186, 241, 0.18);
     top: 0;
     left: 0;
     margin: auto;
-    background-color: $article_bg_color;
+    background-color: $article-bg-color;
 }
 
 /* 헤더 */
@@ -30,8 +30,8 @@ header {
             justify-content: center;
             align-items: center;
             padding: 0 20px;
-            font-size: $fs_xl;
-            font-weight: $fw_regular;
+            font-size: $fs-xl;
+            font-weight: $fw-regular;
 
             @include respond-to(phone) {
                 padding: 0;
@@ -49,8 +49,8 @@ header {
 
         .share_container {
             padding: 0 20px;
-            font-size: $fs_lg;
-            font-weight: $fw_regular;
+            font-size: $fs-lg;
+            font-weight: $fw-regular;
             display: flex;
             position: relative;
             justify-content: center;
@@ -69,7 +69,7 @@ header {
                 overflow: hidden;
 
                 a {
-                    color: $font_color;
+                    color: $font-color;
                     display: inline-block;
                     width: 100%;
                     height: 100%;
@@ -125,14 +125,14 @@ header {
         }
 
         .title {
-            font-size: $fs_lg;
-            font-weight: $fw_regular;
+            font-size: $fs-lg;
+            font-weight: $fw-regular;
             word-break: keep-all;
         }
 
         .views_container {
             display: flex;
-            font-size: $fs_md;
+            font-size: $fs-md;
 
             @include respond-to(phone) {
                 margin-top: 12px;
@@ -231,8 +231,8 @@ header {
                 bottom: 12px;
                 right: 16px;
                 border-radius: 2px;
-                font-size: $fs_sm;
-                font-weight: $fw_light;
+                font-size: $fs-sm;
+                font-weight: $fw-light;
                 letter-spacing: 1.5px;
             }
         }
@@ -309,15 +309,15 @@ header {
     }
 
     .detail_title {
-        font-size: $fs_md;
-        font-weight: $fw_regular;
+        font-size: $fs-md;
+        font-weight: $fw-regular;
         margin-bottom: 24px;
     }
 
     .detail_text {
         white-space: pre-line;
-        font-size: $fs_md;
-        font-weight: $fw_light;
+        font-size: $fs-md;
+        font-weight: $fw-light;
     }
 
     /* 연락하기 버튼 블럭 */
@@ -351,7 +351,7 @@ header {
                 margin: 0;
                 height: 80px;
                 width: 100%;
-                background-color: $main_color;
+                background-color: $main-color;
                 color: $white;
             }
         }
@@ -361,8 +361,8 @@ header {
             margin: auto;
             color: $white;
             height: 60px;
-            font-size: $fs_lg;
-            font-weight: $fw_regular;
+            font-size: $fs-lg;
+            font-weight: $fw-regular;
             display: flex;
             justify-content: space-between;
             align-items: stretch;
@@ -371,13 +371,13 @@ header {
             box-sizing: border-box;
             cursor: pointer;
             @include respond-to(phone) {
-                font-size: $fs_md;
+                font-size: $fs-md;
                 height: 48px;
                 margin: 0;
             }
 
             .contact_kakao {
-                background-color: $kakao_yellow;
+                background-color: $kakao-yellow;
                 display: flex;
                 flex: 1;
                 justify-content: center;
@@ -386,7 +386,7 @@ header {
 
             .contact_done {
                 background-color: rgb(245, 247, 248);
-                color: $font_color;
+                color: $font-color;
                 display: flex;
                 flex: 1;
                 justify-content: center;
@@ -399,10 +399,10 @@ header {
                 flex: 1;
                 justify-content: center;
                 align-items: center;
-                background-color: $main_color;
+                background-color: $main-color;
                 color: $white;
-                font-size: $fs_lg;
-                font-weight: $fw_regular;
+                font-size: $fs-lg;
+                font-weight: $fw-regular;
                 @include respond-to(phone) {
                     color: $contact_color;
                     background-color: $contact_bg_color;
@@ -422,14 +422,14 @@ header {
             margin-left: 20px;
         }
         li  {
-            font-size: $fs_sm;
-            font-weight: $fw_light;
+            font-size: $fs-sm;
+            font-weight: $fw-light;
             color: $grey;
-            line-height: $fs_lg;
+            line-height: $fs-lg;
             
             i {
-                font-size: $fs_sm;
-                font-weight: $fw_light;
+                font-size: $fs-sm;
+                font-weight: $fw-light;
             }
         }
         
@@ -452,15 +452,15 @@ header {
     }
 
     .review-title {
-        font-size: $fs_md;
-        font-weight: $fw_regular;
+        font-size: $fs-md;
+        font-weight: $fw-regular;
         margin-bottom: 24px;
     }
 
     .review-text {
         white-space: pre-line;
-        font-size: $fs_md;
-        font-weight: $fw_light;
+        font-size: $fs-md;
+        font-weight: $fw-light;
     }
 }
 
@@ -476,14 +476,14 @@ header {
     box-sizing: border-box;
 
     .map-title {
-        font-size: $fs_md;
-        font-weight: $fw_regular;
+        font-size: $fs-md;
+        font-weight: $fw-regular;
         margin-bottom: 24px;
     }
     .map {
         width: 100%;
         height: 300px;
-        background-color: $article_bg_color;
+        background-color: $article-bg-color;
     }
 }
 
@@ -581,9 +581,9 @@ header {
     margin: auto;
     box-sizing: border-box;
     background-color: rgb(245, 247, 248);
-    color: $font_color;
-    font-size: $fs_sm;
-    font-weight: $fw_regular;
+    color: $font-color;
+    font-size: $fs-sm;
+    font-weight: $fw-regular;
     border-top: none;
 }
 
@@ -595,8 +595,8 @@ footer {
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: $fs_sm;
-    font-weight: $fw_regular;
+    font-size: $fs-sm;
+    font-weight: $fw-regular;
     padding: 0 8px;
     word-break: keep-all;
     color: gray;

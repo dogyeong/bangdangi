@@ -44,8 +44,8 @@
 /* Common CSS */
 * {
     font: {
-        family: $font_family;
-        size: $fs_md;
+        family: $font-family;
+        size: $fs-md;
     }
     padding: 0;
     margin: 0;
@@ -54,9 +54,9 @@
 
 html,
 body {
-    font-weight: $fw_regular;
+    font-weight: $fw-regular;
     background-color: $white;
-    color: $font_color;
+    color: $font-color;
     width: 100%;
 }
 
@@ -66,5 +66,5 @@ div {
 
 a {
     text-decoration: none;
-    color: $font_color;
+    color: $font-color;
 }

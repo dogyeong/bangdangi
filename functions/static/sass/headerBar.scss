@@ -16,7 +16,7 @@ header {
     word-break: keep-all;
     width: 100%;
     background-color: $white;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 0 0 1px $grey-border-color;
     top: 0;
     left: 0;
     z-index: 100;
@@ -65,25 +65,25 @@ header {
                 padding: 0 16px;
                 height: 36px;
                 line-height: 36px;
-                color: $font_color;
+                color: $font-color;
 
                 @include respond-to(phone) {
-                    font-size: $fs_sm;
+                    font-size: $fs-sm;
                     padding: 0px 4px;
                 }
 
                 > a {
                     width: 100%;
-                    color: $font_color;
+                    color: $font-color;
                     transition: color .2s ease-out;
-                    font-size: $fs_md;
-                    font-weight: $fw_bold;
+                    font-size: $fs-md;
+                    font-weight: $fw-bold;
                     @include respond-to(phone){
-                        font-size: $fs_sm;
+                        font-size: $fs-sm;
                     }
 
                     &:hover {
-                        color: $main_color;
+                        color: $main-color;
                     }
                 }
             }

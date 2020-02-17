@@ -13,7 +13,7 @@ footer {
     position: relative;
     width: 100%;
     padding: 40px 0;
-    background-color: $font_color;
+    background-color: $font-color;
     color: $white;
     @include respond-to(phone) {
         padding: 40px 0;
@@ -30,14 +30,19 @@ footer {
         }
         
         .footer-1 {
-            font-size: $fs_md;
-            font-weight: $fw_regular;
             a {
+                font-size: $fs-lg;
+                font-weight: $fw-bold;
                 display: inline-block;
                 color: inherit;
                 margin-right: 56px;
+                transition: color .2s ease-out;
                 @include respond-to(phone) {
                     margin-right: 28px;
+                }
+
+                &:hover {
+                    color: $main-color;
                 }
             }
         }
@@ -52,21 +57,26 @@ footer {
                 flex-direction: column;
                 justify-content: flex-start;
                 align-items: flex-start;
+                margin-top: 40px;
             }
             .business-info {
                 @include respond-to(phone) {
-                    margin-bottom: 60px;
+                    margin-bottom: 40px;
                 }
             }
             .title {
-                font-size: $fs_md;
-                font-weight: $fw_regular;
+                font-size: $fs-lg;
+                font-weight: $fw-regular;
                 padding-bottom: 8px;
+                @include respond-to(phone) {
+                    padding-bottom: 4px;
+                }
             }
             .text {
-                font-size: $fs_sm;
-                font-weight: $fw_light;
+                font-size: $fs-sm;
+                font-weight: $fw-light;
                 word-break: keep-all;
+
             }
         }
 
@@ -81,7 +91,17 @@ footer {
                 }
             }
             i {
-                font-size: $fs_2xl;
+                font-size: $fs-2xl;
+
+                &.xi-instagram:hover {
+                    color: #c32aa3;
+                    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                &.xi-naver-square:hover {
+                    color: #03cf5d;
+                }
             }
         }
     }

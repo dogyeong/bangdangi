@@ -4,50 +4,51 @@
 
 /* colors */
 $white: #fff;
-$main_color: #0ab9f1;
-$font_color: #3b3b46;
-$grey_border_color: #eee;
-$article_bg_color: #ebeef1;
-$kakao_yellow: #ffe812;
+$main-color: #0ab9f1;
+$font-color: #3b3b46;
+$grey-border-color: rgb(238, 238, 238); // #eee
+$article-bg-color: #ebeef1;
+$kakao-yellow: #ffe812;
 $grey: rgb(136, 136, 136);
+$lightgrey: rgb(200, 200, 200);
 
 /* font-weight */
-$fw_thin: 100;
-$fw_light: 300;
-$fw_regular: 400;
-$fw_bold: 700;
+$fw-thin: 100;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-bold: 700;
 
 /* font-family */
-$font_family: Spoqa Han Sans, Noto Sans KR, AppleSDGothicNeo-Regular, "Malgun Gothic", "맑은 고딕", dotum, "돋움", sans-serif !default;
+$font-family: Spoqa Han Sans, Noto Sans KR, AppleSDGothicNeo-Regular, "Malgun Gothic", "맑은 고딕", dotum, "돋움", sans-serif !default;
 
 /* font-size */
-$fs_xs: 12px;
-$fs_sm: 14px;
-$fs_md: 16px;
-$fs_lg: 18px;
-$fs_xl: 24px;
-$fs_2xl: 36px;
-$fs_3xl: 48px;
-$fs_4xl: 60px;
+$fs-xs: 12px;
+$fs-sm: 14px;
+$fs-md: 16px;
+$fs-lg: 18px;
+$fs-xl: 24px;
+$fs-2xl: 36px;
+$fs-3xl: 48px;
+$fs-4xl: 60px;
 
 /* line-height */
-$line_height: percentage(20px / $fs_md);
+$line-height: percentage(20px / $fs-md);
 
 /* media query */
-$break_small: 600px;
-$breek_large: 1024px;
+$break-small: 600px;
+$breek-large: 1024px;
 
 @mixin respond-to($media) {
     @if $media==phone {
-        @media only screen and (max-width: $break_small) {
+        @media only screen and (max-width: $break-small) {
             @content;
         }
     } @else if $media==medium-screens {
-        @media only screen and (min-width: $break_small + 1) and (max-width: $break_large - 1) {
+        @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) {
             @content;
         }
     } @else if $media==wide-screens {
-        @media only screen and (min-width: $break_large) {
+        @media only screen and (min-width: $break-large) {
             @content;
         }
     }

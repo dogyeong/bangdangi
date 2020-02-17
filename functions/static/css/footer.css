@@ -32,16 +32,18 @@ footer {
     @media only screen and (max-width: 600px) {
       footer .footerContainer {
         padding: 0 20px; } }
-    footer .footerContainer .footer-1 {
-      font-size: 16px;
-      font-weight: 400; }
-      footer .footerContainer .footer-1 a {
-        display: inline-block;
-        color: inherit;
-        margin-right: 56px; }
-        @media only screen and (max-width: 600px) {
-          footer .footerContainer .footer-1 a {
-            margin-right: 28px; } }
+    footer .footerContainer .footer-1 a {
+      font-size: 18px;
+      font-weight: 700;
+      display: inline-block;
+      color: inherit;
+      margin-right: 56px;
+      transition: color .2s ease-out; }
+      @media only screen and (max-width: 600px) {
+        footer .footerContainer .footer-1 a {
+          margin-right: 28px; } }
+      footer .footerContainer .footer-1 a:hover {
+        color: #0ab9f1; }
     footer .footerContainer .footer-2 {
       margin-top: 60px;
       display: flex;
@@ -52,14 +54,18 @@ footer {
         footer .footerContainer .footer-2 {
           flex-direction: column;
           justify-content: flex-start;
-          align-items: flex-start; } }
+          align-items: flex-start;
+          margin-top: 40px; } }
       @media only screen and (max-width: 600px) {
         footer .footerContainer .footer-2 .business-info {
-          margin-bottom: 60px; } }
+          margin-bottom: 40px; } }
       footer .footerContainer .footer-2 .title {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 400;
         padding-bottom: 8px; }
+        @media only screen and (max-width: 600px) {
+          footer .footerContainer .footer-2 .title {
+            padding-bottom: 4px; } }
       footer .footerContainer .footer-2 .text {
         font-size: 14px;
         font-weight: 300;
@@ -75,3 +81,10 @@ footer {
             margin: 0 6px; } }
       footer .footerContainer .footer-3 i {
         font-size: 36px; }
+        footer .footerContainer .footer-3 i.xi-instagram:hover {
+          color: #c32aa3;
+          background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent; }
+        footer .footerContainer .footer-3 i.xi-naver-square:hover {
+          color: #03cf5d; }

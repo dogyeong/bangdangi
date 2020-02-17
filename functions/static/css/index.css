@@ -155,7 +155,8 @@ body {
   /* 거래후기 */
   /* 새로 등록된 매물 */
   /* 두 번째 subBlock - 다음 세입자 구해드립니다 */
-  /* 세 번째 subBlock - 방단기 이용 가이드 */ }
+  /* 세 번째 subBlock - 방단기 이용 가이드 */
+  /* 버튼 */ }
   @media only screen and (max-width: 600px) {
     .subBlock {
       padding-top: 100px; } }
@@ -207,7 +208,7 @@ body {
             width: 100%;
             height: 180px;
             border-radius: 12px;
-            border: 1px solid #eee;
+            border: 1px solid #eeeeee;
             object-fit: cover; }
             .subBlock.review-block .review-list li .review-item .review-content .review-img img {
               width: 100%;
@@ -262,7 +263,7 @@ body {
             width: 100%;
             height: 180px;
             border-radius: 12px;
-            border: 1px solid #eee; }
+            border: 1px solid #eeeeee; }
           .subBlock.b1 .b1_cards .b1_item .b1_item_content .b1_item_text {
             background-color: #fff;
             width: 100%;
@@ -279,29 +280,6 @@ body {
         @media only screen and (max-width: 600px) {
           .subBlock.b1 .b1_cards .b1_item:last-child {
             margin-right: 0px; } }
-    .subBlock.b1 .b1-button-container {
-      text-align: center;
-      margin-top: 20px; }
-      .subBlock.b1 .b1-button-container .b1-button {
-        text-align: center; }
-        .subBlock.b1 .b1-button-container .b1-button button {
-          width: 200px;
-          padding: 16px 28px;
-          background: #ebeef1;
-          border: 1px solid #ebeef1;
-          display: inline-block;
-          border-radius: 100px;
-          color: #3b3b46;
-          font: inherit;
-          font-size: 16px;
-          font-weight: 400;
-          cursor: pointer;
-          text-transform: none;
-          margin: 0;
-          box-sizing: border-box;
-          transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s; }
-          .subBlock.b1 .b1-button-container .b1-button button:hover {
-            text-decoration: underline; }
   .subBlock.b2 {
     padding-bottom: 120px; }
     .subBlock.b2 .b2_title {
@@ -321,30 +299,6 @@ body {
         .subBlock.b2 .b2_text {
           font-size: 16px;
           font-weight: 300; } }
-    .subBlock.b2 .b2_button {
-      margin-top: 60px;
-      text-align: center; }
-      @media only screen and (max-width: 600px) {
-        .subBlock.b2 .b2_button {
-          margin-top: 40px; } }
-      .subBlock.b2 .b2_button button {
-        width: 200px;
-        padding: 16px 28px;
-        background: #ebeef1;
-        border: 1px solid #ebeef1;
-        display: inline-block;
-        border-radius: 100px;
-        color: #3b3b46;
-        font: inherit;
-        font-size: 16px;
-        font-weight: 400;
-        cursor: pointer;
-        text-transform: none;
-        margin: 0;
-        box-sizing: border-box;
-        transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s; }
-        .subBlock.b2 .b2_button button:hover {
-          text-decoration: underline; }
   .subBlock.b3 .b3-title {
     text-align: center;
     font-size: 24px;
@@ -385,12 +339,12 @@ body {
         .subBlock.b3 .b3-contents .b3-content .b3-text .text {
           font-size: 16px;
           font-weight: 300; }
-  .subBlock.b3 .b3-button-container {
+  .subBlock .button-container {
     text-align: center;
-    margin-top: 28px; }
-    .subBlock.b3 .b3-button-container .b3-button {
+    margin-top: 20px; }
+    .subBlock .button-container .button {
       text-align: center; }
-      .subBlock.b3 .b3-button-container .b3-button button {
+      .subBlock .button-container .button button {
         width: 200px;
         padding: 16px 28px;
         background: #ebeef1;
@@ -406,7 +360,7 @@ body {
         margin: 0;
         box-sizing: border-box;
         transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0s; }
-        .subBlock.b3 .b3-button-container .b3-button button:hover {
+        .subBlock .button-container .button button:hover {
           text-decoration: underline; }
 
 /* PWA */
