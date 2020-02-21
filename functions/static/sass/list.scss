@@ -110,6 +110,7 @@ $content_max_width: 1024px;
             }
         }
 
+        /* 필터 버튼 */
         .tune {
             width: 63px;
             height: 64px;
@@ -127,6 +128,8 @@ $content_max_width: 1024px;
                 color: $white;
             }
         }
+
+        /* 초기화 버튼 */
         .renew {
             width: 63px;
             height: 64px;
@@ -146,13 +149,14 @@ $content_max_width: 1024px;
                 }
             }
         }
+
         i {
             font-size: $fs-lg;
         }
     }
 }
 
-/* 필터 */
+/* 필터 컨테이너 */
 .filter-container {
     margin: auto;
     visibility: hidden;
@@ -231,23 +235,25 @@ $content_max_width: 1024px;
                 input[type="range"] {
                     display: inline-block;
                     -webkit-appearance: none;
-                    background-color: #bdc3c7;
+                    background-color: $grey;
                     width: calc(100% - 100px);
                     max-width: 480px;
-                    height: 3px;
+                    height: 2px;
                     margin-right: 4px;
                     outline: 0;
+                    position: relative;
+                    top: -4px;
                 }
 
                 input[type="range"]::-webkit-slider-thumb {
                     -webkit-appearance: none;
-                    background-color: $main-color;
+                    background-color: $white;
                     width: 16px;
                     height: 16px;
                     border-radius: 50%;
-                    border: 1px solid $white;
+                    border: 2px solid $main-color;
                     cursor: pointer;
-                    transition: transform 0.2s ease-in-out;
+                    transition: all 0.2s ease-in-out;
                 }
 
                 ​ input[type="range"]::-webkit-slider-thumb:hover {
@@ -257,6 +263,7 @@ $content_max_width: 1024px;
 
                 input[type="range"]::-webkit-slider-thumb:active {
                     transform: scale(1.3);
+                    background-color: $grey-border-color;
                 }
             }
         }

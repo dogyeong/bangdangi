@@ -43,12 +43,15 @@
     <link rel="canonical" href="https://bangdangi.web.app/board/read/<%=univ%>/<%=articleNo%>" />
     <!-- SEO END -->
     <title><%= data.title || '매물 상세보기' %> | 방단기</title>
-    <link rel="shortcut icon" href="../../../img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="../../../img/favicon.ico" type="image/x-icon">
-    <link rel=stylesheet  href="../../../css/common.css" />
-    <link rel=stylesheet  href="../../../css/headerBar.css" />
-    <link rel=stylesheet  href="../../../css/article.css" />
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel=stylesheet  href="/css/common.css" />
+    <link rel=stylesheet  href="/css/headerBar.css" />
+    <link rel=stylesheet  href="/css/footer.css" />
+    <link rel=stylesheet  href="/css/article.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" href="/slick/slick.css"/>
+    <link rel="stylesheet" href="/slick/slick-theme.css"/>
     <!-- JS-LOAD-IMAGE : 이미지 자동 회전을 위한 라이브러리 -->
     <script src="https://bangdangi.web.app/js/load-image.all.min.js"></script>
 </head>
@@ -58,45 +61,45 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC8GC5C" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <span id="headerBG"></span>
+    
     <div id="wrapper">
+        
         <!-- 헤더 -->
-        <header>
-            <div id="header_inner">
-                <div class="back_btn">
-                    <a class="back_arrow" href="/board/list/<%=univ%>">
-                        <i class="xi-arrow-left"></i>
-                    </a>
-                    <a class="header_logo" href="https://bangdangi.web.app/">
-                        <img src="../../../img/bangdangi_logo_2.png" alt="방단기 로고">
-                    </a>
+        <%- include('templates/gnb') %>
+
+        <!-- 공유하기 딤드 -->
+        <section class="dimmed-share">
+            <a id="kakao-link-btn">
+                <img src="/img/detail/kakao_logo.svg" alt="카카오톡 로고">
+                <p>카카오톡 공유</p>
+            </a>
+            <a class="url-link-btn">
+                <img src="/img/detail/url_link_image.png" alt="파란 배경에 흰 글자로 URL">
+                <p>URL 복사</p>
+            </a>
+            <span class="dimmed-close"><i class="xi-close-thin"></i></span>
+        </section>
+
+        <!-- 제목 + 가격정보 블럭 -->
+        <section class="top-section">
+            <!-- 브레드크럼, 조회수, 공유하기 -->
+            <div class="bread-nav-container">
+                <!-- 브레드크럼 네비게이션 -->
+                <ol class="breadcrumbs">
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/board/list/<%=univ%>"><%=univKo%></a></li>
+                </ol>
+                <!-- 조회수, 공유하기 -->
+                <div class="bread-right">
+                    <span class="views-container">조회 <%= data.views %></span>
+                    <span class="share-btn">
+                        <a href="javascript:;" aria-label="공유하기"><i class="xi-share-alt"></i>
+                        </a>
+                    </span>
                 </div>
-                <ul class="share_container">
-                    <li class="kakao_link_btn">
-                        <a href="javascript:;" id="kakao-link-btn">
-                            <img
-                                src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" />
-                            <!-- 톡 이미지 부분이고, 전 kakaolink_btn_small.png로 불러왔습니다.   -->
-                        </a>
-                    </li>
-
-                    <li class="url_link_btn">
-                        <a href="javascript:;">
-                            <img src="../../../img/url_link_image.png">
-                        </a>
-                    </li>
-                    <li class="share_btn">
-                        <a href="javascript:;">
-                            <i class="xi-share-alt-o"></i>
-                        </a>
-                    </li>
-                </ul>
             </div>
-        </header>
-
-        <!-- 제목 + 사진 + 기본정보 블럭 -->
-        <div class="block1">
-            <div class="titleBlock">
+            <!-- 제목 -->
+            <div class="title-container">
                 <!-- 글 제목-->
                 <h1 class="title">
                     <%= data.title || '' %>
@@ -104,200 +107,192 @@
                     <span class="done_container">거래완료</span>
                     <% } %>
                 </h1>
-                <!-- 조회수 -->
-                <div class="views_container">
-                    <div class="views_title">조회</div>
-                    <div class="views_number"><%= data.views %></div>
-                </div>
             </div>
-            <div class="infoBlock">
-                <!-- 이미지 슬라이더-->
-                <% if(data.images !== null) { %>
-                <div class="slider_container">
-                    <div class="mask">
-                        <div class="image_container">
-                            <% for(i of data.images) { %>
-                            <div style="background:url('<%=i%>') no-repeat center center;background-size:contain;">
-                            </div>
+
+            <!-- 가격, 연락버튼 -->
+            <div class="top-section-price">  
+                <!-- 가격, 관리비-->
+                <div class="price-container">
+                    <div class="price">
+                        <div>월세<%= data.tradeType === null ? '' : '('+data.tradeType+')' %></div>
+                        <div><%= data.deposit!==null ? data.deposit : '문의' %> /
+                            <% if (data.price!==null) { %>
+                                <%= data.price %><span>만원</span>
+                            <% } else { %>
+                                문의
                             <% } %>
                         </div>
                     </div>
-                    <span class="slider_btn slider_btn_l"><i class="xi-angle-left xi-2x"></i></span>
-                    <span class="slider_btn slider_btn_r"><i class="xi-angle-right xi-2x"></i></span>
-                    <span class="slider_counter"></span>
-                </div>
-                <% } %>
-                <!-- 기본 정보 -->
-                <div class="info_container">
-                    <!-- 기본정보 영역 제목 -->
-                    <div class="info_title">매물정보</div>
-                    <!-- 기본정보 영역 테이블 -->
-                    <div class="info_table">
-                        <!-- 보증금 -->
-                        <div class="row">
-                            <div class="cell_title">가격</div>
-                            <div class="cell_data">
-                                보증금 <span><%= data.deposit!==null ? data.deposit : '문의' %></span> / 월세
-                                <span><%= data.price!==null ? data.price : '문의' %></span>
-                            </div>
-                        </div>
-                        <!-- 기간 -->
-                        <div class="row">
-                            <div class="cell_title">
-                                기간
-                            </div>
-                            <div class="cell_data">
-                                <% if(data.startDate === null && data.endDate === null) { %>
-                                <% if(data['minTerm']) { %>
-                                <%= data['minTerm']+'개월이상' %>
-                                <% } %>
-                                <% } else { %>
-                                <%= data.startDate ? new Date(data.startDate.toMillis()).toLocaleDateString() : '' %>
-                                <%= (data.startDate || data.endDate) ? ' ~ ' : '' %>
-                                <%= data.endDate ? new Date(data.endDate.toMillis()).toLocaleDateString() : '' %>
-                                <% } %>
-                            </div>
-                        </div>
-                        <!-- 위치 -->
-                        <div class="row">
-                            <div class="cell_title">
-                                위치
-                            </div>
-                            <div class="cell_data">
-                                <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '문의') %>
-                            </div>
-                        </div>
-                        <!-- 관리비 -->
-                        <div class="row">
-                            <div class="cell_title">
-                                관리비
-                            </div>
-                            <div class="cell_data">
-                                <%= data.expense === null ? '문의' : data.expense+'만원' %>
-                            </div>
-                        </div>
-                        <!-- 방 형태-->
-                        <div class="row">
-                            <div class="cell_title">
-                                방 형태
-                            </div>
-                            <div class="cell_data">
-                                <%= data.roomType || '문의' %>
-                            </div>
-                        </div>
-                        <!-- 층수 -->
-                        <div class="row">
-                            <div class="cell_title">
-                                층수
-                            </div>
-                            <div class="cell_data">
-                                <% if (data.floor === -1) { %>
-                                반지층
-                                <% } else { %>
-                                <%= data.floor!==null ? data.floor+'층' : '문의' %>
-                                <% } %>
-                            </div>
-                        </div>
+                    <div class="price">
+                        <div>관리비</div>
+                        <div><%= data.expense === null ? '문의' : data.expense+'만원' %></div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- 본문 블럭 -->
-        <div class="block2">
-            <div class="detail_title">상세설명</div>
-            <p class="detail_text"><%= data.text || '' %></p>
-            <!-- 연락하기 버튼 블럭 START -->
-            <div class="contact_container">
-                <a class="cancel_btn" href="https://bangdangi.web.app/board/list/<%=univ%>">
-                    <i class="xi-arrow-left"></i> &nbsp; 다른 단기 원룸 보러가기
-                </a>
-                <% if (done === true) { %>
-                <div class="contact_btn_container">
-                    <div class="contact_done">
-                        거래완료된 매물입니다
-                    </div>
-                </div>
-                <% } else { %>
-                <div class="contact_btn_container" data-contact="<%= data.contact || '' %>">
-                    <% if (data.contact && data.contact.length > 15) { %>
-                    <a class="contact_kakao contact" data-type="kakao" data-contact="<%= data.contact || '' %>"
-                        href="javascript:void(0);">
-                        오픈채팅방으로 연락하기 &nbsp;&nbsp; <i class="xi-kakaotalk"></i>
-                    </a>
+                <!-- pc 예약하기, 문의하기 버튼 -->
+                <div class="pc-btn-container">
+                    <% if (done === false) { %>
+                        <button class="reserve-btn">예약하기</button>
+                        <% if (data.contact && data.contact.length > 15) { %>
+                            <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
+                                오픈채팅방으로 연락하기
+                            </button>
+                        <% } else { %>    
+                            <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                                방단기에 문의하기
+                            </button>                
+                        <% } %>
                     <% } else { %>
-                    <!-- 방단기에 문의하기 로 바꾸면서 주석처리
-                        <a class="contact_call contact" data-type="tel" data-contact="<%= data.contact || '' %>"
-                            href="javascript:void(0);">
-                            <i class="xi-call"></i> &nbsp;&nbsp; 전화 연락하기
-                        </a>
-                        -->
-                    <a class="contact_sms contact" data-type="sms" data-contact="<%= data.contact || '' %>"
-                        href="javascript:void(0);">
-                        <i class="xi-mail-o"></i> &nbsp;&nbsp; 방단기에 문의하기
-                    </a>
+                        <div class="done-btn">거래완료된 매물입니다</div>                
                     <% } %>
                 </div>
-                <% } %>
-
             </div>
-            <!-- 연락하기 버튼 블럭 END -->
+        </section>
+
+        <!-- 이미지 캐로셀 -->
+        <section class="carousel-container">
+            <div class="slick-container">
+                <% if(data.images !== null) { %>
+                    <% for(i of data.images) { %>
+                        <div class="img-container">
+                            <img data-lazy="<%=i%>" alt="<%=data.title || ''%>" />
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- 매물정보 테이블 -->
+        <section class="info">
+            <table>
+                <thead>
+                    <tr>
+                        <th>기간</th>
+                        <th>위치</th>
+                        <th>방 형태</th>
+                        <th>층수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <% if(data.startDate === null && data.endDate === null) { %>
+                            <% if(data['minTerm']) { %>
+                            <%= data['minTerm']+'개월이상' %>
+                            <% } %>
+                            <% } else { %>
+                            <%= data.startDate ? new Date(data.startDate.toMillis()).toLocaleDateString() : '' %>
+                            <%= (data.startDate || data.endDate) ? ' ~ ' : '' %>
+                            <%= data.endDate ? new Date(data.endDate.toMillis()).toLocaleDateString() : '' %>
+                            <% } %>
+                        </td>
+                        <td>
+                            <%= (data['locationS'] ? Object.keys(data['locationS']).join(' ') : '문의') %>
+                        </td>
+                        <td><%= data.roomType || '문의' %></td>
+                        <td>
+                            <% if (data.floor === -1) { %>
+                                반지층
+                            <% } else { %>
+                                <%= data.floor!==null ? data.floor+'층' : '문의' %>
+                            <% } %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 모바일 문의 버튼 -->
+        <section class="mobile-btn-container">
+            <% if (done === false) { %>
+                <% if (data.contact && data.contact.length > 15) { %>
+                    <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
+                        오픈채팅방으로 연락하기
+                    </button>
+                <% } else { %>    
+                    <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                        방단기에 문의하기
+                    </button>                
+                <% } %>
+                <button class="reserve-btn">예약하기</button>
+            <% } %>
+        </section>
+
+        <!-- 본문 블럭 -->
+        <section class="detail-container">
+            <h3 class="title">상세설명</h3>
+            <p class="text"><%= data.text || '' %></p>
+
             <ul class="sub-info xi-ul">
                 <li>
                     <i class="xi-help-o xi-li"></i> 방단기의 모든 매물은 직거래 매물로 중개 수수료를 받지 않습니다. 다만, 안전을 위해 방단기 관리자가 계약까지 안내해
                     드리고 있습니다.
                 </li>
             </ul>
-        </div>
+        </section>
 
         <!-- 후기 블럭 -->
         <% if (done === true) { %>
-        <div class="review-block">
-            <div class="review-title">거래후기</div>
-            <div class="review-text"><%= data.review || ''%></div>    
+        <div class="review-container">
+            <h3 class="title">거래후기</h3>
+            <div class="text"><%= data.review || ''%></div>    
         </div>    
         <% } %>
 
         <!-- 지도 블럭 -->
         <% if (data.position && data.position.latitude) { %>
-        <section class="map-block">
-            <div class="map-title">위치</div>
+        <section class="map-container">
+            <div class="title">지도 및 위치</div>
             <div class="map"></div>
         </section>
         <% } %>
 
         <!-- 관련 매물 블럭 -->
-        <div class="block3">
-            <div class="related_title">
-                관련 매물
-            </div>
-            <div class="related_body">
+        <section class="related-container">
+            <h3 class="title">
+                관련 매물<span><a href="https://bangdangi.web.app/board/list/<%=univ%>">더 보기 &#xE001;</a></span>
+            </h3>
+            <ul class="related-list">
                 <% for (i of related) { %>
-                <a href="<%= i.url %>">
-                    <div class="related_img_container">
-                        <div class="related_img"
-                            style="background: center / cover no-repeat url('<%= i.img %>'),  #ebeef1;"></div>
-                    </div>
-                    <p><%= i.line1 %></p>
-                    <p><%= i.line2 %></p>
-                    <p><%= i.line3 %></p>
-                </a>
+                <li>
+                    <a href="<%= i.url %>">
+                        <div class="related-img">
+                            <img src="<%= i.img %>" alt="<%= i.line1 %> 방 사진"/>
+                        </div>
+                        <div class="related-text">
+                            <p><%= i.line1 %></p>
+                            <p><%= i.line2 %></p>
+                            <p><%= i.line3 %></p>
+                        </div>
+                    </a>
+                </li>
                 <% } %>
-            </div>
-        </div>
+            </ul>
+        </section>
 
         <!-- 관련 매물 더 보러가기-->
-        <a class="related_more" href="https://bangdangi.web.app/board/list/<%=univ%>">
-            <i class="xi-plus-thin"></i> &nbsp; 관련 매물 더 보기
-        </a>
-
+        <section class="back-btn-container">
+            <a href="/board/list/<%=univ%>">
+                <button class="back-btn">&#xE000; 목록으로 돌아가기</button>
+            </a>
+        </section>
+        
         <!-- 푸터 -->
-        <footer>
-            <div>
-                개인과 직거래시 언제나 안전에 유의하세요.
-            </div>
-        </footer>
-    </div>
+        <%- include('templates/footer') %>
+
+    </div> <!-- END of wrapper -->
+
+    <!-- slick for carousel -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/slick/slick.min.js"></script>
+    <script>
+        $('.slick-container').slick({
+            dots: true,
+            lazyLoad: 'progressive',
+        });
+    </script>
+    <!-- END of slick -->
+
 </body>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script>

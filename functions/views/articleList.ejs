@@ -71,7 +71,7 @@
         <i class="xi-tune"></i>
       </div>
       <div class="renew">
-        <a href="/board/list/<%=univ%>">
+        <a href="/board/list/<%=univ%>" aria-label="초기화">
           <i class="xi-renew"></i>
         </a>
       </div>
@@ -116,15 +116,15 @@
 
     <!-- 매물 리스트 -->
     <% if (!err) { %>
-      <div class="listTitle">
-        매물 리스트
-        <div class="sortBtnContainer">
-          <span class="sortBtn active" data-sortby="time">최신순</span>
-          <span class="sortBtn" data-sortby="view">조회순</span>
-        </div>
+    <div class="listTitle">
+      매물 리스트
+      <div class="sortBtnContainer">
+        <span class="sortBtn active" data-sortby="time">최신순</span>
+        <span class="sortBtn" data-sortby="view">조회순</span>
       </div>
+    </div>
     <% } %>
-    
+
 
     <% if (!err) { %>
     <!-- 매물 컨테이너 -->
@@ -139,7 +139,7 @@
             방을 무료로<br>찾아드립니다!
           </div>
           <div class="request_btn">신청하기 &#xE001;</div>
-          <img src="/img/list/undraw_gift1_sgf8.svg">
+          <img src="/img/list/gift.svg" alt="선물상자">
         </a>
       </article>
       <% } else { %>
@@ -182,17 +182,17 @@
             <div class="list_img">
               <div class="pic_container">
                 <% if (room.urlType === 'mypnu') { %>
-                <img src="/img/mypnu_logo.png">
+                <img src="/img/list/mypnu_logo.png" alt="마이피누 로고">
                 <% } else if (room.urlType === 'everytime') { %>
-                <img src="/img/everytime_logo.png">
+                <img src="/img/list/everytime_logo.png" alt="에브리타임 로고">
                 <% } else if (room.urlType === 'peterpanz') { %>
-                <img src="/img/peterpanz_logo.png">
+                <img src="/img/list/peterpanz_logo.png" alt="피터팬의 좋은방 구하기 로고">
                 <% } else if (room.urlType === 'dabang') { %>
-                <img src="/img/dabang_logo.png">
+                <img src="/img/list/dabang_logo.png" alt="다방 로고">
                 <% } else if (room.imageURL !== null) { %>
-                <img src="<%=room.imageURL%>">
+                <img src="<%=room.imageURL%>" alt="<%= room.line1 %>방 사진">
                 <% } else { %>
-                <img src="/img/bangdangi_logo_3.png">
+                <img src="/img/list/bangdangi_logo_3.png" alt="방단기 로고">
                 <% } %>
                 <% for (i of room.discountKeywords) { %>
                 <span class="discount"><%= i %></span>
@@ -214,7 +214,7 @@
             방을 무료로<br>찾아드립니다!
           </div>
           <div class="request_btn">신청하기 &#xE001;</div>
-          <img src="/img/list/undraw_gift1_sgf8.svg">
+          <img src="/img/list/gift.svg" alt="선물상자">
         </a>
       </article>
       <% } %>
@@ -223,7 +223,7 @@
     <% } else { %>
     <!-- 매물이 없을때는 에러메세지를 출력 -->
     <div class="error_container">
-      <object data="/img/list/undraw_no_data_qbuo.svg" type="image/svg+xml"></object>
+      <object data="/img/list/no_data.svg" type="image/svg+xml"></object>
       <%= err %>
     </div>
     <% } %>
@@ -269,18 +269,18 @@
               <div class="list_img">
                 <div class="pic_container review-grey">
                   <% if (room.urlType === 'mypnu') { %>
-                    <img src="/img/mypnu_logo.png">
-                    <% } else if (room.urlType === 'everytime') { %>
-                    <img src="/img/everytime_logo.png">
-                    <% } else if (room.urlType === 'peterpanz') { %>
-                    <img src="/img/peterpanz_logo.png">
-                    <% } else if (room.urlType === 'dabang') { %>
-                    <img src="/img/dabang_logo.png">
-                    <% } else if (room.imageURL !== null) { %>
-                    <img src="<%=room.imageURL%>">
-                    <% } else { %>
-                    <img src="/img/bangdangi_logo_3.png">
-                    <% } %>
+                  <img src="/img/mypnu_logo.png" alt="마이피누 로고">
+                  <% } else if (room.urlType === 'everytime') { %>
+                  <img src="/img/everytime_logo.png" alt="에브리타임 로고">
+                  <% } else if (room.urlType === 'peterpanz') { %>
+                  <img src="/img/peterpanz_logo.png" alt="피터팬의 좋은방 구하기 로고">
+                  <% } else if (room.urlType === 'dabang') { %>
+                  <img src="/img/dabang_logo.png" alt="다방 로고">
+                  <% } else if (room.imageURL !== null) { %>
+                  <img src="<%=room.imageURL%>" alt="<%= room.line1 %>방 사진">
+                  <% } else { %>
+                  <img src="/img/bangdangi_logo_3.png" alt="방단기 로고">
+                  <% } %>
                   <% for (i of room.discountKeywords) { %>
                   <span class="discount"><%= i %></span>
                   <% } %>

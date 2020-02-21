@@ -81,7 +81,6 @@ $header_height: 64px;
                 > a {
                     width: 100%;
                     color: $font-color;
-                    transition: color .2s ease-out;
                     font-size: $fs-md;
                     font-weight: $fw-bold;
                     @include respond-to(phone){

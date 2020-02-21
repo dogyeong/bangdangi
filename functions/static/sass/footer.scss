@@ -36,7 +36,6 @@ footer {
                 display: inline-block;
                 color: inherit;
                 margin-right: 56px;
-                transition: color .2s ease-out;
                 @include respond-to(phone) {
                     margin-right: 28px;
                 }

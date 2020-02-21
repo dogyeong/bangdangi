@@ -7,9 +7,13 @@
 @import "variables.scss";
 
 /* local variables */
-$content_max_width: 800px;
+$content_max_width: 1024px;
 $contact_color: #073e59;
 $contact_bg_color: rgba(8, 186, 241, 0.18);
+
+header {
+    position: absolute;
+}
 
 #wrapper {
     width: 100%;
@@ -17,404 +21,424 @@ $contact_bg_color: rgba(8, 186, 241, 0.18);
     top: 0;
     left: 0;
     margin: auto;
-    background-color: $article-bg-color;
 }
 
-/* 헤더 */
-header {
-    #header_inner {
-        max-width: $content_max_width;
+/* 제목 + 가격 */
+.top-section {
+    width: 100%;
+    max-width: $content_max_width;
+    padding: 40px 20px 0;
+    margin: auto;
+    margin-top: 64px;
+    background-color: $white;
+    border: 0;
+    box-sizing: border-box;
+    @include respond-to(phone) {
+        padding: 20px 16px 0;
+        margin-top: 48px;
+    }
 
-        .back_btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 20px;
-            font-size: $fs-xl;
-            font-weight: $fw-regular;
+    .bread-nav-container {
+        height: 24px;
+        @include respond-to(phone) { margin-bottom: 12px; }
 
-            @include respond-to(phone) {
-                padding: 0;
-            }
+        .breadcrumbs {
+            float: left;
+            list-style: none;
 
-            .back_arrow {
-                margin-right: 12px;
-                height: 58px;
-                width: 40px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            li {
+                display: inline-block;
+                font-size: $fs-sm;
+                @include respond-to(phone) { font-size: $fs-xs; }
+                
+                a {
+                    color: $grey;
+                    font-size: inherit;
+                    &:hover { text-decoration: underline; }
+                }
+
+                &::after {
+                    content: '';
+                    padding: 0 0.15em 0 0.3em;
+                    color: $grey;
+                }
+
+                &:last-child::before, &:last-child::after { content: ''; }
             }
         }
 
-        .share_container {
-            padding: 0 20px;
-            font-size: $fs-lg;
-            font-weight: $fw-regular;
-            display: flex;
-            position: relative;
-            justify-content: center;
-            align-items: center;
+        .bread-right {
+            float: right;
 
-            > li {
-                position: absolute;
-                display: inline-block;
-                width: 32px;
-                height: 32px;
-                background-color: #fff;
-                box-sizing: border-box;
-                border-radius: 100px;
+            span {
+                font-size: $fs-sm;
+                color: $font-color;
                 text-align: center;
-                left: 0;
-                overflow: hidden;
+                @include respond-to(phone) { font-size: $fs-xs; }
 
-                a {
-                    color: $font-color;
-                    display: inline-block;
-                    width: 100%;
-                    height: 100%;
-                    margin: auto;
-                    border-radius: 100px;
-                    overflow: hidden;
-
-                    > img {
-                        width: 100%;
-                    }
+                &.views-container { 
+                    margin-right: 12px; 
+                    @include respond-to(phone) { margin-right: 4px; }
                 }
-            }
 
-            .kakao_link_btn,
-            .url_link_btn {
-                opacity: 0;
-                left: 0 !important;
-                transition: left 0.6s cubic-bezier(0.01, 0.71, 0.76, 0.95);
-            }
-
-            .kakao_visible {
-                left: -84px !important;
-            }
-
-            .url_visible {
-                left: -42px !important;
+                i { 
+                    color: $font-color;
+                    width: 30px;
+                    @include respond-to(phone) { width: 20px; }
+                }
             }
         }
     }
-}
 
-/* 첫번째 블럭 : 제목 + 사진 + 매물정보 */
-.block1 {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-    margin-bottom: 16px;
-    margin-top: 80px;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-
-    .titleBlock {
-        padding: 20px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-
+    .title-container {
+        padding: 20px 0;
+        text-align: left;
         @include respond-to(phone) {
-            flex-direction: column;
-            align-items: flex-start;
+            text-align: center;
         }
 
         .title {
-            font-size: $fs-lg;
+            font-size: $fs-xl + 4px;
             font-weight: $fw-regular;
             word-break: keep-all;
-        }
 
-        .views_container {
-            display: flex;
-            font-size: $fs-md;
-
-            @include respond-to(phone) {
-                margin-top: 12px;
-            }
-
-            .views_title {
-                padding: 0 10px;
-                margin-left: 10px;
-
-                @include respond-to(phone) {
-                    padding: 0;
-                    margin: 0;
-                    padding-right: 10px;
-                }
+            .done_container {
+                color: white;
+                background-color: #0ab9f1;
+                padding: 2px 8px;
+                border-radius: 100px;
+                font-size: $fs-sm;
+                font-weight: $fw-regular;
+                position: relative;
+                top: -6px;
             }
         }
     }
 
-    .infoBlock {
+    .top-section-price {
         display: flex;
-        padding: 20px;
+        padding: 16px 0;
 
-        @include respond-to(phone) {
-            display: block;
-        }
+        .price-container {
+            flex: 1.5;
+            display: flex;
 
-        /* 이미지 슬라이더 */
-        .slider_container {
-            width: 100%;
-            position: relative;
-            height: 0;
-            overflow: hidden;
-            padding-bottom: 50%;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            flex: 1;
+            .price {
+                flex: 1;
+                padding: 8px 0;
+                margin-right: 16px;
+                border-right: 1px solid $grey-border-color;
+                @include respond-to(phone) { 
+                    text-align: center; 
+                    margin-right: 0;
+                }
 
-            @include respond-to(phone) {
-                padding-bottom: 70%;
-            }
+                &:last-child { 
+                    margin-right: 0;
+                    @include respond-to(phone) { border: 0; }
+                }
 
-            .mask {
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                position: absolute;
-                background-color: rgba(0, 0, 0, 0.02);
-                overflow: hidden;
-                display: flex;
-                align-items: center;
+                > div:first-child {
+                    color: $grey;
+                    font-size: $fs-md;
+                    font-weight: $fw-regular;
+                    margin-bottom: 4px;
+                }
 
-                .image_container {
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    flex-direction: row;
-                    position: relative;
-                    left: 0;
-                    transition: left 0.5s ease-in-out;
 
-                    > div {
-                        min-width: 100%;
-                        min-height: 100%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
+                > div:last-child {
+                    color: $font-color;
+                    font-size: $fs-xl;
+                    font-weight: $fw-bold;
+
+                    > span {
+                        font-size: $fs-lg;
+                        font-weight: $fw-regular;
                     }
                 }
             }
-
-            .slider_btn {
-                color: white;
-                position: absolute;
-                top: calc(50% - 16px);
-                width: 32px;
-                height: 32px;
-                text-align: center;
-                text-shadow: 0 0 4px #333;
-                cursor: pointer;
-            }
-
-            .slider_btn_l {
-                left: 10px;
-            }
-
-            .slider_btn_r {
-                right: 10px;
-            }
-
-            .slider_counter {
-                background: rgba(0, 0, 0, 0.3);
-                color: white;
-                padding: 4px 8px;
-                position: absolute;
-                bottom: 12px;
-                right: 16px;
-                border-radius: 2px;
-                font-size: $fs-sm;
-                font-weight: $fw-light;
-                letter-spacing: 1.5px;
-            }
         }
 
-        /* 매물정보 컨테이너 */
-        .info_container {
-            flex: 1;
-            padding-left: 20px;
-
+        .pc-btn-container {
+            flex: 2;
+            display: flex;
+            padding: 8px 20px;
             @include respond-to(phone) {
-                padding: 0;
-                margin-top: 20px;
-            }
-
-            .info_title {
-                font-size: 16px;
-                font-weight: 500;
-                margin-bottom: 24px;
-            }
-
-            .info_table {
-                display: table;
-                width: 100%;
-
-                .row {
-                    display: table-row;
-                    height: 40px;
-
-                    .cell_title {
-                        display: table-cell;
-                        font-size: 14px;
-                        font-weight: 400;
-                        width: 80px;
-                    }
-
-                    .cell_data {
-                        display: table-cell;
-                        font-size: 16px;
-                        font-weight: 500;
-                        word-break: keep-all;
-
-                        @include respond-to(phone) {
-                            text-align: right;
-                        }
-                    }
-                }
-            }
+                display: none;
+            }  
         }
     }
 }
 
-.done_container {
-    color: white;
-    background-color: #0ab9f1;
-    padding: 2px 8px;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 400;
+
+.pc-btn-container,
+.mobile-btn-container {
+    > button, > div {
+        flex: 1;
+        display: block;
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0 8px;
+        border-radius: 100px;
+        font-size: $fs-lg;
+        font-weight: $fw-regular;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .reserve-btn {
+        border: 1px solid $grey;
+        color: $font-color;
+        background-color: $white;
+    }
+
+    .contact-btn {
+        border: 0;
+        background-color: $main-color;
+        color: $white;
+    }
+
+    .done-btn {
+        border: 0;
+        background-color: $grey-border-color;
+        color: $grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: auto;
+    }
+}
+
+/* 사진 캐로셀 */
+.carousel-container {
+    width: 100%;
+    max-width: $content_max_width;
+    margin: 40px auto;
+    background-color: $article-bg-color;
+
+    .slick-container {
+        width: 40%;
+        min-width: 300px;
+        margin: auto;
+        @include respond-to(phone) {
+            width: 100%;
+        }
+
+        .slick-list { background-color: $font-color; }
+        .slick-track { display: flex; }
+        .slick-track .slick-slide {
+            display: flex;
+            height: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        img { width: 100%; }
+    }
+
+    .slick-prev:before, .slick-next:before {
+        opacity: 1 !important;
+    }
+    .slick-arrow {
+        @include respond-to(phone) { display: none !important; }
+    }
+}
+
+/* 매물정보 테이블 */
+.info {
+    max-width: $content_max_width;
+    width: 100%;
+    margin: auto;
+    padding: 40px 0 20px 0;
+    @include  respond-to(phone) { padding: 40px 16px 20px 16px; }
+
+
+    /* 반응형 테이블 구현하기 위해서 */
+    table, thead, tbody, th, td, tr { 
+        @include respond-to(phone) { display: block; } 
+	}
+
+    table {
+        width: 100%;
+        border-collapse: collapse; 
+        border-spacing: 0;
+
+        thead {
+            background-color: $grey-border-color;
+        }
+
+        tbody {
+            border-bottom: 1px solid $grey-border-color;
+        }
+
+        th {
+            width: 25%;
+            padding: 24px 4px;
+            font-size: $fs-md;
+            font-weight: $fw-regular;
+            color: $grey;
+            @include respond-to(phone) {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+        }
+
+
+        td {
+            text-align: center;
+            padding: 24px 4px;
+            font-size: $fs-md;
+            font-weight: $fw-regular;
+            color: $font-color;
+            @include respond-to(phone) {
+                border: 1px solid $grey-border-color;
+                border-bottom: 0;
+                position: relative;
+                padding: 16px 4px;
+                padding-left: 35%; 
+                text-align: left;
+            }
+
+            &::before { 
+                display: none;
+                @include respond-to(phone) {
+                    display: inline-block;
+                    /* Now like a table header */
+                    position: absolute;
+                    /* Top/left values mimic padding */
+                    top: 0;
+                    left: 0;
+                    width: 30%; 
+                    padding:16px 8px;
+                    white-space: nowrap;
+                    border-right: 1px solid $grey-border-color;
+                    box-sizing: border-box;
+                }
+            }
+        }
+
+        /*
+        Label the data
+        */
+        td:nth-of-type(1):before { content: "기간"; }
+        td:nth-of-type(2):before { content: "위치"; }
+        td:nth-of-type(3):before { content: "방 형태"; }
+        td:nth-of-type(4):before { content: "층수"; }
+    }
+}
+
+/* 모바일 문의 버튼 컨테이너 */
+.mobile-btn-container {
+    display: none;
+    width: 100%;
+    padding: 40px 16px;
+    border-bottom: 6px solid $grey-border-color;
+    @include respond-to(phone) { display: block; }
+
+    > button { 
+        width: 100%;
+        padding: 20px 0;
+        border-radius: 8px;
+        margin: 0;
+    }
+
+    .contact-btn {
+        margin-bottom: 12px;
+    }
+}
+
+/* 공유하기 딤드 */
+.dimmed-share {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.visible {
+        visibility: visible;
+    }
+
+    > a {
+        display: inline-block;
+        text-align: center;
+        padding: 0 20px;
+        cursor: pointer;
+
+        img {
+            margin-bottom: 8px;
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+        }
+
+        p {
+            color: $white;
+        }
+    }
+
+    .dimmed-close > i {
+        color: $white;
+        font-size: 40px;
+        position: absolute;
+        top: 28px;
+        right: 5%;
+    }
 }
 
 /* 본문 블럭 */
-.block2 {
+.detail-container,
+.review-container,
+.map-container,
+.related-container {
     width: 100%;
     max-width: $content_max_width;
     margin: auto;
-    padding: 20px;
+    padding: 60px 20px;
     background-color: $white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 0;
     box-sizing: border-box;
-    margin-bottom: 16px;
+    border-bottom: 1px solid $grey-border-color;
 
     @include respond-to(phone) {
+        padding: 40px 16px;
         margin-bottom: 0;
+        border-bottom: 6px solid $grey-border-color;
     }
 
-    .detail_title {
-        font-size: $fs-md;
+    .title {
+        font-size: $fs-xl;
         font-weight: $fw-regular;
         margin-bottom: 24px;
+
+        > span a {
+            font-size: $fs-sm;
+            font-weight: $fw-light;
+            margin-left: 12px;
+
+            &:hover { text-decoration: underline; }
+        }
     }
 
-    .detail_text {
+    .text {
         white-space: pre-line;
         font-size: $fs-md;
         font-weight: $fw-light;
-    }
+        word-break: break-all;
 
-    /* 연락하기 버튼 블럭 */
-    .contact_container {
-        width: 100%;
-        max-width: 800px;
-        display: flex;
-        margin: auto;
-        margin-top: 40px;
-
-        /* 뒤로가기 */
-        .cancel_btn {
-            margin: auto;
-            color: #333;
-            height: 60px;
-            font-size: 18px;
-            font-weight: 400;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            flex: 2;
-            background-color: #fff;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            @include respond-to(phone) {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                z-index: 999;
-                margin: 0;
-                height: 80px;
-                width: 100%;
-                background-color: $main-color;
-                color: $white;
-            }
-        }
-
-        /* 연락하기 */
-        .contact_btn_container {
-            margin: auto;
-            color: $white;
-            height: 60px;
-            font-size: $fs-lg;
-            font-weight: $fw-regular;
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-            flex: 3;
-            margin-left: 8px;
-            box-sizing: border-box;
-            cursor: pointer;
-            @include respond-to(phone) {
-                font-size: $fs-md;
-                height: 48px;
-                margin: 0;
-            }
-
-            .contact_kakao {
-                background-color: $kakao-yellow;
-                display: flex;
-                flex: 1;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .contact_done {
-                background-color: rgb(245, 247, 248);
-                color: $font-color;
-                display: flex;
-                flex: 1;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .contact_call,
-            .contact_sms {
-                display: flex;
-                flex: 1;
-                justify-content: center;
-                align-items: center;
-                background-color: $main-color;
-                color: $white;
-                font-size: $fs-lg;
-                font-weight: $fw-regular;
-                @include respond-to(phone) {
-                    color: $contact_color;
-                    background-color: $contact_bg_color;
-                }
-            }
-
-            .contact_call {
-                margin-right: 2px;
-            }
+        > a {
+            color: blue;
+            text-decoration: underline;
         }
     }
-    
+
     .sub-info {
         margin-top: 20px;
         margin-left: 24px;
@@ -431,180 +455,135 @@ header {
                 font-size: $fs-sm;
                 font-weight: $fw-light;
             }
-        }
-        
-    }
-}
+        }   
+    } 
 
-/* 후기 블럭 */
-.review-block {
-    width: 100%;
-    max-width: $content_max_width;
-    margin: auto;
-    padding: 20px;
-    background-color: $white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    margin-bottom: 16px;
-
-    @include respond-to(phone) {
-        margin-bottom: 0;
-    }
-
-    .review-title {
-        font-size: $fs-md;
-        font-weight: $fw-regular;
-        margin-bottom: 24px;
-    }
-
-    .review-text {
-        white-space: pre-line;
-        font-size: $fs-md;
-        font-weight: $fw-light;
-    }
-}
-
-/* 지도 블럭 */
-.map-block {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-    margin-top: 16px;
-    padding: 20px;
-    background-color: $white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-
-    .map-title {
-        font-size: $fs-md;
-        font-weight: $fw-regular;
-        margin-bottom: 24px;
-    }
     .map {
         width: 100%;
-        height: 300px;
-        background-color: $article-bg-color;
+        height: 400px;
+
+        @include respond-to(phone) {
+            height: 240px;
+        }
     }
 }
 
-/* 관련 매물 추천 */
-.block3 {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-    padding: 20px 10px;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    margin-top: 40px;
-
-    .related_title {
-        font-size: 16px;
-        font-weight: 500;
-        margin-bottom: 24px;
-        padding-left: 10px;
+.map-container {
+    @include respond-to(phone) {
+        padding-left: 0;
+        padding-right: 0;
     }
 
-    .related_body {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        flex-direction: row;
+    .title {
         @include respond-to(phone) {
-            align-items: stretch;
-            flex-direction: column;
+            padding: 0 16px 24px;
         }
+    }
+}
+
+/* 관련 매물 추천 리스트 */
+.related-container { border: 0; }
+.related-list {
+    width: 100%;
+    height: 258px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -ms-overflow-style: none; // IE에서 스크롤바 감춤
+    &::-webkit-scrollbar { 
+        display: none !important; // 윈도우 크롬 등에서 스크롤바 감춤
+    }
+    @include respond-to(phone) {
+        justify-content: flex-start;
+    }
+
+    li {
+        list-style: none;
+        padding: 0 8px;
+        width: calc(1024px / 3);
+        min-width: 300px;
+        height: 258px;
+
+        &:first-child { padding-left: 0; }
+        &:last-child  { padding-right: 0; }
 
         > a {
-            display: block;
-            flex: 1;
-            padding: 0 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            @include respond-to(phone) {
-                padding: 16px 10px;
-                margin: 0;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+
+            &:hover img {
+                transform: scale(1.1);
             }
 
-            &:first-child {
-                @include respond-to(phone) {
-                    padding-top: 0;
-                }
-            }
-            &:last-child {
-                @include respond-to(phone) {
-                    padding-bottom: 0;
-                    border: none;
-                }
-            }
-
-            .related_img_container {
+            .related-img {
                 width: 100%;
-                position: relative;
-                height: 0;
+                height: 180px;
+                border-radius: 8px;
+                border: 1px solid  $grey-border-color;
                 overflow: hidden;
-                padding-bottom: 50%;
-                border: 1px solid rgba(0, 0, 0, 0.1);
-                flex: 1;
-                @include respond-to(phone) {
-                    margin-bottom: 8px;
-                }
 
-                .related_img {
-                    position: absolute;
+                > img {
                     width: 100%;
-                    background-size: cover;
                     height: 100%;
-                    top: 0;
-                    left: 0;
+                    object-fit: cover;
+                    transition: transform .25s ease-in-out;
                 }
             }
-        }
 
-        p {
-            font-size: 15px;
-            font-weight: 400;
+            .related-text {
+                width: 100%;
+                height: 258px - 180px;
+            }
         }
+    }
+
+    p {
+        font-size: 15px;
+        font-weight: 400;
     }
 }
 
-/* 관련매물 더보기 버튼 */
-.related_more {
-    display: block;
-    padding: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    text-align: center;
+/* 목록으로 돌아가기 */
+.back-btn-container {
     width: 100%;
     max-width: $content_max_width;
     margin: auto;
-    box-sizing: border-box;
-    background-color: rgb(245, 247, 248);
-    color: $font-color;
-    font-size: $fs-sm;
-    font-weight: $fw-regular;
-    border-top: none;
+    text-align: center;
+    padding: 40px 20px 60px;
+    @include respond-to(phone) { padding: 40px 16px 60px; }
+
+    .back-btn {
+        display: inline-block;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        padding: 24px 80px;
+        border: 0;
+        background-color: $article-bg-color;
+        color: $font-color;
+        border-radius: 100px;
+        text-align: center;
+        @include respond-to(phone) { width: 100%; }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    
 }
+
 
 /* 푸터 */
 footer {
-    height: 80px;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: $fs-sm;
-    font-weight: $fw-regular;
-    padding: 0 8px;
-    word-break: keep-all;
-    color: gray;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    @include respond-to(phone) {
-        margin: 0;
-        margin-bottom: 80px;
-        height: 100px;
-        border: none;
-    }
+
 }
