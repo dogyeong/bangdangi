@@ -45,13 +45,14 @@
     <title><%= data.title || '매물 상세보기' %> | 방단기</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel=stylesheet  href="/css/common.css" />
-    <link rel=stylesheet  href="/css/headerBar.css" />
-    <link rel=stylesheet  href="/css/footer.css" />
-    <link rel=stylesheet  href="/css/article.css" />
+    <link rel=stylesheet href="/css/common.css" />
+    <link rel=stylesheet href="/css/headerBar.css" />
+    <link rel=stylesheet href="/css/footer.css" />
+    <link rel=stylesheet href="/css/article.css" />
+    <link rel="stylesheet" href="/css/polyfill.object-fit.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-    <link rel="stylesheet" href="/slick/slick.css"/>
-    <link rel="stylesheet" href="/slick/slick-theme.css"/>
+    <link rel="stylesheet" href="/slick/slick.css" />
+    <link rel="stylesheet" href="/slick/slick-theme.css" />
     <!-- JS-LOAD-IMAGE : 이미지 자동 회전을 위한 라이브러리 -->
     <script src="https://bangdangi.web.app/js/load-image.all.min.js"></script>
 </head>
@@ -61,9 +62,9 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC8GC5C" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    
+
     <div id="wrapper">
-        
+
         <!-- 헤더 -->
         <%- include('templates/gnb') %>
 
@@ -110,16 +111,16 @@
             </div>
 
             <!-- 가격, 연락버튼 -->
-            <div class="top-section-price">  
+            <div class="top-section-price">
                 <!-- 가격, 관리비-->
                 <div class="price-container">
                     <div class="price">
                         <div>월세<%= data.tradeType === null ? '' : '('+data.tradeType+')' %></div>
                         <div><%= data.deposit!==null ? data.deposit : '문의' %> /
                             <% if (data.price!==null) { %>
-                                <%= data.price %><span>만원</span>
+                            <%= data.price %><span>만원</span>
                             <% } else { %>
-                                문의
+                            문의
                             <% } %>
                         </div>
                     </div>
@@ -131,18 +132,18 @@
                 <!-- pc 예약하기, 문의하기 버튼 -->
                 <div class="pc-btn-container">
                     <% if (done === false) { %>
-                        <button class="reserve-btn">예약하기</button>
-                        <% if (data.contact && data.contact.length > 15) { %>
-                            <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
-                                오픈채팅방으로 연락하기
-                            </button>
-                        <% } else { %>    
-                            <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
-                                방단기에 문의하기
-                            </button>                
-                        <% } %>
+                    <button class="reserve-btn">예약하기</button>
+                    <% if (data.contact && data.contact.length > 15) { %>
+                    <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
+                        오픈채팅방으로 연락하기
+                    </button>
                     <% } else { %>
-                        <div class="done-btn">거래완료된 매물입니다</div>                
+                    <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                        방단기에 문의하기
+                    </button>
+                    <% } %>
+                    <% } else { %>
+                    <div class="done-btn">거래완료된 매물입니다</div>
                     <% } %>
                 </div>
             </div>
@@ -152,11 +153,11 @@
         <section class="carousel-container">
             <div class="slick-container">
                 <% if(data.images !== null) { %>
-                    <% for(i of data.images) { %>
-                        <div class="img-container">
-                            <img data-lazy="<%=i%>" alt="<%=data.title || ''%>" />
-                        </div>
-                    <% } %>
+                <% for(i of data.images) { %>
+                <div class="img-container">
+                    <img data-lazy="<%=i%>" alt="<%=data.title || ''%>" />
+                </div>
+                <% } %>
                 <% } %>
             </div>
         </section>
@@ -191,9 +192,9 @@
                         <td><%= data.roomType || '문의' %></td>
                         <td>
                             <% if (data.floor === -1) { %>
-                                반지층
+                            반지층
                             <% } else { %>
-                                <%= data.floor!==null ? data.floor+'층' : '문의' %>
+                            <%= data.floor!==null ? data.floor+'층' : '문의' %>
                             <% } %>
                         </td>
                     </tr>
@@ -204,16 +205,16 @@
         <!-- 모바일 문의 버튼 -->
         <section class="mobile-btn-container">
             <% if (done === false) { %>
-                <% if (data.contact && data.contact.length > 15) { %>
-                    <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
-                        오픈채팅방으로 연락하기
-                    </button>
-                <% } else { %>    
-                    <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
-                        방단기에 문의하기
-                    </button>                
-                <% } %>
-                <button class="reserve-btn">예약하기</button>
+            <% if (data.contact && data.contact.length > 15) { %>
+            <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
+                오픈채팅방으로 연락하기
+            </button>
+            <% } else { %>
+            <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                방단기에 문의하기
+            </button>
+            <% } %>
+            <button class="reserve-btn">예약하기</button>
             <% } %>
         </section>
 
@@ -234,8 +235,8 @@
         <% if (done === true) { %>
         <div class="review-container">
             <h3 class="title">거래후기</h3>
-            <div class="text"><%= data.review || ''%></div>    
-        </div>    
+            <div class="text"><%= data.review || ''%></div>
+        </div>
         <% } %>
 
         <!-- 지도 블럭 -->
@@ -256,7 +257,7 @@
                 <li>
                     <a href="<%= i.url %>">
                         <div class="related-img">
-                            <img src="<%= i.img %>" alt="<%= i.line1 %> 방 사진"/>
+                            <img src="<%= i.img %>" alt="<%= i.line1 %> 방 사진" />
                         </div>
                         <div class="related-text">
                             <p><%= i.line1 %></p>
@@ -275,7 +276,7 @@
                 <button class="back-btn">&#xE000; 목록으로 돌아가기</button>
             </a>
         </section>
-        
+
         <!-- 푸터 -->
         <%- include('templates/footer') %>
 
@@ -293,53 +294,57 @@
     </script>
     <!-- END of slick -->
 
-</body>
-<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script>
-    var dataImages = <%= data.images ? true : false %>;
-    var dataDone = <%= done %>;
-    var dataKakao = {
-        title: '<%= kakao.title %>', // 본문 제목
-        description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
-        imageUrl: '<%= kakao.imageUrl %>', // 이미지
-        link: {
-            mobileWebUrl: '<%= kakao.link %>',
-            webUrl: '<%= kakao.link %>'
+    <!--  배경 object-fit 속성 pollyfill -->
+    <script src="js/polyfill.object-fit.min.js"></script>
+
+    <!-- 상세페이지 js -->
+    <script>
+        var dataImages = <%= data.images ? true : false %>;
+        var dataDone = <%= done %>;
+        var dataKakao = {
+            title: '<%= kakao.title %>', // 본문 제목
+            description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
+            imageUrl: '<%= kakao.imageUrl %>', // 이미지
+            link: {
+                mobileWebUrl: '<%= kakao.link %>',
+                webUrl: '<%= kakao.link %>'
+            }
         }
-    }
-</script>
-<script src="../../../babel/dst/articleDetail.js"></script>
+    </script>
+    <script src="../../../babel/dst/articleDetail.js"></script>
 
+    <!-- 카카오 지도 js -->
+    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <% if (data.position && data.position.latitude) { %>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a"></script>
+    <script>
+        var mapContainer = document.querySelector('.map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(<%=data.position.latitude %>, <%=data.position.longitude %>), // 지도의 중심좌표
+                level: 4 // 지도의 확대 레벨
+            };
 
-<!-- 카카오 지도 js -->
-<% if (data.position && data.position.latitude) { %>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a"></script>
-<script>
-    var mapContainer = document.querySelector('.map'), // 지도를 표시할 div 
-        mapOption = {
-            center: new kakao.maps.LatLng(<%=data.position.latitude %>, <%=data.position.longitude %>), // 지도의 중심좌표
-            level: 4 // 지도의 확대 레벨
-        };
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        // 지도에 표시할 원을 생성합니다
+        var circle = new kakao.maps.Circle({
+            center: new kakao.maps.LatLng(<%=data.position.latitude %>, <%=data.position.longitude %>),  // 원의 중심좌표 입니다 
+            radius: 150, // 미터 단위의 원의 반지름입니다 
+            strokeWeight: 2, // 선의 두께입니다 
+            strokeColor: '#0ab9f1', // 선의 색깔입니다
+            strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle: 'solid', // 선의 스타일 입니다
+            fillColor: '#0ab9f1', // 채우기 색깔입니다
+            fillOpacity: 0.5  // 채우기 불투명도 입니다   
+        });
 
-    // 지도에 표시할 원을 생성합니다
-    var circle = new kakao.maps.Circle({
-        center: new kakao.maps.LatLng(<%=data.position.latitude %>, <%=data.position.longitude %>),  // 원의 중심좌표 입니다 
-        radius: 150, // 미터 단위의 원의 반지름입니다 
-        strokeWeight: 2, // 선의 두께입니다 
-        strokeColor: '#0ab9f1', // 선의 색깔입니다
-        strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-        strokeStyle: 'solid', // 선의 스타일 입니다
-        fillColor: '#0ab9f1', // 채우기 색깔입니다
-        fillOpacity: 0.5  // 채우기 불투명도 입니다   
-    });
+        // 지도에 원을 표시합니다 
+        circle.setMap(map); 
+    </script>
+    <% } %>
 
-    // 지도에 원을 표시합니다 
-    circle.setMap(map); 
-</script>
-<% } %>
-
+</body>
 
 <!-- Channel Plugin Scripts -->
 <!-- <script>
