@@ -393,6 +393,70 @@ header {
     }
 }
 
+/* 하단 고정 버튼 */
+.fixed-btn-container {
+    position: fixed;
+    width:100%;
+    bottom: -70px;
+    left: 0;
+    z-index: 200;
+    transition: bottom .3s ease-in-out;
+
+    &.visible {
+        bottom: 0;
+        @include respond-to(phone) {
+            visibility: hidden !important;
+            bottom: -70px;
+        }
+    }
+
+    .inner {
+        width: 100%;
+        max-width: $content_max_width;
+        margin: auto;
+        height: 70px;
+        background-color: $main-color;
+
+        .fixed-btn {
+            width: 100%;
+            height: 100%;
+            display: block;
+            text-align: center;
+            line-height: 70px;
+            font-size: $fs-xl;
+            font-weight: $fw-regular;
+            color: $white;
+            cursor: pointer;
+
+            &:hover { backdrop-filter: brightness(1.1); }
+        }
+    }
+}
+.mobile-fixed-btn-container {
+    position: fixed;
+    width:100%;
+    bottom: 0;
+    left: 0;
+    z-index: 200;
+    visibility: hidden;
+    @include respond-to(phone) {
+        visibility: visible !important;
+    }
+
+    .fixed-btn {
+        background-color: $main-color;
+        width: 100%;
+        height: 70px;
+        display: block;
+        text-align: center;
+        line-height: 70px;
+        font-size: $fs-lg;
+        font-weight: $fw-regular;
+        color: $white;
+        cursor: pointer;
+    }
+}
+
 /* 본문 블럭 */
 .detail-container,
 .review-container,
@@ -457,15 +521,6 @@ header {
             }
         }   
     } 
-
-    .map {
-        width: 100%;
-        height: 400px;
-
-        @include respond-to(phone) {
-            height: 240px;
-        }
-    }
 }
 
 .map-container {
@@ -477,6 +532,15 @@ header {
     .title {
         @include respond-to(phone) {
             padding: 0 16px 24px;
+        }
+    }
+
+    .map {
+        width: 100%;
+        height: 400px;
+
+        @include respond-to(phone) {
+            height: 280px;
         }
     }
 }
@@ -585,5 +649,5 @@ header {
 
 /* 푸터 */
 footer {
-
+    padding-bottom: 110px;
 }

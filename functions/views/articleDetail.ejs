@@ -45,10 +45,10 @@
     <title><%= data.title || '매물 상세보기' %> | 방단기</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel=stylesheet href="/css/common.css" />
-    <link rel=stylesheet href="/css/headerBar.css" />
-    <link rel=stylesheet href="/css/footer.css" />
-    <link rel=stylesheet href="/css/article.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/headerBar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/article.css" />
     <link rel="stylesheet" href="/css/polyfill.object-fit.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link rel="stylesheet" href="/slick/slick.css" />
@@ -79,6 +79,21 @@
                 <p>URL 복사</p>
             </a>
             <span class="dimmed-close"><i class="xi-close-thin"></i></span>
+        </section>
+
+        <!-- 하단 메뉴 버튼 -->
+        <section class="fixed-btn-container visible">
+            <div class="inner">
+                <a href="javascript:;" class="fixed-btn contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                    방단기에 문의하기
+                </a>
+            </div>
+        </section>
+
+        <section class="mobile-fixed-btn-container">
+            <a class="fixed-btn" href="/board/list/<%=univ%>">
+                &#xE000; 목록으로 돌아가기
+            </a>
         </section>
 
         <!-- 제목 + 가격정보 블럭 -->
@@ -155,7 +170,7 @@
                 <% if(data.images !== null) { %>
                 <% for(i of data.images) { %>
                 <div class="img-container">
-                    <img data-lazy="<%=i%>" alt="<%=data.title || ''%>" />
+                    <img src="<%=i%>" alt="<%=data.title || ''%>" />
                 </div>
                 <% } %>
                 <% } %>
@@ -248,6 +263,7 @@
         <% } %>
 
         <!-- 관련 매물 블럭 -->
+        <% if (related.length > 0) { %>
         <section class="related-container">
             <h3 class="title">
                 관련 매물<span><a href="https://bangdangi.web.app/board/list/<%=univ%>">더 보기 &#xE001;</a></span>
@@ -269,8 +285,9 @@
                 <% } %>
             </ul>
         </section>
+        <% } %>
 
-        <!-- 관련 매물 더 보러가기-->
+        <!-- 목록으로 돌아가기 -->
         <section class="back-btn-container">
             <a href="/board/list/<%=univ%>">
                 <button class="back-btn">&#xE000; 목록으로 돌아가기</button>
@@ -289,29 +306,12 @@
     <script>
         $('.slick-container').slick({
             dots: true,
-            lazyLoad: 'progressive',
         });
     </script>
     <!-- END of slick -->
 
     <!--  배경 object-fit 속성 pollyfill -->
-    <script src="js/polyfill.object-fit.min.js"></script>
-
-    <!-- 상세페이지 js -->
-    <script>
-        var dataImages = <%= data.images ? true : false %>;
-        var dataDone = <%= done %>;
-        var dataKakao = {
-            title: '<%= kakao.title %>', // 본문 제목
-            description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
-            imageUrl: '<%= kakao.imageUrl %>', // 이미지
-            link: {
-                mobileWebUrl: '<%= kakao.link %>',
-                webUrl: '<%= kakao.link %>'
-            }
-        }
-    </script>
-    <script src="../../../babel/dst/articleDetail.js"></script>
+    <script src="/js/polyfill.object-fit.min.js"></script>
 
     <!-- 카카오 지도 js -->
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -343,6 +343,22 @@
         circle.setMap(map); 
     </script>
     <% } %>
+
+    <!-- 상세페이지 js -->
+    <script>
+        var dataImages = <%= data.images ? true : false %>;
+        var dataDone = <%= done %>;
+        var dataKakao = {
+            title: '<%= kakao.title %>', // 본문 제목
+            description: '<%= kakao.description %>',  // 본문 바로 아래 들어가는 영역
+            imageUrl: '<%= kakao.imageUrl %>', // 이미지
+            link: {
+                mobileWebUrl: '<%= kakao.link %>',
+                webUrl: '<%= kakao.link %>'
+            }
+        }
+    </script>
+    <script src="../../../babel/dst/articleDetail.js"></script>
 
 </body>
 

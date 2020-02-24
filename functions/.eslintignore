@@ -3,3 +3,5 @@
 
 # Ignore built files except build/index.js
 static/js/*
+static/slick/*
+static/babel/dst/*

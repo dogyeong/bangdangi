@@ -105,12 +105,14 @@
     /* linkify : 상세설명에 url이 포함돼있으면 링크 걸어주기 */
     function linkify(text) {
         
+        /* eslint-disable */
         //URLs starting with http://, https://, or ftp://
         let replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 
         //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
         let replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-
+        /* eslint-enable */
+        
         let regex = new RegExp(replacePattern1);
         let result  = regex.exec(text);
         
@@ -148,5 +150,25 @@
         linkify();
     };
 
+
+    /* 스크롤 할 때 하단고정버튼 visible 변경 */
+    const fixedBtn = document.querySelector('.fixed-btn-container');
+    const toggleOffset = 360;
+
+    var checkOffset = () => {
+        let isVisible = fixedBtn.classList.contains('visible');
+
+        if (!isVisible && window.pageYOffset >= toggleOffset) {
+            fixedBtn.classList.add('visible');
+            setTimeout(300, () => { fixedBtn.style.visibility = 'visible' })
+        }
+        else if (isVisible && window.pageYOffset < toggleOffset) {
+            fixedBtn.classList.remove('visible');
+            setTimeout(300, () => { fixedBtn.style.visibility = 'hidden' })
+        }
+    }
+    checkOffset();
+
+    document.addEventListener('scroll', checkOffset);
     
 })(window);

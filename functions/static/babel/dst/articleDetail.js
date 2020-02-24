@@ -105,10 +105,13 @@
   /* linkify : 상세설명에 url이 포함돼있으면 링크 걸어주기 */
 
   function linkify(text) {
+    /* eslint-disable */
     //URLs starting with http://, https://, or ftp://
     var replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim; //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
 
     var replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    /* eslint-enable */
+
     var regex = new RegExp(replacePattern1);
     var result = regex.exec(text);
 
@@ -142,4 +145,28 @@
     });
     linkify();
   };
+  /* 스크롤 할 때 하단고정버튼 visible 변경 */
+
+
+  var fixedBtn = document.querySelector('.fixed-btn-container');
+  var toggleOffset = 360;
+
+  var checkOffset = function checkOffset() {
+    var isVisible = fixedBtn.classList.contains('visible');
+
+    if (!isVisible && window.pageYOffset >= toggleOffset) {
+      fixedBtn.classList.add('visible');
+      setTimeout(300, function () {
+        fixedBtn.style.visibility = 'visible';
+      });
+    } else if (isVisible && window.pageYOffset < toggleOffset) {
+      fixedBtn.classList.remove('visible');
+      setTimeout(300, function () {
+        fixedBtn.style.visibility = 'hidden';
+      });
+    }
+  };
+
+  checkOffset();
+  document.addEventListener('scroll', checkOffset);
 })(window);

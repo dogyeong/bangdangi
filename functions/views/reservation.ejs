@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141137545-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'Pageview',
+            'pagePath': '/reservation/<%=place%>/<%=articleId%>',
+            'pageTitle': '/<%=place%>/<%=articleId%>',
+            'place': "<%=place%>"
+        });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TC8GC5C');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="keyword" content="방단기, 단기방, 서울 단기임대, 서울 단기원룸, 무보증 원룸, 원룸양도, 방임대, 방양도, 전대차">
+    <meta name="author" content="패러다임">
+    <meta itemprop="name" content="방단기">
+    <meta itemprop="description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="twitter:title" content="방단기">
+    <meta name="twitter:description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta property="og:title" content="방단기">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="방단기">
+    <meta property="og:description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta property="og:url" content="https://bangdangi.web.app/reservation/<%=place%>/<%=articleId%>">
+    <link rel="canonical" href="https://bangdangi.web.app/reservation/<%=place%>/<%=articleId%>" />
+    <!-- SEO END -->
+    <title><%= data.title || '매물 상세보기' %> | 방단기</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/headerBar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/reservation.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+</head>
+
+<body>
+
+    <%- include('templates/gnb') %>
+
+    <%= placeKo %>의 <%= articleId %>
+    
+    <section class="wrapper">
+        <h1>가계약 진행</h1>
+        <form>
+            <div class="table-wrapper">
+                <h2>계약정보</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>입주날짜</th>
+                            <td><input type="date"></td>
+                        </tr>
+                        <tr>
+                            <th>퇴실날짜</th>
+                            <td><input type="date"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+            
+            <div class="table-wrapper">
+                <h2>계약자정보</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>이름</th>
+                            <td><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <th>휴대폰 번호</th>
+                            <td><input type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="table-wrapper">
+                <h2>결제정보</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>가계약 예치금</th>
+                            <td>100,000원</td>
+                        </tr>
+                        <tr>
+                            <th>수수료</th>
+                            <td>9,000원</td>
+                        </tr>
+                        <tr>
+                            <th>VAT</th>
+                            <td>900원</td>
+                        </tr>
+                        <tr>
+                            <th>합계</th>
+                            <td>109,900원</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-wrapper">
+                <h2>송금정보</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>은행명</th>
+                            <td>부산은행</td>
+                        </tr>
+                        <tr>
+                            <th>계좌번호</th>
+                            <td>123-123-123213213</td>
+                        </tr>
+                        <tr>
+                            <th>송금액</th>
+                            <td>109,900원</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </section>
+
+    <%- include('templates/footer') %>
+</body>
+</html>

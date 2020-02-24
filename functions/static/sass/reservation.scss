@@ -1,0 +1,68 @@
+/*
+*   reservation.scss
+*   예약 페이지
+*/
+
+/* 변수 import */
+@import "variables.scss";
+
+/* local variables */
+$content_max_width: 1024px;
+
+header { position: absolute; }
+
+.wrapper {
+    width: 100%;
+    max-width: $content_max_width;
+    margin: auto;
+    padding: 64px 0;
+    @include respond-to(phone) { padding: 48px 0; }
+}
+
+h1 {
+    display: block;
+    font-size: $fs-xl;
+    font-weight: $fw-regular;
+    padding-bottom: 8px;
+    border-bottom: 3px solid $lightgrey;
+    @include respond-to(phone) { margin: 0 16px; }
+}
+
+h2 {
+    display: block;
+    font-size: $fs-lg;
+    font-weight: $fw-regular;
+    padding-bottom: 4px;
+}
+
+.table-wrapper {
+    padding-top: 40px;
+    @include respond-to(phone) {
+        padding: 40px 16px 0 16px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 2px solid $lightgrey;
+
+        th {
+            padding: 10px 15px 0 0;
+            background-color: $grey-border-color;
+            border-right: 1px solid $lightgrey;
+            border-bottom: 1px solid $lightgrey;
+            font-size: $fs-md;
+            font-weight: $fw-regular;
+            width: 20%;
+            vertical-align: top;
+            text-align: right;
+            min-width: 140px;
+        }
+        td {
+            border-bottom: 1px solid $lightgrey;
+            vertical-align: top;
+            text-align: left;
+            padding: 10px 0 10px 15px;
+        }
+    }
+}

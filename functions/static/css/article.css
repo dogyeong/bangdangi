@@ -332,6 +332,61 @@ header {
     top: 28px;
     right: 5%; }
 
+/* 하단 고정 버튼 */
+.fixed-btn-container {
+  position: fixed;
+  width: 100%;
+  bottom: -70px;
+  left: 0;
+  z-index: 200;
+  transition: bottom .3s ease-in-out; }
+  .fixed-btn-container.visible {
+    bottom: 0; }
+    @media only screen and (max-width: 600px) {
+      .fixed-btn-container.visible {
+        visibility: hidden !important;
+        bottom: -70px; } }
+  .fixed-btn-container .inner {
+    width: 100%;
+    max-width: 1024px;
+    margin: auto;
+    height: 70px;
+    background-color: #0ab9f1; }
+    .fixed-btn-container .inner .fixed-btn {
+      width: 100%;
+      height: 100%;
+      display: block;
+      text-align: center;
+      line-height: 70px;
+      font-size: 24px;
+      font-weight: 400;
+      color: #fff;
+      cursor: pointer; }
+      .fixed-btn-container .inner .fixed-btn:hover {
+        backdrop-filter: brightness(1.1); }
+
+.mobile-fixed-btn-container {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+  visibility: hidden; }
+  @media only screen and (max-width: 600px) {
+    .mobile-fixed-btn-container {
+      visibility: visible !important; } }
+  .mobile-fixed-btn-container .fixed-btn {
+    background-color: #0ab9f1;
+    width: 100%;
+    height: 70px;
+    display: block;
+    text-align: center;
+    line-height: 70px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    cursor: pointer; }
+
 /* 본문 블럭 */
 .detail-container,
 .review-container,
@@ -412,18 +467,6 @@ header {
       .related-container .sub-info li i {
         font-size: 14px;
         font-weight: 300; }
-  .detail-container .map,
-  .review-container .map,
-  .map-container .map,
-  .related-container .map {
-    width: 100%;
-    height: 400px; }
-    @media only screen and (max-width: 600px) {
-      .detail-container .map,
-      .review-container .map,
-      .map-container .map,
-      .related-container .map {
-        height: 240px; } }
 
 @media only screen and (max-width: 600px) {
   .map-container {
@@ -433,6 +476,13 @@ header {
 @media only screen and (max-width: 600px) {
   .map-container .title {
     padding: 0 16px 24px; } }
+
+.map-container .map {
+  width: 100%;
+  height: 400px; }
+  @media only screen and (max-width: 600px) {
+    .map-container .map {
+      height: 280px; } }
 
 /* 관련 매물 추천 리스트 */
 .related-container {
@@ -521,3 +571,5 @@ header {
       text-decoration: underline; }
 
 /* 푸터 */
+footer {
+  padding-bottom: 110px; }

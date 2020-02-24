@@ -1,0 +1,69 @@
+@charset "UTF-8";
+/*
+*   reservation.scss
+*   예약 페이지
+*/
+/* 변수 import */
+/* 
+*   SCSS variables
+*/
+/* colors */
+/* font-weight */
+/* font-family */
+/* font-size */
+/* line-height */
+/* media query */
+/* local variables */
+header {
+  position: absolute; }
+
+.wrapper {
+  width: 100%;
+  max-width: 1024px;
+  margin: auto;
+  padding: 64px 0; }
+  @media only screen and (max-width: 600px) {
+    .wrapper {
+      padding: 48px 0; } }
+
+h1 {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #c8c8c8; }
+  @media only screen and (max-width: 600px) {
+    h1 {
+      margin: 0 16px; } }
+
+h2 {
+  display: block;
+  font-size: 18px;
+  font-weight: 400;
+  padding-bottom: 4px; }
+
+.table-wrapper {
+  padding-top: 40px; }
+  @media only screen and (max-width: 600px) {
+    .table-wrapper {
+      padding: 40px 16px 0 16px; } }
+  .table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px solid #c8c8c8; }
+    .table-wrapper table th {
+      padding: 10px 15px 0 0;
+      background-color: #eeeeee;
+      border-right: 1px solid #c8c8c8;
+      border-bottom: 1px solid #c8c8c8;
+      font-size: 16px;
+      font-weight: 400;
+      width: 20%;
+      vertical-align: top;
+      text-align: right;
+      min-width: 140px; }
+    .table-wrapper table td {
+      border-bottom: 1px solid #c8c8c8;
+      vertical-align: top;
+      text-align: left;
+      padding: 10px 0 10px 15px; }

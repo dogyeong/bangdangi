@@ -283,6 +283,54 @@
       border: none;
       margin-top: 88px; } }
 
+.recruit-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 20px auto 40px; }
+  .recruit-container .recruit-btn {
+    padding: 24px 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #3b3b46; }
+    @media only screen and (max-width: 600px) {
+      .recruit-container .recruit-btn {
+        padding: 24px 16px;
+        border-radius: 0; } }
+    .recruit-container .recruit-btn > div {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .recruit-container .recruit-btn > div > span:first-child {
+        text-align: left;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 36px; }
+        @media only screen and (max-width: 600px) {
+          .recruit-container .recruit-btn > div > span:first-child {
+            font-size: 18px;
+            line-height: 24px; } }
+        .recruit-container .recruit-btn > div > span:first-child > span {
+          display: block;
+          font-size: 16px;
+          font-weight: 300;
+          line-height: 16px;
+          padding-top: 8px; }
+          @media only screen and (max-width: 600px) {
+            .recruit-container .recruit-btn > div > span:first-child > span {
+              font-size: 14px; } }
+      .recruit-container .recruit-btn > div > span:last-child {
+        width: 200px;
+        position: relative;
+        left: -10px; }
+        @media only screen and (max-width: 600px) {
+          .recruit-container .recruit-btn > div > span:last-child {
+            width: 140px; } }
+        .recruit-container .recruit-btn > div > span:last-child img {
+          width: 100%; }
+
 /* list Title */
 .listTitle {
   margin: auto;
