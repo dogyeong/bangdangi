@@ -24,8 +24,11 @@ h1 {
     font-size: $fs-xl;
     font-weight: $fw-regular;
     padding-bottom: 8px;
-    border-bottom: 3px solid $lightgrey;
-    @include respond-to(phone) { margin: 0 16px; }
+    margin-top: 40px;
+    border-bottom: 3px solid $grey;
+    @include respond-to(phone) { 
+        margin: 20px 16px 0 16px; 
+    }
 }
 
 h2 {
@@ -33,6 +36,17 @@ h2 {
     font-size: $fs-lg;
     font-weight: $fw-regular;
     padding-bottom: 4px;
+
+    > span {
+        font-size: $fs-sm;
+        font-weight: $fw-light;
+        color: $grey;
+        margin-left: 8px;
+        @include respond-to(phone) { 
+            display: block;
+            margin: 0;
+        }
+    }
 }
 
 .table-wrapper {
@@ -44,25 +58,83 @@ h2 {
     table {
         width: 100%;
         border-collapse: collapse;
-        border-top: 2px solid $lightgrey;
-
+        border-spacing: 0;
+        border-top: 2px solid $grey-border-color;
+        
         th {
             padding: 10px 15px 0 0;
-            background-color: $grey-border-color;
-            border-right: 1px solid $lightgrey;
-            border-bottom: 1px solid $lightgrey;
+            background-color: $article-bg-color;
+            border-right: 1px solid $grey-border-color;
+            border-bottom: 1px solid $grey-border-color;
             font-size: $fs-md;
             font-weight: $fw-regular;
             width: 20%;
             vertical-align: top;
             text-align: right;
-            min-width: 140px;
+            min-width: 120px;
         }
         td {
-            border-bottom: 1px solid $lightgrey;
+            border-bottom: 1px solid $grey-border-color;
             vertical-align: top;
             text-align: left;
             padding: 10px 0 10px 15px;
         }
+
+        input {
+            width: 100%;
+            max-width: 180px;
+        }
+
+        
+    }
+
+    .img-table {
+        th {
+            padding: 10px 15px;
+            background: none;
+            border-right: 0;
+            @include respond-to(phone) { padding: 10px 0; }
+        }
+
+        .article-img {
+            width: 160px;
+            height: 100px;
+            background-color: $article-bg-color;
+            border-radius: 4px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .article-title {
+            font-size: $fs-md;
+            font-weight: $fw-bold;
+        }
+
+        .article-data {
+            font-size: $fs-sm;
+            font-weight: $fw-regular;
+            color: $grey;
+            margin-top: 8px;
+        }
+    }
+}
+.btn-container {
+    padding: 40px 16px;
+
+    input[type="submit"] {
+        display: block;
+        appearance: none;
+        -webkit-appearance: none;
+        margin: auto;
+        padding: 20px 60px;
+        border-radius: 8px;
+        cursor: pointer;
+        background-color: $main-color;
+        color: $white;
+        border: 0;
+        font-size: $fs-lg;
+        font-weight: $fw-bold;
+        @include respond-to(phone) { width: 100%; }
     }
 }

@@ -20,7 +20,7 @@ header {
   word-break: keep-all;
   width: 100%;
   background-color: #fff;
-  box-shadow: 0 0 0 1px #eeeeee;
+  box-shadow: 0 0 0 1px #e4e4e4;
   top: 0;
   left: 0;
   z-index: 100;
@@ -83,7 +83,7 @@ header {
     word-break: keep-all;
     width: 100%;
     background-color: #fff;
-    box-shadow: 0 0 0 1px #eeeeee;
+    box-shadow: 0 0 0 1px #e4e4e4;
     top: 0;
     left: 0;
     z-index: 100;

@@ -42,7 +42,7 @@
     <meta property="og:url" content="https://bangdangi.web.app/reservation/<%=place%>/<%=articleId%>">
     <link rel="canonical" href="https://bangdangi.web.app/reservation/<%=place%>/<%=articleId%>" />
     <!-- SEO END -->
-    <title><%= data.title || '매물 상세보기' %> | 방단기</title>
+    <title>방단기</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/common.css" />
@@ -55,39 +55,57 @@
 <body>
 
     <%- include('templates/gnb') %>
-
-    <%= placeKo %>의 <%= articleId %>
     
     <section class="wrapper">
         <h1>가계약 진행</h1>
-        <form>
+        <form method="POST" action="/reservation/payments/">
+            <input type="text" name="place" value="<%= place %>" hidden />
+            <input type="text" name="articleId" value="<%= articleId %>" hidden />
+
+            <div class="table-wrapper">
+                <h2>매물정보</h2>
+                <table class="img-table">
+                    <tbody>
+                        <th>
+                            <div class="article-img" style="background-image: url('<%=data.images ? data.images[0] : ""%>');"></div>
+                        </th>
+                        <td>
+                            <div class="article-title"><%= data.title || '' %></div>
+                            <div class="article-data">
+                                보증금 <%=data.deposit || '문의'%>/월세 <%=data.price || '문의'%><br/>
+                                <%= data.locationS ? Object.keys(data.locationS).join(' ') : '' %>
+                            </div>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
             <div class="table-wrapper">
                 <h2>계약정보</h2>
                 <table>
                     <tbody>
                         <tr>
                             <th>입주날짜</th>
-                            <td><input type="date"></td>
+                            <td><input type="date" name="start_date" required /></td>
                         </tr>
                         <tr>
                             <th>퇴실날짜</th>
-                            <td><input type="date"></td>
+                            <td><input type="date" name="end_date" required /></td>
                         </tr>
                     </tbody>
                 </table>
             </div>   
             
             <div class="table-wrapper">
-                <h2>계약자정보</h2>
+                <h2>계약자정보<span>계약서 작성 시, 본인 인증 용도로만 사용됩니다.</span></h2>
                 <table>
                     <tbody>
                         <tr>
                             <th>이름</th>
-                            <td><input type="text"></td>
+                            <td><input type="text" name="name" required /></td>
                         </tr>
                         <tr>
                             <th>휴대폰 번호</th>
-                            <td><input type="text"></td>
+                            <td><input type="number" name="phone" required /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -135,6 +153,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div class="btn-container">
+                <input type="submit" value="토스로 바로 입금">
             </div>
         </form>
     </section>

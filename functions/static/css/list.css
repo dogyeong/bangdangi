@@ -34,8 +34,8 @@
     margin: auto;
     display: flex;
     align-items: center;
-    border-left: 1px solid #eeeeee;
-    border-right: 1px solid #eeeeee;
+    border-left: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
     /* 지역선택 */
     /* 필터 버튼 */
     /* 초기화 버튼 */ }
@@ -108,7 +108,7 @@
       width: 63px;
       height: 64px;
       padding: 22.5px;
-      border-left: 1px solid #eeeeee;
+      border-left: 1px solid #e4e4e4;
       cursor: pointer; }
       @media only screen and (max-width: 600px) {
         .form_container .form-inner .tune {
@@ -121,7 +121,7 @@
     .form_container .form-inner .renew {
       width: 63px;
       height: 64px;
-      border-left: 1px solid #eeeeee; }
+      border-left: 1px solid #e4e4e4; }
       @media only screen and (max-width: 600px) {
         .form_container .form-inner .renew {
           width: 47px;
@@ -178,7 +178,7 @@
       width: 100%;
       padding-bottom: 40px;
       margin-bottom: 40px;
-      border-bottom: 1px solid #eeeeee; }
+      border-bottom: 1px solid #e4e4e4; }
       .filter-container > form .input_container .hashtag_list input[type="checkbox"] {
         display: none; }
       .filter-container > form .input_container .hashtag_list input[type="checkbox"] + label span {
@@ -190,7 +190,7 @@
         clear: both;
         margin: 4px 8px 4px 0;
         padding: 4px 8px;
-        border: 1px solid #eeeeee;
+        border: 1px solid #e4e4e4;
         border-radius: 40px;
         font-size: 16px;
         font-weight: 300; }
@@ -201,7 +201,7 @@
       .filter-container > form .input_container .hashtag_list input[type="range"] {
         display: inline-block;
         -webkit-appearance: none;
-        background-color: #888888;
+        background-color: #757575;
         width: calc(100% - 100px);
         max-width: 480px;
         height: 2px;
@@ -223,7 +223,7 @@
         border: 2px solid #0ab9f1; }
       .filter-container > form .input_container .hashtag_list input[type="range"]::-webkit-slider-thumb:active {
         transform: scale(1.3);
-        background-color: #eeeeee; }
+        background-color: #e4e4e4; }
     .filter-container > form .submit_container {
       width: 100%;
       height: 48px;
@@ -249,7 +249,7 @@
         display: inline-block;
         font-size: 18px;
         font-weight: 400;
-        color: #888888;
+        color: #757575;
         text-decoration: none;
         vertical-align: bottom;
         line-height: 48px;
@@ -373,7 +373,7 @@
         clear: both;
         padding: 0;
         margin: 0;
-        border-top: 1px solid #eeeeee; } }
+        border-top: 1px solid #e4e4e4; } }
     .article-list .article > a {
       width: 100%;
       height: 352px;
@@ -446,7 +446,7 @@
                 font-weight: 400;
                 color: #f15353; }
               .article-list .article > a .list_wrapper .list_text .list_upper .price_container.review-grey {
-                color: #888888; }
+                color: #757575; }
                 .article-list .article > a .list_wrapper .list_text .list_upper .price_container.review-grey .roomType {
                   color: inherit; }
           .article-list .article > a .list_wrapper .list_text .list_mid {
@@ -458,13 +458,13 @@
               overflow: hidden;
               text-overflow: ellipsis;
               font-size: 16px;
-              color: #888888; }
+              color: #757575; }
               @media only screen and (max-width: 600px) {
                 .article-list .article > a .list_wrapper .list_text .list_mid > div {
                   font-size: 14px; } }
           .article-list .article > a .list_wrapper .list_text .list_lower {
             font-size: 12px;
-            color: #888888; }
+            color: #757575; }
             .article-list .article > a .list_wrapper .list_text .list_lower .keywords_container {
               position: relative;
               overflow: hidden;
@@ -473,8 +473,8 @@
               white-space: nowrap; }
               .article-list .article > a .list_wrapper .list_text .list_lower .keywords_container span {
                 padding: 2px 6px;
-                background-color: #eeeeee;
-                color: #888888;
+                background-color: #e4e4e4;
+                color: #757575;
                 border-radius: 2px;
                 font-size: 12px; }
         .article-list .article > a .list_wrapper .list_img .pic_container {
@@ -483,7 +483,7 @@
           margin-bottom: 8px;
           border-radius: 8px;
           overflow: hidden;
-          border: 1px solid #eeeeee;
+          border: 1px solid #e4e4e4;
           position: relative; }
           @media only screen and (max-width: 600px) {
             .article-list .article > a .list_wrapper .list_img .pic_container {
@@ -513,7 +513,7 @@
           .article-list .article > a .list_wrapper .list_img .pic_container.review-grey > img {
             filter: brightness(0.5); }
           .article-list .article > a .list_wrapper .list_img .pic_container.review-grey .discount {
-            background-color: #888888; }
+            background-color: #757575; }
 
 /* 거래후기 */
 .review {
@@ -558,7 +558,7 @@
       margin-bottom: 8px;
       font-size: 16px;
       font-weight: 300;
-      color: #888888; }
+      color: #757575; }
   .request_container .request_btn {
     margin-top: 8px; }
   .request_container img {
@@ -594,5 +594,5 @@
 
 /* footer */
 footer {
-  background-color: #eeeeee;
+  background-color: #e4e4e4;
   color: #3b3b46; }
