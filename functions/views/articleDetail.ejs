@@ -53,8 +53,7 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <link rel="stylesheet" href="/slick/slick.css" />
     <link rel="stylesheet" href="/slick/slick-theme.css" />
-    <!-- JS-LOAD-IMAGE : 이미지 자동 회전을 위한 라이브러리 -->
-    <script src="https://bangdangi.web.app/js/load-image.all.min.js"></script>
+    <link rel="stylesheet"  href="css/polyfill.object-fit.css" />
 </head>
 
 <body>
@@ -359,6 +358,16 @@
         }
     </script>
     <script src="../../../babel/dst/articleDetail.js"></script>
+
+    <!--  배경 object-fit 속성 pollyfill -->
+    <script src="js/polyfill.object-fit.min.js"></script>
+    <script>
+        objectFit.polyfill({
+          selector: 'img', // this can be any CSS selector
+          fittype: 'cover', // either contain, cover, fill or none
+          disableCrossDomain: 'true' // either 'true' or 'false' to not parse external CSS files.
+        });
+      </script>
 
 </body>
 

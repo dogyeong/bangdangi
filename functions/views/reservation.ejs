@@ -58,7 +58,7 @@
     
     <section class="wrapper">
         <h1>가계약 진행</h1>
-        <form method="POST" action="/reservation/payments/">
+        <form method="POST" action="/reservation/application/">
             <input type="text" name="place" value="<%= place %>" hidden />
             <input type="text" name="articleId" value="<%= articleId %>" hidden />
 
@@ -135,7 +135,7 @@
                 </table>
             </div>
 
-            <div class="table-wrapper">
+            <!-- <div class="table-wrapper">
                 <h2>송금정보</h2>
                 <table>
                     <tbody>
@@ -153,9 +153,10 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
+
             <div class="btn-container">
-                <input type="submit" value="토스로 바로 입금">
+                <input type="submit" value="계약 요청">
             </div>
         </form>
     </section>

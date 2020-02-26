@@ -217,14 +217,16 @@ header {
     background-color: $article-bg-color;
 
     .slick-container {
-        width: 40%;
+        width: 600px;
+        height: 600px;
         min-width: 300px;
         margin: auto;
         @include respond-to(phone) {
             width: 100%;
+            height: auto;
         }
 
-        .slick-list { background-color: $font-color; }
+        .slick-list { background-color: $grey-border-color; }
         .slick-track { display: flex; }
         .slick-track .slick-slide {
             display: flex;
@@ -233,11 +235,20 @@ header {
             justify-content: center;
         }
 
-        img { width: 100%; }
+        img { 
+            width: 600px;
+            height: 600px;
+            object-fit: contain;
+            @include respond-to(phone) { 
+                width: 100%;
+                height: 350px;
+            }
+        }
     }
 
     .slick-prev:before, .slick-next:before {
         opacity: 1 !important;
+        color: $grey !important;
     }
     .slick-arrow {
         @include respond-to(phone) { display: none !important; }

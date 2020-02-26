@@ -63,19 +63,6 @@
 
     <div id="article" style="margin-top: 80px;"></div>
 
-    <!-- PWA 개발할 때 사용한 알람 -->
-    <div id="notification" style="display:none;">
-        <span> title<input type="text" name="push-title" /> body<input type="text" name="push-body" /> </span>
-        <div>
-            <div>createdAt</div>
-            <div>endpoint</div>
-            <div>expirationTime</div>
-            <div>auth</div>
-            <div>p256dh</div>
-            <div>button</div>
-        </div>
-    </div>
-
     <div class="update_container">
         <div class="update_header">
             <div class="update_nav">
@@ -323,6 +310,9 @@
         </div>
     </div>
 
+    <div class="reservation">
+    </div>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
     <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -346,7 +336,6 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
     </script>
 
     <!-- 매물관리 코드 -->
@@ -973,71 +962,189 @@
         inintKakaoMap();
     </script>
 
-    <!-- 푸시알림 코드 -->
+
+    <!-- 가계약 -->
     <script>
-        let db = firebase.firestore();
-        let notiContainer = document.getElementById("notification");
-
-        db.collection("subscription")
-            .get()
-            .then(docs => docs.docs)
-            .then(docs =>
-                docs.forEach(doc => {
-                    notiContainer.innerHTML += `
-                    <div>
-                        <div>${doc
-                            .data()
-                            .createdAt.toDate()
-                            .toLocaleString()}</div>
-                        <div>${doc.data().subscription.endpoint}</div>
-                        <div>${doc.data().subscription.expirationTime}</div>
-                        <div>${doc.data().subscription.keys.auth}</div>
-                        <div>${doc.data().subscription.keys.p256dh}</div>
-                        <div><a href="javascript:;" onclick="sendNotification(this);">send</a></div>
-                    </div>
-                `;
-                })
-            )
-            .catch(err => console.log(err));
-
-        function sendNotification(target) {
-            let pushTitle = document.querySelector('input[name="push-title"]');
-            let pushBody = document.querySelector('input[name="push-body"]');
-            let row = target.parentNode.parentNode;
-            let endpoint = row.children[1].innerText;
-            let expirationTime = null;
-            let auth = row.children[3].innerText;
-            let p256dh = row.children[4].innerText;
-            let subscription = {
-                endpoint,
-                expirationTime,
-                keys: {
-                    auth,
-                    p256dh,
-                },
-            };
-            return fetch("https://bangdangi.web.app/notification/send", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    subscription,
-                    data: {
-                        title: pushTitle.value,
-                        body: pushBody.value,
-                        params: {
-                            url: "/pwa",
-                        },
-                    },
-                }),
-            })
-                .then(res => res.text())
-                .then(res => alert(res))
-                .catch(err => console.log(err));
+        /**
+         * getReservation
+         * db에서 가계약 예약정보를 받아와서 반환한다
+         */
+        const getReservations = async () => {
+            return await firebase
+                .firestore()
+                .collection('reservation')
+                .orderBy('createdAt', 'desc')
+                .get()
+                .then(docs => docs.empty ? [] : docs.docs);
         }
+
+        /**
+         * reserveToHTML
+         * 가계약 예약정보 object를 받아서 보여질 html로 반환한다
+         */
+        const reserveToHTML = (r) => {
+            let data = r.data();
+
+            return `
+                <div class="reservation-item" data-id=${r.id}>
+                    <table class="r-table left-table">
+                        <tbody>
+                            <tr>
+                                <th>예약번호</th>
+                                <td>${r.id}</td>
+                            </tr>
+                            <tr>
+                                <th>지역</th>
+                                <td>${data.place}</td>
+                            </tr>
+                            <tr>
+                                <th>매물번호</th>
+                                <td>${data.articleId}</td>
+                            </tr>
+                            <tr>
+                                <th>신청시간</th>
+                                <td>${data.createdAt.toDate().toLocaleDateString()}</td>
+                            </tr>
+                        </tobdy>
+                    </table>
+                    <table class="r-table right-table">
+                        <tbody>
+                            <tr>
+                                <td>${data.name}</td>
+                            </tr>
+                            <tr>
+                                <td>${data.phone}</td>
+                            </tr>
+                            <tr>
+                                <td>${data.startDate.toDate().toLocaleDateString()}~${data.endDate.toDate().toLocaleDateString()}</td>
+                            </tr>
+                        </tobdy>
+                    </table>
+                    <table class="link-table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a target="_blank" href="https://bangdangi.web.app/board/read/${data.place}/${data.articleId}">
+                                        상세페이지
+                                    </a>
+                                </td>
+                                <td>
+                                    <a target="_blank" href="https://bangdangi.web.app/reservation/payments/${r.id}">
+                                        가계약 완료 페이지
+                                    </a>
+                                </td>
+                                <td>
+                                    <a target="_blank" href="${data.contract}" class="contract-link">
+                                        계약서
+                                    </a>    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="btn-container">
+                        <button data-id="${r.id}" class="contract-btn">계약서 입력</button>
+                        <button data-id="${r.id}" class="delete-btn">삭제</button>
+                    </div>    
+                </div>
+            `;
+        }
+
+        /**
+         * addContract
+         * 계약서 추가 버튼의 클릭 콜백함수
+         * 계약서 url을 추가한다
+         */
+        const addContract = (event) => {
+            let id = event.target.dataset.id;
+            let contractURL = window.prompt("계약서 링크 입력");
+
+            if(!contractURL) return;
+
+            showLoading();
+
+            firebase.firestore()
+                .doc(`reservation/${id}`)
+                .update({
+                    contract: contractURL
+                })
+                .then(() => {
+                    document.querySelector(`.reservation-item[data-id="${id}"] .contract-link`).href = contractURL;
+                    window.alert("계약서 입력 완료");
+                })
+                .catch(err => window.aler(err))
+                .finally(() => hideLoading())
+        }
+
+
+        /**
+         * deleteReservation
+         * 가계약 예약 정보 삭제 버튼의 콜백함수
+         * db에서 삭제하고 해당 html을 제거한다
+         */
+        const deleteReservation = (event) => {
+            let id = event.target.dataset.id;
+
+            if (window.confirm("삭제하시겠습니까?")) {
+                firebase.firestore()
+                    .doc(`reservation/${id}`)
+                    .delete()
+                    .then(() => {
+                        document.querySelector(`.reservation-item[data-id="${id}"]`).style.display = 'none';
+                        window.alert("삭제 완료");
+                    })
+                    .catch(err => window.aler(err))
+                    .finally(() => hideLoading());
+            }
+        }
+
+
+        /**
+         * addReservationEvt
+         * 계약서 입력, 삭제 버튼에 이벤트를 바인딩한다
+         */
+        const addReservationEvt = () => {
+            document.querySelectorAll('.reservation .contract-btn').forEach(btn => {
+                btn.addEventListener('click', addContract);
+            })
+
+            document.querySelectorAll('.reservation .delete-btn').forEach(btn => {
+                btn.addEventListener('click', deleteReservation);
+            })
+        } 
+
+
+        /**
+         * cloarReservations
+         * 가계약 예약 정보 컨테이너 내부 html을 제거한다
+         */
+        const clearReservations = () => {
+            document.querySelector('.reservation').innerHTML = '';
+        }
+
+
+        /**
+         * loadReservations
+         * 예약 신청정보를 불러와서 화면에 보여준다 
+         */
+        const loadReservations = async () => {
+            showLoading();
+
+            let reservations = await getReservations();
+
+            clearReservations();
+
+            reservations.forEach(r => {
+                document.querySelector('.reservation').innerHTML += reserveToHTML(r);
+            })
+
+            addReservationEvt();
+            hideLoading();
+        };
+
+
+        loadReservations();
     </script>
+
 
     <!-- 로그인 -->
     <script>

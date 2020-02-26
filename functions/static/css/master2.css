@@ -2,6 +2,7 @@
     * {
       padding: 0;
       margin: 0;
+      box-sizing: border-box;
     }
     body {
       font-family: Noto Sans KR, AppleSDGothicNeo-Regular,'Malgun Gothic','맑은 고딕',dotum,'돋움',sans-serif;
@@ -20,7 +21,7 @@
       font-size: 18px;
       color: white;
       font-weight: 400;
-      position: fixed;
+      position: absolute;
       width: 100%;
       top: 0;
     }
@@ -288,19 +289,74 @@
           100% { opacity: 0; }
       }
 
-      /* notification */
-      #notification {
-        display: table;
-        width: 100%;
+      /* reservation */
+      .reservation {
+        padding: 20px 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 460px);
+        grid-column-gap: 16px;
+        grid-row-gap: 40px;
+        justify-content: center;
+        align-items: start;
       }
-      #notification > div {
-        display: table-row;
-      }
-      #notification > div > div {
-        display: table-cell;
-        border: 1px solid #ddd;
+      .reservation-item {
+        width: 460px;
         padding: 8px;
-        max-width: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        border: 1px solid #eee;
       }
+      .r-table {
+        display: inline-table;
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      .left-table  {
+        width: 60%;
+        border-right: 1px solid #eee;
+      }
+      .left-table th {
+        font-weight: 300;
+        font-size: 14px;
+        text-align: right;
+        padding-right: 4px;
+      }
+      .left-table td {
+        text-align: left;
+        padding-left: 4px;
+      }
+      .right-table {
+        width: 39%;
+      }
+      .right-table td {
+        padding-left: 4px;
+      }
+      .right-table tr:not(:last-child) {
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .link-table {
+        width: 100%;
+        padding: 8px 0;
+        border-top: 1px solid  #eee;
+        border-bottom: 1px solid  #eee;
+        margin: 8px 0;
+      }
+      .link-table td{
+        width: 33.3%;
+        text-align: center;
+      }
+      .link-table a {
+        text-decoration: none;
+      }
+      .reservation .btn-container {
+        text-align: center;
+      }
+      .reservation .btn-container button {
+        appearance: none;
+        -webkit-appearance: none;
+        display: inline-block;
+        padding: 4px 12px;
+        text-align: center;
+        font-size: 14px;
+        margin: 0 4px;
+      }
+

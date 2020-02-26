@@ -185,14 +185,16 @@ header {
   margin: 40px auto;
   background-color: #f4f4f4; }
   .carousel-container .slick-container {
-    width: 40%;
+    width: 600px;
+    height: 600px;
     min-width: 300px;
     margin: auto; }
     @media only screen and (max-width: 600px) {
       .carousel-container .slick-container {
-        width: 100%; } }
+        width: 100%;
+        height: auto; } }
     .carousel-container .slick-container .slick-list {
-      background-color: #3b3b46; }
+      background-color: #e4e4e4; }
     .carousel-container .slick-container .slick-track {
       display: flex; }
     .carousel-container .slick-container .slick-track .slick-slide {
@@ -201,9 +203,16 @@ header {
       align-items: center;
       justify-content: center; }
     .carousel-container .slick-container img {
-      width: 100%; }
+      width: 600px;
+      height: 600px;
+      object-fit: contain; }
+      @media only screen and (max-width: 600px) {
+        .carousel-container .slick-container img {
+          width: 100%;
+          height: 350px; } }
   .carousel-container .slick-prev:before, .carousel-container .slick-next:before {
-    opacity: 1 !important; }
+    opacity: 1 !important;
+    color: #757575 !important; }
   @media only screen and (max-width: 600px) {
     .carousel-container .slick-arrow {
       display: none !important; } }

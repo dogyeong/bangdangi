@@ -21,7 +21,7 @@ const PLACE_OBJ = {
 const getArticlesPath = (place) => `article/${place}/articles`;
 const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
 
-router.post('/payments', (req, res, next) => {
+router.post('/application', (req, res, next) => {
     var transporter = nodemailer.createTransport(smtpPool({
         service: 'gmail',
         auth: {
@@ -41,8 +41,6 @@ router.post('/payments', (req, res, next) => {
         ` 
     };
 
-
-
     db.collection('reservation').add({
         place: req.body.place,
         articleId: req.body.articleId,
@@ -51,19 +49,49 @@ router.post('/payments', (req, res, next) => {
         startDate: new Date(req.body.start_date),
         endDate: new Date(req.body.end_date),
         createdAt: new Date(),
+        contract: null,
     })
     .then(() => {
         return transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                return res.send(err.toString());
+                console.log(err);
+                return next(createError(500));
             }
-            return res.send('OK');
+            return res.render('reservationSuccess');
         });
     })
     .catch((err) => {
         console.log(err);
         return next(createError(500));
     });
+});
+
+router.get('/payments/:reservationId', (req, res, next) => {
+    const reservationId = req.params.reservationId;
+    const rsvRef = db.doc(`reservation/${reservationId}`);
+
+    rsvRef.get()
+    .then(async doc => {
+        if (doc.exists && doc.data().contract) { // 문서 존재하고 계약서 링크가 존재하는 가계약
+            let rsvData = doc.data();
+            let place = rsvData.place;
+            let placeKo = PLACE_OBJ[place];
+            let articleId = rsvData.articleId;
+            let articleData = await db.doc(`${getArticlesPath(place)}/${articleId}`)
+                .get()
+                .then(doc => doc.data());
+            
+            return res.render('reservation-payments', { place, placeKo, rsvData, articleData,});
+        }
+        else {
+            // 문서 존재하지 않거나 계약서가 없는 예약
+           return next(createError(404));
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+        return next(createError(500));
+    })
 });
 
 router.get('/:place/:articleId', (req, res, next) => { 
