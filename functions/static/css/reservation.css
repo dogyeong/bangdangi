@@ -107,7 +107,7 @@ h2 {
 
 .btn-container {
   padding: 40px 16px; }
-  .btn-container input[type="submit"] {
+  .btn-container input[type="submit"], .btn-container input[type="button"] {
     display: block;
     appearance: none;
     -webkit-appearance: none;
@@ -121,5 +121,5 @@ h2 {
     font-size: 18px;
     font-weight: 700; }
     @media only screen and (max-width: 600px) {
-      .btn-container input[type="submit"] {
+      .btn-container input[type="submit"], .btn-container input[type="button"] {
         width: 100%; } }

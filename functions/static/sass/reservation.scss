@@ -122,7 +122,7 @@ h2 {
 .btn-container {
     padding: 40px 16px;
 
-    input[type="submit"] {
+    input[type="submit"], input[type="button"] {
         display: block;
         appearance: none;
         -webkit-appearance: none;

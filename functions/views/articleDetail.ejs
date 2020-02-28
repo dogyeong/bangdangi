@@ -216,22 +216,6 @@
             </table>
         </section>
 
-        <!-- 모바일 문의 버튼 -->
-        <section class="mobile-btn-container">
-            <% if (done === false) { %>
-            <% if (data.contact && data.contact.length > 15) { %>
-            <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
-                오픈채팅방으로 연락하기
-            </button>
-            <% } else { %>
-            <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
-                방단기에 문의하기
-            </button>
-            <% } %>
-            <button class="reserve-btn">예약하기</button>
-            <% } %>
-        </section>
-
         <!-- 본문 블럭 -->
         <section class="detail-container">
             <h3 class="title">상세설명</h3>
@@ -243,7 +227,25 @@
                     드리고 있습니다.
                 </li>
             </ul>
+
+             <!-- 모바일 문의 버튼 -->
+            <section class="mobile-btn-container">
+                <% if (done === false) { %>
+                <% if (data.contact && data.contact.length > 15) { %>
+                <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
+                    오픈채팅방으로 연락하기
+                </button>
+                <% } else { %>
+                <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                    방단기에 문의하기
+                </button>
+                <% } %>
+                <button class="reserve-btn">예약하기</button>
+                <% } %>
+            </section>
         </section>
+
+       
 
         <!-- 후기 블럭 -->
         <% if (done === true) { %>

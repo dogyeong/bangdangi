@@ -45,10 +45,88 @@
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/headerBar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/reservation.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 </head>
 
 <body>
-    하이요
+
+    <%- include('templates/gnb') %>
+
+    <section class="wrapper">
+        <h1>계약금 결제</h1>
+
+        <div class="table-wrapper">
+            <h2>매물정보</h2>
+            <table class="img-table">
+                <tbody>
+                    <th>
+                        <div class="article-img" style="background-image: url('<%=articleData.images ? articleData.images[0] : ""%>');"></div>
+                    </th>
+                    <td>
+                        <div class="article-title"><%= articleData.title || '' %></div>
+                        <div class="article-data">
+                            보증금 <%=articleData.deposit || '문의'%>/월세 <%=articleData.price || '문의'%><br/>
+                            <%= articleData.locationS ? Object.keys(articleData.locationS).join(' ') : '' %>
+                        </div>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrapper">
+            <h2>결제정보</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>가계약 예치금</th>
+                        <td>100,000원</td>
+                    </tr>
+                    <tr>
+                        <th>수수료</th>
+                        <td>9,000원</td>
+                    </tr>
+                    <tr>
+                        <th>VAT</th>
+                        <td>900원</td>
+                    </tr>
+                    <tr>
+                        <th>합계</th>
+                        <td>109,900원</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-wrapper">
+            <h2>송금정보</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>은행명</th>
+                        <td>부산은행</td>
+                    </tr>
+                    <tr>
+                        <th>계좌번호</th>
+                        <td>123-123-123213213</td>
+                    </tr>
+                    <tr>
+                        <th>송금액</th>
+                        <td>109,900원</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="btn-container">
+            <input type="button" value="결제">
+        </div>
+
+    </section>
+
+    <%- include('templates/footer') %>
 </body>
 
 </html>

@@ -9,15 +9,7 @@ const cors = require('cors')({
 });
 const db = admin.firestore();
 const model = require('../modules/model');
-const PLACE_OBJ = {
-    pnu: '부산, 부산대',
-    cnu: '대전, 충남대',
-    mafo: '마포구,서대문구',
-    seongdong: '성동구',
-    gwanak: '관악구, 동작구, 영등포구',
-    dongdaemun: '동대문구',
-    gangnam: '서초구, 강남구',
-}
+const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = (place) => `article/${place}/articles`;
 const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
 

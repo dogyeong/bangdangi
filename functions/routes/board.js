@@ -10,16 +10,7 @@ const cors = require('cors')({
 });
 const db = admin.firestore();
 const model = require('../modules/model');
-const UNIV_OBJ = {
-    pnu: '부산, 부산대',
-    cnu: '대전, 충남대',
-    mafo: '마포구,서대문구, 은평구',
-    seongdong: '성동구, 광진구',
-    gwanak: '관악구, 동작구, 영등포구',
-    dongdaemun: '동대문구',
-    gangnam: '서초구, 강남구',
-    yangcheon: '양천구, 강서구'
-}
+const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = (place) => `article/${place}/articles`;
 const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
 
@@ -52,7 +43,7 @@ router.get('/list/:univ', async (req, res, next) => {
         roomList = resultArr;
         err = '앗, 찾는 매물이 존재하지 않습니다.';
     }   
-    let univKo = UNIV_OBJ[univ];
+    let univKo = PLACE_OBJ[univ];
     let filterOption = { 
         location: locationKeywords,
         date: monthLimit,
@@ -321,7 +312,7 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
         }
     })
     .then((newViews) => {
-        let univKo = UNIV_OBJ[univ];
+        let univKo = PLACE_OBJ[univ];
         let done = false
         if (newViews === true) // true면 거래완료된 상태
             done = true;

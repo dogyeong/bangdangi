@@ -226,7 +226,8 @@ header {
   /* 반응형 테이블 구현하기 위해서 */ }
   @media only screen and (max-width: 600px) {
     .info {
-      padding: 40px 16px 20px 16px; } }
+      padding: 40px 16px;
+      border-bottom: 6px solid #e4e4e4; } }
   @media only screen and (max-width: 600px) {
     .info table, .info thead, .info tbody, .info th, .info td, .info tr {
       display: block; } }
@@ -238,7 +239,12 @@ header {
         Label the data
         */ }
     .info table thead {
-      background-color: #e4e4e4; }
+      background-color: #f4f4f4;
+      border-top: 1px solid #e4e4e4;
+      border-bottom: 1px solid #e4e4e4; }
+      @media only screen and (max-width: 600px) {
+        .info table thead {
+          border: 0; } }
     .info table tbody {
       border-bottom: 1px solid #e4e4e4; }
     .info table th {
@@ -289,23 +295,6 @@ header {
       content: "방 형태"; }
     .info table td:nth-of-type(4):before {
       content: "층수"; }
-
-/* 모바일 문의 버튼 컨테이너 */
-.mobile-btn-container {
-  display: none;
-  width: 100%;
-  padding: 40px 16px;
-  border-bottom: 6px solid #e4e4e4; }
-  @media only screen and (max-width: 600px) {
-    .mobile-btn-container {
-      display: block; } }
-  .mobile-btn-container > button {
-    width: 100%;
-    padding: 20px 0;
-    border-radius: 8px;
-    margin: 0; }
-  .mobile-btn-container .contact-btn {
-    margin-bottom: 12px; }
 
 /* 공유하기 딤드 */
 .dimmed-share {
@@ -492,6 +481,22 @@ header {
   @media only screen and (max-width: 600px) {
     .map-container .map {
       height: 280px; } }
+
+/* 모바일 문의 버튼 컨테이너 */
+.mobile-btn-container {
+  display: none;
+  width: 100%;
+  padding-top: 20px; }
+  @media only screen and (max-width: 600px) {
+    .mobile-btn-container {
+      display: block; } }
+  .mobile-btn-container > button {
+    width: 100%;
+    padding: 20px 0;
+    border-radius: 8px;
+    margin: 0; }
+  .mobile-btn-container .contact-btn {
+    margin-bottom: 12px; }
 
 /* 관련 매물 추천 리스트 */
 .related-container {

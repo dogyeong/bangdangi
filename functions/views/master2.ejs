@@ -47,6 +47,7 @@
                     <option value="dongdaemun">동대문구</option>
                     <option value="seongdong">성동구,광진구</option>
                     <option value="yangcheon">양천구,강서구</option>
+                    <option value="yongsan">용산구</option>
                 </optgroup>
                 <optgroup label="대전">
                     <option value="cnu">충남대학교</option>
@@ -294,6 +295,8 @@
             <div class="field_container" data-field="position" data-type="geopoint">
                 <div class="field_title" data-field="position">position</div>
                 <div class="field_value" data-container="position">
+                    <input type="text" class="map-address"/>
+                    <input type="button" value="GO" class="map-search-btn"  />
                     <div class="map" style="width:100%; height: 240px;"></div>
                 </div>
             </div>
@@ -623,8 +626,10 @@
                 } else if (type === "text") {
                     document.querySelector(`textarea[data-field="${field}"]`).value = "";
                 }
+
                 // 지도 초기화
-                let initialLatLon = new kakao.maps.LatLng(37.484235, 126.929907);
+                document.querySelector('.map-address').value = ''; // 주소입력창 초기화
+                let initialLatLon = new kakao.maps.LatLng(37.484235, 126.929907); 
                 map.setCenter(initialLatLon);
                 marker.setPosition(initialLatLon);
             });
@@ -926,9 +931,12 @@
 
     <!-- 카카오 지도 -->
     <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a"></script>
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=07ac8a4da1c7b6aa00a5947dc53f964a&libraries=services"></script>
     <script>
         var mapContainer, mapOption, map, marker;
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
 
         var inintKakaoMap = function () {
             mapContainer = document.querySelector('.map') // 지도를 표시할 div 
@@ -959,6 +967,30 @@
             });
         }
 
+        var searchKakaoMap = function () {
+            
+            let address = document.querySelector('.map-address').value;
+            
+            geocoder.addressSearch(address, function(result, status) {
+                
+                // 정상적으로 검색이 완료됐으면 
+                if (status === kakao.maps.services.Status.OK) {
+                
+                    let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    marker.setPosition(coords);
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                }
+                else {
+                    window.alert("제대로 입력하세용");
+                }
+            });
+        }
+
+        document.querySelector('.map-search-btn').addEventListener('click', searchKakaoMap);
         inintKakaoMap();
     </script>
 
