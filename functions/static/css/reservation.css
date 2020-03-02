@@ -51,6 +51,15 @@ h2 {
       h2 > span {
         display: block;
         margin: 0; } }
+  h2 .remittance-copy {
+    display: inline-block;
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: #3b3b46;
+    cursor: pointer; }
+    h2 .remittance-copy:hover {
+      font-weight: 400; }
 
 .table-wrapper {
   padding-top: 40px; }
@@ -73,6 +82,28 @@ h2 {
       vertical-align: top;
       text-align: right;
       min-width: 120px; }
+      .table-wrapper table th .xi-help-o {
+        position: relative;
+        color: #757575; }
+        .table-wrapper table th .xi-help-o > span {
+          position: absolute;
+          width: 320px;
+          text-align: left;
+          left: 40px;
+          top: -8px;
+          padding: 8px;
+          font-size: 14px;
+          color: #3b3b46;
+          background-color: #fff;
+          border: 1px solid #e4e4e4;
+          border-radius: 4px;
+          line-height: 16px;
+          visibility: hidden; }
+          @media only screen and (max-width: 600px) {
+            .table-wrapper table th .xi-help-o > span {
+              width: 180px; } }
+        .table-wrapper table th .xi-help-o:hover > span {
+          visibility: visible; }
     .table-wrapper table td {
       border-bottom: 1px solid #e4e4e4;
       vertical-align: top;
@@ -89,21 +120,33 @@ h2 {
       .table-wrapper .img-table th {
         padding: 10px 0; } }
   .table-wrapper .img-table .article-img {
-    width: 160px;
-    height: 100px;
+    width: 180px;
+    height: 120px;
     background-color: #f4f4f4;
     border-radius: 4px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center; }
+    @media only screen and (max-width: 600px) {
+      .table-wrapper .img-table .article-img {
+        width: 132px; } }
   .table-wrapper .img-table .article-title {
     font-size: 16px;
-    font-weight: 700; }
+    font-weight: 700;
+    margin-bottom: 4px; }
   .table-wrapper .img-table .article-data {
     font-size: 14px;
     font-weight: 400;
     color: #757575;
-    margin-top: 8px; }
+    margin-bottom: 8px;
+    line-height: 20px; }
+  .table-wrapper .img-table .contract > a {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: #0ab9f1;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white; }
 
 .btn-container {
   padding: 40px 16px; }

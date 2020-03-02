@@ -47,6 +47,17 @@ h2 {
             margin: 0;
         }
     }
+
+    .remittance-copy {
+        display: inline-block;
+        background-color: $article-bg-color;
+        padding: 2px 4px;
+        border-radius: 2px;
+        color: $font-color;
+        cursor: pointer;
+
+        &:hover { font-weight: $fw-regular; }
+    }
 }
 
 .table-wrapper {
@@ -72,6 +83,32 @@ h2 {
             vertical-align: top;
             text-align: right;
             min-width: 120px;
+
+            .xi-help-o {
+                position: relative;
+                color: $grey;
+
+                > span {
+                    position: absolute;
+                    width: 320px;
+                    text-align: left;
+                    left: 40px;
+                    top: -8px;
+                    padding: 8px;
+                    font-size: 14px;
+                    color: $font-color;
+                    background-color: $white;
+                    border: 1px solid $grey-border-color;
+                    border-radius: 4px;
+                    line-height: 16px;
+                    visibility: hidden;
+                    @include respond-to(phone) { width: 180px; }
+                }
+
+                &:hover > span {
+                    visibility: visible;
+                }
+            }
         }
         td {
             border-bottom: 1px solid $grey-border-color;
@@ -97,28 +134,41 @@ h2 {
         }
 
         .article-img {
-            width: 160px;
-            height: 100px;
+            width: 180px;
+            height: 120px;
             background-color: $article-bg-color;
             border-radius: 4px;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
+            @include respond-to(phone) { width: 132px; }
         }
 
         .article-title {
             font-size: $fs-md;
             font-weight: $fw-bold;
+            margin-bottom: 4px;
         }
 
         .article-data {
             font-size: $fs-sm;
             font-weight: $fw-regular;
             color: $grey;
-            margin-top: 8px;
+            margin-bottom: 8px;
+            line-height: 20px;
+        }
+        
+        .contract > a {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: $main-color;
+            border-radius: 4px;
+            font-size: $fs-sm;
+            color: white;
         }
     }
 }
+
 .btn-container {
     padding: 40px 16px;
 

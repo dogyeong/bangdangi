@@ -77,6 +77,12 @@ const getReviews = async (place, limit) => {
 };
 
 
+
+const addArticle = () => {
+    
+}
+
+
 module.exports = {
     getNewArticles,
     getReviews,
