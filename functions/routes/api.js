@@ -3,8 +3,11 @@ const router = express.Router();
 const createError = require('http-errors');
 const model = require('../modules/model');
 
-
-router.post('/article', (req, res, next) => {
+/**
+ * POST /article
+ * 매물 생성
+ */
+router.post('/articles', (req, res, next) => {
     const body = req.body;
 
     // 지역 검사
@@ -29,7 +32,11 @@ router.post('/article', (req, res, next) => {
 });
 
 
-router.put('/article', (req, res, next) => {
+/**
+ * PUT /article 
+ * 매물 데이터 수정
+ */
+router.put('/articles', (req, res, next) => {
     const body = req.body;
 
     // 지역, id 검사
@@ -52,7 +59,12 @@ router.put('/article', (req, res, next) => {
     });
 });
 
-router.delete('/article', (req, res, next) => {
+
+/**
+ * DELETE /article
+ * 매물 삭제
+ */
+router.delete('/articles', (req, res, next) => {
     const body = req.body;
 
     // 지역, id 검사

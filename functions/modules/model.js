@@ -3,9 +3,8 @@ const db = admin.firestore();
 
 const COLLECTION_GROUP_ARTICLES = "articles"; //매물 컬렉션 그룹 이름
 const getArticlesPath = (place) => `article/${place}/articles`; //place 이름을 받아서 path로 변환
+const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
 const PLACE_OBJ = {
-    pnu: '부산, 부산대',
-    cnu: '대전, 충남대',
     mafo: '마포구,서대문구, 은평구',
     seongdong: '성동구, 광진구',
     gwanak: '관악구, 동작구, 영등포구',
@@ -119,6 +118,7 @@ const addArticle = (place, id, data) => {
         views: 0,
         position: null,
         review: null,
+        lastCheck: new Date(),
         ...data,
         createdAt: new Date(),
     });
@@ -161,9 +161,11 @@ const deleteArticle = (place, id) => {
 
 module.exports = {
     PLACE_OBJ,
+    getArticlesPath,
+    getLocKeywordsPath,
     getNewArticles,
     getReviews,
     addArticle,
     updateArticle,
-    deleteArticle
+    deleteArticle,
 };

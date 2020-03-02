@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
 const createError = require('http-errors');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const url = require('url');
 const cors = require('cors')({
     origin: true
 });
 const db = admin.firestore();
 const model = require('../modules/model');
 const PLACE_OBJ = model.PLACE_OBJ;
-const getArticlesPath = (place) => `article/${place}/articles`;
-const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
+const getArticlesPath = model.getArticlesPath;
+const getLocKeywordsPath = model.getLocKeywordsPath;
 
 router.get('/list/:univ', async (req, res, next) => { 
     const univ = req.params.univ;

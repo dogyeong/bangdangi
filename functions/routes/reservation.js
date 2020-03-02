@@ -10,8 +10,8 @@ const cors = require('cors')({
 const db = admin.firestore();
 const model = require('../modules/model');
 const PLACE_OBJ = model.PLACE_OBJ;
-const getArticlesPath = (place) => `article/${place}/articles`;
-const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
+const getArticlesPath = model.getArticlesPath;
+
 
 router.post('/application', (req, res, next) => {
     var transporter = nodemailer.createTransport(smtpPool({

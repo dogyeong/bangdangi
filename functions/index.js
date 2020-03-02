@@ -26,14 +26,12 @@ app.use(express.static(path.join(__dirname, 'static')));
 const indexRouter = require('./routes/index');
 const boardRouter = require('./routes/board');
 const userRouter = require('./routes/user');
-const notiRouter = require('./routes/notification');
 const reserveRouter = require('./routes/reservation');
 const RESTapi = require('./routes/api');
 
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
 app.use('/user', userRouter);
-app.use('/notification', notiRouter);
 app.use('/reservation', reserveRouter);
 app.use('/api', RESTapi);
 
