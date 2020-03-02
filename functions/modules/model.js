@@ -76,9 +76,94 @@ const getReviews = async (place, limit) => {
         .then(docs => docs.docs);
 };
 
+/**
+ * 
+ * @param {string} place 
+ * @param {string} id 
+ * @param {object} data
+ * 
+ * @returns {Promise} 
+ */
+const addArticle = (place, id, data) => {
+
+    let ref = db.collection(getArticlesPath(place));
+
+    // id도 넘겨주면 해당 id로 문서를 만든다
+    ref = id ? ref.doc(id) : ref.doc();
+
+    // 문서 생성. createdAt 필드는 현재 시간으로 해준다.
+    return ref.set({
+        display: false,
+        tradeType: null,
+        startDate: null,
+        endDate: null,
+        minTerm: null,
+        dateKeywords: null,
+        keywords: null,
+        discountKeywords: null,
+        price: null,
+        deposit: null,
+        expense: null,
+        locationL: null,
+        locationS: null,
+        roomType: null,
+        only: null,
+        floor: null,
+        images: null,
+        urlType: null,
+        url: null,
+        contact: null,
+        done: false,
+        text: null,
+        title: null,
+        views: 0,
+        position: null,
+        review: null,
+        ...data,
+        createdAt: new Date(),
+    });
+};
+
+
+/**
+ * 
+ * @param {string} place 
+ * @param {string} id 
+ * @param {object} data
+ * 
+ * @returns {Promise} 
+ */
+const updateArticle = (place, id, data) => {
+
+    // 문서 업데이트
+    return db
+        .collection(getArticlesPath(place))
+        .doc(id)
+        .update(data);
+};
+
+
+/**
+ * 
+ * @param {string} place 
+ * @param {string} id 
+ * 
+ * @returns {Promise} 
+ */
+const deleteArticle = (place, id) => {
+
+    // 문서 삭제
+    return db
+        .collection(getArticlesPath(place))
+        .doc(id)
+        .delete();
+};
 
 module.exports = {
+    PLACE_OBJ,
     getNewArticles,
     getReviews,
-    PLACE_OBJ,
+    addArticle,
+    updateArticle,
+    deleteArticle
 };
