@@ -3,22 +3,49 @@ const router = express.Router();
 const createError = require('http-errors');
 const model = require('../modules/model');
 
+
 /**
- * POST /article
- * 매물 생성
+ * GET /articles
+ * 
+ * 모든 매물 데이터를 리턴한다
  */
-router.post('/articles', (req, res, next) => {
-    const body = req.body;
+router.get('/articles', (req, res, next) => {
 
-    // 지역 검사
-    if(!req.body || !body.place) {
-        return next(createError(400, 'parameter is missing'));
-    }
+        return getArticlesAll();
+});
 
-    const place = body.place;
-    const id    = body.id;
-    const data  = body.data;
 
+/**
+ * GET /articles/:place
+ * 
+ * place 내의 모든 매물 데이터를 리턴한다
+ */
+router.get('/articles/:place', (req, res, next) => {
+
+    return getArticlesAll(place);
+});
+
+
+/**
+ * GET /articles/:place
+ * 
+ * 해당 place/id의 매물 데이터를 리턴한다
+ */
+router.get('/articles/:place/:id', (req, res, next) => {
+
+    return getArticles(place, id);
+});
+
+
+/**
+ * POST /articles/:place
+ * 
+ * place에 매물 추가한다, id는 자동생성된다.
+ */
+router.post('/articles/:place', (req, res, next) => {
+    const place = req.params.place;
+    const data  = req.body.data;
+    
     // 매물 추가
     model
     .addArticle(place, id, data)
@@ -33,20 +60,36 @@ router.post('/articles', (req, res, next) => {
 
 
 /**
- * PUT /article 
- * 매물 데이터 수정
+ * POST /articles/:place/:id
+ * 
+ * place/id에 매물 추가한다.
  */
-router.put('/articles', (req, res, next) => {
-    const body = req.body;
+router.post('/articles/:place/:id', (req, res, next) => {
+    const place = req.params.place;
+    const id    = req.params.id;
+    const data  = req.body.data;
+    
+    // 매물 추가
+    model
+    .addArticle(place, id, data)
+    .then(() => { 
+        return res.status(200).send("OK") 
+    })
+    .catch((err) => {
+        return next(createError(500, err));
+    });
 
-    // 지역, id 검사
-    if(!req.body || !body.place || !body.id) {
-        return next(createError(400, 'parameter is missing'));
-    }
+});
 
-    const place = body.place;
-    const id    = body.id;
-    const data  = body.data;
+
+/**
+ * PUT /articles/:place/:id
+ * 
+ * 매물 데이터를 수정한다.
+ */
+router.put('/articles/:place/:id', (req, res, next) => {
+    const place = req.params.place;
+    const id    = req.params.id;
 
     // 매물 업데이트
     model
@@ -61,19 +104,13 @@ router.put('/articles', (req, res, next) => {
 
 
 /**
- * DELETE /article
- * 매물 삭제
+ * DELETE /articles/:place/:id
+ * 
+ * 매물 데이터를 삭제한다.
  */
-router.delete('/articles', (req, res, next) => {
-    const body = req.body;
-
-    // 지역, id 검사
-    if(!req.body || !body.place || !body.id) {
-        return next(createError(400, 'parameter is missing'));
-    }
-
-    const place = body.place;
-    const id    = body.id;
+router.delete('/articles/:place/:id', (req, res, next) => {
+    const place = req.params.place;
+    const id    = req.params.id;
 
     // 매물 삭제
     model
@@ -85,5 +122,8 @@ router.delete('/articles', (req, res, next) => {
         return next(createError(500, err));
     });
 });
+
+
+
 
 module.exports = router;
