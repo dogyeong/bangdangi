@@ -50,7 +50,8 @@ h2 {
     @media only screen and (max-width: 600px) {
       h2 > span {
         display: block;
-        margin: 0; } }
+        margin: 0;
+        font-size: 12px; } }
 
 .table-wrapper {
   padding-top: 40px; }
@@ -73,14 +74,35 @@ h2 {
       vertical-align: top;
       text-align: right;
       min-width: 120px; }
+      @media only screen and (max-width: 600px) {
+        .table-wrapper table th {
+          font-size: 14px; } }
     .table-wrapper table td {
       border-bottom: 1px solid #e4e4e4;
       vertical-align: top;
       text-align: left;
       padding: 10px 0 10px 15px; }
+      @media only screen and (max-width: 600px) {
+        .table-wrapper table td {
+          font-size: 14px; } }
+      .table-wrapper table td ul {
+        list-style: none;
+        margin-top: 8px; }
+        .table-wrapper table td ul li {
+          font-size: 14px;
+          color: #757575;
+          font-weight: 300; }
+          @media only screen and (max-width: 600px) {
+            .table-wrapper table td ul li {
+              font-size: 12px; } }
     .table-wrapper table input {
       width: 100%;
-      max-width: 180px; }
+      max-width: 180px;
+      font-size: 14px;
+      padding: 2px; }
+      @media only screen and (max-width: 600px) {
+        .table-wrapper table input {
+          padding: 0; } }
   .table-wrapper .img-table th {
     padding: 10px 15px;
     background: none;
@@ -99,11 +121,19 @@ h2 {
   .table-wrapper .img-table .article-title {
     font-size: 16px;
     font-weight: 700; }
+    @media only screen and (max-width: 600px) {
+      .table-wrapper .img-table .article-title {
+        font-size: 14px; } }
   .table-wrapper .img-table .article-data {
     font-size: 14px;
     font-weight: 400;
     color: #757575;
     margin-top: 8px; }
+    @media only screen and (max-width: 600px) {
+      .table-wrapper .img-table .article-data {
+        margin-top: 4px;
+        font-size: 12px;
+        line-height: 14px; } }
 
 .btn-container {
   padding: 40px 16px; }
@@ -112,7 +142,7 @@ h2 {
     appearance: none;
     -webkit-appearance: none;
     margin: auto;
-    padding: 20px 60px;
+    padding: 20px 120px;
     border-radius: 8px;
     cursor: pointer;
     background-color: #0ab9f1;

@@ -49,7 +49,7 @@ router.post('/application', (req, res, next) => {
                 console.log(err);
                 return next(createError(500));
             }
-            return res.render('reservationSuccess');
+            return res.render('reservation-process');
         });
     })
     .catch((err) => {
@@ -57,6 +57,19 @@ router.post('/application', (req, res, next) => {
         return next(createError(500));
     });
 });
+
+
+router.get('/process', (req, res, next) => {
+    const place = req.query.place;
+    const id    = req.query.id;
+
+    if (!place || !id) {
+        return next(createError(404));
+    }
+
+    return res.render('reservation-process', { place, id });
+});
+
 
 router.get('/payments/:reservationId', (req, res, next) => {
     const reservationId = req.params.reservationId;

@@ -45,6 +45,7 @@ h2 {
         @include respond-to(phone) { 
             display: block;
             margin: 0;
+            font-size: $fs-xs;
         }
     }
 }
@@ -72,17 +73,34 @@ h2 {
             vertical-align: top;
             text-align: right;
             min-width: 120px;
+            @include respond-to(phone) { font-size: $fs-sm; }
         }
         td {
             border-bottom: 1px solid $grey-border-color;
             vertical-align: top;
             text-align: left;
             padding: 10px 0 10px 15px;
+            @include respond-to(phone) { font-size: $fs-sm; }
+
+            ul {
+                list-style: none;
+                margin-top: 8px;
+                
+                li {
+                    font-size: $fs-sm;
+                    color: $grey;
+                    font-weight: $fw-light;
+                    @include respond-to(phone) { font-size: $fs-xs; }
+                }
+            }
         }
 
         input {
             width: 100%;
             max-width: 180px;
+            font-size: $fs-sm;
+            padding: 2px;
+            @include respond-to(phone) { padding: 0; }
         }
 
         
@@ -109,6 +127,7 @@ h2 {
         .article-title {
             font-size: $fs-md;
             font-weight: $fw-bold;
+            @include respond-to(phone) { font-size: $fs-sm; }
         }
 
         .article-data {
@@ -116,6 +135,11 @@ h2 {
             font-weight: $fw-regular;
             color: $grey;
             margin-top: 8px;
+            @include respond-to(phone) { 
+                margin-top: 4px;
+                font-size: $fs-xs; 
+                line-height: $fs-sm;
+            }
         }
     }
 }
@@ -127,7 +151,7 @@ h2 {
         appearance: none;
         -webkit-appearance: none;
         margin: auto;
-        padding: 20px 60px;
+        padding: 20px 120px;
         border-radius: 8px;
         cursor: pointer;
         background-color: $main-color;

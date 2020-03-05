@@ -745,7 +745,7 @@
                         return Promise.all(resultArr);
                     })
                     .then(
-                        resultArr => Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
+                        resultArr => Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 url을 받아온다
                     )
                     .then(urlArr => {
                         // 받아온 url을 입력창에 추가해준다

@@ -21,16 +21,11 @@ const vapidKeys = {
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-    
     // 새로 등록된 매물, 후기가 있는 거래완료된 매물을 4개씩 불러온다
-    Promise.all([model.getNewArticles(4)])
-        .then(result => {
-            let newArticles = result[0];
-            
-            return res.render("index", {
-                newArticles,
-                vapidPublicKey: vapidKeys.publicKey,
-            });
+    model
+        .getNewArticles(4)
+        .then(newArticles => {
+            return res.render("index", { newArticles });
         })
         .catch(error => {
             console.log(error);

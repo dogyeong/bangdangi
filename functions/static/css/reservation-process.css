@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/*
+*   reservation-process.scss
+*   계약과정 안내페이지
+*/
+/* 변수 import */
+/* 
+*   SCSS variables
+*/
+/* colors */
+/* font-weight */
+/* font-family */
+/* font-size */
+/* line-height */
+/* media query */
+/* local variables */
+section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+div.wrapper {
+  top: 10%;
+  position: relative;
+  text-align: left;
+  max-width: 1024px;
+  width: 100%;
+  margin: auto; }
+  @media only screen and (max-width: 600px) {
+    div.wrapper {
+      padding: 0 16px; } }
+  div.wrapper h1 {
+    font-size: 32px;
+    font-weight: 700;
+    padding-bottom: 48px; }
+    @media only screen and (max-width: 600px) {
+      div.wrapper h1 {
+        padding-bottom: 36px;
+        font-size: 28px;
+        text-align: center; } }
+  div.wrapper ul {
+    list-style: none;
+    margin-bottom: 60px; }
+    div.wrapper ul li {
+      padding: 40px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 20px; }
+      @media only screen and (max-width: 600px) {
+        div.wrapper ul li {
+          font-size: 18px; } }
+      div.wrapper ul li span {
+        display: block;
+        padding-top: 12px;
+        font-size: 16px;
+        word-wrap: break-word;
+        word-break: keep-all; }
+        @media only screen and (max-width: 600px) {
+          div.wrapper ul li span {
+            font-size: 14px; } }
+        div.wrapper ul li span a {
+          text-decoration: underline;
+          font-size: inherit; }
+          @media only screen and (max-width: 600px) {
+            div.wrapper ul li span a {
+              display: block; } }
+          div.wrapper ul li span a:hover {
+            color: #777; }
+  div.wrapper div.btn-container {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 60px; }
+    div.wrapper div.btn-container a {
+      display: inline-block;
+      color: #fff;
+      width: 100%;
+      height: 80px;
+      line-height: 80px;
+      background-color: #0ab9f1;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 400;
+      border-radius: 8px;
+      text-align: center; }
+      @media only screen and (max-width: 600px) {
+        div.wrapper div.btn-container a {
+          height: 60px;
+          line-height: 60px; } }

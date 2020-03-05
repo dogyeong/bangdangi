@@ -44,11 +44,6 @@
       if (UA.indexOf("android") > -1) return "android";else if (UA.indexOf("iphone") > -1) return "iphone";else return "other";
     };
 
-    reserveBtn.forEach(function (i) {
-      return i.addEventListener("click", function () {
-        return window.alert("예약 기능은 준비중입니다 :)");
-      });
-    });
     contactBtn.forEach(function (i) {
       return i.addEventListener("click", contactCallback);
     });

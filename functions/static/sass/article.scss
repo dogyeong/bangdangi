@@ -173,7 +173,7 @@ header {
 
 .pc-btn-container,
 .mobile-btn-container {
-    > button, > div {
+    button, > div, > a {
         flex: 1;
         display: block;
         -webkit-appearance: none;
@@ -190,6 +190,8 @@ header {
         border: 1px solid $grey;
         color: $font-color;
         background-color: $white;
+        width: 100%;
+        height: 100%;
     }
 
     .contact-btn {
@@ -552,10 +554,14 @@ header {
     padding-top: 20px;
     @include respond-to(phone) { display: block; }
 
-    > button { 
+    button { 
         width: 100%;
         padding: 20px 0;
         border-radius: 8px;
+        margin: 0;
+    }
+
+    > a {
         margin: 0;
     }
 

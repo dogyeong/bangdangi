@@ -146,7 +146,9 @@
                 <!-- pc 예약하기, 문의하기 버튼 -->
                 <div class="pc-btn-container">
                     <% if (done === false) { %>
-                    <button class="reserve-btn">예약하기</button>
+                    <a href="/reservation/process?place=<%=univ%>&id=<%=articleNo%>">
+                        <button class="reserve-btn">예약하기</button>
+                    </a>
                     <% if (data.contact && data.contact.length > 15) { %>
                     <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
                         오픈채팅방으로 연락하기
@@ -240,7 +242,7 @@
                     방단기에 문의하기
                 </button>
                 <% } %>
-                <button class="reserve-btn">예약하기</button>
+                <a href="/reservation-process?place=<%=univ%>&id=<%=articleNo%>"><button class="reserve-btn">예약하기</button></a>
                 <% } %>
             </section>
         </section>
