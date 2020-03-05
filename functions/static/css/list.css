@@ -286,7 +286,8 @@
 .recruit-container {
   width: 100%;
   max-width: 1024px;
-  margin: 20px auto 40px; }
+  margin: 20px auto 40px;
+  display: none; }
   .recruit-container .recruit-btn {
     padding: 24px 20px;
     background-color: #f5f5f5;

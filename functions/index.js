@@ -28,14 +28,12 @@ const boardRouter = require('./routes/board');
 const userRouter = require('./routes/user');
 const notiRouter = require('./routes/notification');
 const reserveRouter = require('./routes/reservation');
-const RESTapi = require('./routes/api');
 
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
 app.use('/user', userRouter);
 app.use('/notification', notiRouter);
 app.use('/reservation', reserveRouter);
-app.use('/api', RESTapi);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
