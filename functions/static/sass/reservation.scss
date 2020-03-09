@@ -62,7 +62,7 @@ h2 {
 }
 
 .table-wrapper {
-    padding-top: 40px;
+    padding-top: 48px;
     @include respond-to(phone) {
         padding: 40px 16px 0 16px;
     }
@@ -234,7 +234,7 @@ h2 {
         color: $white;
         border: 0;
         font-size: $fs-lg;
-        font-weight: $fw-bold;
+        font-weight: $fw-regular;
         @include respond-to(phone) { width: 100%; }
     }
 }
