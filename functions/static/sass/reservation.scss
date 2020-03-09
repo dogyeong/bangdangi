@@ -234,7 +234,7 @@ h2 {
         color: $white;
         border: 0;
         font-size: $fs-lg;
-        font-weight: $fw-bold;
+        font-weight: $fw-regular;
         @include respond-to(phone) { width: 100%; }
     }
 }

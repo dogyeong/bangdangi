@@ -211,7 +211,7 @@ h2 {
     color: #fff;
     border: 0;
     font-size: 18px;
-    font-weight: 700; }
+    font-weight: 400; }
     @media only screen and (max-width: 600px) {
       .btn-container input[type="submit"], .btn-container input[type="button"] {
         width: 100%; } }
