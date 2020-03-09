@@ -96,6 +96,28 @@ h2 {
       @media only screen and (max-width: 600px) {
         .table-wrapper table th {
           font-size: 14px; } }
+      .table-wrapper table th .xi-help-o {
+        position: relative;
+        color: #757575; }
+        .table-wrapper table th .xi-help-o > span {
+          position: absolute;
+          width: 320px;
+          text-align: left;
+          left: 40px;
+          top: -8px;
+          padding: 8px;
+          font-size: 14px;
+          color: #3b3b46;
+          background-color: #fff;
+          border: 1px solid #e4e4e4;
+          border-radius: 4px;
+          line-height: 16px;
+          visibility: hidden; }
+          @media only screen and (max-width: 600px) {
+            .table-wrapper table th .xi-help-o > span {
+              width: 180px; } }
+        .table-wrapper table th .xi-help-o:hover > span {
+          visibility: visible; }
     .table-wrapper table td {
       border-bottom: 1px solid #e4e4e4;
       vertical-align: top;

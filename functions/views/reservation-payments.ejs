@@ -85,7 +85,16 @@
                         <td>100,000원</td>
                     </tr>
                     <tr>
-                        <th>수수료</th>
+                        <th>
+                            수수료
+                            <i class="xi-help-o">
+                                <span>
+                                    정보서비스 이용료, 전자계약 이용료, 안전보증대금 등이 포함된 가격이며 
+                                    입주자의 변심 등으로 인한 가계약 파기 시 환불되지 않습니다. 
+                                    <br/>*예치금 환불은 규정에 따라 진행됩니다.
+                                </span>
+                            </i>
+                        </th>
                         <td>9,000원</td>
                     </tr>
                     <tr>
@@ -101,20 +110,20 @@
         </div>
 
         <div class="table-wrapper">
-            <h2>송금정보</h2>
+            <h2>송금정보 <span class="remittance-copy">계좌복사</span></h2>
             <table>
                 <tbody>
                     <tr>
                         <th>은행명</th>
-                        <td>부산은행</td>
+                        <td class="remittance-bank">신한은행</td>
                     </tr>
                     <tr>
                         <th>계좌번호</th>
-                        <td>123-123-123213213</td>
+                        <td class="remittance-account">110-398-802012</td>
                     </tr>
                     <tr>
                         <th>송금액</th>
-                        <td>109,900원</td>
+                        <td class="remittance-amount">109,900원</td>
                     </tr>
                 </tbody>
             </table>
@@ -127,6 +136,30 @@
     </section>
 
     <%- include('templates/footer') %>
+
+
+    <!-- 계좌 복사 스크립트 -->
+    <script>
+        document.querySelector('.remittance-copy')
+            .addEventListener('click', function() {
+                let bank = document.querySelector('.remittance-bank').innerText; // 은행
+                let account = document.querySelector('.remittance-account').innerText; // 계좌번호
+                let amount = document.querySelector('.remittance-amount').innerText; // 금액
+                let str = `${bank} ${account}`;
+                // 클립보드에 복사
+                let el = document.createElement('textarea');
+                el.value = str;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                // 버튼 글자 바꾸기
+                document.querySelector('.remittance-copy').innerText = '복사완료';
+                window.setTimeout(function() {
+                    document.querySelector('.remittance-copy').innerText = '계좌복사';
+                }, 1000);
+            })
+    </script>
 </body>
 
 </html>

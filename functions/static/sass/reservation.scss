@@ -100,6 +100,32 @@ h2 {
             text-align: right;
             min-width: 120px;
             @include respond-to(phone) { font-size: $fs-sm; }
+
+            .xi-help-o {
+                position: relative;
+                color: $grey;
+
+                > span {
+                    position: absolute;
+                    width: 320px;
+                    text-align: left;
+                    left: 40px;
+                    top: -8px;
+                    padding: 8px;
+                    font-size: 14px;
+                    color: $font-color;
+                    background-color: $white;
+                    border: 1px solid $grey-border-color;
+                    border-radius: 4px;
+                    line-height: 16px;
+                    visibility: hidden;
+                    @include respond-to(phone) { width: 180px; }
+                }
+
+                &:hover > span {
+                    visibility: visible;
+                }
+            }
         }
         td {
             border-bottom: 1px solid $grey-border-color;
