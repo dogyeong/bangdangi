@@ -53,7 +53,6 @@
             else return "other";
         };
 
-        reserveBtn.forEach(i => i.addEventListener("click", () => window.alert("예약 기능은 준비중입니다 :)")))
         contactBtn.forEach(i => i.addEventListener("click", contactCallback));
     }
 

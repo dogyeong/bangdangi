@@ -10,7 +10,12 @@ const cors = require('cors')({
   origin: true
 });
 
-admin.initializeApp();
+const serviceAccount = require("./bangdangi-firebase-adminsdk-f87j6-a11d0aadf6.json");
+admin.initializeApp({ 
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: "bangdangi.appspot.com" 
+});
+
 const app = express();
 
 // view engine setup
@@ -26,14 +31,14 @@ app.use(express.static(path.join(__dirname, 'static')));
 const indexRouter = require('./routes/index');
 const boardRouter = require('./routes/board');
 const userRouter = require('./routes/user');
-const notiRouter = require('./routes/notification');
 const reserveRouter = require('./routes/reservation');
+const RESTapi = require('./routes/api');
 
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
 app.use('/user', userRouter);
-app.use('/notification', notiRouter);
 app.use('/reservation', reserveRouter);
+app.use('/api', RESTapi);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

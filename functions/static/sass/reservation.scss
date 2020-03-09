@@ -45,6 +45,7 @@ h2 {
         @include respond-to(phone) { 
             display: block;
             margin: 0;
+            font-size: $fs-xs;
         }
     }
 
@@ -71,6 +72,32 @@ h2 {
         border-collapse: collapse;
         border-spacing: 0;
         border-top: 2px solid $grey-border-color;
+
+        caption {
+            caption-side: bottom;
+            text-align: left;
+
+            ul {
+                list-style: none;
+
+                li {
+                    padding-left: 12px;
+                    font-size: $fs-sm;
+                    color: $grey;
+                    position: relative;
+                    font-weight: $fw-light;
+                    @include respond-to(phone) { font-size: $fs-xs; }
+
+                    &::before {
+                        content: '-';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+
+        }
         
         th {
             padding: 10px 15px 0 0;
@@ -83,6 +110,7 @@ h2 {
             vertical-align: top;
             text-align: right;
             min-width: 120px;
+            @include respond-to(phone) { font-size: $fs-sm; }
 
             .xi-help-o {
                 position: relative;
@@ -115,11 +143,27 @@ h2 {
             vertical-align: top;
             text-align: left;
             padding: 10px 0 10px 15px;
+            @include respond-to(phone) { font-size: $fs-sm; }
+
+            ul {
+                list-style: none;
+                margin-top: 8px;
+                
+                li {
+                    font-size: $fs-sm;
+                    color: $grey;
+                    font-weight: $fw-light;
+                    @include respond-to(phone) { font-size: $fs-xs; }
+                }
+            }
         }
 
         input {
             width: 100%;
             max-width: 180px;
+            font-size: $fs-sm;
+            padding: 2px;
+            @include respond-to(phone) { padding: 0; }
         }
 
         
@@ -147,13 +191,19 @@ h2 {
         .article-title {
             font-size: $fs-md;
             font-weight: $fw-bold;
-            margin-bottom: 4px;
+            @include respond-to(phone) { font-size: $fs-sm; }
         }
 
         .article-data {
             font-size: $fs-sm;
             font-weight: $fw-regular;
             color: $grey;
+            margin-top: 8px;
+            @include respond-to(phone) { 
+                margin-top: 4px;
+                font-size: $fs-xs; 
+                line-height: $fs-sm;
+            }
             margin-bottom: 8px;
             line-height: 20px;
         }
@@ -177,7 +227,7 @@ h2 {
         appearance: none;
         -webkit-appearance: none;
         margin: auto;
-        padding: 20px 60px;
+        padding: 20px 120px;
         border-radius: 8px;
         cursor: pointer;
         background-color: $main-color;

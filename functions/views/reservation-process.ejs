@@ -8,8 +8,8 @@
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             'event': 'Pageview',
-            'pagePath': '/reservation/application',
-            'pageTitle': '/reservationSuccess',
+            'pagePath': '/reservation/process',
+            'pageTitle': '/reservationProcess',
         });
     </script>
     <!-- Google Tag Manager -->
@@ -45,44 +45,43 @@
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/common.css" />
-    <style>
-        section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        div {
-            top: 40%;
-            position: relative;
-            text-align: center;
-        }
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            padding-bottom: 60px;
-        }
-        a {
-            display: inline-block;
-            color: #fff;
-            width: 240px;
-            height: 48px;
-            line-height: 48px;
-            background-color: #0ab9f1;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: 400;
-            border-radius: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/reservation-process.css" />
 </head>
 
 <body>
     <section>
-        <div>
-            <h1>가계약 신청이 완료되었습니다</h1>
-            <a href="https://bangdangi.web.app/">홈으로</a>
+        <div class="wrapper">
+            <h1>계약 진행과정 안내</h1>
+            <ul>
+                <li>
+                    1. 계약자 정보 입력
+                </li>
+                <li>
+                    2. 전자계약 문서 생성
+                    <span>
+                        임대인의 정보와 계약자의 정보가 취합되어 자동으로 계약서가 제작됩니다.
+                    </span>
+                </li>
+                <li>
+                    3. 계약금 입금
+                </li>
+                <li>
+                    4. 계약 서명 요청
+                    <span>
+                        별도의 어플 설치가 필요하지 않으며 카카오톡에서 바로 서명이 진행됩니다.
+                    </span>
+                </li>
+                <li>완료. 계약서 전송(카카오톡)</li>
+                <li>
+                    FAQ. 전자계약도 법적 효력이 있나요?
+                    <span>
+                        종이계약과 법적효력이 동일합니다. <a href="https://modusign.co.kr/legality/" target="_blank">자세한 사항 확인하기</a>
+                    </span>
+                </li>
+            </ul>
+            <div class="btn-container">
+                <a href="/reservation/<%=place%>/<%=id%>">계약 진행하기 &#xE001;</a>
+            </div>
         </div>
     </section>
 </body>

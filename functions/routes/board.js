@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 const admin = require('firebase-admin');
 const createError = require('http-errors');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const url = require('url');
 const cors = require('cors')({
     origin: true
 });
 const db = admin.firestore();
 const model = require('../modules/model');
 const PLACE_OBJ = model.PLACE_OBJ;
-const getArticlesPath = (place) => `article/${place}/articles`;
-const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
+const getArticlesPath = model.getArticlesPath;
+const getLocKeywordsPath = model.getLocKeywordsPath;
 
 router.get('/list/:univ', async (req, res, next) => { 
     const univ = req.params.univ;
@@ -22,6 +19,7 @@ router.get('/list/:univ', async (req, res, next) => {
     let keywordList;
     let resultArr = [];
     let review = [];
+    let thumbnails;
 
     // 선택한 지역의 장소 키워드 리스트를 가져온다 ---- 장소키워드만!
     keywordList = await getKeywordList(univ);
@@ -29,14 +27,29 @@ router.get('/list/:univ', async (req, res, next) => {
     // 필터가 적용된 매물 리스트를 가져온다
     resultArr = await getFilteredArticleList(univ, locationKeywords, monthLimit, priceKeywords);
 
+    // 매물 리스트의 썸네일을 가져온다
+    thumbnails = await Promise.all(resultArr.map(doc => model.getThumbnail(doc)));
+
+    // 매물 리스트와 썸네일을 합친다
+    resultArr = resultArr.map((doc, idx) => { 
+        return { 
+            ...doc.data(), 
+            thumbnail: thumbnails[idx] 
+        } 
+    });
+
+    // 매물 리스트 데이터 포맷팅
+    resultArr = formatRoomList(resultArr);
+
+    
     // 거래완료된 매물중에 리뷰가 있는 매물들을 가져온다
     review = await model.getReviews(univ, 0);
-    review = formatRoomList(review);
+    review = formatRoomList(review.map(r => r.data()));
 
     let err = false;
     let roomList;
     if (resultArr.length > 0) { // 결과 존재
-        roomList = addAd(formatRoomList(resultArr));
+        roomList = addAd(resultArr); // 광고 삽입
         
     }
     else { // 결과 없음
@@ -49,6 +62,7 @@ router.get('/list/:univ', async (req, res, next) => {
         date: monthLimit,
         price: priceKeywords
      }
+
     return res.render('articleList', { roomList, review, keywordList, univ, univKo, filterOption, err });
 });
 
@@ -155,11 +169,13 @@ opOR = (arrays) => {
 }
 
 formatRoomList = (arr) => {
-    var result = arr.map((doc) => doc.data());
+    var result = arr;
+
     // 일단 등록시간순으로 정렬
     result.sort((a,b) => {
         return b.createdAt.toMillis() - a.createdAt.toMillis();
     });
+
     // 화면에 보여질 정보로 포맷을 맞춘다
     result = result.map(doc => {
         return {
@@ -176,7 +192,8 @@ formatRoomList = (arr) => {
             timeStamp: doc.createdAt.toMillis(), // string
             views: doc.views, // string
             url: doc.url,
-            new: formatNewArticle(doc) // boolean
+            new: formatNewArticle(doc), // boolean
+            thumbnail: doc.thumbnail,
         }
     });
     
@@ -270,7 +287,7 @@ formatNewArticle = (doc) => {
         return false;
 }
 
-router.get('/read/:univ/:articleNo', (req, res, next) => { 
+router.get('/read/:univ/:articleNo', async (req, res, next) => { 
     var univ = req.params.univ;
     var articleNo = req.params.articleNo;
     var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
@@ -278,51 +295,59 @@ router.get('/read/:univ/:articleNo', (req, res, next) => {
     var data; // 상세페이지에서 보여질 매물정보
     var related = []; // 관련 매물 정보
     var docRef = db.doc(`${getArticlesPath(univ)}/${articleNo}`);
+    let thumbnails;
+    let univKo = PLACE_OBJ[univ];
     
-    docRef.get()
-    .then((doc) => {
-        if (doc.exists) { // 문서 존재함
-            data = doc.data();
-            // 카카오톡 공유하기 했을 때 공유될 정보 저장
-            kakao = getKaKaoShareObject(data);
-            // 최신 매물을 4개 가져온다
-            return db.collection(getArticlesPath(univ))
-                .where('display', '==', true).where('done', '==', false)
-                .orderBy('createdAt', 'desc').limit(4).get();
-        }
-        else {
-            // 문서 존재하지 않음
-           return next(createError(404));
-        }
-    })
-    .then((docs) => {
-        // 가져온 최신 매물 4개 중에 현재 조회할 매물이 포함되있으면 제거한다
-        let filtered = docs.docs.filter(doc => doc.id !== articleNo);
-        if (filtered.length === 4) filtered.pop();
-        // 관련매물 정보를 배열에 담아 저장한다
-        related = getRelatedArray(filtered);
+    let doc = await docRef.get()
 
-        if (data.done !== true || ignoreDone !== undefined) { 
-            // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
-            return viewIncrement(docRef); // 조회수 1 증가
-        }
-        else { 
-            // 거래 완료됨 : 상세페이지 + 거래완료 표시
-            return true;
-        }
-    })
-    .then((newViews) => {
-        let univKo = PLACE_OBJ[univ];
-        let done = false
-        if (newViews === true) // true면 거래완료된 상태
-            done = true;
+    if (!doc.exists) {
+        // 문서 존재하지 않음
+        return next(createError(404));
+    }
+
+    data = doc.data();
+
+    // 카카오톡 공유하기 했을 때 공유될 정보 저장
+    kakao = getKaKaoShareObject(data);
+
+    // 썸네일 받아오기
+    thumbnails = await model.getThumbnail(doc);
+
+    // 썸네일 존재하면 썸네일로 이미지 교체
+    if (thumbnails) {
+        data.images = [];
+        thumbnails.forEach(thumb => data.images.push(thumb[600]))
+    }
+
+    // 최신 매물을 4개 가져온다
+    related = await db.collection(getArticlesPath(univ))
+        .where('display', '==', true).where('done', '==', false)
+        .orderBy('createdAt', 'desc').limit(4).get();
+    
+    // 가져온 최신 매물 4개 중에 현재 조회할 매물이 포함되있으면 제거한다
+    let filtered = related.docs.filter(doc => doc.id !== articleNo);
+
+    if (filtered.length === 4) filtered.pop();
+
+    // 관련매물 정보를 배열에 담아 저장한다
+    related = getRelatedArray(filtered);
+
+
+    if (data.done !== true || ignoreDone !== undefined) { 
+        // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
+
+        // 조회수 1 증가
+        viewIncrement(docRef); 
+
+        done = false;
+    }
+    else { 
+        // 거래 완료됨 : 상세페이지 + 거래완료 표시
+        done = true;
+    }
         
-        return res.render('articleDetail', { univ, univKo, articleNo, data, kakao, related, done });
-    })
-    .catch((err) => {
-        console.log(err);
-        return next(createError(500));
-    })
+    return res.render('articleDetail', { univ, univKo, articleNo, data, kakao, related, done });
+    
 });
 
 getRelatedArray = (arr) => {

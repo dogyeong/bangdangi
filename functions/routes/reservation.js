@@ -10,8 +10,8 @@ const cors = require('cors')({
 const db = admin.firestore();
 const model = require('../modules/model');
 const PLACE_OBJ = model.PLACE_OBJ;
-const getArticlesPath = (place) => `article/${place}/articles`;
-const getLocKeywordsPath = (place) => `article/${place}/keywords/locationKeywords`;
+const getArticlesPath = model.getArticlesPath;
+
 
 router.post('/application', (req, res, next) => {
     var transporter = nodemailer.createTransport(smtpPool({
@@ -49,7 +49,7 @@ router.post('/application', (req, res, next) => {
                 console.log(err);
                 return next(createError(500));
             }
-            return res.render('reservationSuccess');
+            return res.render('reservation-process');
         });
     })
     .catch((err) => {
@@ -57,6 +57,19 @@ router.post('/application', (req, res, next) => {
         return next(createError(500));
     });
 });
+
+
+router.get('/process', (req, res, next) => {
+    const place = req.query.place;
+    const id    = req.query.id;
+
+    if (!place || !id) {
+        return next(createError(404));
+    }
+
+    return res.render('reservation-process', { place, id });
+});
+
 
 router.get('/payments/:reservationId', (req, res, next) => {
     const reservationId = req.params.reservationId;

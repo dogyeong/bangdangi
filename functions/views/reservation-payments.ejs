@@ -152,7 +152,6 @@
                 let account = document.querySelector('.remittance-account').innerText; // 계좌번호
                 let amount = document.querySelector('.remittance-amount').innerText; // 금액
                 let str = `${bank} ${account}`;
-
                 // 클립보드에 복사
                 let el = document.createElement('textarea');
                 el.value = str;
@@ -160,7 +159,6 @@
                 el.select();
                 document.execCommand('copy');
                 document.body.removeChild(el);
-
                 // 버튼 글자 바꾸기
                 document.querySelector('.remittance-copy').innerText = '복사완료';
                 window.setTimeout(function() {
@@ -169,4 +167,5 @@
             })
     </script>
 </body>
+
 </html>

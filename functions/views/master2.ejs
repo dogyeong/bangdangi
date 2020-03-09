@@ -118,13 +118,6 @@
                     <input type="text" data-field="title" />
                 </div>
             </div>
-            <!-- reason -->
-            <div class="field_container" data-field="reason" data-type="string">
-                <div class="field_title" data-field="reason">reason</div>
-                <div class="field_value" data-container="reason">
-                    <input type="text" data-field="reason" />
-                </div>
-            </div>
             <!-- tradeType -->
             <div class="field_container" data-field="tradeType" data-type="string">
                 <div class="field_title" data-field="tradeType">tradeType</div>
@@ -324,7 +317,6 @@
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.8.3/firebase-analytics.js"></script>
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -414,7 +406,6 @@
                             "매물표시여부",
                             "거래성사여부",
                             "제목",
-                            "이유",
                             "거래형태",
                             "본문",
                             "시작날짜",
@@ -445,7 +436,6 @@
                             { data: "display", renderer: textRenderer },
                             { data: "done", renderer: textRenderer },
                             { data: "title", renderer: textRenderer },
-                            { data: "reason", renderer: textRenderer },
                             { data: "tradeType", renderer: textRenderer },
                             { data: "text", renderer: textRenderer },
                             { data: "startDate", renderer: textRenderer },
@@ -497,7 +487,6 @@
                         createdAt: new Date(),
                         display: false,
                         tradeType: null,
-                        reason: null,
                         startDate: null,
                         endDate: null,
                         minTerm: null,
@@ -556,7 +545,7 @@
         };
         var selectionCallback = (data, hot) => {
             //  check selection
-            if (data[3] !== 27 || data[0] !== data[2]) return;
+            if (data[3] !== 26 || data[0] !== data[2]) return;
             let id = hot.getDataAtRow(data[0])[0];
             openUpdateBox(id);
         };
@@ -756,7 +745,7 @@
                         return Promise.all(resultArr);
                     })
                     .then(
-                        resultArr => Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 urld을 받아온다
+                        resultArr => Promise.all(resultArr.map(snapshot => snapshot.ref.getDownloadURL())) // 스토리지에 업로드된 사진들의 url을 받아온다
                     )
                     .then(urlArr => {
                         // 받아온 url을 입력창에 추가해준다
