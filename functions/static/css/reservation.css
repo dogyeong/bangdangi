@@ -37,6 +37,23 @@ h1 {
     h1 {
       margin: 20px 16px 0 16px; } }
 
+.success-msg {
+  margin-top: 20px; }
+  @media only screen and (max-width: 600px) {
+    .success-msg {
+      padding: 0 16px; } }
+  .success-msg p {
+    padding: 20px 0;
+    font-size: 16px;
+    font-weight: 400;
+    word-break: keep-all;
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    text-align: center; }
+    @media only screen and (max-width: 600px) {
+      .success-msg p {
+        font-size: 14px; } }
+
 h2 {
   display: block;
   font-size: 18px;
@@ -198,8 +215,8 @@ h2 {
     color: white; }
 
 .btn-container {
-  padding: 40px 16px; }
-  .btn-container input[type="submit"], .btn-container input[type="button"] {
+  padding: 60px 16px 40px; }
+  .btn-container input[type="submit"], .btn-container input[type="button"], .btn-container button {
     display: block;
     appearance: none;
     -webkit-appearance: none;
@@ -213,5 +230,5 @@ h2 {
     font-size: 18px;
     font-weight: 400; }
     @media only screen and (max-width: 600px) {
-      .btn-container input[type="submit"], .btn-container input[type="button"] {
+      .btn-container input[type="submit"], .btn-container input[type="button"], .btn-container button {
         width: 100%; } }

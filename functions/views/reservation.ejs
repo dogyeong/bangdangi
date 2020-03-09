@@ -127,7 +127,7 @@
             </div>
             
             <div class="table-wrapper">
-                <h2>결제정보</h2>
+                <h2>결제예정금액</h2>
                 <table>
                     <tbody>
                         <tr>
@@ -164,12 +164,12 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>은행명</th>
-                            <td class="remittance-bank">신한은행</td>
+                            <th>결제수단</th>
+                            <td>무통장입금</td>
                         </tr>
                         <tr>
-                            <th>계좌번호</th>
-                            <td class="remittance-account">110-398-802012</td>
+                            <th>입금계좌</th>
+                            <td class="remittance-account">신한은행 110-398-802012</td>
                         </tr>
                         <tr>
                             <th>최종송금액</th>
@@ -191,10 +191,9 @@
     <script>
         document.querySelector('.remittance-copy')
             .addEventListener('click', function() {
-                let bank = document.querySelector('.remittance-bank').innerText; // 은행
                 let account = document.querySelector('.remittance-account').innerText; // 계좌번호
                 let amount = document.querySelector('.remittance-amount').innerText; // 금액
-                let str = `${bank} ${account}`;
+                let str = account;
                 // 클립보드에 복사
                 let el = document.createElement('textarea');
                 el.value = str;

@@ -31,6 +31,22 @@ h1 {
     }
 }
 
+.success-msg {  
+    margin-top: 20px;
+    @include respond-to(phone) { padding: 0 16px; }
+
+    p {
+        padding: 20px 0;
+        font-size: $fs-md;
+        font-weight: $fw-regular;
+        word-break: keep-all;
+        background-color: $article-bg-color;
+        border-radius: 4px;
+        text-align: center;
+        @include respond-to(phone) { font-size: $fs-sm; }
+    }
+}
+
 h2 {
     display: block;
     font-size: $fs-lg;
@@ -220,9 +236,9 @@ h2 {
 }
 
 .btn-container {
-    padding: 40px 16px;
+    padding: 60px 16px 40px;
 
-    input[type="submit"], input[type="button"] {
+    input[type="submit"], input[type="button"], button {
         display: block;
         appearance: none;
         -webkit-appearance: none;
