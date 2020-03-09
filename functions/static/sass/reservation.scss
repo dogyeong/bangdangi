@@ -61,6 +61,32 @@ h2 {
         border-collapse: collapse;
         border-spacing: 0;
         border-top: 2px solid $grey-border-color;
+
+        caption {
+            caption-side: bottom;
+            text-align: left;
+
+            ul {
+                list-style: none;
+
+                li {
+                    padding-left: 12px;
+                    font-size: $fs-sm;
+                    color: $grey;
+                    position: relative;
+                    font-weight: $fw-light;
+                    @include respond-to(phone) { font-size: $fs-xs; }
+
+                    &::before {
+                        content: '-';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+
+        }
         
         th {
             padding: 10px 15px 0 0;

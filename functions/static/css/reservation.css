@@ -63,6 +63,25 @@ h2 {
     border-collapse: collapse;
     border-spacing: 0;
     border-top: 2px solid #e4e4e4; }
+    .table-wrapper table caption {
+      caption-side: bottom;
+      text-align: left; }
+      .table-wrapper table caption ul {
+        list-style: none; }
+        .table-wrapper table caption ul li {
+          padding-left: 12px;
+          font-size: 14px;
+          color: #757575;
+          position: relative;
+          font-weight: 300; }
+          @media only screen and (max-width: 600px) {
+            .table-wrapper table caption ul li {
+              font-size: 12px; } }
+          .table-wrapper table caption ul li::before {
+            content: '-';
+            position: absolute;
+            top: 0;
+            left: 0; }
     .table-wrapper table th {
       padding: 10px 15px 0 0;
       background-color: #f4f4f4;
