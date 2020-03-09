@@ -110,10 +110,7 @@ h2 {
             vertical-align: top;
             text-align: right;
             min-width: 120px;
-<<<<<<< HEAD
             @include respond-to(phone) { font-size: $fs-sm; }
-=======
->>>>>>> master
 
             .xi-help-o {
                 position: relative;
@@ -194,25 +191,19 @@ h2 {
         .article-title {
             font-size: $fs-md;
             font-weight: $fw-bold;
-<<<<<<< HEAD
             @include respond-to(phone) { font-size: $fs-sm; }
-=======
-            margin-bottom: 4px;
->>>>>>> master
         }
 
         .article-data {
             font-size: $fs-sm;
             font-weight: $fw-regular;
             color: $grey;
-<<<<<<< HEAD
             margin-top: 8px;
             @include respond-to(phone) { 
                 margin-top: 4px;
                 font-size: $fs-xs; 
                 line-height: $fs-sm;
             }
-=======
             margin-bottom: 8px;
             line-height: 20px;
         }
@@ -224,7 +215,6 @@ h2 {
             border-radius: 4px;
             font-size: $fs-sm;
             color: white;
->>>>>>> master
         }
     }
 }
