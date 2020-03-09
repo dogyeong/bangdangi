@@ -58,24 +58,29 @@
     <section class="wrapper">
         <h1>계약금 결제</h1>
 
+        <!-- 매물/계약정보 -->
         <div class="table-wrapper">
-            <h2>매물정보</h2>
+            <h2>매물/계약정보</h2>
             <table class="img-table">
                 <tbody>
                     <th>
                         <div class="article-img" style="background-image: url('<%=articleData.images ? articleData.images[0] : ""%>');"></div>
                     </th>
                     <td>
-                        <div class="article-title"><%= articleData.title || '' %></div>
+                        <div class="article-title"><%= articleData.title || '' %>123</div>
                         <div class="article-data">
                             보증금 <%=articleData.deposit || '문의'%>/월세 <%=articleData.price || '문의'%><br/>
                             <%= articleData.locationS ? Object.keys(articleData.locationS).join(' ') : '' %>
+                        </div>
+                        <div class="contract">
+                            <a href="<%=rsvData.contract%>" target="_blank">계약서 확인하기 &#xE001;</a>
                         </div>
                     </td>
                 </tbody>
             </table>
         </div>
 
+        <!-- 결제정보 -->
         <div class="table-wrapper">
             <h2>결제정보</h2>
             <table>
@@ -109,6 +114,7 @@
             </table>
         </div>
 
+        <!-- 송금정보 -->
         <div class="table-wrapper">
             <h2>송금정보 <span class="remittance-copy">계좌복사</span></h2>
             <table>

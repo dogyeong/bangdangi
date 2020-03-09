@@ -48,6 +48,17 @@ h2 {
             font-size: $fs-xs;
         }
     }
+
+    .remittance-copy {
+        display: inline-block;
+        background-color: $article-bg-color;
+        padding: 2px 4px;
+        border-radius: 2px;
+        color: $font-color;
+        cursor: pointer;
+
+        &:hover { font-weight: $fw-regular; }
+    }
 }
 
 .table-wrapper {
@@ -99,7 +110,10 @@ h2 {
             vertical-align: top;
             text-align: right;
             min-width: 120px;
+<<<<<<< HEAD
             @include respond-to(phone) { font-size: $fs-sm; }
+=======
+>>>>>>> master
 
             .xi-help-o {
                 position: relative;
@@ -167,34 +181,54 @@ h2 {
         }
 
         .article-img {
-            width: 160px;
-            height: 100px;
+            width: 180px;
+            height: 120px;
             background-color: $article-bg-color;
             border-radius: 4px;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
+            @include respond-to(phone) { width: 132px; }
         }
 
         .article-title {
             font-size: $fs-md;
             font-weight: $fw-bold;
+<<<<<<< HEAD
             @include respond-to(phone) { font-size: $fs-sm; }
+=======
+            margin-bottom: 4px;
+>>>>>>> master
         }
 
         .article-data {
             font-size: $fs-sm;
             font-weight: $fw-regular;
             color: $grey;
+<<<<<<< HEAD
             margin-top: 8px;
             @include respond-to(phone) { 
                 margin-top: 4px;
                 font-size: $fs-xs; 
                 line-height: $fs-sm;
             }
+=======
+            margin-bottom: 8px;
+            line-height: 20px;
+        }
+        
+        .contract > a {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: $main-color;
+            border-radius: 4px;
+            font-size: $fs-sm;
+            color: white;
+>>>>>>> master
         }
     }
 }
+
 .btn-container {
     padding: 40px 16px;
 

@@ -262,6 +262,12 @@ const deleteArticle = (place, id) => {
         .delete();
 };
 
+
+const addArticle = () => {
+    
+}
+
+
 module.exports = {
     PLACE_OBJ,
     getArticlesPath,

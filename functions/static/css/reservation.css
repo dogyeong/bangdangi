@@ -50,8 +50,21 @@ h2 {
     @media only screen and (max-width: 600px) {
       h2 > span {
         display: block;
+<<<<<<< HEAD
         margin: 0;
         font-size: 12px; } }
+=======
+        margin: 0; } }
+  h2 .remittance-copy {
+    display: inline-block;
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: #3b3b46;
+    cursor: pointer; }
+    h2 .remittance-copy:hover {
+      font-weight: 400; }
+>>>>>>> master
 
 .table-wrapper {
   padding-top: 40px; }
@@ -93,9 +106,12 @@ h2 {
       vertical-align: top;
       text-align: right;
       min-width: 120px; }
+<<<<<<< HEAD
       @media only screen and (max-width: 600px) {
         .table-wrapper table th {
           font-size: 14px; } }
+=======
+>>>>>>> master
       .table-wrapper table th .xi-help-o {
         position: relative;
         color: #757575; }
@@ -152,29 +168,49 @@ h2 {
       .table-wrapper .img-table th {
         padding: 10px 0; } }
   .table-wrapper .img-table .article-img {
-    width: 160px;
-    height: 100px;
+    width: 180px;
+    height: 120px;
     background-color: #f4f4f4;
     border-radius: 4px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center; }
+    @media only screen and (max-width: 600px) {
+      .table-wrapper .img-table .article-img {
+        width: 132px; } }
   .table-wrapper .img-table .article-title {
     font-size: 16px;
+<<<<<<< HEAD
     font-weight: 700; }
     @media only screen and (max-width: 600px) {
       .table-wrapper .img-table .article-title {
         font-size: 14px; } }
+=======
+    font-weight: 700;
+    margin-bottom: 4px; }
+>>>>>>> master
   .table-wrapper .img-table .article-data {
     font-size: 14px;
     font-weight: 400;
     color: #757575;
+<<<<<<< HEAD
     margin-top: 8px; }
     @media only screen and (max-width: 600px) {
       .table-wrapper .img-table .article-data {
         margin-top: 4px;
         font-size: 12px;
         line-height: 14px; } }
+=======
+    margin-bottom: 8px;
+    line-height: 20px; }
+  .table-wrapper .img-table .contract > a {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: #0ab9f1;
+    border-radius: 4px;
+    font-size: 14px;
+    color: white; }
+>>>>>>> master
 
 .btn-container {
   padding: 40px 16px; }

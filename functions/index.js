@@ -37,8 +37,13 @@ const RESTapi = require('./routes/api');
 app.use('/', indexRouter);
 app.use('/board', boardRouter);
 app.use('/user', userRouter);
+<<<<<<< HEAD
 app.use('/reservation', reserveRouter);
 app.use('/api', RESTapi);
+=======
+app.use('/notification', notiRouter);
+app.use('/reservation', reserveRouter);
+>>>>>>> master
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -446,7 +446,7 @@ header {
   .review-container .sub-info,
   .map-container .sub-info,
   .related-container .sub-info {
-    margin-top: 20px;
+    margin-top: 40px;
     margin-left: 24px; }
     @media only screen and (max-width: 600px) {
       .detail-container .sub-info,
