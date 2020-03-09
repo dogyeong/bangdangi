@@ -20,7 +20,7 @@ router.post('/application', (req, res, next) => {
             user: 'shroad1802@gmail.com',
             pass: process.env.GMAIL_PASSWORD
         }
-      }));
+    }));
 
     const mailOptions = {
         from: '방단기 <shroad1802@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
@@ -49,7 +49,7 @@ router.post('/application', (req, res, next) => {
                 console.log(err);
                 return next(createError(500));
             }
-            return res.render('reservation-process');
+            return res.render('reservation-success');
         });
     })
     .catch((err) => {
