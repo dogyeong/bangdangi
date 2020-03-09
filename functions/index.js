@@ -10,7 +10,12 @@ const cors = require('cors')({
   origin: true
 });
 
-admin.initializeApp();
+const serviceAccount = require("./bangdangi-firebase-adminsdk-f87j6-a11d0aadf6.json");
+admin.initializeApp({ 
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: "bangdangi.appspot.com" 
+});
+
 const app = express();
 
 // view engine setup

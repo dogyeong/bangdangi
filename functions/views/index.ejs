@@ -116,7 +116,15 @@
           <a href="<%= i.url %>" class="b1_item">
             <div class="b1_item_content">
               <div class="b1_item_img">
-                <img src="<%= i.images ? i.images[0] : '' %>" alt="<%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %> 방 사진">
+                <% if (i.thumbnail) { %>
+                  <img 
+                    srcset="<%=i.thumbnail[0][200]%> 200w, <%=i.thumbnail[0][400]%> 400w, <%=i.thumbnail[0][600]%> 600w"
+                    sizes="(max-width: 200px) 200px, (max-width: 400px) 400px, 600px"
+                    src="<%=i.thumbnail[0][400]%>"
+                    alt="<%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %> 방 사진" />
+                <% } else { %>
+                  <img src="<%= i.images ? i.images[0] : '' %>" alt="<%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %> 방 사진">
+                <% } %>
               </div>
               <div class="b1_item_text">
                 <span class="new-text-1"><%= (i.locationS ? Object.keys(i.locationS).join(' ') : '') %></span><br />
