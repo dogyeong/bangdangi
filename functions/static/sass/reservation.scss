@@ -9,14 +9,18 @@
 /* local variables */
 $content_max_width: 1024px;
 
-header { position: absolute; }
+header {
+    position: absolute;
+}
 
 .wrapper {
     width: 100%;
     max-width: $content_max_width;
     margin: auto;
     padding: 64px 0;
-    @include respond-to(phone) { padding: 48px 0; }
+    @include respond-to(phone) {
+        padding: 48px 0;
+    }
 }
 
 h1 {
@@ -26,14 +30,16 @@ h1 {
     padding-bottom: 8px;
     margin-top: 40px;
     border-bottom: 3px solid $grey;
-    @include respond-to(phone) { 
-        margin: 20px 16px 0 16px; 
+    @include respond-to(phone) {
+        margin: 20px 16px 0 16px;
     }
 }
 
-.success-msg {  
+.success-msg {
     margin-top: 20px;
-    @include respond-to(phone) { padding: 0 16px; }
+    @include respond-to(phone) {
+        padding: 0 16px;
+    }
 
     p {
         padding: 20px 0;
@@ -43,7 +49,9 @@ h1 {
         background-color: $article-bg-color;
         border-radius: 4px;
         text-align: center;
-        @include respond-to(phone) { font-size: $fs-sm; }
+        @include respond-to(phone) {
+            font-size: $fs-sm;
+        }
     }
 }
 
@@ -58,7 +66,7 @@ h2 {
         font-weight: $fw-light;
         color: $grey;
         margin-left: 8px;
-        @include respond-to(phone) { 
+        @include respond-to(phone) {
             display: block;
             margin: 0;
             font-size: $fs-xs;
@@ -73,7 +81,9 @@ h2 {
         color: $font-color;
         cursor: pointer;
 
-        &:hover { font-weight: $fw-regular; }
+        &:hover {
+            font-weight: $fw-regular;
+        }
     }
 }
 
@@ -102,19 +112,20 @@ h2 {
                     color: $grey;
                     position: relative;
                     font-weight: $fw-light;
-                    @include respond-to(phone) { font-size: $fs-xs; }
+                    @include respond-to(phone) {
+                        font-size: $fs-xs;
+                    }
 
                     &::before {
-                        content: '-';
+                        content: "-";
                         position: absolute;
                         top: 0;
                         left: 0;
                     }
                 }
             }
-
         }
-        
+
         th {
             padding: 10px 15px 0 0;
             background-color: $article-bg-color;
@@ -126,7 +137,9 @@ h2 {
             vertical-align: top;
             text-align: right;
             min-width: 120px;
-            @include respond-to(phone) { font-size: $fs-sm; }
+            @include respond-to(phone) {
+                font-size: $fs-sm;
+            }
 
             .xi-help-o {
                 position: relative;
@@ -146,7 +159,9 @@ h2 {
                     border-radius: 4px;
                     line-height: 16px;
                     visibility: hidden;
-                    @include respond-to(phone) { width: 180px; }
+                    @include respond-to(phone) {
+                        width: 180px;
+                    }
                 }
 
                 &:hover > span {
@@ -159,17 +174,21 @@ h2 {
             vertical-align: top;
             text-align: left;
             padding: 10px 0 10px 15px;
-            @include respond-to(phone) { font-size: $fs-sm; }
+            @include respond-to(phone) {
+                font-size: $fs-sm;
+            }
 
             ul {
                 list-style: none;
                 margin-top: 8px;
-                
+
                 li {
                     font-size: $fs-sm;
                     color: $grey;
                     font-weight: $fw-light;
-                    @include respond-to(phone) { font-size: $fs-xs; }
+                    @include respond-to(phone) {
+                        font-size: $fs-xs;
+                    }
                 }
             }
         }
@@ -179,10 +198,10 @@ h2 {
             max-width: 180px;
             font-size: $fs-sm;
             padding: 2px;
-            @include respond-to(phone) { padding: 0; }
+            @include respond-to(phone) {
+                padding: 0;
+            }
         }
-
-        
     }
 
     .img-table {
@@ -190,7 +209,9 @@ h2 {
             padding: 10px 15px;
             background: none;
             border-right: 0;
-            @include respond-to(phone) { padding: 10px 0; }
+            @include respond-to(phone) {
+                padding: 10px 0;
+            }
         }
 
         .article-img {
@@ -201,13 +222,17 @@ h2 {
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
-            @include respond-to(phone) { width: 132px; }
+            @include respond-to(phone) {
+                width: 132px;
+            }
         }
 
         .article-title {
             font-size: $fs-md;
             font-weight: $fw-bold;
-            @include respond-to(phone) { font-size: $fs-sm; }
+            @include respond-to(phone) {
+                font-size: $fs-sm;
+            }
         }
 
         .article-data {
@@ -215,15 +240,15 @@ h2 {
             font-weight: $fw-regular;
             color: $grey;
             margin-top: 8px;
-            @include respond-to(phone) { 
+            @include respond-to(phone) {
                 margin-top: 4px;
-                font-size: $fs-xs; 
+                font-size: $fs-xs;
                 line-height: $fs-sm;
             }
             margin-bottom: 8px;
             line-height: 20px;
         }
-        
+
         .contract > a {
             display: inline-block;
             padding: 4px 12px;
@@ -238,7 +263,9 @@ h2 {
 .btn-container {
     padding: 60px 16px 40px;
 
-    input[type="submit"], input[type="button"], button {
+    input[type="submit"],
+    input[type="button"],
+    button {
         display: block;
         appearance: none;
         -webkit-appearance: none;
@@ -251,6 +278,104 @@ h2 {
         border: 0;
         font-size: $fs-lg;
         font-weight: $fw-regular;
-        @include respond-to(phone) { width: 100%; }
+        @include respond-to(phone) {
+            width: 100%;
+        }
+    }
+}
+
+/* loading dot */
+.loading-container {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    top: 0;
+    left: 0;
+    z-index: 900;
+}
+.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -14px 0 0 -42px;
+    padding: 10px;
+    background: rgba(20, 20, 20, 0);
+}
+.loading-dot {
+    float: left;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    background: white;
+
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+
+    opacity: 0;
+
+    -webkit-box-shadow: 0 0 2px black;
+    -moz-box-shadow: 0 0 2px black;
+    -ms-box-shadow: 0 0 2px black;
+    -o-box-shadow: 0 0 2px black;
+    box-shadow: 0 0 2px black;
+
+    -webkit-animation: loadingFade 1s infinite;
+    -moz-animation: loadingFade 1s infinite;
+    animation: loadingFade 1s infinite;
+}
+.loading-dot:nth-child(1) {
+    -webkit-animation-delay: 0s;
+    -moz-animation-delay: 0s;
+    animation-delay: 0s;
+}
+.loading-dot:nth-child(2) {
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+.loading-dot:nth-child(3) {
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+.loading-dot:nth-child(4) {
+    -webkit-animation-delay: 0.3s;
+    -moz-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+@-webkit-keyframes loadingFade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@-moz-keyframes loadingFade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes loadingFade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
     }
 }

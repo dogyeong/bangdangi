@@ -104,7 +104,7 @@ h2 {
             .table-wrapper table caption ul li {
               font-size: 12px; } }
           .table-wrapper table caption ul li::before {
-            content: '-';
+            content: "-";
             position: absolute;
             top: 0;
             left: 0; }
@@ -216,7 +216,9 @@ h2 {
 
 .btn-container {
   padding: 60px 16px 40px; }
-  .btn-container input[type="submit"], .btn-container input[type="button"], .btn-container button {
+  .btn-container input[type="submit"],
+  .btn-container input[type="button"],
+  .btn-container button {
     display: block;
     appearance: none;
     -webkit-appearance: none;
@@ -230,5 +232,89 @@ h2 {
     font-size: 18px;
     font-weight: 400; }
     @media only screen and (max-width: 600px) {
-      .btn-container input[type="submit"], .btn-container input[type="button"], .btn-container button {
+      .btn-container input[type="submit"],
+      .btn-container input[type="button"],
+      .btn-container button {
         width: 100%; } }
+
+/* loading dot */
+.loading-container {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  z-index: 900; }
+
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -14px 0 0 -42px;
+  padding: 10px;
+  background: rgba(20, 20, 20, 0); }
+
+.loading-dot {
+  float: left;
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background: white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  opacity: 0;
+  -webkit-box-shadow: 0 0 2px black;
+  -moz-box-shadow: 0 0 2px black;
+  -ms-box-shadow: 0 0 2px black;
+  -o-box-shadow: 0 0 2px black;
+  box-shadow: 0 0 2px black;
+  -webkit-animation: loadingFade 1s infinite;
+  -moz-animation: loadingFade 1s infinite;
+  animation: loadingFade 1s infinite; }
+
+.loading-dot:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  -moz-animation-delay: 0s;
+  animation-delay: 0s; }
+
+.loading-dot:nth-child(2) {
+  -webkit-animation-delay: 0.1s;
+  -moz-animation-delay: 0.1s;
+  animation-delay: 0.1s; }
+
+.loading-dot:nth-child(3) {
+  -webkit-animation-delay: 0.2s;
+  -moz-animation-delay: 0.2s;
+  animation-delay: 0.2s; }
+
+.loading-dot:nth-child(4) {
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
+  animation-delay: 0.3s; }
+
+@-webkit-keyframes loadingFade {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 0.8; }
+  100% {
+    opacity: 0; } }
+
+@-moz-keyframes loadingFade {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 0.8; }
+  100% {
+    opacity: 0; } }
+
+@keyframes loadingFade {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 0.8; }
+  100% {
+    opacity: 0; } }
