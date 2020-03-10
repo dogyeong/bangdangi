@@ -253,8 +253,6 @@ formatLine1 = (doc) => {
 }
 formatLine2 = (doc) => {
     let arr = [];
-    if (doc.roomType !== null) 
-        arr.push(doc.roomType);
     if (doc.floor !== null)
         arr.push((doc.floor === -1 ? '반지' : doc.floor) + '층');
     if (doc.expense !== null)

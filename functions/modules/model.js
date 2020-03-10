@@ -183,6 +183,7 @@ const getArticlesAll = place => {
     }
 };
 
+
 /**
  *
  * @param {string} place
@@ -212,11 +213,9 @@ const addArticle = (place, id, data) => {
         expense: null,
         locationL: null,
         locationS: null,
-        roomType: null,
         only: null,
         floor: null,
         images: null,
-        urlType: null,
         url: null,
         contact: null,
         done: false,
