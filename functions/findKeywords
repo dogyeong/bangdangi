@@ -52,21 +52,22 @@ async function f(u) {
 
 
 
-// db에 필드 새로 추가하기 ----------------------------------------------------------
+// 모든 매물에 새 필드 추가하기 (웹sdk 코드임!) ----------------------------------------------------------
 
-function f(p) {
-    db.collection(`article/${p}/articles`)
-    .get()
-    .then(res => res.docs)
-    .then(docs => docs.forEach(doc => {
-                     
-        db.doc(`article/${p}/articles/${doc.id}`)
-        .update({
-            position:null // 새로운 필드
+db.collectionGroup('articles').get()
+.then(res => res.docs)
+.then(async docs => {
+    docs.forEach(async doc => {
+        let data = doc.data();
+        let place = doc.ref._key.path.segments[6];
+        let id = doc.id;
+
+        await db.doc(`article/${place}/articles/${doc.id}`).update({
+            lastCheck: data.createdAt, // 새 필드 lastCheck
+            reason: firebase.firestore.FieldValue.delete() // 필드 삭제
         })
-    }))
-    .catch(err => console.log(err))
-} 
+        .catch(err => console.log(err))
+    });    
+})
 
-['pnu','cnu','seongdong','dongdaemun','pknu', 'cuk', 'gangnam', 'gwanak', 'yangcheon', 'mafo']
-.forEach(i => f(i));
+
