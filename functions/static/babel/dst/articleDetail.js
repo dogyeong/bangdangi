@@ -31,12 +31,7 @@
     var contactCallback = function contactCallback() {
       var contact = this.dataset.contact;
       var type = this.dataset.type;
-
-      if (type === "tel") {
-        if (checkBrowser() === "MOBILE") window.location = "tel:".concat(contact);else window.alert("\uBC29\uC774 \uB9C8\uC74C\uC5D0 \uB4DC\uC168\uB098\uC694? :) \uBB38\uC758\uC0AC\uD56D\uC740 ".concat(contact, "\uC73C\uB85C \uC5F0\uB77D\uD574\uC8FC\uC138\uC694. \uBCF4\uC2E0 \uB9C1\uD06C\uB97C \uD568\uAED8 \uBB38\uC790\uB85C \uB0A8\uACA8\uC8FC\uC2DC\uBA74 \uBE60\uB978 \uC0C1\uB2F4\uC744 \uB3C4\uC640\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."));
-      } else if (type === "sms") {
-        if (checkBrowser() === "MOBILE") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=\uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uBB38\uC758\uB4DC\uB824\uC694~%0a\uC785\uC8FC\uB0A0\uC9DC:%0a\uAC70\uC8FC\uAE30\uAC04:%0a\uBC29 \uBCF4\uB7EC \uAC08 \uB0A0\uC9DC:%0a\uCD94\uAC00 \uBB38\uC758\uC0AC\uD56D:%0a%0a").concat(window.location.href);else window.alert("\uBC29\uC774 \uB9C8\uC74C\uC5D0 \uB4DC\uC168\uB098\uC694? :) \uBB38\uC758\uC0AC\uD56D\uC740 ".concat(contact, "\uC73C\uB85C \uC5F0\uB77D\uD574\uC8FC\uC138\uC694. \uBCF4\uC2E0 \uB9C1\uD06C\uB97C \uD568\uAED8 \uBB38\uC790\uB85C \uB0A8\uACA8\uC8FC\uC2DC\uBA74 \uBE60\uB978 \uC0C1\uB2F4\uC744 \uB3C4\uC640\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."));
-      } else window.location = "".concat(contact);
+      if (checkBrowser() === "MOBILE") window.location = "sms:".concat(contact).concat(checkMobile() === "iphone" ? "&" : "?", "body=\uBC29\uB2E8\uAE30\uC5D0\uC11C \uB2E8\uAE30\uC6D0\uB8F8 \uAE00 \uBCF4\uACE0 \uBB38\uC758\uB4DC\uB824\uC694~%0a\uC785\uC8FC\uB0A0\uC9DC:%0a\uAC70\uC8FC\uAE30\uAC04:%0a\uBC29 \uBCF4\uB7EC \uAC08 \uB0A0\uC9DC:%0a\uCD94\uAC00 \uBB38\uC758\uC0AC\uD56D:%0a%0a").concat(window.location.href);else window.alert("\uBC29\uC774 \uB9C8\uC74C\uC5D0 \uB4DC\uC168\uB098\uC694? :) \uBB38\uC758\uC0AC\uD56D\uC740 ".concat(contact, "\uC73C\uB85C \uC5F0\uB77D\uD574\uC8FC\uC138\uC694. \uBCF4\uC2E0 \uB9C1\uD06C\uB97C \uD568\uAED8 \uBB38\uC790\uB85C \uB0A8\uACA8\uC8FC\uC2DC\uBA74 \uBE60\uB978 \uC0C1\uB2F4\uC744 \uB3C4\uC640\uB4DC\uB9AC\uACA0\uC2B5\uB2C8\uB2E4."));
     };
 
     var checkMobile = function checkMobile() {
