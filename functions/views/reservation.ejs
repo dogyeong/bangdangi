@@ -58,7 +58,7 @@
     
     <section class="wrapper">
         <h1>가계약 진행</h1>
-        <form method="POST" action="/reservation/application/">
+        <form method="post" action="/reservation/application/">
             <input type="text" name="place" value="<%= place %>" hidden />
             <input type="text" name="articleId" value="<%= articleId %>" hidden />
 
@@ -116,7 +116,7 @@
                         <tr>
                             <th>신분증</th>
                             <td>
-                                <input type="file" name="identity" accept=".gif, .jpg, .png, .pdf" required />
+                                <input type="file" id="identity" name="identity" accept=".gif, .jpg, .png, .pdf" required />
                                 <ul>
                                   <li>주민등록증 또는 운전면허증의 전체가 보이는 사진을 업로드해주세요.</li>  
                                 </ul>
@@ -183,11 +183,40 @@
                 <input type="submit" value="결제하기">
             </div>
         </form>
+
     </section>
+
+    <div class="loading-container">
+        <div class="loading">
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+            <div class="loading-dot"></div>
+        </div>
+    </div>
 
     <%- include('templates/footer') %>
 
-    <!-- 계좌 복사 스크립트 -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-storage.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCLqttykBqdLHT5lKFuBFJnbUNtbCxfRIg",
+            authDomain: "bangdangi.firebaseapp.com",
+            databaseURL: "https://bangdangi.firebaseio.com",
+            projectId: "bangdangi",
+            storageBucket: "bangdangi.appspot.com",
+            messagingSenderId: "602303647933",
+            appId: "1:602303647933:web:ff96ef9e79c4815f",
+            measurementId: "G-G90HPG3485",
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <!-- 계좌 복사, 폼 제출 스크립트 -->
     <script>
         document.querySelector('.remittance-copy')
             .addEventListener('click', function() {
@@ -207,6 +236,56 @@
                     document.querySelector('.remittance-copy').innerText = '계좌복사';
                 }, 1000);
             })
+
+        
+        let fileInput = document.querySelector('input[name="identity"]');
+        let phoneInput = document.querySelector('input[name="phone"]');
+        let loading = document.querySelector('.loading-container');
+
+        document.querySelector('input[type="submit"')
+            .addEventListener('click', function() {
+
+                event.preventDefault();
+
+                // 유효성 검사
+                if (document.querySelectorAll('input:valid').length !== 8) {
+                    window.alert("모두 입력해주세요.");
+                    return;
+                }
+
+                let form = document.querySelector('form');
+                let formData = new FormData(form);
+                let phone = phoneInput.value;
+                let file = fileInput.files[0];
+
+                showLoading();
+
+                firebase.storage()
+                    .ref(`id/${phone}/${file.name}`)
+                    .put(file)
+                    .then(snapshot => snapshot.ref.getDownloadURL())
+                    .then(url => {
+                        
+                        let hiddenField = document.createElement('input');
+                        hiddenField.setAttribute('type', 'hidden');
+                        hiddenField.setAttribute('name', 'id');
+                        hiddenField.setAttribute('value', url);
+                        form.appendChild(hiddenField);
+
+                        form.submit();
+                    })
+                    .catch(err => {
+                        window.alert("에러가 발생했습니다. 다시 시도해주세요.");
+                        hideLoading();
+                    })
+            });
+
+        const showLoading = function() {
+            loading.style.display = "initial";
+        };
+        const hideLoading = function() {
+            loading.style.display = "none";
+        };
     </script>
 </body>
 </html>
