@@ -29,6 +29,72 @@ router.get("/", async (req, res, next) => {
     return res.render("index", { newArticles });
 });
 
+router.get("/test", (req, res, next) => {
+    return res.render('test');
+})
+
+router.get("/testSample", (req, res, next) => {
+    return res.render('testSample', { 
+        inputYn: 'n',
+        roadFullAddr: 'test',
+        roadAddrPart1: 'test',
+        roadAddrPart2: 'test',
+        engAddr: 'test',
+        jibunAddr: 'test',
+        zipNo: 'test',
+        addrDetail: 'test',
+        admCd: 'test',
+        rnMgtSn: 'test',
+        bdMgtSn: 'test',
+        detBdNmList: 'test',
+        bdNm: 'test',
+        bdKdcd: 'test',
+        siNm: 'test',
+        sggNm: 'test',
+        emdNm: 'test',
+        liNm: 'test',
+        rn: 'test',
+        udrtYn: 'test',
+        buldMnnm: 'test',
+        buldSlno: 'test',
+        mtYn: 'test',
+        lnbrMnnm: 'test',
+        lnbrSlno: 'test',
+        emdNo: 'test', 
+    });
+})
+
+router.post("/testSample", (req, res, next) => {
+    return res.render('testSample', {
+        inputYn: req.body.inputYn,
+        roadFullAddr: req.body.roadFullAddr,
+        roadAddrPart1: req.body.roadAddrPart1,
+        roadAddrPart2: req.body.roadAddrPart2,
+        engAddr: req.body.engAddr,
+        jibunAddr: req.body.jibunAddr,
+        zipNo: req.body.zipNo,
+        addrDetail: req.body.addrDetail,
+        admCd: req.body.admCd,
+        rnMgtSn: req.body.rnMgtSn,
+        bdMgtSn: req.body.bdMgtSn,
+        detBdNmList: req.body.detBdNmList,
+        bdNm: req.body.bdNm,
+        bdKdcd: req.body.bdKdcd,
+        siNm: req.body.siNm,
+        sggNm: req.body.sggNm,
+        emdNm: req.body.emdNm,
+        liNm: req.body.liNm,
+        rn: req.body.rn,
+        udrtYn: req.body.udrtYn,
+        buldMnnm: req.body.buldMnnm,
+        buldSlno: req.body.buldSlno,
+        mtYn: req.body.mtYn,
+        lnbrMnnm: req.body.lnbrMnnm,
+        lnbrSlno: req.body.lnbrSlno,
+        emdNo: req.body.emdNo,
+    });
+})
+
 router.get("/pwa", (req, res, next) => {
     console.log("key in /pwa", vapidKeys);
     var db = admin.firestore();

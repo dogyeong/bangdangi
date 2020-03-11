@@ -9,23 +9,19 @@ const db = admin.firestore();
 const model = require('../modules/model');
 const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = model.getArticlesPath;
-const getLocKeywordsPath = model.getLocKeywordsPath;
+
 
 router.get('/list/:univ', async (req, res, next) => { 
     const univ = req.params.univ;
-    const locationKeywords = req.query.locationKeywords;
     const monthLimit = req.query.monthLimit;
     const priceKeywords = req.query.priceKeywords;
-    let keywordList;
+    let keywordList = [];
     let resultArr = [];
     let review = [];
     let thumbnails;
-
-    // 선택한 지역의 장소 키워드 리스트를 가져온다 ---- 장소키워드만!
-    keywordList = await getKeywordList(univ);
     
     // 필터가 적용된 매물 리스트를 가져온다
-    resultArr = await getFilteredArticleList(univ, locationKeywords, monthLimit, priceKeywords);
+    resultArr = await getFilteredArticleList(univ, monthLimit, priceKeywords);
 
     // 매물 리스트의 썸네일을 가져온다
     thumbnails = await Promise.all(resultArr.map(doc => model.getThumbnail(doc)));
@@ -58,56 +54,35 @@ router.get('/list/:univ', async (req, res, next) => {
     }   
     let univKo = PLACE_OBJ[univ];
     let filterOption = { 
-        location: locationKeywords,
         date: monthLimit,
         price: priceKeywords
      }
 
-    return res.render('articleList', { roomList, review, keywordList, univ, univKo, filterOption, err });
+    return res.render('articleList', { roomList, review, univ, univKo, filterOption, err });
 });
 
-getKeywordList = async (univ) => {
-    return await db.doc(getLocKeywordsPath(univ)).get()
-        .then(doc => { // 불러온 태그들을 저장한다
-            if (doc.exists) {
-                return doc.data().keywords;
-            }
-            else {
-                return []; 
-            }
-        });
-}
-
-getFilteredArticleList = async (univ, locationKeywords, monthLimit, priceKeywords) => {   
-    let result = await getLocationFiltered(univ, locationKeywords); // 장소 필터가 적용된 매물들을 불러온다
+getFilteredArticleList = async (univ, monthLimit, priceKeywords) => {   
+    let result = await getDefaultFiltered(univ); // 기본필터
 
     if (monthLimit !== undefined) {
-        let dateFiltered = await getDateFiltered(univ, monthLimit);  
-        result = opAND(result, dateFiltered); // 장소필터 && 기간필터    
+        let dateFiltered = await getDateFiltered(univ, monthLimit); // 기간필터   
+        result = opAND(result, dateFiltered); // 기본필터 && 기간필터
     }
     
     if (priceKeywords !== undefined) {
         let priceFiltered = await getPriceFiltered(univ, priceKeywords); 
-        result = opAND(result, priceFiltered); // 장소필터 && 기간필터 && 가격(보증금)필터
+        result = opAND(result, priceFiltered); // 기본필터 && 기간필터 && 가격(보증금)필터
     }
 
     return result;
 }
 
-getLocationFiltered = async (univ, locationKeywords) => {
+getDefaultFiltered = async (univ) => {
     let result;
     let defaultRef = db.collection(getArticlesPath(univ)).where('display','==',true).where('done','==',false);
     
-    if (locationKeywords === undefined) {
-        result = await defaultRef.get().then(docs => docs.docs);
-    } 
-    else {
-        let queryArr = [];
-        for (kwd of locationKeywords) 
-            queryArr.push(defaultRef.where(`locationL.${kwd}`, '==', true).get());
-        result = await Promise.all(queryArr)
-            .then(result => opOR(result.map(docs => docs.docs)));
-    }
+    result = await defaultRef.get().then(docs => docs.docs);
+    
     return result;
 }
 
@@ -367,7 +342,7 @@ getRelatedArray = (arr) => {
 
 getKaKaoShareObject = (data) => {
     let title = data.title || '방단기에 좋은 방이 있어요!';
-    let description = `${data.locationL ? Object.keys(data.locationL).join(' ') : ''} ${data.locationS ? Object.keys(data.locationS).join(' ') : ''} ${data.deposit || '문의'}/${data.price || '문의'}`;
+    let description = `${data.locationS ? Object.keys(data.locationS).join(' ') : ''} ${data.deposit || '문의'}/${data.price || '문의'}`;
     let imageUrl = data.images ? data.images[0] : 'https://firebasestorage.googleapis.com/v0/b/bangdangi.appspot.com/o/kakao_share.jpg?alt=media&token=248d577e-16c5-4e74-a64f-2e2413032421';
     let link = data.url || 'https://bangdangi.web.app';
     return { title, description, imageUrl, link };
@@ -447,7 +422,6 @@ router.post('/create_process', (req, res, next) => {
                 done: false,
                 images: null,
                 pic: false,
-                locationL: null,
                 locationS: null,
                 startDate: null,
                 endDate: null,

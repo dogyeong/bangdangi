@@ -84,14 +84,6 @@
     <div class="filter-container">
       <form action="/board/list/<%=univ%>" method="get">
         <div class="input_container">
-          <div class="hashtag_title">장소</div>
-          <div class="hashtag_list">
-            <% for (i of keywordList) { %>
-            <input type="checkbox" name="locationKeywords[]" id="<%= i %>" value="<%= i %>"
-              <%= (filterOption.location!==undefined&&filterOption.location.includes(`${i}`)) ? 'checked' : '' %>>
-            <label for="<%= i %>"><span><%= i %></span></label>
-            <% } %>
-          </div>
           <div class="hashtag_title">기간</div>
           <div class="hashtag_list">
             <input type="range" name="monthLimit" value="<%=filterOption.date || 1%>" min="1" max="12" step="1">
@@ -101,7 +93,7 @@
           <div class="hashtag_list">
             <input type="checkbox" name="priceKeywords[]" id="무보증금" value="무보증금"
               <%= (filterOption.price!==undefined) ? 'checked' : '' %>>
-            <label for="무보증금"><span>무보증금</span></label>
+            <label for="무보증금"><span>무보증금(100만원 이하)</span></label>
           </div>
         </div>
         <div class="submit_container">

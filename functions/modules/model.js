@@ -211,7 +211,6 @@ const addArticle = (place, id, data) => {
         price: null,
         deposit: null,
         expense: null,
-        locationL: null,
         locationS: null,
         only: null,
         floor: null,

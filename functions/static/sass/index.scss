@@ -189,7 +189,7 @@ body {
         @include respond-to(phone) {
             width: 100%;
             margin: 0;
-            padding: 0 8px;
+            padding: 0 12px;
         }
     }
 
@@ -280,7 +280,6 @@ body {
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
-            justify-content: center;
             margin-top: 28px;
             overflow: scroll;
             overflow-x: auto;
@@ -289,13 +288,10 @@ body {
             &::-webkit-scrollbar { 
                 display: none !important; // 윈도우 크롬 등에서 스크롤바 감춤
             }
-            @include respond-to(phone) {
-                justify-content: flex-start;
-            }
 
             li {
                 list-style: none;
-                padding: 0 8px;
+                margin-right: 16px;
             }
 
             .b1_item {
