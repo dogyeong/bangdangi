@@ -170,7 +170,7 @@ body {
       .subBlock .subBlock_container {
         width: 100%;
         margin: 0;
-        padding: 0 8px; } }
+        padding: 0 12px; } }
   .subBlock.review-block .review-title {
     text-align: center;
     font-size: 24px;
@@ -236,7 +236,6 @@ body {
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      justify-content: center;
       margin-top: 28px;
       overflow: scroll;
       overflow-x: auto;
@@ -244,12 +243,9 @@ body {
       -ms-overflow-style: none; }
       .subBlock.b1 .b1_cards::-webkit-scrollbar {
         display: none !important; }
-      @media only screen and (max-width: 600px) {
-        .subBlock.b1 .b1_cards {
-          justify-content: flex-start; } }
       .subBlock.b1 .b1_cards li {
         list-style: none;
-        padding: 0 8px; }
+        margin-right: 16px; }
       .subBlock.b1 .b1_cards .b1_item {
         position: relative;
         top: 0;

@@ -54,6 +54,7 @@ async function f(u) {
 
 // 모든 매물에 새 필드 추가하기 (웹sdk 코드임!) ----------------------------------------------------------
 
+let db = firebase.firestore();
 db.collectionGroup('articles').get()
 .then(res => res.docs)
 .then(async docs => {
@@ -63,11 +64,10 @@ db.collectionGroup('articles').get()
         let id = doc.id;
 
         await db.doc(`article/${place}/articles/${doc.id}`).update({
-            lastCheck: data.createdAt, // 새 필드 lastCheck
-            reason: firebase.firestore.FieldValue.delete() // 필드 삭제
+            // 이곳에서 필드 조작
+            // 필드 삭제 -> firebase.firestore.FieldValue.delete()
         })
         .catch(err => console.log(err))
     });    
 })
-
 
