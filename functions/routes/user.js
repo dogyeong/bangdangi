@@ -7,7 +7,7 @@ const cors = require('cors')({
     origin: true
 });
 // Kakao API request url to retrieve user profile based on access token
-const requestMeUrl = 'https://kapi.kakao.com/v1/user/me?secure_resource=true';
+const requestMeUrl = 'https://kapi.kakao.com/v2/user/me?secure_resource=true';
 
 router.get('/login', (req, res, next) => {
     return res.render('login');
@@ -76,7 +76,11 @@ function createSession(req, res, token, expiresIn) {
         .then((sessionCookie) => {
             // Set cookie policy for session cookie.
             const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+
             res.cookie('__session', sessionCookie, options);
+
+            console.log(sessionCookie);
+
             return res.redirect('/');
         }, error => {
             return res.status(401).send('UNAUTHORIZED REQUEST!' + error.message);
@@ -145,7 +149,8 @@ function updateOrCreateUser(userId, email, displayName, photoURL) {
  * @return {Promise<String>}                  Firebase token in a promise
  */
 function createFirebaseToken(kakaoAccessToken) {
-    return requestMe(kakaoAccessToken).then((response) => {
+    return requestMe(kakaoAccessToken)
+    .then((response) => {
         const body = JSON.parse(response);
         console.log(body);
         const userId = `kakao:${body.id}`;
@@ -159,8 +164,7 @@ function createFirebaseToken(kakaoAccessToken) {
             nickname = body.properties.nickname;
             profileImage = body.properties.profile_image;
         }
-        return updateOrCreateUser(userId, body.kaccount_email, nickname,
-            profileImage);
+        return updateOrCreateUser(userId, body.kaccount_email, nickname, profileImage);
     }).then((userRecord) => {
         const userId = userRecord.uid;
         console.log(`creating a custom firebase token based on uid ${userId}`);

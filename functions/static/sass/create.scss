@@ -1,0 +1,80 @@
+/*
+*   create.scss
+*   매물 등록 페이지
+*/
+
+
+/* 부트스트랩 import */
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+/* 변수 import */
+@import "variables.scss";
+
+/* local variables */
+$content_max_width: 1024px;
+
+body { background-color: $white; }
+
+header { 
+    position: absolute; 
+    .nav li > a {
+        padding: 0;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+.wrapper {
+    max-width: $content_max_width;
+    width: 100%;
+    margin: auto;
+    margin-top: 64px;
+    margin-bottom: 80px;
+    background-color: $white;
+    padding: 16px 0;
+    @include respond-to(phone) {
+        margin-top: 48px;
+        padding: 12px 0;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: $fs-xl;
+        font-weight: $fw-bold;
+        margin-bottom: 20px;
+    }
+
+    .block {
+        border: 1px solid $grey-border-color;
+        padding: 16px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        @include respond-to(phone) { padding: 12px; }
+        
+        h3 {
+            text-align: center;
+            font-size: $fs-lg;
+            font-weight: $fw-bold;
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            font-weight: $fw-regular;
+        }
+    }
+
+    .block5 {
+        border: 0;
+        padding: 0;
+        padding-top: 20px;
+
+        input[type="submit"] {
+            background-color: $main-color;
+            color: $white;
+            border: 1px solid $main-color;
+        }
+    }
+    
+}
