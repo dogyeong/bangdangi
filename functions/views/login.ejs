@@ -62,8 +62,8 @@
 
         auth.signInWithPopup(provider).then((result) => {
 
-            console.log("token", result.credential.accessToken);
-            console.log("user", result.user);
+            // console.log("token", result.credential.accessToken);
+            // console.log("user", result.user);
 
             return result.user.getIdToken()
                 .then((idToken) => postIdTokenToSessionLogin('/user/sessionLogin', { idToken }));
@@ -73,6 +73,7 @@
                 //이 다음 then에서 window.location.assign('/profile'); 해야함
             })
             .catch((e) => {
+                window.alert(e);
                 console.log(e);
             })
     }
@@ -119,7 +120,7 @@
         Kakao.Auth.login({
             success: function (authObj) {
                 console.log(JSON.stringify(authObj));
-                fetch('https://bangdangi.web.app/user/kakaoLogin', {
+                fetch('/user/kakaoLogin', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json, text/plain, */*',

@@ -15,7 +15,6 @@ router.get('/list/:univ', async (req, res, next) => {
     const univ = req.params.univ;
     const monthLimit = req.query.monthLimit;
     const priceKeywords = req.query.priceKeywords;
-    let keywordList = [];
     let resultArr = [];
     let review = [];
     let thumbnails;
@@ -361,25 +360,17 @@ function viewIncrement(docRef) {
 }
 
 router.get('/create', (req, res, next) => {
+    
     console.log(req.query.referrer);
+    
     // 세션 쿠키 받기
     var sessionCookie = req.cookies.__session || '';
-    // 학교 받기
-    var univ = req.query.univ || '';
-    // 학교 검사
-    if(univ === '') res.redirect('../user/login?referrer=board/create'); 
 
-    // 키워드 받기
-    var keywords = [];
-    return admin.firestore().doc(getLocKeywordsPath(univ)).get()
-        .then(doc => {
-            keywords = doc.data().keywords;
-            // 세션쿠키 검사
-            return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
-        })
+    // 세션쿠키 검사
+    return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
         .then(decodedClaims => {
             // 유효한 세션이면 매물등록 페이지 렌더링
-            return res.render('create', { uid: decodedClaims.uid, univ, keywords });
+            return res.render('create', { uid: decodedClaims.uid });
         }).catch((error) => {
             console.log(error);
             // 유효하지 않으면 로그인 페이지 렌더링
