@@ -36,7 +36,6 @@ header {
     padding: 16px 0;
     @include respond-to(phone) {
         margin-top: 48px;
-        padding: 12px 0;
     }
 
     h1 {
@@ -51,7 +50,16 @@ header {
         padding: 16px;
         margin-bottom: 20px;
         border-radius: 4px;
-        @include respond-to(phone) { padding: 12px; }
+        @include respond-to(phone) { 
+            padding: 12px; 
+            border: 0;
+            border-radius: 0;
+            border-bottom: 16px solid $article-bg-color;
+        }
+
+        &.block4 {
+            @include respond-to(phone) { border: 0; }
+        }
         
         h3 {
             text-align: center;
@@ -67,9 +75,9 @@ header {
 
     .block5 {
         border: 0;
-        padding: 0;
+        padding: 0 20px;
         padding-top: 20px;
-
+        @include respond-to(phone) { padding: 0 28px; }
         input[type="submit"] {
             background-color: $main-color;
             color: $white;

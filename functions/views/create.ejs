@@ -80,16 +80,26 @@
                 <h3 class="block-title">건물정보</h3>
                 <!-- 주소 -->
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="address">주소</label>
+                    <label class="col-sm-2 control-label" for="roadFullAddr">주소</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="address" placeholder="주소" readonly required>
+                            <input type="text" class="form-control" name="roadFullAddr" placeholder="주소" readonly required>
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">검색</button>
+                                <button class="btn btn-default" type="button" onclick="goPopup();">검색</button>
                             </span>
                         </div>
                     </div>
                 </div>
+
+                <!-- hidden 주소 -->
+                <input type="hidden" name="roadAddrPart">   <!-- 도로명주소 -->
+                <input type="hidden" name="addrDetail">     <!-- 사용자입력정보 -->     
+                <input type="hidden" name="siNm">           <!-- 시도명 -->
+                <input type="hidden" name="sggNm">          <!-- 시군구명 -->
+                <input type="hidden" name="emdNm">          <!-- 읍면동명 -->
+                <input type="hidden" name="roadNm">         <!-- 도로명 -->
+                <input type="hidden" name="buldMnnm">       <!-- 건물본번 -->
+                <input type="hidden" name="buldSlno">       <!-- 건물부번 (없으면 0) -->
 
                 <!-- 건물 상세위치 -->
                 <div class="form-group">
@@ -286,9 +296,7 @@
             <!-- 취소 / 제출 -->
             <div class="block5 block">
                 <div class="form-group">
-                    <div class="col-sm-12">
-                        <input class="form-control input-lg" type="submit" value="등록">
-                    </div>
+                    <input class="form-control input-lg" type="submit" value="등록">
                 </div>
             </div>
 
@@ -299,65 +307,62 @@
     <%- include('templates/footer') %>
 </body>
 <script>
-    var selectToggleBtn = document.querySelectorAll('.select_btn');
-    var chkbox = document.querySelectorAll('input[type="checkbox"]');
-    var radio = document.querySelectorAll('input[type="radio"]');
+    // opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+    //document.domain = "abc.go.kr";
 
-    // 체크박스에 체크 또는 해제했을 때 텍스트 조작
-    chkbox.forEach((cb) => {
-        cb.onchange = function () {
-            let field = this.name;
-            var text = document.querySelector(`.select_btn_text[data-field="${field}"]`);
-            if (this.checked) { // 체크된 경우
-                if (text.innerText == text.dataset.placeholder) text.innerText = this.value; // 체크되어있는게 없는 경우
-                else text.innerText = text.innerText + ',' + this.value; // 체크되어있는게 있는 경우
-            } else { // 체크해제된 경우
-                // 체크해제된 문자열 제거
-                text.innerText = text.innerText.replace(`,${this.value},`, ','); // 해당 문자가 중간에 있는 경우
-                text.innerText = text.innerText.replace(`,${this.value}`, ''); // 해당 문자가 제일 뒤에 있는 경우
-                text.innerText = text.innerText.replace(`${this.value},`, ''); // 해당 문자가 제일 앞에 있는 경우
-                text.innerText = text.innerText.replace(`${this.value}`, ''); // 해당 문자가 혼자 있는 경우
-                // 전부 지워졌는지 검사
-                if (text.innerText == '') text.innerText = text.dataset.placeholder;
-            }
-        };
-    })
+    function goPopup() {
+        // 주소검색을 수행할 팝업 페이지를 호출합니다.
+        // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+        // var pop = window.open("/testSample","pop","scrollbars=yes, resizable=yes"); 
 
-    // 라디오박스 체크했을 때 텍스트 조작
-    radio.forEach((r) => {
-        r.onchange = function () {
-            let field = this.name;
-            var text = document.querySelector(`.select_btn_text[data-field="${field}"]`);
-            text.innerText = this.value;
-        }
-    });
+        // 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+        var pop = window.open("/addrSearch", "pop", "scrollbars=yes, resizable=yes");
+    }
 
-    // 각 항목 눌렀을 때 접혔다 펴졌다
-    selectToggleBtn.forEach((b) => {
-        b.addEventListener('click', function () {
-            var type = this.dataset.field;
-            var target = document.querySelector(`.select_input_container[data-field="${type}"]`);
-            var icon = document.querySelector(`.select_btn[data-field="${type}"] i`);
 
-            target.classList.toggle('hidden');
-            icon.classList.toggle('xi-angle-down-min');
-            icon.classList.toggle('xi-angle-up-min');
-        });
-    });
 
-    // 입력 가능/불가능 토글 스위치
-    document.querySelectorAll('.enable_toggle_btn').forEach((btn) => {
-        btn.addEventListener('click', function () {
-            let field = this.dataset.field;
-            let input = document.querySelector(`input[data-field='${field}']`);
-            if (this.classList.toggle('active')) {
-                input.disabled = false;
-            } else {
-                input.value = '';
-                input.disabled = true;
-            }
-        })
-    })
+    function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo) {
+        // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+        let form = document.querySelector('form');
+
+        form.roadFullAddr.value = roadFullAddr;
+        form.roadAddrPart.value = roadAddrPart1;
+        form.addrDetail.value = addrDetail;
+        form.siNm.value = siNm;
+        form.sggNm.value = sggNm;
+        form.emdNm.value = emdNm;
+        form.roadNm.value = rn;
+        form.buldMnnm.value = buldMnnm;
+        form.buldSlno.value = buldSlno;
+
+
+        // document.form.roadAddrPart1.value = roadAddrPart1;
+        // document.form.roadAddrPart2.value = roadAddrPart2;
+        // document.form.addrDetail.value = addrDetail;
+        // document.form.engAddr.value = engAddr;
+        // document.form.jibunAddr.value = jibunAddr;
+        // document.form.zipNo.value = zipNo;
+        // document.form.admCd.value = admCd;
+        // document.form.rnMgtSn.value = rnMgtSn;
+        // document.form.bdMgtSn.value = bdMgtSn;
+        // document.form.detBdNmList.value = detBdNmList;
+        // /** 2017년 2월 추가제공 **/
+        // document.form.bdNm.value = bdNm;
+        // document.form.bdKdcd.value = bdKdcd;
+        // document.form.siNm.value = siNm;
+        // document.form.sggNm.value = sggNm;
+        // document.form.emdNm.value = emdNm;
+        // document.form.liNm.value = liNm;
+        // document.form.rn.value = rn;
+        // document.form.udrtYn.value = udrtYn;
+        // document.form.buldMnnm.value = buldMnnm;
+        // document.form.buldSlno.value = buldSlno;
+        // document.form.mtYn.value = mtYn;
+        // document.form.lnbrMnnm.value = lnbrMnnm;
+        // document.form.lnbrSlno.value = lnbrSlno;
+        // /** 2017년 3월 추가제공 **/
+        // document.form.emdNo.value = emdNo;
+    }
 </script>
 
 </html>

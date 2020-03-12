@@ -363,19 +363,26 @@ router.get('/create', (req, res, next) => {
     
     console.log(req.query.referrer);
     
-    // 세션 쿠키 받기
-    var sessionCookie = req.cookies.__session || '';
 
-    // 세션쿠키 검사
-    return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
-        .then(decodedClaims => {
-            // 유효한 세션이면 매물등록 페이지 렌더링
-            return res.render('create', { uid: decodedClaims.uid });
-        }).catch((error) => {
-            console.log(error);
-            // 유효하지 않으면 로그인 페이지 렌더링
-            res.redirect('../user/login'); 
-        });
+    /**
+     * create 로컬에서 테스트하기위해 세션쿠키검사 프로세스 disable
+     */
+    // // 세션 쿠키 받기
+    // var sessionCookie = req.cookies.__session || '';
+
+    // // 세션쿠키 검사
+    // return admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
+    //     .then(decodedClaims => {
+    //         // 유효한 세션이면 매물등록 페이지 렌더링
+    //         return res.render('create', { uid: decodedClaims.uid });
+    //     }).catch((error) => {
+    //         console.log(error);
+    //         // 유효하지 않으면 로그인 페이지 렌더링
+    //         res.redirect('../user/login'); 
+    //     });
+
+    
+    return res.render('create');
 });
 
 router.post('/create_process', (req, res, next) => {

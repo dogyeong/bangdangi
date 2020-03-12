@@ -27,12 +27,12 @@ router.get("/", async (req, res, next) => {
     return res.render("index", { newArticles });
 });
 
-router.get("/test", (req, res, next) => {
-    return res.render('test');
-})
+// router.get("/test", (req, res, next) => {
+//     return res.render('test');
+// })
 
-router.get("/testSample", (req, res, next) => {
-    return res.render('testSample', { 
+router.get("/addrSearch", (req, res, next) => {
+    return res.render('addrSearch', { 
         inputYn: 'n',
         roadFullAddr: 'test',
         roadAddrPart1: 'test',
@@ -62,8 +62,8 @@ router.get("/testSample", (req, res, next) => {
     });
 })
 
-router.post("/testSample", (req, res, next) => {
-    return res.render('testSample', {
+router.post("/addrSearch", (req, res, next) => {
+    return res.render('addrSearch', {
         inputYn: req.body.inputYn,
         roadFullAddr: req.body.roadFullAddr,
         roadAddrPart1: req.body.roadAddrPart1,
