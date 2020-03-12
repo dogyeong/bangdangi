@@ -28,7 +28,7 @@
         }
 
         var contactCallback = function() {
-            var contact = this.dataset.contact;
+            var contact = '01042311255'
             var type = this.dataset.type;
 
             if (checkBrowser() ===  "MOBILE")
