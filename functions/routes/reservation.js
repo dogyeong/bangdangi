@@ -6,11 +6,13 @@ const nodemailer = require("nodemailer");
 const smtpPool = require("nodemailer-smtp-pool");
 const db = admin.firestore();
 const model = require("../modules/model");
+const storageHandler = require("../modules/storageHandler");
+const util = require("../modules/util");
 const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = model.getArticlesPath;
 
 
-router.post("/application", async (req, res, next) => {
+router.post("/application", util.fileParser, async (req, res, next) => {
 
     var transporter = nodemailer.createTransport(
         smtpPool({
@@ -34,18 +36,33 @@ router.post("/application", async (req, res, next) => {
     };
 
     try {
+        const place = req.body.place;
+        const articleId = req.body.articleId;
+        const name = req.body.name;
+        const phone = req.body.phone;
+        const startDate = req.body.start_date;
+        const endDate = req.body.end_date;
+        
+        // 신분증 file
+        const file = Object.values(req.files)[0];
+
+        // 신분증 파일을 스토리지에 저장하고 난 뒤 파일의 엑세스 url
+        const imageURL = await storageHandler.upload(file, `id/${req.body.phone}/${file.filename}`);
+        
+        // 계약정보 등록
         await db.collection('reservation').add({
-            place: req.body.place,
-            articleId: req.body.articleId,
-            name: req.body.name,
-            phone: req.body.phone,
-            identitiy: req.body.id,
-            startDate: new Date(req.body.start_date),
-            endDate: new Date(req.body.end_date),
+            place,
+            articleId,
+            name,
+            phone,
+            identitiy: imageURL,
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
             createdAt: new Date(),
             contract: null,
         })
 
+        // 메일 발송하고 신청성공페이지 렌더링
         return transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
                 console.log(err);

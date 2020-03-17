@@ -224,7 +224,16 @@ const addArticle = (place, id, data) => {
         position: null,
         review: null,
         lastCheck: new Date(),
-        ...data,
+        roadFullAddr: null, 
+        roadAddrPart: null,
+        addrDetail: null,
+        siNm: null,
+        sggNm: null,
+        emdNm: null,
+        roadNm: null,
+        buldNo: null,
+        coords: null,
+        ...data, // 파라미터로 받은 데이터로 덮어씌우기
         createdAt: new Date(),
     });
 };

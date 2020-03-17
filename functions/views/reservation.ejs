@@ -58,7 +58,7 @@
     
     <section class="wrapper">
         <h1>가계약 진행</h1>
-        <form method="post" action="/reservation/application/">
+        <form method="post" action="/reservation/application/" enctype="multipart/form-data">
             <input type="text" name="place" value="<%= place %>" hidden />
             <input type="text" name="articleId" value="<%= articleId %>" hidden />
 
@@ -186,15 +186,6 @@
 
     </section>
 
-    <div class="loading-container">
-        <div class="loading">
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-        </div>
-    </div>
-
     <%- include('templates/footer') %>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -235,57 +226,7 @@
                 window.setTimeout(function() {
                     document.querySelector('.remittance-copy').innerText = '계좌복사';
                 }, 1000);
-            })
-
-        
-        let fileInput = document.querySelector('input[name="identity"]');
-        let phoneInput = document.querySelector('input[name="phone"]');
-        let loading = document.querySelector('.loading-container');
-
-        document.querySelector('input[type="submit"')
-            .addEventListener('click', function() {
-
-                event.preventDefault();
-
-                // 유효성 검사
-                if (document.querySelectorAll('input:valid').length !== 8) {
-                    window.alert("모두 입력해주세요.");
-                    return;
-                }
-
-                let form = document.querySelector('form');
-                let formData = new FormData(form);
-                let phone = phoneInput.value;
-                let file = fileInput.files[0];
-
-                showLoading();
-
-                firebase.storage()
-                    .ref(`id/${phone}/${file.name}`)
-                    .put(file)
-                    .then(snapshot => snapshot.ref.getDownloadURL())
-                    .then(url => {
-                        
-                        let hiddenField = document.createElement('input');
-                        hiddenField.setAttribute('type', 'hidden');
-                        hiddenField.setAttribute('name', 'id');
-                        hiddenField.setAttribute('value', url);
-                        form.appendChild(hiddenField);
-
-                        form.submit();
-                    })
-                    .catch(err => {
-                        window.alert("에러가 발생했습니다. 다시 시도해주세요.");
-                        hideLoading();
-                    })
             });
-
-        const showLoading = function() {
-            loading.style.display = "initial";
-        };
-        const hideLoading = function() {
-            loading.style.display = "none";
-        };
     </script>
 </body>
 </html>

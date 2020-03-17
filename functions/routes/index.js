@@ -2,12 +2,6 @@ const express = require("express");
 const router = express.Router();
 const admin = require("firebase-admin");
 const createError = require("http-errors");
-const url = require("url");
-const http = require("http");
-const https = require("https");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const request = require("request-promise");
 const cors = require("cors")({
     origin: true,
 });

@@ -62,7 +62,7 @@
 
         <h1>매물등록</h1>
 
-        <form class="form-horizontal" action="/board/create_process" method="post">
+        <form class="form-horizontal" action="/board/create_process" method="post" enctype="multipart/form-data">
 
             <!-- block 1 -->
             <div class="block1 block">
@@ -237,6 +237,14 @@
                                 aria-describedby="floor-addon">
                             <span class="input-group-addon" id="floor-addon">층</span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 방 사진 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="images">방 사진</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" name="images[]" accept="image/*" id="images" multiple/>
                     </div>
                 </div>
 
