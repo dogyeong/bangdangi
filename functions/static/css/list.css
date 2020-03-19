@@ -107,14 +107,13 @@
     .form_container .form-inner .tune {
       width: 63px;
       height: 64px;
-      padding: 22.5px;
       border-left: 1px solid #e4e4e4;
+      position: relative;
       cursor: pointer; }
       @media only screen and (max-width: 600px) {
         .form_container .form-inner .tune {
           width: 47px;
-          height: 48px;
-          padding: 14.5px; } }
+          height: 48px; } }
       .form_container .form-inner .tune.active {
         background-color: #0ab9f1;
         color: #fff; }
@@ -127,15 +126,21 @@
           width: 47px;
           height: 48px; } }
       .form_container .form-inner .renew a {
+        position: relative;
         display: block;
         width: 100%;
-        height: 100%;
-        padding: 22.5px; }
-        @media only screen and (max-width: 600px) {
-          .form_container .form-inner .renew a {
-            padding: 14.5px; } }
+        height: 100%; }
     .form_container .form-inner i {
-      font-size: 18px; }
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      line-height: 64px;
+      text-align: center; }
+      @media only screen and (max-width: 600px) {
+        .form_container .form-inner i {
+          line-height: 48px;
+          font-size: 14px; } }
 
 /* 필터 컨테이너 */
 .filter-container {
