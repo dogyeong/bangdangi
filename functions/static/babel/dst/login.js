@@ -1,6 +1,6 @@
 "use strict";
 
-(function (window, document, undefined) {
+(function (window, document) {
   var googleBtn = document.querySelector(".google_btn");
   var kakaoBtn = document.querySelector(".kakao_btn");
   var auth = firebase.auth();
