@@ -22,136 +22,33 @@
     <link rel="canonical" href="https://bangdangi.web.app/" />
     <!-- SEO END -->
     <title>로그인 | 방단기</title>
-    <link rel=stylesheet  href="../css/login.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/login.css" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 
 <body>
     <div id="container">
-        <div class="login_container">
-            <div class="logo_container">
+        <main class="login-container">
+            <div class="logo-container">
                 <a href="https://bangdangi.web.app/"><img src="../img/bangdangi_logo_2.png"></a>
             </div>
-            <div class="btn_container">
+            <div class="btn-container">
                 <p>다른 서비스 계정으로 간편하게 로그인/회원가입</p>
                 <button class="google_btn">
-                    <img src="../img/google_logo.svg"><span>구글 계정으로 로그인</span>
+                    <img src="/img/login/google_logo.svg"><span>구글 계정으로 로그인</span>
                 </button>
                 <button class="kakao_btn">
-                    <img src="../img/kakao_logo.svg"><span>카카오 계정으로 로그인</span>
+                    <img src="/img/login/kakao_logo.svg"><span>카카오 계정으로 로그인</span>
                 </button>
-                </img>
             </div>
-
-        </div>
+        </main>
+    </div>
 </body>
 <script src="/__/firebase/6.6.1/firebase-app.js"></script>
 <script src="/__/firebase/6.1.0/firebase-auth.js"></script>
 <script src="/__/firebase/init.js"></script>
-<script>
-    var googleBtn = document.querySelector('.google_btn');
-    var kakaoBtn = document.querySelector('.kakao_btn');
-    const auth = firebase.auth();
-
-    auth.useDeviceLanguage();
-    auth.setPersistence(firebase.auth.Auth.Persistence.NONE);
-
-    function googleSignIn() {
-        var provider = new firebase.auth.GoogleAuthProvider();
-
-        auth.signInWithPopup(provider).then((result) => {
-
-            // console.log("token", result.credential.accessToken);
-            // console.log("user", result.user);
-
-            return result.user.getIdToken()
-                .then((idToken) => postIdTokenToSessionLogin('/user/sessionLogin', { idToken }));
-        })
-            .then(() => {
-                auth.signOut();
-                //이 다음 then에서 window.location.assign('/profile'); 해야함
-            })
-            .catch((e) => {
-                window.alert(e);
-                console.log(e);
-            })
-    }
-
-    function postIdTokenToSessionLogin(action, params) {
-        var form = document.createElement('form');
-        form.setAttribute('method', 'post');
-        form.setAttribute('action', action);
-        document.charset = "utf-8";
-
-        for (var key in params) {
-            var hiddenField = document.createElement('input');
-            hiddenField.setAttribute('type', 'hidden');
-            hiddenField.setAttribute('name', key);
-            hiddenField.setAttribute('value', params[key]);
-            form.appendChild(hiddenField);
-        }
-        document.body.appendChild(form);
-        form.submit();
-    }
-
-    function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
-    // 카카오톡 아이디로 로그인 :: 카카오 액세스 토큰 받아오기
-    //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정
-    Kakao.init('07ac8a4da1c7b6aa00a5947dc53f964a');
-    function loginWithKakao() {
-        // 로그인 창을 띄웁니다.
-        Kakao.Auth.login({
-            success: function (authObj) {
-                console.log(JSON.stringify(authObj));
-                fetch('/user/kakaoLogin', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(authObj)
-                })
-                    .then((res) => res.text())
-                    .then((firebaseToken) => firebase.auth().signInWithCustomToken(firebaseToken))
-                    .then((result) => {
-                        return result.user.getIdToken().then((idToken) => {
-                            return postIdTokenToSessionLogin('/user/sessionLogin', { idToken });
-                        })
-                    })
-                    .then(() => {
-                        firebase.auth().signOut();
-                    })
-                    .catch((e) => {
-                        alert("로그인에 실패했습니다.");
-                        console.log(e);
-                    });
-            },
-            fail: function (err) {
-                console.log(JSON.stringify(err));
-            }
-        });
-    };
-    //]]>
-
-    googleBtn.addEventListener('click', googleSignIn);
-    kakaoBtn.addEventListener('click', loginWithKakao);
-</script>
+<script src="/babel/dst/login.js"></script>
 
 </html>

@@ -1,0 +1,68 @@
+/*
+*   login.scss
+*   로그인 페이지
+*/
+
+/* 변수 import */
+@import "variables.scss";
+
+body {
+    height: 100%;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+}
+
+.login-container {
+    max-width: 1080px;
+    padding: 80px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+
+    .logo-container {
+        text-align: center;
+        margin-bottom: 40px;
+
+        img { width: 120px; }
+    }
+
+    .btn-container {
+        p {
+            font-size: $fs-md;
+            font-weight: $fw-regular;
+            margin-bottom: 24px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            
+            cursor: pointer;
+
+            &.google_btn {
+                border: 2px solid $grey-border-color; 
+                background-color: $white;
+            }
+            &.kakao_btn { 
+                border: 2px solid $kakao-yellow; 
+                background-color: $kakao-yellow;
+            }
+            img { width: 48px; }
+            span { 
+                flex: 1; 
+                text-align: center;
+            }
+        }
+    }
+}
