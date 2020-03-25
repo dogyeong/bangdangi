@@ -21,9 +21,9 @@ body {
 
 .login-container {
     max-width: 1080px;
-    padding: 80px;
+    padding: 80px 120px;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    background-color: $article-bg-color;
 
     .logo-container {
         text-align: center;
@@ -47,6 +47,7 @@ body {
             align-items: center;
             margin-bottom: 16px;
             border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
             
             cursor: pointer;
 

@@ -1,4 +1,4 @@
-(function(window) {
+(function(window, document, undefined) {
     var googleBtn = document.querySelector(".google_btn");
     var kakaoBtn = document.querySelector(".kakao_btn");
     const auth = firebase.auth();
@@ -28,7 +28,6 @@
         var form = document.createElement("form");
         form.setAttribute("method", "post");
         form.setAttribute("action", action);
-        document.charset = "utf-8";
 
         for (var key in params) {
             var hiddenField = document.createElement("input");
@@ -93,4 +92,4 @@
 
     googleBtn.addEventListener("click", googleSignIn);
     kakaoBtn.addEventListener("click", loginWithKakao);
-})(window);
+})(window, document);

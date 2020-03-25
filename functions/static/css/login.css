@@ -26,9 +26,9 @@ body {
 
 .login-container {
   max-width: 1080px;
-  padding: 80px;
+  padding: 80px 120px;
   border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); }
+  background-color: #f4f4f4; }
   .login-container .logo-container {
     text-align: center;
     margin-bottom: 40px; }
@@ -46,6 +46,7 @@ body {
     align-items: center;
     margin-bottom: 16px;
     border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     cursor: pointer; }
     .login-container .btn-container button.google_btn {
       border: 2px solid #e4e4e4;
