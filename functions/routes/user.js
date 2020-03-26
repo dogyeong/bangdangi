@@ -65,7 +65,7 @@ router.get('/profile', (req, res) => {
 })
 
 /*
-* id토큰으로 세션쿠키를 만들어서 넣고, 프로필 페이지로 리다이렉션된다.
+* id토큰으로 세션쿠키를 만들어서 넣고, index로 리다이렉트
 */
 function createSession(req, res, token, expiresIn) {
     // Create the session cookie. This will also verify the ID token in the process.

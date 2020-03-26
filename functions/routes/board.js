@@ -9,6 +9,7 @@ const db = admin.firestore();
 const model = require("../modules/model");
 const util = require("../modules/util");
 const storageHandler = require("../modules/storageHandler");
+const sessionHandler = require("../modules/sessionHandler");
 const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = model.getArticlesPath;
 
@@ -349,7 +350,8 @@ function viewIncrement(docRef) {
     });
 }
 
-router.get("/create", (req, res, next) => {
+router.get("/create", sessionHandler.checkSession, (req, res, next) => {
+    console.log(req.decodedClaims);
     console.log(req.query.referrer);
 
     /**
