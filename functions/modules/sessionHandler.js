@@ -3,6 +3,7 @@ const admin = require("firebase-admin");
 /**
  * checkSession
  * 세션쿠키를 검사해서 로그인되어있는 유저 정보를 구한다
+ * 검사 실패 시 로그인페이지로 리다이렉트
  * 
  * @param {*} req 
  * @param {*} res 
