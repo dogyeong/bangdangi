@@ -1,4 +1,4 @@
-(function(window, document, undefined) {
+(function(window, document) {
     var googleBtn = document.querySelector(".google_btn");
     var kakaoBtn = document.querySelector(".kakao_btn");
     const auth = firebase.auth();
