@@ -9,9 +9,12 @@
 
   function googleSignIn() {
     var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
     auth.signInWithPopup(provider).then(function (result) {
-      // console.log("token", result.credential.accessToken);
-      // console.log("user", result.user);
       return result.user.getIdToken();
     }).then(function (idToken) {
       return postIdTokenToSessionLogin("/user/sessionLogin", {

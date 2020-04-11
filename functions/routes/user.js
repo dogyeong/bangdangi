@@ -6,6 +6,7 @@ const request = require('request-promise');
 const cors = require('cors')({
     origin: true
 });
+const db = admin.firestore();
 // Kakao API request url to retrieve user profile based on access token
 const requestMeUrl = 'https://kapi.kakao.com/v2/user/me?secure_resource=true';
 
@@ -13,7 +14,7 @@ router.get('/login', (req, res, next) => {
     return res.render('login');
 });
 
-router.post('/sessionLogin', (req, res, next) => {
+router.post('/sessionLogin', async (req, res, next) => {
     // Get the ID token passed and the CSRF token.
     const idToken = req.body.idToken.toString();
     /* const csrfToken = req.body.csrfToken.toString(); */
@@ -24,6 +25,16 @@ router.post('/sessionLogin', (req, res, next) => {
         return;
     }
     */
+
+    // db에 유저 정보를 업데이트?
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const { name, email, uid } = decodedToken; 
+    await db.collection('/users').doc(uid).set({
+        name,
+        email,
+        lastLogIn: new Date(),
+    }, { merge: true })
+
     // Set session expiration to 100 minutes.
     const expiresIn = 60 * 100 * 1000;
     return createSession(req, res, idToken, expiresIn);
@@ -55,7 +66,7 @@ router.get('/profile', (req, res) => {
         .then((decodedClaims) => {
             // Serve content for signed in user.    decodedClaims.uid
             //return serveContentForUser('/user/profile', req, res, decodedClaims);
-            console.log(decodedClaims);
+            console.log('decodedClaims is ', decodedClaims);
             return res.send(`프로필페이지입니다. uid: ${decodedClaims.uid}`);
         }).catch((error) => {
             // Force user to login.
@@ -79,7 +90,7 @@ function createSession(req, res, token, expiresIn) {
 
             res.cookie('__session', sessionCookie, options);
 
-            console.log(sessionCookie);
+            console.log('sesseionCookie : ', sessionCookie);
 
             return res.redirect('/');
         }, error => {

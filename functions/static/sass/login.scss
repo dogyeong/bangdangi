@@ -17,13 +17,14 @@ body {
     justify-content: center;
     align-items: center;
     padding: 12px;
+    background-color: $article-bg-color;
 }
 
 .login-container {
     max-width: 1080px;
     padding: 80px 120px;
     border-radius: 8px;
-    background-color: $article-bg-color;
+    
 
     .logo-container {
         text-align: center;

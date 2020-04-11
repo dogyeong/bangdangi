@@ -9,13 +9,12 @@
     function googleSignIn() {
         var provider = new firebase.auth.GoogleAuthProvider();
 
-        auth.signInWithPopup(provider)
-            .then(result => {
-                // console.log("token", result.credential.accessToken);
-                // console.log("user", result.user);
+        provider.addScope('profile');
+        provider.addScope('email');
+        provider.setCustomParameters({ prompt: 'select_account' });
 
-                return result.user.getIdToken();
-            })
+        auth.signInWithPopup(provider)
+            .then(result => result.user.getIdToken())
             .then(idToken => postIdTokenToSessionLogin("/user/sessionLogin", { idToken }))
             .then(() => auth.signOut()) // 이 다음 then에서 리다이렉션
             .catch(e => {

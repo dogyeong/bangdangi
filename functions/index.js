@@ -26,9 +26,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static'), { maxAge: '3600000' }));
 
-app.use((req,res) => {
-  res.render('noti');
-})
+/**
+ * 임시중단 안내문
+ */
+// app.use((req,res) => {
+//   res.render('noti');
+// })
 
 // Routers
 const indexRouter = require('./routes/index');
