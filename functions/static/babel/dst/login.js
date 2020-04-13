@@ -17,8 +17,10 @@
     auth.signInWithPopup(provider).then(function (result) {
       return result.user.getIdToken();
     }).then(function (idToken) {
+      var csrfToken = getCookie('csrfToken');
       return postIdTokenToSessionLogin("/user/sessionLogin", {
-        idToken: idToken
+        idToken: idToken,
+        csrfToken: csrfToken
       });
     }).then(function () {
       return auth.signOut();
@@ -40,6 +42,19 @@
       hiddenField.setAttribute("name", key);
       hiddenField.setAttribute("value", params[key]);
       form.appendChild(hiddenField);
+    } // referer가 있을 경우
+
+
+    if (referer) {
+      var _hiddenField = document.createElement("input");
+
+      _hiddenField.setAttribute("type", "hidden");
+
+      _hiddenField.setAttribute("name", 'referer');
+
+      _hiddenField.setAttribute("value", referer);
+
+      form.appendChild(_hiddenField);
     }
 
     document.body.appendChild(form);
@@ -90,8 +105,10 @@
         }).then(function (result) {
           return result.user.getIdToken();
         }).then(function (idToken) {
+          var csrfToken = getCookie('csrfToken');
           return postIdTokenToSessionLogin("/user/sessionLogin", {
-            idToken: idToken
+            idToken: idToken,
+            csrfToken: csrfToken
           });
         }).then(function () {
           return firebase.auth().signOut();

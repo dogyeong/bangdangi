@@ -17,14 +17,15 @@ const vapidKeys = {
 router.get("/", async (req, res, next) => {
     // 새로 등록된 매물, 후기가 있는 거래완료된 매물을 4개씩 불러온다
     const newArticles = await model.getNewArticles(4);
+    const user = req.decodedClaims;
 
-    return res.render("index", { newArticles });
+    return res.render("index", { newArticles, user });
 });
 
-// router.get("/test", (req, res, next) => {
-//     return res.render('test');
-// })
 
+/**
+ * 도로명주소 검색 api
+ */
 router.get("/addrSearch", (req, res, next) => {
     return res.render('addrSearch', { 
         inputYn: 'n',
@@ -86,58 +87,6 @@ router.post("/addrSearch", (req, res, next) => {
         emdNo: req.body.emdNo,
     });
 })
-
-router.get("/pwa", (req, res, next) => {
-    console.log("key in /pwa", vapidKeys);
-    var db = admin.firestore();
-    // 충남대, 동대문, 마포에서 최신매물 1개씩 들고온다
-    Promise.all([
-        db
-            .collection("article/live/dongdaemun")
-            .where("display", "==", true)
-            .where("done", "==", false)
-            .orderBy("createdAt", "desc")
-            .limit(3)
-            .get(),
-        db
-            .collection("article/live/mafo")
-            .where("display", "==", true)
-            .where("done", "==", false)
-            .orderBy("createdAt", "desc")
-            .limit(3)
-            .get(),
-        db
-            .collection("article/live/cnu")
-            .where("display", "==", true)
-            .where("done", "==", false)
-            .orderBy("createdAt", "desc")
-            .limit(3)
-            .get(),
-    ])
-        .then(result => {
-            // 들고온 매물들을 배열로 만들고
-            let newArticleArr = result.reduce((res, cur) => {
-                if (!cur.empty) {
-                    let arrHasImage = cur.docs.filter(doc => {
-                        return doc.data().images;
-                    });
-                    if (arrHasImage.length > 0) {
-                        res.push(arrHasImage[0].data());
-                    }
-                }
-                return res;
-            }, []);
-            // index 렌더링할 때 넘겨준다
-            return res.render("index", {
-                newArticleArr,
-                vapidPublicKey: vapidKeys.publicKey,
-            });
-        })
-        .catch(error => {
-            console.log(error);
-            return next(createError(500));
-        });
-});
 
 router.get("/aboutUs", (req, res) => {
     return res.render("aboutUs");

@@ -15,7 +15,10 @@
 
         auth.signInWithPopup(provider)
             .then(result => result.user.getIdToken())
-            .then(idToken => postIdTokenToSessionLogin("/user/sessionLogin", { idToken }))
+            .then(idToken => {
+                const csrfToken = getCookie('csrfToken');
+                return postIdTokenToSessionLogin("/user/sessionLogin", { idToken, csrfToken })
+            })
             .then(() => auth.signOut()) // 이 다음 then에서 리다이렉션
             .catch(e => {
                 window.alert(e);
@@ -29,12 +32,22 @@
         form.setAttribute("action", action);
 
         for (var key in params) {
-            var hiddenField = document.createElement("input");
+            let hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");
             hiddenField.setAttribute("name", key);
             hiddenField.setAttribute("value", params[key]);
             form.appendChild(hiddenField);
         }
+        
+        // referer가 있을 경우
+        if (referer) {
+            let hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", 'referer');
+            hiddenField.setAttribute("value", referer);
+            form.appendChild(hiddenField);
+        }
+
         document.body.appendChild(form);
         form.submit();
     }
@@ -75,7 +88,10 @@
                     .then(res => res.text())
                     .then(firebaseToken => firebase.auth().signInWithCustomToken(firebaseToken))
                     .then(result => result.user.getIdToken())
-                    .then(idToken => postIdTokenToSessionLogin("/user/sessionLogin", { idToken }))
+                    .then(idToken => {
+                        const csrfToken = getCookie('csrfToken');
+                        return postIdTokenToSessionLogin("/user/sessionLogin", { idToken, csrfToken })
+                    })
                     .then(() => firebase.auth().signOut())
                     .catch(e => {
                         window.alert("로그인에 실패했습니다.");

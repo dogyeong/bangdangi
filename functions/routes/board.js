@@ -350,11 +350,15 @@ function viewIncrement(docRef) {
     });
 }
 
-router.get("/create", /* sessionHandler.checkSession, */ (req, res, next) => {
-    // console.log(req.decodedClaims);
-    // console.log(req.query.referrer);
+router.get("/create", (req, res, next) => {
+    const user = req.decodedClaims;
 
-    return res.render("create");
+    // 로그인 안했으면 로그인페이지로 라디이렉션
+    if(!user) {
+        return res.redirect('/user/login'); 
+    }
+
+    return res.render("create", { user });
 });
 
 router.post("/create_process", util.fileParser, async (req, res, next) => {
@@ -387,13 +391,12 @@ router.post("/create_process", util.fileParser, async (req, res, next) => {
     var sessionCookie = req.cookies.__session || "";
     var files = req.files;
 
+    // TODO: 세션쿠키 검사
+    // TODO: 필드 검사 ?
+
     try {
 
-        // TODO: 세션쿠키 검사
-        // return admin.auth().verifySessionCookie(sessionCookie, true)
-        //     .then((decodedClaims) => {
-
-        // TODO: 필드 검사 ?
+        
 
         // 매물 id 생성
         // TODO: 지역 받아오기

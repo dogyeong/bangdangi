@@ -11,33 +11,43 @@ const db = admin.firestore();
 const requestMeUrl = 'https://kapi.kakao.com/v2/user/me?secure_resource=true';
 
 router.get('/login', (req, res, next) => {
-    return res.render('login');
+    // 레퍼러 - 이전페이지의 경로를 저장한다
+    const referer = req.headers.referer;
+    
+    return res.render('login', { referer });
 });
 
 router.post('/sessionLogin', async (req, res, next) => {
     // Get the ID token passed and the CSRF token.
     const idToken = req.body.idToken.toString();
-    /* const csrfToken = req.body.csrfToken.toString(); */
-    // Guard against CSRF attacks.
-    /*
-    if (csrfToken !== req.cookies.csrfToken) {
-        res.status(401).send('UNAUTHORIZED REQUEST!');
-        return;
-    }
+    const csrfToken = req.body.csrfToken && req.body.csrfToken.toString();
+    const referer = req.body.referer || '/';
+    
+    /**
+    * firebase hosting + functions 조합을 쓰면 서버에서 쿠키를 하나밖에 못 받는다고 한다. 
+    * 그래서 csrfToken을 쓸 수가 없다..;
     */
+    // Guard against CSRF attacks.
+    // if (!req.cookies || csrfToken !== req.cookies.csrfToken) {
+    //     res.status(401).send('UNAUTHORIZED REQUEST!');
+    //     return;
+    // }
 
-    // db에 유저 정보를 업데이트?
+    // db에 유저 정보를 업데이트
     const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const { name, email, uid } = decodedToken; 
+    const { name = null, email = null, picture=null, provider='GOOGLE', uid } = decodedToken; 
+    
     await db.collection('/users').doc(uid).set({
         name,
         email,
+        picture,
+        provider,
         lastLogIn: new Date(),
     }, { merge: true })
 
     // Set session expiration to 100 minutes.
     const expiresIn = 60 * 100 * 1000;
-    return createSession(req, res, idToken, expiresIn);
+    return createSession(req, res, idToken, expiresIn, referer);
 });
 
 router.post('/kakaoLogin', (req, res) => {
@@ -58,27 +68,43 @@ router.post('/kakaoLogin', (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-    // 세션 쿠키를 받는다
-    var sessionCookie = req.cookies.__session || '';
-    // Get the session cookie and verify it. In this case, we are verifying if the
-    // Firebase session was revoked, user deleted/disabled, etc.
-    admin.auth().verifySessionCookie(sessionCookie, true /** check if revoked. */)
-        .then((decodedClaims) => {
-            // Serve content for signed in user.    decodedClaims.uid
-            //return serveContentForUser('/user/profile', req, res, decodedClaims);
-            console.log('decodedClaims is ', decodedClaims);
-            return res.send(`프로필페이지입니다. uid: ${decodedClaims.uid}`);
-        }).catch((error) => {
-            // Force user to login.
-            console.log(error);
-            res.redirect('/user/login'); 
-        });
+    const decodedClaims = { ...req.decodedClaims };
+    
+    // 로그인 안했으면 로그인페이지로 라디이렉션
+    if(!user) {
+        return res.redirect('/user/login'); 
+    }
+
+    return res.send(`프로필페이지입니다. uid: ${decodedClaims.uid}`);
 })
 
-/*
-* id토큰으로 세션쿠키를 만들어서 넣고, index로 리다이렉트
+/**
+ * 사용자 로그아웃 엔드포인트
+ */
+router.get('/logout', (req, res) => {
+
+    // Clear cookie.
+    const sessionCookie = req.cookies.__session || '';
+    res.clearCookie('__session');
+
+    // Revoke session too. Note this will revoke all user sessions.
+    const decodedClaims = req.decodedClaims;
+    if (decodedClaims) {
+        return admin.auth()
+            .revokeRefreshTokens(decodedClaims.sub)
+            .then(() => res.redirect('/')) // Redirect to login page on success.
+            .catch(() => res.redirect('/')); // Redirect to login page on error.
+    } 
+    else {
+        // Redirect to login page when no session cookie available.
+        return res.redirect('/');
+    }
+  });
+
+/**
+* id토큰으로 세션쿠키를 만들어서 넣고, referer로 리다이렉트
 */
-function createSession(req, res, token, expiresIn) {
+function createSession(req, res, token, expiresIn, referer) {
     // Create the session cookie. This will also verify the ID token in the process.
     // The session cookie will have the same claims as the ID token.
     // To only allow session cookie setting on recent sign-in, auth_time in ID token
@@ -86,13 +112,13 @@ function createSession(req, res, token, expiresIn) {
     return admin.auth().createSessionCookie(token, { expiresIn })
         .then((sessionCookie) => {
             // Set cookie policy for session cookie.
-            const options = { maxAge: expiresIn, httpOnly: true, secure: true };
+            const options = { maxAge: expiresIn, httpOnly: true, secure: false/* local 테스트를 위해 */ };
 
             res.cookie('__session', sessionCookie, options);
 
             console.log('sesseionCookie : ', sessionCookie);
 
-            return res.redirect('/');
+            return res.redirect(referer);
         }, error => {
             return res.status(401).send('UNAUTHORIZED REQUEST!' + error.message);
         });

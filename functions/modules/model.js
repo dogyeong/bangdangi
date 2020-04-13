@@ -2,6 +2,7 @@ const admin = require("firebase-admin");
 const db = admin.firestore();
 const storage = admin.storage();
 
+const ARTICLES = "articles";
 const COLLECTION_GROUP_ARTICLES = "articles"; //매물 컬렉션 그룹 이름
 const getArticlesPath = place => `article/${place}/articles`; //place 이름을 받아서 path로 변환
 const getLocKeywordsPath = place => `article/${place}/keywords/locationKeywords`;
@@ -185,71 +186,78 @@ const getArticlesAll = place => {
 
 
 /**
- *
- * @param {string} place
- * @param {string} id
- * @param {object} data
- *
- * @returns {Promise}
+ * addArticle
+ * DB에 매물을 추가한다.
+ * 
+ * @param {object} data 매물데이터
+ * @param {string} id   firestore 문서 id (optional)
+ * 
+ * @returns {Promise} 성공적으로 추가되면 매물문서 id를 resolve하고, 에러가 발생하면 null을 reject하는 promise
  */
-const addArticle = (place, id, data) => {
-    let ref = db.collection(getArticlesPath(place));
+const addArticle = (data, id) => {
+    let ref = db.collection(ARTICLES);
 
     // id도 넘겨주면 해당 id로 문서를 만든다
     ref = id ? ref.doc(id) : ref.doc();
 
     // 문서 생성. createdAt 필드는 현재 시간으로 해준다.
-    return ref.set({
-        display: false,
-        tradeType: null,
-        startDate: null,
-        endDate: null,
-        minTerm: null,
-        dateKeywords: null,
-        keywords: null,
-        discountKeywords: null,
-        price: null,
-        deposit: null,
-        expense: null,
-        locationS: null,
-        only: null,
-        floor: null,
-        images: null,
-        url: null,
-        contact: null,
-        done: false,
-        text: null,
-        title: null,
-        views: 0,
-        position: null,
-        review: null,
-        lastCheck: new Date(),
-        roadFullAddr: null, 
-        roadAddrPart: null,
-        addrDetail: null,
-        siNm: null,
-        sggNm: null,
-        emdNm: null,
-        roadNm: null,
-        buldNo: null,
-        coords: null,
-        ...data, // 파라미터로 받은 데이터로 덮어씌우기
-        createdAt: new Date(),
-    });
+    return ref
+        .set({
+            display: false,
+            tradeType: null,
+            startDate: null,
+            endDate: null,
+            minTerm: null,
+            dateKeywords: null,
+            keywords: null,
+            discountKeywords: null,
+            price: null,
+            deposit: null,
+            expense: null,
+            locationS: null,
+            only: null,
+            floor: null,
+            images: null,
+            url: null,
+            contact: null,
+            done: false,
+            text: null,
+            title: null,
+            views: 0,
+            position: null,
+            review: null,
+            roadFullAddr: null, 
+            roadAddrPart: null,
+            addrDetail: null,
+            siNm: null,
+            sggNm: null,
+            emdNm: null,
+            roadNm: null,
+            buldNo: null,
+            coords: null,
+            creator: null,
+            ...data, // 파라미터로 받은 데이터로 덮어씌우기
+            createdAt: new Date(),
+            lastCheck: new Date(),
+        })
+        .then(() => ref.id)
+        .catch(err => {
+            console.error(err);
+            return null;
+        })
 };
 
 /**
  *
- * @param {string} place
  * @param {string} id
  * @param {object} data
  *
  * @returns {Promise}
  */
-const updateArticle = (place, id, data) => {
+const updateArticle = (id, data) => {
     // 문서 업데이트
     return db
-        .collection(getArticlesPath(place))
+        .collection(ARTICLES)
         .doc(id)
         .update(data);
 };

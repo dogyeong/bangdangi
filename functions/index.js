@@ -8,6 +8,7 @@ const createError = require('http-errors');
 const cors = require('cors')({
   origin: true
 });
+const sessionHandler = require('./modules/sessionHandler');
 
 const serviceAccount = require("./bangdangi-firebase-adminsdk-f87j6-a11d0aadf6.json");
 admin.initializeApp({ 
@@ -25,6 +26,12 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'static'), { maxAge: '3600000' }));
+
+// 사용자 세션 검사
+app.use(sessionHandler.checkSession);
+
+// 세션 로그인 로직에서 쓸 csrf 토큰 생성
+app.use(sessionHandler.attachCsrfToken('/user/login', 'csrfToken', (Math.random()* 100000000000000000).toString()))
 
 /**
  * 임시중단 안내문
