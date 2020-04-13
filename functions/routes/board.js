@@ -350,9 +350,9 @@ function viewIncrement(docRef) {
     });
 }
 
-router.get("/create", sessionHandler.checkSession, (req, res, next) => {
-    console.log(req.decodedClaims);
-    console.log(req.query.referrer);
+router.get("/create", /* sessionHandler.checkSession, */ (req, res, next) => {
+    // console.log(req.decodedClaims);
+    // console.log(req.query.referrer);
 
     return res.render("create");
 });
@@ -419,6 +419,11 @@ router.post("/create_process", util.fileParser, async (req, res, next) => {
         // 매물 등록
         // TODO: 데이터 넘겨주기
         await model.addArticle("test", id, { title, images });
+        
+        // 유저 정보에 등록한 매물 추가
+        await db.collection('/users').doc(uid).update({
+            articles: admin.firestore.FieldValue.arrayUnion('new value'),
+        })
 
         // TODO: 완료되면, 상세페이지로 redirect
         return res.send("OK");

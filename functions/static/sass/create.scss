@@ -39,17 +39,21 @@ header {
     }
 
     h1 {
-        text-align: center;
-        font-size: $fs-xl;
+        text-align: left;
+        font-size: $fs-2xl;
         font-weight: $fw-bold;
-        margin-bottom: 20px;
+        padding: 0 16px 20px;
+        margin-bottom: 40px;
+        border-bottom: 2px solid $lightgrey;
+        @include respond-to(phone) { 
+            padding: 0 12px 20px; 
+        }
     }
 
     .block {
-        border: 1px solid $grey-border-color;
+        border-bottom: 1px solid $grey-border-color;
         padding: 16px;
         margin-bottom: 20px;
-        border-radius: 4px;
         @include respond-to(phone) { 
             padding: 12px; 
             border: 0;
@@ -62,14 +66,16 @@ header {
         }
         
         h3 {
-            text-align: center;
-            font-size: $fs-lg;
+            text-align: left;
+            font-size: $fs-xl;
             font-weight: $fw-bold;
-            margin-bottom: 20px;
+            margin-bottom: 36px;
         }
 
         .control-label {
             font-weight: $fw-regular;
+            font-size: $fs-md;
+            text-align: left;
         }
     }
 
@@ -82,6 +88,10 @@ header {
             background-color: $main-color;
             color: $white;
             border: 1px solid $main-color;
+            max-width: 300px;
+            margin: auto;
+            height: 60px;
+            font-size: $fs-lg;
         }
     }
     

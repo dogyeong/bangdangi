@@ -5824,15 +5824,19 @@ header {
     .wrapper {
       margin-top: 48px; } }
   .wrapper h1 {
-    text-align: center;
-    font-size: 24px;
+    text-align: left;
+    font-size: 36px;
     font-weight: 700;
-    margin-bottom: 20px; }
+    padding: 0 16px 20px;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #c8c8c8; }
+    @media only screen and (max-width: 600px) {
+      .wrapper h1 {
+        padding: 0 12px 20px; } }
   .wrapper .block {
-    border: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
     padding: 16px;
-    margin-bottom: 20px;
-    border-radius: 4px; }
+    margin-bottom: 20px; }
     @media only screen and (max-width: 600px) {
       .wrapper .block {
         padding: 12px;
@@ -5843,12 +5847,14 @@ header {
       .wrapper .block.block4 {
         border: 0; } }
     .wrapper .block h3 {
-      text-align: center;
-      font-size: 18px;
+      text-align: left;
+      font-size: 24px;
       font-weight: 700;
-      margin-bottom: 20px; }
+      margin-bottom: 36px; }
     .wrapper .block .control-label {
-      font-weight: 400; }
+      font-weight: 400;
+      font-size: 16px;
+      text-align: left; }
   .wrapper .block5 {
     border: 0;
     padding: 0 20px;
@@ -5859,4 +5865,8 @@ header {
     .wrapper .block5 input[type="submit"] {
       background-color: #0ab9f1;
       color: #fff;
-      border: 1px solid #0ab9f1; }
+      border: 1px solid #0ab9f1;
+      max-width: 300px;
+      margin: auto;
+      height: 60px;
+      font-size: 18px; }

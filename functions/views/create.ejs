@@ -73,24 +73,25 @@
                         <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" required>
                     </div>
                 </div>
-            </div>
-
-            <!-- block 2 -->
-            <div class="block2 block">
-                <h3 class="block-title">건물정보</h3>
+                <!-- 방 사진 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="images">방 사진</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" name="images[]" accept="image/*" id="images" multiple/>
+                    </div>
+                </div>
                 <!-- 주소 -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="roadFullAddr">주소</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="roadFullAddr" placeholder="주소" readonly required>
+                            <input type="text" class="form-control" name="roadFullAddr" placeholder="검색 버튼을 눌러 입력해주세요" readonly required>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" onclick="goPopup();">검색</button>
                             </span>
                         </div>
                     </div>
                 </div>
-
                 <!-- hidden 주소 -->
                 <input type="hidden" name="roadAddrPart">   <!-- 도로명주소 -->
                 <input type="hidden" name="addrDetail">     <!-- 사용자입력정보 -->     
@@ -100,194 +101,96 @@
                 <input type="hidden" name="roadNm">         <!-- 도로명 -->
                 <input type="hidden" name="buldMnnm">       <!-- 건물본번 -->
                 <input type="hidden" name="buldSlno">       <!-- 건물부번 (없으면 0) -->
+                
+                    <!-- 가격 -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="deposit">가격</label>
+                        <!-- 보증금 -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="deposit" placeholder="보증금"
+                                    aria-describedby="price-addon">
+                                <span class="input-group-addon" id="price-addon">만원</span>
+                            </div>
+                        </div>
+                        <!-- 월세 -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="price" placeholder="월세"
+                                    aria-describedby="deposit-addon">
+                                <span class="input-group-addon" id="deposit-addon">만원</span>
+                            </div>
+                        </div>
+                        <!-- 관리비 -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="expense" placeholder="관리비"
+                                    aria-describedby="expense-addon">
+                                <span class="input-group-addon" id="expense-addon">만원</span>
+                            </div>
+                        </div>
+                    </div>
+               
+            </div>
+            
 
-                <!-- 건물 상세위치 -->
+            <!-- block 2 -->
+            <div class="block2 block">
+                <h3 class="block-title">계약기간</h3>
+                <!-- 최소 계약기간 -->
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="locationS">위치설명</label>
+                    <label class="col-sm-2 control-label" for="minTerm">
+                        최소 계약기간 <input type="radio" name="termType" value="min" checked>
+                    </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="locationS" placeholder="예)지하철 5분거리">
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="minTerm" placeholder="최소 계약기간"
+                                aria-describedby="minTerm-addon">
+                            <span class="input-group-addon" id="minTerm-addon">달 이상</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 고정 계약기간 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="startDate">
+                        고정 계약기간 <input type="radio" name="termType" value="fix">
+                    </label>
+                    <!-- 시작날짜 -->
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="startDate" placeholder="시작날짜"
+                                aria-describedby="startDate-addon" disabled>
+                            <span class="input-group-addon" id="startDate-addon">부터</span>
+                        </div>
+                    </div>
+                    <!-- 끝 날짜 -->
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="endDate" placeholder="끝날짜"
+                                aria-describedby="endDate-addon" disabled>
+                            <span class="input-group-addon" id="endDate-addon">까지</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- block 3 -->
             <div class="block3 block">
-                <h3 class="block-title">매물정보</h3>
-
-                <!-- 보증금 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="deposit">보증금</label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input type="number" class="form-control" name="deposit" placeholder="보증금"
-                                aria-describedby="price-addon">
-                            <span class="input-group-addon" id="price-addon">만원</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 월세 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="price">월세</label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input type="number" class="form-control" name="price" placeholder="월세"
-                                aria-describedby="deposit-addon">
-                            <span class="input-group-addon" id="deposit-addon">만원</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 관리비 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="expense">관리비</label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input type="number" class="form-control" name="expense" placeholder="관리비"
-                                aria-describedby="expense-addon">
-                            <span class="input-group-addon" id="expense-addon">만원</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 시작날짜 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="startDate">시작날짜</label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input type="date" class="form-control" name="startDate" placeholder="시작날짜"
-                                aria-describedby="startDate-addon">
-                            <span class="input-group-addon" id="startDate-addon">부터</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 끝날짜 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="endDate">끝날짜</label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input type="date" class="form-control" name="endDate" placeholder="끝날짜"
-                                aria-describedby="endDate-addon">
-                            <span class="input-group-addon" id="endDate-addon">까지</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 가격태그 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="discountKeywords">가격 키워드</label>
-                    <div class="col-sm-10">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="discountKeywords" value="월세지원"> 월세지원
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="discountKeywords" value="보증금지원"> 보증금지원
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="discountKeywords" value="무보증금"> 무보증금
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 기간태그 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="dateKeywords">가격 키워드</label>
-                    <div class="col-sm-10">
-                        <label class="radio-inline">
-                            <input type="radio" name="dateKeywords" value="1개월이내"> 1개월이내
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="dateKeywords" value="2개월"> 2개월
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="dateKeywords" value="3개월"> 3개월
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="dateKeywords" value="6개월 이내"> 6개월 이내
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="dateKeywords" value="1년 이내"> 1년 이내
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="dateKeywords" value="1년 이상"> 1년 이상
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 기타태그 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="keywords">기타 키워드</label>
-                    <div class="col-sm-10">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="keywords" value="주차가능"> 주차가능
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" name="keywords" value="풀옵션"> 풀옵션
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 방 층수 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="floor">층수</label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input type="number" class="form-control" name="floor" placeholder="층수"
-                                aria-describedby="floor-addon">
-                            <span class="input-group-addon" id="floor-addon">층</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 방 사진 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="images">방 사진</label>
-                    <div class="col-sm-10">
-                        <input type="file" class="form-control" name="images[]" accept="image/*" id="images" multiple/>
-                    </div>
-                </div>
-
-                <!-- 남성/여성 전용 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="only">제한사항</label>
-                    <div class="col-sm-10">
-                        <label class="radio-inline">
-                            <input type="radio" name="only" value="남성전용"> 남성전용
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="only" value="여성전용"> 여성전용
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- block 4 -->
-            <div class="block4 block">
-                <h3 class="block-title">거래정보</h3>
+                <h3 class="block-title">상세설명</h3>
 
                 <!-- 거래형태 -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="tradeType">거래형태</label>
                     <div class="col-sm-10">
                         <label class="radio-inline">
-                            <input type="radio" name="tradeType" value="주인직"> 주인직
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="tradeType" value="양도"> 양도
+                            <input type="radio" name="tradeType" value="주인직" checked> 주인직
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="tradeType" value="전대"> 전대
                         </label>
-                    </div>
-                </div>
-
-                <!-- 연락처 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="contact">연락처</label>
-                    <div class="col-sm-10">
-                        <input type="number" class="form-control" name="contact" placeholder="휴대폰 번호">
+                        <label class="radio-inline">
+                            <input type="radio" name="tradeType" value="쉐어"> 쉐어
+                        </label>
                     </div>
                 </div>
 
@@ -299,6 +202,22 @@
                             required></textarea>
                     </div>
                 </div>
+
+                <!-- 태그 -->
+            </div>
+
+            <!-- block 4 -->
+            <div class="block4 block">
+                <h3 class="block-title">연락처</h3>
+
+                <!-- 연락처 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="contact">연락처</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" name="contact" placeholder="휴대폰 번호를 - 제외하고 입력해주세요">
+                    </div>
+                </div>
+
             </div>
 
             <!-- 취소 / 제출 -->
@@ -372,5 +291,19 @@
         // document.form.emdNo.value = emdNo;
     }
 </script>
+<script>
+    const termType = document.querySelectorAll('input[name="termType"]');
+    const minTerm = document.querySelector('input[name="minTerm"]');
+    const startDate = document.querySelector('input[name="startDate"]');
+    const endDate = document.querySelector('input[name="endDate"]');
 
+    termType.forEach(function(input) {
+        input.addEventListener('change', function() {
+            const isMin = (this.value === 'min');
+            
+            minTerm.disabled = !isMin;
+            startDate.disabled = endDate.disabled = isMin;
+        });
+    }); 
+</script>
 </html>
