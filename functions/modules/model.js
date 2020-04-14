@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const db = admin.firestore();
 const storage = admin.storage();
+const storageHandler = require('./storageHandler')
 
 const ARTICLES = "articles";
 const COLLECTION_GROUP_ARTICLES = "articles"; //매물 컬렉션 그룹 이름
@@ -189,20 +190,43 @@ const getArticlesAll = place => {
  * addArticle
  * DB에 매물을 추가한다.
  * 
- * @param {object} data 매물데이터
+ * @param {object} data 매물 데이터
+ * @param {Object} files 파일 데이터를 파싱한 객체
  * @param {string} id   firestore 문서 id (optional)
  * 
- * @returns {Promise} 성공적으로 추가되면 매물문서 id를 resolve하고, 에러가 발생하면 null을 reject하는 promise
+ * @returns {Promise} 성공적으로 추가되면 매물문서 id를 반환하고, 에러가 발생하면 null을 반환한다
  */
-const addArticle = (data, id) => {
-    let ref = db.collection(ARTICLES);
+const addArticle = async (data, files, id) => {
+    
+    try{
+        let ref = db.collection(ARTICLES);
 
-    // id도 넘겨주면 해당 id로 문서를 만든다
-    ref = id ? ref.doc(id) : ref.doc();
+        // id도 넘겨주면 해당 id로 문서를 만든다
+        ref = id ? ref.doc(id) : ref.doc();
 
-    // 문서 생성. createdAt 필드는 현재 시간으로 해준다.
-    return ref
-        .set({
+        // file upload 스트림을 처리하는 promise들을 담을 배열
+        var tasks = [];
+
+        console.log(files);
+
+        // 스토리지에 사진 저장 -> resolve url
+        for (name in files) {
+            if (name !== '') {
+                // file object
+                const image = files[name];
+
+                // upload promise
+                const task = storageHandler.upload(image, `${ref.id}/${image.filename}`)
+
+                tasks.push(task);
+            }
+        }
+
+        // promise는 액세스 url을 resolve
+        const images = await Promise.all(tasks);
+
+        // 문서 생성. createdAt 필드는 현재 시간으로 해준다.
+        await ref.set({
             display: false,
             tradeType: null,
             startDate: null,
@@ -217,7 +241,6 @@ const addArticle = (data, id) => {
             locationS: null,
             only: null,
             floor: null,
-            images: null,
             url: null,
             contact: null,
             done: false,
@@ -237,14 +260,25 @@ const addArticle = (data, id) => {
             coords: null,
             creator: null,
             ...data, // 파라미터로 받은 데이터로 덮어씌우기
+            images,
             createdAt: new Date(),
             lastCheck: new Date(),
         })
-        .then(() => ref.id)
-        .catch(err => {
-            console.error(err);
-            return null;
-        })
+
+        // 작성자 정보가 있을 때
+        if (data && data.creator) {
+            // 유저 정보에 등록한 매물 추가
+            await db.collection('/users').doc(data.creator).update({
+                articles: admin.firestore.FieldValue.arrayUnion(`${ref.id}`),
+            })
+        }
+
+        return ref.id;
+    }
+    catch(err) {
+        console.error(err);
+        return null;
+    }
 };
 
 /**

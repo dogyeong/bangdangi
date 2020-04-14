@@ -48,9 +48,9 @@ function attachCsrfToken(url, cookie, value) {
             console.log("ATTATCH CSRF TOKEN : ", value);
             res.cookie(cookie, value);
         }
-      next();
+        next();
     }
-  }
+}
 
 module.exports = {
     checkSession,

@@ -68,10 +68,10 @@ router.post('/kakaoLogin', (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-    const decodedClaims = { ...req.decodedClaims };
+    const decodedClaims = req.decodedClaims;
     
     // 로그인 안했으면 로그인페이지로 라디이렉션
-    if(!user) {
+    if(!decodedClaims) {
         return res.redirect('/user/login'); 
     }
 

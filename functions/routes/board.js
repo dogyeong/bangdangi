@@ -8,8 +8,6 @@ const cors = require("cors")({
 const db = admin.firestore();
 const model = require("../modules/model");
 const util = require("../modules/util");
-const storageHandler = require("../modules/storageHandler");
-const sessionHandler = require("../modules/sessionHandler");
 const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = model.getArticlesPath;
 
@@ -361,7 +359,7 @@ router.get("/create", (req, res, next) => {
     return res.render("create", { user });
 });
 
-router.post("/create_process", util.fileParser, async (req, res, next) => {
+router.post("/create_process", util.fileParser, (req, res, next) => {
     var title = req.body.title || null;
     var roadFullAddr = req.body.roadFullAddr || null;
     var roadAddrPart = req.body.roadAddrPart || null;
@@ -386,54 +384,33 @@ router.post("/create_process", util.fileParser, async (req, res, next) => {
     var tradeType = req.body.tradeType || null;
     var text = req.body.text || null;
     var contact = req.body.contact || null;
-    var univ = req.body.univ;
-
-    var sessionCookie = req.cookies.__session || "";
     var files = req.files;
 
     // TODO: 세션쿠키 검사
+    const decodedClaims = req.decodedClaims;
+
+    if (!decodedClaims) return res.redirect('/user/login');
+
+    // 로그인한 유저를 작성자로 설정
+    const creator = decodedClaims.uid;
+    
     // TODO: 필드 검사 ?
-
-    try {
-
-        
-
-        // 매물 id 생성
-        // TODO: 지역 받아오기
-        const id = db.collection("test").doc().id;
-
-        // file upload 스트림을 처리하는 promise들을 담을 배열
-        var tasks = [];
-
-        // 스토리지에 사진 저장 -> resolve url
-        for (name in files) {
-            // file object
-            const image = files[name];
-
-            // upload promise
-            const task = storageHandler.upload(image, `${id}/${image.filename}`)
-
-            tasks.push(task);
-        }
-
-        // promise는 액세스 url을 resolve
-        const images = await Promise.all(tasks);
-
-        // 매물 등록
-        // TODO: 데이터 넘겨주기
-        await model.addArticle("test", id, { title, images });
-        
-        // 유저 정보에 등록한 매물 추가
-        await db.collection('/users').doc(uid).update({
-            articles: admin.firestore.FieldValue.arrayUnion('new value'),
+    console.log('in board', files);
+    // 매물 추가
+    return model.addArticle({ title: 'hi yo', creator }, files)
+        .then(id => {
+            if (id) {
+                console.log(id);
+                return res.redirect('/');
+            }
+            else {
+                return createError(500);
+            }
         })
-
-        // TODO: 완료되면, 상세페이지로 redirect
-        return res.send("OK");
-    }
-    catch (err) {
-        return next(createError(500, err));
-    }
+        .catch(err => {
+            console.error(err);
+            return createError(500);
+        })
 });
 
 module.exports = router;

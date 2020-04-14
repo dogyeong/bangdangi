@@ -66,13 +66,6 @@
 
             <!-- block 1 -->
             <div class="block1 block">
-                <!-- 제목 -->
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="title">제목</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" required>
-                    </div>
-                </div>
                 <!-- 방 사진 -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="images">방 사진</label>
@@ -85,7 +78,7 @@
                     <label class="col-sm-2 control-label" for="roadFullAddr">주소</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="roadFullAddr" placeholder="검색 버튼을 눌러 입력해주세요" readonly required>
+                            <input type="text" class="form-control" name="roadFullAddr" placeholder="검색 버튼을 눌러 입력해주세요" autocomplete="off" required>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" onclick="goPopup();">검색</button>
                             </span>
@@ -109,7 +102,7 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="deposit" placeholder="보증금"
-                                    aria-describedby="price-addon">
+                                    aria-describedby="price-addon" required>
                                 <span class="input-group-addon" id="price-addon">만원</span>
                             </div>
                         </div>
@@ -117,7 +110,7 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="price" placeholder="월세"
-                                    aria-describedby="deposit-addon">
+                                    aria-describedby="deposit-addon" required>
                                 <span class="input-group-addon" id="deposit-addon">만원</span>
                             </div>
                         </div>
@@ -125,7 +118,7 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="expense" placeholder="관리비"
-                                    aria-describedby="expense-addon">
+                                    aria-describedby="expense-addon" required>
                                 <span class="input-group-addon" id="expense-addon">만원</span>
                             </div>
                         </div>
@@ -145,7 +138,7 @@
                     <div class="col-sm-10">
                         <div class="input-group">
                             <input type="number" class="form-control" name="minTerm" placeholder="최소 계약기간"
-                                aria-describedby="minTerm-addon">
+                                aria-describedby="minTerm-addon" required>
                             <span class="input-group-addon" id="minTerm-addon">달 이상</span>
                         </div>
                     </div>
@@ -292,18 +285,30 @@
     }
 </script>
 <script>
-    const termType = document.querySelectorAll('input[name="termType"]');
-    const minTerm = document.querySelector('input[name="minTerm"]');
-    const startDate = document.querySelector('input[name="startDate"]');
-    const endDate = document.querySelector('input[name="endDate"]');
+    var termType = document.querySelectorAll('input[name="termType"]');
+    var minTerm = document.querySelector('input[name="minTerm"]');
+    var startDate = document.querySelector('input[name="startDate"]');
+    var endDate = document.querySelector('input[name="endDate"]');
 
     termType.forEach(function(input) {
         input.addEventListener('change', function() {
-            const isMin = (this.value === 'min');
+            var isMin = (this.value === 'min');
             
             minTerm.disabled = !isMin;
             startDate.disabled = endDate.disabled = isMin;
+
+            minTerm.required = isMin;
+            startDate.required = endDate.required = !isMin;
         });
     }); 
+
+    var addr = document.querySelector('input[name="roadFullAddr"]');
+
+    addr.addEventListener('keydown', function(e) {
+        e.preventDefault();
+    })
+    addr.addEventListener('paste', function(e) {
+        e.preventDefault();
+    })
 </script>
 </html>
