@@ -216,7 +216,7 @@ const addArticle = async (data, files, id) => {
                 const image = files[name];
 
                 // upload promise
-                const task = storageHandler.upload(image, `${ref.id}/${image.filename}`)
+                const task = storageHandler.upload(image, `images/${ref.id}/${image.filename}`)
 
                 tasks.push(task);
             }

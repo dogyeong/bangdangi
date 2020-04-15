@@ -12,6 +12,7 @@ const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = model.getArticlesPath;
 
 router.get("/list/:univ", async (req, res, next) => {
+    const user = req.decodedClaims;
     const univ = req.params.univ;
     const monthLimit = req.query.monthLimit;
     const priceKeywords = req.query.priceKeywords;
@@ -56,7 +57,7 @@ router.get("/list/:univ", async (req, res, next) => {
         price: priceKeywords,
     };
 
-    return res.render("articleList", { roomList, review, univ, univKo, filterOption, err });
+    return res.render("articleList", { roomList, review, univ, univKo, filterOption, err, user });
 });
 
 getFilteredArticleList = async (univ, monthLimit, priceKeywords) => {
@@ -244,6 +245,7 @@ formatNewArticle = doc => {
 };
 
 router.get("/read/:univ/:articleNo", async (req, res, next) => {
+    const user = req.decodedClaims;
     var univ = req.params.univ;
     var articleNo = req.params.articleNo;
     var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
@@ -304,7 +306,7 @@ router.get("/read/:univ/:articleNo", async (req, res, next) => {
         done = true;
     }
 
-    return res.render("articleDetail", { univ, univKo, articleNo, data, kakao, related, done });
+    return res.render("articleDetail", { univ, univKo, articleNo, data, kakao, related, done, user });
 });
 
 getRelatedArray = arr => {
@@ -360,44 +362,49 @@ router.get("/create", (req, res, next) => {
 });
 
 router.post("/create_process", util.fileParser, (req, res, next) => {
-    var title = req.body.title || null;
-    var roadFullAddr = req.body.roadFullAddr || null;
-    var roadAddrPart = req.body.roadAddrPart || null;
-    var addrDetail = req.body.addrDetail || null;
-    var siNm = req.body.siNm || null;
-    var sggNm = req.body.sggNm || null;
-    var emdNm = req.body.emdNm || null;
-    var roadNm = req.body.roadNm || null;
-    var buldNo = req.body.buldNo || null;
-    var coords = req.body.coords || null;
-    var locationS = req.body.locationS || null;
-    var price = parseFloat(req.body.price) || null;
-    var deposit = parseFloat(req.body.deposit) || null;
-    var expense = parseFloat(req.body.expense) || null;
-    var startDate = req.body.startDate || null;
-    var endDate = req.body.endDate || null;
-    var discountKewords = req.body.discountKewords || null;
-    var dateKeywords = req.body.dateKeywords || null;
-    var keywords = req.body.keywords || null;
-    var only = req.body.only || null;
-    var floor = parseFloat(req.body.floor) || null;
-    var tradeType = req.body.tradeType || null;
-    var text = req.body.text || null;
-    var contact = req.body.contact || null;
+    let { 
+        roadFullAddr = null,
+        roadAddrPart = null,
+        addrDetail = null,
+        siNm = null,
+        sggNm = null,
+        emdNm = null,
+        roadNm = null,
+        buldNo = null,
+        coords = null,
+        locationS = null,
+        price = null,
+        deposit = null,
+        expense = null,
+        startDate = null,
+        endDate = null,
+        discountKewords = null,
+        dateKeywords = null,
+        keywords = null,
+        only = null,
+        floor = null,
+        tradeType = null,
+        text = null,
+        contact = null,
+    } = req.body;
+
     var files = req.files;
 
     // TODO: 세션쿠키 검사
     const decodedClaims = req.decodedClaims;
-
     if (!decodedClaims) return res.redirect('/user/login');
 
     // 로그인한 유저를 작성자로 설정
     const creator = decodedClaims.uid;
     
     // TODO: 필드 검사 ?
-    console.log('in board', files);
-    // 매물 추가
-    return model.addArticle({ title: 'hi yo', creator }, files)
+    let data = {
+        roadFullAddr, roadAddrPart, addrDetail, siNm, sggNm, emdNm, roadNm, buldNo, coords, locationS, price, deposit, expense, startDate, endDate, discountKewords, dateKeywords, keywords, only, floor, tradeType, text, contact,
+        creator,
+    }
+
+    // 매물 추가 // data, files, id
+    return model.addArticle(data, files)
         .then(id => {
             if (id) {
                 console.log(id);
