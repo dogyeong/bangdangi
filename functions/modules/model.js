@@ -43,10 +43,10 @@ const getNewArticles = async limit => {
         thumbnails = await Promise.all(docs.map(doc => getThumbnail(doc)));
 
         return docs.map((doc, idx) => { 
-        return { 
-            ...doc.data(), 
-            thumbnail: thumbnails[idx] 
-        } 
+            return { 
+                ...doc.data(), 
+                thumbnail: thumbnails[idx] 
+            } 
         });
     }
     catch (err) {
@@ -63,9 +63,9 @@ const getThumbnail = async (doc) => {
     try {
         // storage에서 썸네일파일 배열을 받는다
         let thumbs = await storage
-        .bucket()
-        .getFiles({ prefix: `images/${place}/${id}/thumbs` })
-        .then(data => data[0])
+            .bucket()
+            .getFiles({ prefix: `images/${place}/${id}/thumbs` })
+            .then(data => data[0])
 
         // 배열이 비어있으면 null 리턴
         if (thumbs.length === 0) {
@@ -80,7 +80,7 @@ const getThumbnail = async (doc) => {
         // 썸네일파일들의 다운로드url을 가져온다
         let tasks = thumbs.map(thumb => thumb.getSignedUrl(config).then(data => data[0]))
 
-        // 3개씩 묶은 객체로 만들어서 리턴한다.
+        // 3개씩(200,400,600) 묶은 객체로 만들어서 리턴한다.
         return await Promise.all(tasks)
             .then(urls => chunkArray(urls, 3));
     }
@@ -156,17 +156,72 @@ const getReviews = async (place, limit) => {
 };
 
 /**
- *
- * @param {string} place
- * @param {string} id
+ * 매물 데이터 리스트를 받아온다
+ * @param {string} place 지역
+ * @param {Object} options 옵션 : display, done, sortBy, limit
  *
  * @returns {Promise}
  */
-const getArticles = (place, id) => {
-    return db
-        .collection(getArticlesPath(place))
-        .doc(id)
-        .get();
+const getArticles = async (place, options) => {
+    
+    try {
+        let ref = db.collection(ARTICLES);
+
+        // place의 지역에 있는 매물을 가져온다. place가 all이면 전부 다
+        if (place !== 'all') {
+            ref = ref.where('sggNm', '==', place);
+        }
+
+        // display, done 옵션 설정
+        if (options) {
+            if (options.display === true) 
+                ref = ref.where('display', '==', true);
+            else if (options.display === false) 
+                ref = ref.where('display', '==', false);
+            
+            if (options.done === true)
+                ref = ref.where('done', '==', true);
+            else if (options.done === false) 
+                ref = ref.where('done', '==', false);
+        }
+
+        // 쿼리결과를 배열에 저장
+        let docs = (await ref.get()).docs;
+
+        // 정렬, 개수제한 옵션 적용
+        if (options) {
+            if (options.sortBy === 'createdAt') { // 최신순
+                docs.sort((a,b) => {
+                    return b.data().createdAt.seconds - a.data().createdAt.seconds;
+                })
+            }
+            else if (options.sortBy === 'views') { // 조회순
+                docs.sort((a,b) => {
+                    return b.data().views - a.data().views;
+                })
+            }
+
+            if (options.limit > 0) { // 개수 제한
+                docs = docs.slice(0, options.limit);
+            }
+        }
+
+        // 썸네일 url    
+        const thumbnails = await Promise.all(docs.map(doc => getThumbnail(doc)));
+
+        // data() 메소드를 통해 데이터 객체로 바꾸고, 썸네일도 추가해서 배열로 리턴
+        return docs.map((doc, idx) => { 
+            return { 
+                ...doc.data(),
+                id: doc.id, 
+                thumbnail: thumbnails[idx], 
+            } 
+        });
+    }
+    catch (err) {
+        console.error(err);
+        return [];
+    }
 };
 
 /**
@@ -187,9 +242,7 @@ const getArticlesAll = place => {
 
 
 /**
- * addArticle
- * DB에 매물을 추가한다.
- * 
+ * DB에 매물을 추가한다
  * @param {object} data 매물 데이터
  * @param {Object} files 파일 데이터를 파싱한 객체
  * @param {string} id   firestore 문서 id (optional)

@@ -371,35 +371,39 @@ router.post("/create_process", util.fileParser, (req, res, next) => {
         emdNm = null,
         roadNm = null,
         buldNo = null,
-        coords = null,
-        locationS = null,
         price = null,
         deposit = null,
         expense = null,
         startDate = null,
         endDate = null,
-        discountKewords = null,
-        dateKeywords = null,
-        keywords = null,
+        minTerm = null,
         only = null,
-        floor = null,
         tradeType = null,
         text = null,
         contact = null,
+        termType = null,
     } = req.body;
 
     var files = req.files;
 
-    // TODO: 세션쿠키 검사
+    // 데이터 타입 검사해서 알맞게 변환
+    startDate = startDate && new Date(startDate);
+    endDate = endDate && new Date(endDate);
+    minTerm = minTerm && parseInt(minTerm);
+    price = price && parseInt(price);
+    expense = expense && parseInt(expense);
+    deposit = deposit && parseInt(deposit);
+
+    // 세션쿠키(로그인) 검사
     const decodedClaims = req.decodedClaims;
     if (!decodedClaims) return res.redirect('/user/login');
 
     // 로그인한 유저를 작성자로 설정
     const creator = decodedClaims.uid;
     
-    // TODO: 필드 검사 ?
+    // 필드들을 객체에 저장
     let data = {
-        roadFullAddr, roadAddrPart, addrDetail, siNm, sggNm, emdNm, roadNm, buldNo, coords, locationS, price, deposit, expense, startDate, endDate, discountKewords, dateKeywords, keywords, only, floor, tradeType, text, contact,
+        roadFullAddr, roadAddrPart, addrDetail, siNm, sggNm, emdNm, roadNm, buldNo, price, deposit, expense, startDate, endDate, minTerm, only, tradeType, text, contact,
         creator,
     }
 
