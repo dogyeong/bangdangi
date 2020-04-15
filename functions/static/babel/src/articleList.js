@@ -1,5 +1,5 @@
 (() => {
-    const univSelect = document.getElementById("univ_select");
+    const placeSelect = document.getElementById("place_select");
     const filterBtn = document.querySelector(".tune");
     const filterCancel = document.querySelector(".filter-cancel");
     const rangeInput = document.querySelector('input[type="range"]');
@@ -83,7 +83,7 @@
         });
     }
 
-    univSelect.onchange = changeRoomList;
+    placeSelect.onchange = changeRoomList;
     filterBtn.addEventListener("click", toggleFilter);
     filterCancel.addEventListener("click", hideFilter);
     rangeInput.addEventListener("input", updateRangeValue);

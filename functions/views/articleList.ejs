@@ -8,8 +8,8 @@
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
       'event': 'Pageview',
-      'pagePath': '/board/list/<%=univ%>',
-      'pageTitle': '<%=univ%>'
+      'pagePath': '/board/list/<%=place%>',
+      'pageTitle': '<%=place%>'
     });
   </script>
   <!-- Google Tag Manager -->
@@ -27,21 +27,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- SEO START -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+  <meta name="description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
   <meta name="keyword" content="방단기, 단기방, 서울 단기임대, 서울 단기원룸, 무보증 원룸, 원룸양도, 방임대, 방양도, 전대차">
   <meta name="author" content="방단기">
   <meta itemprop="name" content="방단기">
-  <meta itemprop="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+  <meta itemprop="description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
   <meta name="twitter:title" content="방단기">
-  <meta name="twitter:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+  <meta name="twitter:description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
   <meta property="og:title" content="방단기">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="방단기">
-  <meta property="og:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
-  <meta property="og:url" content="https://bangdangi.web.app/board/list/<%=univ%>">
-  <link rel="canonical" href="https://bangdangi.web.app/board/list/<%=univ%>" />
+  <meta property="og:description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+  <meta property="og:url" content="https://bangdangi.web.app/board/list/<%=place%>">
+  <link rel="canonical" href="https://bangdangi.web.app/board/list/<%=place%>" />
   <!-- SEO END -->
-  <title><%=univKo%> 단기원룸 | 방단기</title>
+  <title><%=placeKo%> 단기원룸 | 방단기</title>
   <link rel="shortcut icon" href="../../img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="../../img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../css/common.css" />
@@ -70,10 +70,9 @@
 
       <div class="tune">
         <i class="fas fa-sliders-h"></i>
-        <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
       </div>
       <div class="renew">
-        <a href="/board/list/<%=univ%>" aria-label="초기화">
+        <a href="/board/list/<%=place%>" aria-label="초기화">
           <i class="fas fa-sync-alt"></i>
         </a>
       </div>
@@ -84,7 +83,7 @@
   <!-- 필터 -->
   <section>
     <div class="filter-container">
-      <form action="/board/list/<%=univ%>" method="get">
+      <form action="/board/list/<%=place%>" method="get">
         <div class="input_container">
           <div class="hashtag_title">기간</div>
           <div class="hashtag_list">
@@ -149,7 +148,7 @@
       <% } else { %>
       <!-- 매물 삽입 -->
       <article class="article">
-        <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %> data-timeStamp=<%= room.timeStamp %>
+        <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-place=<%= place %> data-timeStamp=<%= room.timeStamp %>
           data-views=<%= room.views %>>
           <div class="list_wrapper">
             <div class="list_text">
@@ -244,7 +243,7 @@
       <div class="article-list">
         <% for (room of review) { %>
         <article class="article">
-          <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-univ=<%= univ %>>
+          <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-place=<%= place %>>
             <div class="list_wrapper">
               <div class="list_text">
                 <div class="list_upper">
@@ -311,15 +310,15 @@
   <%- include('templates/footer') %>
 
   <script>
-    var currentUniv = "<%= univ %>";
+    var currentplace = "<%= place %>";
   </script>
   <script src="//cdn.polyfill.io/v3/polyfill.min.js" async defer></script>
   <script src="../../../babel/dst/articleList.js"></script>
   <script>
-    /* 현재 선택된 셀렉트의 학교이름이 셀렉트의 label값으로 들어가게 한다 */
-    let univSelect = document.getElementById("univ_select");
-    document.querySelector("option[value='<%=univ%>']").selected = true
-    document.querySelector("#univ_form label").innerText = univSelect.options[univSelect.selectedIndex].innerText;
+    /* 현재 선택된 셀렉트의 지역이름이 셀렉트의 label값으로 들어가게 한다 */
+    let placeSelect = document.getElementById("univ_select");
+    document.querySelector("option[value='<%=place%>']").selected = true
+    document.querySelector("#univ_form label").innerText = placeSelect.options[placeSelect.selectedIndex].innerText;
   </script>
   <!-- Channel Plugin Scripts -->
   <!-- <script>

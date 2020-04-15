@@ -1,5 +1,5 @@
 (() => {
-    var univSelect = document.getElementById("univ_select");
+    var placeSelect = document.getElementById("place_select");
 
     function changeRoomList() {
         if (this.value === "") return;
@@ -7,7 +7,7 @@
         else window.location.href = `/board/list/${this.value}`;
     }
 
-    univSelect.onchange = changeRoomList;
+    placeSelect.onchange = changeRoomList;
 })();
 
 (() => {

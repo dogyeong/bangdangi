@@ -39,7 +39,7 @@ $content_max_width: 1024px;
         }
 
         /* 지역선택 */
-        #univ_form {
+        #place_form {
             width: 100%;
             flex: 1;
             position: relative;
@@ -87,7 +87,7 @@ $content_max_width: 1024px;
                 }
             }
 
-            #univ_select {
+            #place_select {
                 flex: 1;
                 height: auto;
                 /* 높이 초기화 */

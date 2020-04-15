@@ -11,9 +11,9 @@ const util = require("../modules/util");
 const PLACE_OBJ = model.PLACE_OBJ;
 const getArticlesPath = model.getArticlesPath;
 
-router.get("/list/:univ", async (req, res, next) => {
+router.get("/list/:place", async (req, res, next) => {
     const user = req.decodedClaims;
-    const univ = req.params.univ;
+    const place = req.params.place;
     const monthLimit = req.query.monthLimit;
     const priceKeywords = req.query.priceKeywords;
     let resultArr = [];
@@ -21,25 +21,33 @@ router.get("/list/:univ", async (req, res, next) => {
     let thumbnails;
 
     // 필터가 적용된 매물 리스트를 가져온다
-    resultArr = await getFilteredArticleList(univ, monthLimit, priceKeywords);
+    // resultArr = await getFilteredArticleList(univ, monthLimit, priceKeywords);
 
     // 매물 리스트의 썸네일을 가져온다
-    thumbnails = await Promise.all(resultArr.map(doc => model.getThumbnail(doc)));
+    // thumbnails = await Promise.all(resultArr.map(doc => model.getThumbnail(doc)));
 
     // 매물 리스트와 썸네일을 합친다
-    resultArr = resultArr.map((doc, idx) => {
-        return {
-            ...doc.data(),
-            thumbnail: thumbnails[idx],
-        };
-    });
+    // resultArr = resultArr.map((doc, idx) => {
+    //     return {
+    //         ...doc.data(),
+    //         thumbnail: thumbnails[idx],
+    //     };
+    // });
+
+    // 매물 리스트 가져온다
+    resultArr = await model
+        .getArticles(PLACE_OBJ[place], {
+            display: true, 
+            done: false, 
+            sortBy: 'createdAt'
+        })
 
     // 매물 리스트 데이터 포맷팅
     resultArr = formatRoomList(resultArr);
 
     // 거래완료된 매물중에 리뷰가 있는 매물들을 가져온다
-    review = await model.getReviews(univ, 0);
-    review = formatRoomList(review.map(r => r.data()));
+    // review = await model.getReviews(univ, 0);
+    // review = formatRoomList(review.map(r => r.data()));
 
     let err = false;
     let roomList;
@@ -51,13 +59,14 @@ router.get("/list/:univ", async (req, res, next) => {
         roomList = resultArr;
         err = "앗, 찾는 매물이 존재하지 않습니다.";
     }
-    let univKo = PLACE_OBJ[univ];
+    let placeKo = PLACE_OBJ[place];
+    
     let filterOption = {
         date: monthLimit,
         price: priceKeywords,
     };
 
-    return res.render("articleList", { roomList, review, univ, univKo, filterOption, err, user });
+    return res.render("articleList", { roomList, review, place, placeKo, filterOption, err, user });
 });
 
 getFilteredArticleList = async (univ, monthLimit, priceKeywords) => {

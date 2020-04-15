@@ -15,6 +15,7 @@ const PLACE_OBJ = {
     gangnam: "서초구, 강남구",
     yangcheon: "양천구, 강서구",
     yongsan: "용산구",
+    gj: '금정구',
 };
 
 
@@ -157,7 +158,7 @@ const getReviews = async (place, limit) => {
 
 /**
  * 매물 데이터 리스트를 받아온다
- * @param {string} place 지역
+ * @param {string} place 지역 : all | 한글 시군구 지역
  * @param {Object} options 옵션 : display, done, sortBy, limit
  *
  * @returns {Promise}

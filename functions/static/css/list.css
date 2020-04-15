@@ -43,7 +43,7 @@
       .form_container .form-inner {
         border-left: 0;
         border-right: 0; } }
-    .form_container .form-inner #univ_form {
+    .form_container .form-inner #place_form {
       width: 100%;
       flex: 1;
       position: relative;
@@ -55,9 +55,9 @@
       justify-content: center;
       align-items: center; }
       @media only screen and (max-width: 600px) {
-        .form_container .form-inner #univ_form {
+        .form_container .form-inner #place_form {
           border: none; } }
-      .form_container .form-inner #univ_form:before {
+      .form_container .form-inner #place_form:before {
         /* 화살표 대체 */
         content: "";
         position: absolute;
@@ -69,7 +69,7 @@
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         border-top: 5px solid #666; }
-      .form_container .form-inner #univ_form label {
+      .form_container .form-inner #place_form label {
         position: absolute;
         top: 1px;
         /* 위치정렬 */
@@ -81,10 +81,10 @@
         z-index: -1;
         /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */ }
         @media only screen and (max-width: 600px) {
-          .form_container .form-inner #univ_form label {
+          .form_container .form-inner #place_form label {
             font-size: 14px;
             padding: 0.8em 0.5em; } }
-      .form_container .form-inner #univ_form #univ_select {
+      .form_container .form-inner #place_form #place_select {
         flex: 1;
         height: auto;
         /* 높이 초기화 */

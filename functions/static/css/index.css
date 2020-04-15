@@ -56,7 +56,7 @@ body {
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      /* university select */ }
+      /* placeersity select */ }
       @media only screen and (max-width: 600px) {
         .mainBlock .mainBlockContainer .mainBlockDivider {
           flex-direction: column;
@@ -85,7 +85,7 @@ body {
           @media only screen and (max-width: 600px) {
             .mainBlock .mainBlockContainer .mainBlockDivider .mainCopy > p {
               font-size: 16px; } }
-      .mainBlock .mainBlockContainer .mainBlockDivider #univ_form {
+      .mainBlock .mainBlockContainer .mainBlockDivider #place_form {
         position: relative;
         width: 240px;
         height: 60px;
@@ -94,12 +94,12 @@ body {
         z-index: 1;
         margin-top: 60px;
         transition: all .2s ease-out; }
-        .mainBlock .mainBlockContainer .mainBlockDivider #univ_form:hover {
+        .mainBlock .mainBlockContainer .mainBlockDivider #place_form:hover {
           background-color: #fff; }
         @media only screen and (max-width: 600px) {
-          .mainBlock .mainBlockContainer .mainBlockDivider #univ_form {
+          .mainBlock .mainBlockContainer .mainBlockDivider #place_form {
             width: 200px; } }
-        .mainBlock .mainBlockContainer .mainBlockDivider #univ_form label {
+        .mainBlock .mainBlockContainer .mainBlockDivider #place_form label {
           position: absolute;
           width: 100%;
           color: #fff;
@@ -114,9 +114,9 @@ body {
           z-index: -1;
           /* IE8에서 label이 위치한 곳이 클릭되지 않는 것 해결 */
           transition: all .2s ease-out; }
-        .mainBlock .mainBlockContainer .mainBlockDivider #univ_form:hover label {
+        .mainBlock .mainBlockContainer .mainBlockDivider #place_form:hover label {
           color: #3b3b46; }
-        .mainBlock .mainBlockContainer .mainBlockDivider #univ_form #univ_select {
+        .mainBlock .mainBlockContainer .mainBlockDivider #place_form #place_select {
           width: 100%;
           height: 100%;
           border-radius: 40px;

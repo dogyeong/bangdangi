@@ -9,7 +9,7 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 (function () {
-  var univSelect = document.getElementById("univ_select");
+  var placeSelect = document.getElementById("place_select");
   var filterBtn = document.querySelector(".tune");
   var filterCancel = document.querySelector(".filter-cancel");
   var rangeInput = document.querySelector('input[type="range"]');
@@ -94,7 +94,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     });
   }
 
-  univSelect.onchange = changeRoomList;
+  placeSelect.onchange = changeRoomList;
   filterBtn.addEventListener("click", toggleFilter);
   filterCancel.addEventListener("click", hideFilter);
   rangeInput.addEventListener("input", updateRangeValue);

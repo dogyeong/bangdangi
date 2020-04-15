@@ -1,13 +1,13 @@
 "use strict";
 
 (function () {
-  var univSelect = document.getElementById("univ_select");
+  var placeSelect = document.getElementById("place_select");
 
   function changeRoomList() {
     if (this.value === "") return;else if (this.value === "other") window.location.href = '/request';else window.location.href = "/board/list/".concat(this.value);
   }
 
-  univSelect.onchange = changeRoomList;
+  placeSelect.onchange = changeRoomList;
 })();
 
 (function () {

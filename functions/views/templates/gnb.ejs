@@ -1,11 +1,9 @@
 <header>
-    <nav id="header_inner">
+    <!-- <nav id="header_inner">
         <a class="header_logo" href="https://bangdangi.web.app/">
             <img src="/img/header/bangdangi_logo_c_128w.png" alt="방단기 로고">
         </a>
         <ul class="nav">
-            <!-- <li><a href="/request">이런방구해요</a></li> -->
-            <!-- <li><a href="/register">매물등록</a></li> -->
             <% if(user) { %>
                 <li><a href="/board/create">매물등록</a></li>
                 <li><a href="/user/logout">로그아웃</a></li>
@@ -13,5 +11,36 @@
                 <li><a href="/user/login">로그인</a></li>
             <% } %>
         </ul>
-    </nav>
+    </nav> -->
+    <div class="container">
+        <!-- 로고, 햄버거 메뉴 -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#nav-menu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="/img/header/bangdangi_logo_c_128w.png" alt="방단기 로고">
+            </a>
+        </div>
+
+        <!-- 메뉴 -->
+        <div class="collapse navbar-collapse" id="nav-menu">
+            <ul class="nav navbar-nav navbar-right">
+                <% if(user) { %>
+                    <li><a href="/board/create">매물등록</a></li>
+                    <li><a href="/user/logout">로그아웃</a></li>
+                <% } else { %>
+                    <li><a href="/user/login">로그인</a></li>
+                <% } %>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </header>
+<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

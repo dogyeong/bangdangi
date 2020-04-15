@@ -24,37 +24,21 @@ header {
   top: 0;
   left: 0;
   z-index: 100;
-  transition: all .2s ease-out; }
+  transition: all .2s ease-out;
+  height: 64px; }
   header.transparent {
     background-color: transparent;
     box-shadow: none; }
-    header.transparent #header_inner .nav li > a {
+    header.transparent .nav li > a {
       color: #fff; }
-  header #header_inner {
-    max-width: 1064px;
-    height: 64px;
-    padding: 0 20px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-align: center;
-    -ms-flex-align: center; }
-    header #header_inner .header_logo {
-      display: inline-block;
-      padding: 18.97px 20px; }
-      @media only screen and (max-width: 600px) {
-        header #header_inner .header_logo {
-          padding: 21.415px 0px; } }
-      header #header_inner .header_logo > img {
-        display: block;
-        width: 64px; }
-        @media only screen and (max-width: 600px) {
-          header #header_inner .header_logo > img {
-            width: 52px; } }
+  header .navbar-brand > img {
+    display: block;
+    width: 64px; }
+    @media only screen and (max-width: 600px) {
+      header .navbar-brand > img {
+        width: 52px; } }
+  header .icon-bar {
+    background-color: #3b3b46; }
   header .nav li {
     display: inline-block;
     padding: 0 16px;
@@ -63,6 +47,8 @@ header {
     color: #3b3b46; }
     @media only screen and (max-width: 600px) {
       header .nav li {
+        display: block;
+        text-align: right;
         font-size: 14px;
         padding: 0px 4px; } }
     header .nav li > a {
@@ -74,7 +60,8 @@ header {
         header .nav li > a {
           font-size: 14px; } }
       header .nav li > a:hover {
-        color: #0ab9f1; }
+        color: #0ab9f1;
+        background-color: transparent; }
 
 @media only screen and (max-width: 600px) {
   header {
@@ -87,41 +74,23 @@ header {
     top: 0;
     left: 0;
     z-index: 100;
-    transition: all .2s ease-out; }
+    transition: all .2s ease-out;
+    height: 48px; }
     header.transparent {
       background-color: transparent;
       box-shadow: none; }
-      header.transparent #header_inner .nav li > a {
+      header.transparent .nav li > a {
         color: #fff; }
-    header #header_inner {
-      max-width: 1064px;
-      height: 48px;
-      padding: 0 20px;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-      -webkit-box-align: center;
-      -ms-flex-align: center; }
-      header #header_inner .header_logo {
-        display: inline-block;
-        padding: 10.97px 20px; } }
-      @media only screen and (max-width: 600px) and (max-width: 600px) {
-        header #header_inner .header_logo {
-          padding: 13.415px 0px; } }
+    header .navbar-brand > img {
+      display: block;
+      width: 64px; } }
+    @media only screen and (max-width: 600px) and (max-width: 600px) {
+      header .navbar-brand > img {
+        width: 52px; } }
 
 @media only screen and (max-width: 600px) {
-        header #header_inner .header_logo > img {
-          display: block;
-          width: 64px; } }
-        @media only screen and (max-width: 600px) and (max-width: 600px) {
-          header #header_inner .header_logo > img {
-            width: 52px; } }
-
-@media only screen and (max-width: 600px) {
+    header .icon-bar {
+      background-color: #3b3b46; }
     header .nav li {
       display: inline-block;
       padding: 0 16px;
@@ -130,6 +99,8 @@ header {
       color: #3b3b46; } }
     @media only screen and (max-width: 600px) and (max-width: 600px) {
       header .nav li {
+        display: block;
+        text-align: right;
         font-size: 14px;
         padding: 0px 4px; } }
 
@@ -145,4 +116,5 @@ header {
 
 @media only screen and (max-width: 600px) {
         header .nav li > a:hover {
-          color: #0ab9f1; } }
+          color: #0ab9f1;
+          background-color: transparent; } }

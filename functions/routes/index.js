@@ -15,13 +15,12 @@ const vapidKeys = {
 
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-    // 새로 등록된 매물을 4개 불러온다
-    //const newArticles = await model.getNewArticles(4);
-    const newArticles = await model.getArticles('all', { display: false, done: false, sortBy: 'createdAt', limit: 4 });
-
-    console.log(newArticles);
 
     const user = req.decodedClaims;
+
+    // 새로 등록된 매물을 4개 불러온다
+    //const newArticles = await model.getNewArticles(4);
+    const newArticles = await model.getArticles('all', { display: true, done: false, sortBy: 'createdAt', limit: 4 });
 
     return res.render("index", { newArticles, user });
 });
