@@ -680,7 +680,7 @@ $content_max_width: 1024px;
         position: relative;
         z-index: 2;
         @include respond-to(phone) {
-            margin-top: 12px;
+            margin-top: 0;
         }
 
         > span {
@@ -700,6 +700,8 @@ $content_max_width: 1024px;
         width: 100%;
         position: relative;
         z-index: 1;
+        top: -40px;
+        opacity: 0.5;
         @include respond-to(phone) {
             top: -120px;
             opacity: 0.2;

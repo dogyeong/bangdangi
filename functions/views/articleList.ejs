@@ -148,7 +148,7 @@
       <% } else { %>
       <!-- 매물 삽입 -->
       <article class="article">
-        <a href=<%= room['url'] %> data-id=<%= room['url'] %> data-place=<%= place %> data-timeStamp=<%= room.timeStamp %>
+        <a href=<%= `/board/read/${place}/${room.id}` %> data-id=<%= `/board/read/${place}/${room.id}` %> data-place=<%= place %> data-timeStamp=<%= room.timeStamp %>
           data-views=<%= room.views %>>
           <div class="list_wrapper">
             <div class="list_text">
@@ -218,8 +218,9 @@
       <article class="article">
         <a class="request_container" href="/request">
           <div class="request_text_container">
-            <span>찾고있는 방이 없나요?</span>
-            방을 무료로<br>찾아드립니다!
+            <span>수수료 없이 직접 방을 홍보하세요</span>
+            남는 방을 빌려주고<br>임대수익을 만드세요!<br>
+            원하는 기간만큼<br>빌려주면 됩니다
           </div>
           <div class="request_btn">신청하기 &#xE001;</div>
           <img src="/img/list/gift.svg" alt="선물상자">
@@ -316,9 +317,9 @@
   <script src="../../../babel/dst/articleList.js"></script>
   <script>
     /* 현재 선택된 셀렉트의 지역이름이 셀렉트의 label값으로 들어가게 한다 */
-    let placeSelect = document.getElementById("univ_select");
+    let placeSelect = document.getElementById("place_select");
     document.querySelector("option[value='<%=place%>']").selected = true
-    document.querySelector("#univ_form label").innerText = placeSelect.options[placeSelect.selectedIndex].innerText;
+    document.querySelector("#place_form label").innerText = placeSelect.options[placeSelect.selectedIndex].innerText;
   </script>
   <!-- Channel Plugin Scripts -->
   <!-- <script>

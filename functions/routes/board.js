@@ -160,11 +160,6 @@ opOR = arrays => {
 formatRoomList = arr => {
     var result = arr;
 
-    // 일단 등록시간순으로 정렬
-    result.sort((a, b) => {
-        return b.createdAt.toMillis() - a.createdAt.toMillis();
-    });
-
     // 화면에 보여질 정보로 포맷을 맞춘다
     result = result.map(doc => {
         return {
@@ -180,7 +175,7 @@ formatRoomList = arr => {
             urlType: doc.urlType, // string or null
             timeStamp: doc.createdAt.toMillis(), // string
             views: doc.views, // string
-            url: doc.url,
+            id: doc.id,
             new: formatNewArticle(doc), // boolean
             thumbnail: doc.thumbnail,
         };
@@ -225,8 +220,10 @@ formatPrice = doc => {
     else return `${doc.price}`;
 };
 formatLine1 = doc => {
-    if (doc.locationS === null) return "";
-    else return Object.keys(doc.locationS).join(" ");
+    let arr = []
+    doc.sggNm ? arr.push(doc.sggNm) : '';
+    doc.emdNm ? arr.push(doc.emdNm) : '';
+    return arr.join(" ");
 };
 formatLine2 = doc => {
     let arr = [];
@@ -253,69 +250,38 @@ formatNewArticle = doc => {
     else return false;
 };
 
-router.get("/read/:univ/:articleNo", async (req, res, next) => {
+router.get("/read/:place/:articleId", async (req, res, next) => {
     const user = req.decodedClaims;
-    var univ = req.params.univ;
-    var articleNo = req.params.articleNo;
-    var ignoreDone = req.query.v; //쿼리스트링을 서용해서 done에 상관없이 상세페이지가 보이도록 한다.
-    var kakao = {}; // 카카오로 공유하기 했을 때 전달될 정보
-    var data; // 상세페이지에서 보여질 매물정보
-    var related = []; // 관련 매물 정보
-    var docRef = db.doc(`${getArticlesPath(univ)}/${articleNo}`);
-    let thumbnails;
-    let univKo = PLACE_OBJ[univ];
+    const place = req.params.place;
+    const placeKo = PLACE_OBJ[place];
+    const articleId = req.params.articleId;
+    let kakao = {}; // 카카오로 공유하기 했을 때 전달될 정보
+    let data; // 상세페이지에서 보여질 매물정보
+    let related = []; // 관련 매물 정보
+    let done = false;
+    
+    // 매물데이터 받기
+    data = await model.getArticleWithId(articleId);
 
-    let doc = await docRef.get();
-
-    if (!doc.exists) {
-        // 문서 존재하지 않음
-        return next(createError(404));
+    if (data === null) {
+        return createError(404, "찾는 매물이 없습니다");
     }
-
-    data = doc.data();
 
     // 카카오톡 공유하기 했을 때 공유될 정보 저장
     kakao = getKaKaoShareObject(data);
 
-    // 썸네일 받아오기
-    thumbnails = await model.getThumbnail(doc);
-
-    // 썸네일 존재하면 썸네일로 이미지 교체
-    if (thumbnails) {
-        data.images = [];
-        thumbnails.forEach(thumb => data.images.push(thumb[600]));
-    }
-
+    // TODO
     // 최신 매물을 4개 가져온다
-    related = await db
-        .collection(getArticlesPath(univ))
-        .where("display", "==", true)
-        .where("done", "==", false)
-        .orderBy("createdAt", "desc")
-        .limit(4)
-        .get();
-
     // 가져온 최신 매물 4개 중에 현재 조회할 매물이 포함되있으면 제거한다
-    let filtered = related.docs.filter(doc => doc.id !== articleNo);
-
-    if (filtered.length === 4) filtered.pop();
-
     // 관련매물 정보를 배열에 담아 저장한다
-    related = getRelatedArray(filtered);
 
-    if (data.done !== true || ignoreDone !== undefined) {
-        // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
-
-        // 조회수 1 증가
-        viewIncrement(docRef);
-
-        done = false;
-    } else {
-        // 거래 완료됨 : 상세페이지 + 거래완료 표시
+    if (data.done !== true) { // 거래 완료되지 않은 케이스 : 상세페이지가 보여진다
+        model.viewIncrement(articleId); // 조회수 1 증가
+    } else { // 거래 완료됨 : 상세페이지 + 거래완료 표시
         done = true;
     }
 
-    return res.render("articleDetail", { univ, univKo, articleNo, data, kakao, related, done, user });
+    return res.render("articleDetail", { place, placeKo, articleId, data, kakao, related, done, user });
 });
 
 getRelatedArray = arr => {
@@ -348,16 +314,7 @@ getKaKaoShareObject = data => {
     return { title, description, imageUrl, link };
 };
 
-function viewIncrement(docRef) {
-    return admin.firestore().runTransaction(transaction => {
-        return transaction.get(docRef).then(doc => {
-            // 조회수 1 증가
-            let newViews = doc.data().views + 1;
-            transaction.update(docRef, { views: newViews });
-            return Promise.resolve(newViews);
-        });
-    });
-}
+
 
 router.get("/create", (req, res, next) => {
     const user = req.decodedClaims;

@@ -8,14 +8,9 @@ const COLLECTION_GROUP_ARTICLES = "articles"; //매물 컬렉션 그룹 이름
 const getArticlesPath = place => `article/${place}/articles`; //place 이름을 받아서 path로 변환
 const getLocKeywordsPath = place => `article/${place}/keywords/locationKeywords`;
 const PLACE_OBJ = {
-    mafo: "마포구,서대문구, 은평구",
-    seongdong: "성동구, 광진구",
-    gwanak: "관악구, 동작구, 영등포구",
-    dongdaemun: "동대문구",
-    gangnam: "서초구, 강남구",
-    yangcheon: "양천구, 강서구",
-    yongsan: "용산구",
-    gj: '금정구',
+    all: "서울",
+    gangnam: "강남구",
+    gwanak: '관악구',
 };
 
 
@@ -57,15 +52,24 @@ const getNewArticles = async limit => {
 };
 
 
+/**
+ * 해당 매물의 썸네일 이미지가 있는지 확인해서 썸네일 이미지들의 링크를 담고있는 배열을 반환한다
+ * [
+ *  {200: .., 400: .., 600: ..,}, 
+ *  {200: .., 400: .., 600: ..,}, 
+ * ]
+ * 이런식으로 반환된다
+ * @param {Ojbect} doc firestore documnet reference object : .data() 하기 전의 객체 
+ * @returns {Array}
+ */
 const getThumbnail = async (doc) => {
-    let place = doc.ref.parent.parent.id;
     let id = doc.id;
 
     try {
         // storage에서 썸네일파일 배열을 받는다
         let thumbs = await storage
             .bucket()
-            .getFiles({ prefix: `images/${place}/${id}/thumbs` })
+            .getFiles({ prefix: `images/${id}/thumbs` })
             .then(data => data[0])
 
         // 배열이 비어있으면 null 리턴
@@ -157,11 +161,11 @@ const getReviews = async (place, limit) => {
 };
 
 /**
- * 매물 데이터 리스트를 받아온다
+ * 매물 데이터 리스트를 전체 또는 지역별로 받아온다
  * @param {string} place 지역 : all | 한글 시군구 지역
  * @param {Object} options 옵션 : display, done, sortBy, limit
  *
- * @returns {Promise}
+ * @returns {Array} 매물 데이터 객체들을 담은 배열
  */
 const getArticles = async (place, options) => {
     
@@ -226,20 +230,38 @@ const getArticles = async (place, options) => {
 };
 
 /**
- *
- * @param {string} place
- *
- * @returns {Promise}
+ * id를 받아서 매물 데이터 하나를 리턴한다. 에러가 발생하면 null을 리턴한다
+ * @param {String} id 매물 document id
+ * @returns {Object} 매물 데이터
  */
-const getArticlesAll = place => {
-    if (place) {
-        // 특정 지역의 매물 리턴
-        return db.collection(getArticlesPath(place)).get();
-    } else {
-        // 모든 매물 리턴
-        return db.collectionGroup(COLLECTION_GROUP_ARTICLES).get();
+const getArticleWithId = async (id) => {
+    try {
+        let ref = db.collection(ARTICLES).doc(id);
+
+        let doc = await ref.get();
+
+        if (!doc.exists) {
+            throw Error("documnet is not exists")  
+        }
+
+        let data = doc.data();
+
+        // 썸네일 받아오기
+        let thumbnails = await getThumbnail(doc);
+
+        // 썸네일 존재하면 썸네일로 이미지 교체
+        if (thumbnails) {
+            data.images = [];
+            thumbnails.forEach(thumb => data.images.push(thumb[600]));
+        }
+
+        return data;
     }
-};
+    catch (err) {
+        console.log(err);
+        return null;
+    }
+}
 
 
 /**
@@ -295,14 +317,13 @@ const addArticle = async (data, files, id) => {
             locationS: null,
             only: null,
             floor: null,
-            url: null,
             contact: null,
             done: false,
             text: null,
             title: null,
             views: 0,
-            position: null,
             review: null,
+            url: null,
             roadFullAddr: null, 
             roadAddrPart: null,
             addrDetail: null,
@@ -317,6 +338,7 @@ const addArticle = async (data, files, id) => {
             images,
             createdAt: new Date(),
             lastCheck: new Date(),
+            id: ref.id,
         })
 
         // 작성자 정보가 있을 때
@@ -365,6 +387,23 @@ const deleteArticle = (place, id) => {
         .delete();
 };
 
+/**
+ * 해당 id매물의 조회수를 1 증가시킨다
+ * @param {String} id 
+ */
+const viewIncrement = (id) => {
+    const docRef = db.collection(ARTICLES).doc(id);
+
+    return admin.firestore().runTransaction(transaction => {
+        return transaction.get(docRef).then(doc => {
+            // 조회수 1 증가
+            let newViews = doc.data().views + 1;
+            transaction.update(docRef, { views: newViews });
+            return Promise.resolve(newViews);
+        });
+    });
+}
+
 
 module.exports = {
     PLACE_OBJ,
@@ -373,9 +412,10 @@ module.exports = {
     getNewArticles,
     getReviews,
     getArticles,
-    getArticlesAll,
+    getArticleWithId,
     addArticle,
     updateArticle,
     deleteArticle,
     getThumbnail,
+    viewIncrement
 };

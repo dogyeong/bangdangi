@@ -8,9 +8,9 @@
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
             'event': 'Pageview',
-            'pagePath': '/board/read/<%=univ%>/<%=articleNo%>',
-            'pageTitle': '/<%=univ%>/<%=articleNo%>',
-            'place': "<%=univ%>"
+            'pagePath': '/board/read/<%=place%>/<%=articleId%>',
+            'pageTitle': '/<%=place%>/<%=articleId%>',
+            'place': "<%=place%>"
         });
     </script>
     <!-- Google Tag Manager -->
@@ -28,19 +28,19 @@
     <!-- SEO START -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
     <meta name="keyword" content="방단기, 단기방, 서울 단기임대, 서울 단기원룸, 무보증 원룸, 원룸양도, 방임대, 방양도, 전대차">
     <meta name="author" content="패러다임">
     <meta itemprop="name" content="방단기">
-    <meta itemprop="description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta itemprop="description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
     <meta name="twitter:title" content="방단기">
-    <meta name="twitter:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="twitter:description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
     <meta property="og:title" content="방단기">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="방단기">
-    <meta property="og:description" content="방단기 | <%=univKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
-    <meta property="og:url" content="https://bangdangi.web.app/board/read/<%=univ%>/<%=articleNo%>">
-    <link rel="canonical" href="https://bangdangi.web.app/board/read/<%=univ%>/<%=articleNo%>" />
+    <meta property="og:description" content="방단기 | <%=placeKo%> 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta property="og:url" content="https://bangdangi.web.app/board/read/<%=place%>/<%=articleId%>">
+    <link rel="canonical" href="https://bangdangi.web.app/board/read/<%=place%>/<%=articleId%>" />
     <!-- SEO END -->
     <title><%= data.title || '매물 상세보기' %> | 방단기</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -90,7 +90,7 @@
         </section>
 
         <section class="mobile-fixed-btn-container">
-            <a class="fixed-btn" href="/board/list/<%=univ%>">
+            <a class="fixed-btn" href="/board/list/<%=place%>">
                 &#xE000; 목록으로 돌아가기
             </a>
         </section>
@@ -102,7 +102,7 @@
                 <!-- 브레드크럼 네비게이션 -->
                 <ol class="breadcrumbs">
                     <li><a href="/">HOME</a></li>
-                    <li><a href="/board/list/<%=univ%>"><%=univKo%></a></li>
+                    <li><a href="/board/list/<%=place%>"><%=placeKo%></a></li>
                 </ol>
                 <!-- 조회수, 공유하기 -->
                 <div class="bread-right">
@@ -146,7 +146,7 @@
                 <!-- pc 예약하기, 문의하기 버튼 -->
                 <div class="pc-btn-container">
                     <% if (done === false) { %>
-                    <a href="#" onclick="alert('준비중입니다.');"><!--href="/reservation/process?place=<%=univ%>&id=<%=articleNo%>"-->
+                    <a href="#" onclick="alert('준비중입니다.');">
                         <button class="reserve-btn">예약하기</button>
                     </a>
                     <% if (data.contact && data.contact.length > 15) { %>
@@ -243,7 +243,7 @@
                 </button>
                 <% } %>
                 <a href="#" onclick="alert('준비중입니다.');"><button class="reserve-btn">예약하기</button></a>
-                <!-- <a href="/reservation-process?place=<%=univ%>&id=<%=articleNo%>"></a> -->
+                
                 <% } %>
             </section>
         </section>
@@ -269,7 +269,7 @@
         <% if (related.length > 0) { %>
         <section class="related-container">
             <h3 class="title">
-                관련 매물<span><a href="https://bangdangi.web.app/board/list/<%=univ%>">더 보기 &#xE001;</a></span>
+                관련 매물<span><a href="https://bangdangi.web.app/board/list/<%=place%>">더 보기 &#xE001;</a></span>
             </h3>
             <ul class="related-list">
                 <% for (i of related) { %>
@@ -292,7 +292,7 @@
 
         <!-- 목록으로 돌아가기 -->
         <section class="back-btn-container">
-            <a href="/board/list/<%=univ%>">
+            <a href="/board/list/<%=place%>">
                 <button class="back-btn">&#xE000; 목록으로 돌아가기</button>
             </a>
         </section>

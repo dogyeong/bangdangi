@@ -558,7 +558,7 @@
     z-index: 2; }
     @media only screen and (max-width: 600px) {
       .request_container .request_text_container {
-        margin-top: 12px; } }
+        margin-top: 0; } }
     .request_container .request_text_container > span {
       display: block;
       margin-bottom: 8px;
@@ -570,7 +570,9 @@
   .request_container img {
     width: 100%;
     position: relative;
-    z-index: 1; }
+    z-index: 1;
+    top: -40px;
+    opacity: 0.5; }
     @media only screen and (max-width: 600px) {
       .request_container img {
         top: -120px;
