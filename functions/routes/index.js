@@ -92,7 +92,8 @@ router.post("/addrSearch", (req, res, next) => {
 })
 
 router.get("/aboutUs", (req, res) => {
-    return res.render("aboutUs");
+    const user = req.decodedClaims;
+    return res.render("aboutUs", { user });
 });
 
 router.get("/master", (req, res) => {
@@ -108,11 +109,13 @@ router.get("/masterLogin", (req, res) => {
 });
 
 router.get("/request", (req, res) => {
-    return res.render("request");
+    const user = req.decodedClaims;
+    return res.render("request", { user });
 });
 
 router.get("/register", (req, res) => {
-    return res.render("register");
+    const user = req.decodedClaims;
+    return res.render("register", { user });
 });
 
 router.get("/notice", (req, res) => {

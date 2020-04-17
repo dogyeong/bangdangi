@@ -36,7 +36,7 @@ router.get("/list/:place", async (req, res, next) => {
 
     // 매물 리스트 가져온다
     resultArr = await model
-        .getArticles(PLACE_OBJ[place], {
+        .getArticles(place, {
             display: true, 
             done: false, 
             sortBy: 'createdAt'

@@ -425,10 +425,11 @@ header {
             display: block;
             text-align: center;
             line-height: 70px;
-            font-size: $fs-xl;
+            font-size: $fs-lg + 4px;
             font-weight: $fw-regular;
             color: $white;
             cursor: pointer;
+            text-decoration: none;
 
             &:hover { backdrop-filter: brightness(1.1); }
         }

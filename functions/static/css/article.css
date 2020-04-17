@@ -359,10 +359,11 @@ header {
       display: block;
       text-align: center;
       line-height: 70px;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 400;
       color: #fff;
-      cursor: pointer; }
+      cursor: pointer;
+      text-decoration: none; }
       .fixed-btn-container .inner .fixed-btn:hover {
         backdrop-filter: brightness(1.1); }
 

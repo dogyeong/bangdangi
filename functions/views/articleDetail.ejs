@@ -84,7 +84,7 @@
         <section class="fixed-btn-container visible">
             <div class="inner">
                 <a href="javascript:;" class="fixed-btn contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
-                    방단기에 문의하기
+                    방 주인에게 연락하기
                 </a>
             </div>
         </section>
@@ -146,18 +146,12 @@
                 <!-- pc 예약하기, 문의하기 버튼 -->
                 <div class="pc-btn-container">
                     <% if (done === false) { %>
-                    <a href="#" onclick="alert('준비중입니다.');">
+                    <!-- <a href="#" onclick="alert('준비중입니다.');">
                         <button class="reserve-btn">예약하기</button>
-                    </a>
-                    <% if (data.contact && data.contact.length > 15) { %>
-                    <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
-                        오픈채팅방으로 연락하기
-                    </button>
-                    <% } else { %>
+                    </a> -->
                     <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
-                        방단기에 문의하기
+                        방 주인에게 연락하기
                     </button>
-                    <% } %>
                     <% } else { %>
                     <div class="done-btn">거래완료된 매물입니다</div>
                     <% } %>
@@ -233,17 +227,10 @@
              <!-- 모바일 문의 버튼 -->
             <section class="mobile-btn-container">
                 <% if (done === false) { %>
-                <% if (data.contact && data.contact.length > 15) { %>
-                <button class="contact-btn" data-type="kakao" data-contact="<%= data.contact || '' %>">
-                    오픈채팅방으로 연락하기
-                </button>
-                <% } else { %>
-                <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
-                    방단기에 문의하기
-                </button>
-                <% } %>
-                <a href="#" onclick="alert('준비중입니다.');"><button class="reserve-btn">예약하기</button></a>
-                
+                    <button class="contact-btn" data-type="sms" data-contact="<%= data.contact || '' %>">
+                        방 주인에게 연락하기
+                    </button>
+                    <!-- <button href="#" onclick="alert('준비중입니다.');"><button class="reserve-btn">예약하기</button></a> -->
                 <% } %>
             </section>
         </section>

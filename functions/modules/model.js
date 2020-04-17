@@ -174,7 +174,7 @@ const getArticles = async (place, options) => {
 
         // place의 지역에 있는 매물을 가져온다. place가 all이면 전부 다
         if (place !== 'all') {
-            ref = ref.where('sggNm', '==', place);
+            ref = ref.where('sggNm', '==', PLACE_OBJ[place]);
         }
 
         // display, done 옵션 설정
