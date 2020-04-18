@@ -4,6 +4,7 @@ const storage = admin.storage();
 const storageHandler = require('./storageHandler')
 
 const ARTICLES = "articles";
+const USERS = 'users';
 const COLLECTION_GROUP_ARTICLES = "articles"; //매물 컬렉션 그룹 이름
 const getArticlesPath = place => `article/${place}/articles`; //place 이름을 받아서 path로 변환
 const getLocKeywordsPath = place => `article/${place}/keywords/locationKeywords`;
@@ -12,45 +13,6 @@ const PLACE_OBJ = {
     gangnam: "강남구",
     gwanak: '관악구',
 };
-
-
-/**
- * getNewArticles
- * 모든 매물중에 display===true, done===false인 매물을 limit 만큼 배열로 반환한다.
- *
- * @param {number} limit 받아오는 매물 개수 제한
- */
-const getNewArticles = async limit => {
-    let docs;
-    let thumbnails;
-
-    try {
-        // 매물데이터
-        docs = await db
-            .collectionGroup(COLLECTION_GROUP_ARTICLES) // 모든 매물에 대해서
-            .where("display", "==", true) // display 여부
-            .where("done", "==", false) // done 여부
-            .orderBy("createdAt", "desc") // 생성시간에 대해 내림차순으로 == 최신
-            .limit(limit) // 개수 설정
-            .get()
-            .then(result => result.docs);
-
-        // 썸네일 url    
-        thumbnails = await Promise.all(docs.map(doc => getThumbnail(doc)));
-
-        return docs.map((doc, idx) => { 
-            return { 
-                ...doc.data(), 
-                thumbnail: thumbnails[idx] 
-            } 
-        });
-    }
-    catch (err) {
-        console.log(err);
-        return [];
-    }  
-};
-
 
 /**
  * 해당 매물의 썸네일 이미지가 있는지 확인해서 썸네일 이미지들의 링크를 담고있는 배열을 반환한다
@@ -373,18 +335,39 @@ const updateArticle = (id, data) => {
 };
 
 /**
- *
- * @param {string} place
- * @param {string} id
- *
- * @returns {Promise}
+ * 매물을 삭제한다.
+ * 유저id와 매물id를 파라미터로 받고, 매물 데이터와 유저데이터의 매물리스트 중에서 해당 매물을 삭제한다
+ * @param {String} uid 
+ * @param {String} articleId 
+ * @returns {Object} 결과를 전달하는 객체. 
+ *                   success는 성공했을 경우 true, 실패했을 경우 false를 저장하고,
+ *                   실패했을 경우 error에 에러메세지를 같이 전달한다
  */
-const deleteArticle = (place, id) => {
-    // 문서 삭제
-    return db
-        .collection(getArticlesPath(place))
-        .doc(id)
-        .delete();
+const deleteArticle = (uid, articleId) => {
+    
+    try {
+        let articleRef = db.collection(ARTICLES);
+        let userRef = db.collection(USERS);
+
+        // 매물데이터의 creator와 uid 비교
+
+        // 다르면 에러
+        throw Error("The user is not creator");
+
+        // 같으면 
+        // 매물데이터 삭제
+
+        // 유저데이터의 articles에서 articleId 삭제
+
+        // 성공객체 리턴
+        return { success: true }
+    }
+    catch(err) {
+        return {
+            success: false,
+            error: err
+        }
+    }
 };
 
 /**
@@ -409,7 +392,6 @@ module.exports = {
     PLACE_OBJ,
     getArticlesPath,
     getLocKeywordsPath,
-    getNewArticles,
     getReviews,
     getArticles,
     getArticleWithId,

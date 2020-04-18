@@ -390,4 +390,28 @@ router.post("/create_process", util.fileParser, (req, res, next) => {
         })
 });
 
+router.get("/delete_process", (req, res) => {
+    
+    try {
+        const user = req.decodedClaims;
+    
+        if (!user) {
+            return res.redirect("/");
+        }
+
+        console.log(user.uid);
+
+        return res.redirect("/");
+
+        // await model.deleteArticle()
+
+        
+    }
+    catch(err) {
+        console.error(err);
+        return createError(500);
+    }
+    
+})
+
 module.exports = router;
