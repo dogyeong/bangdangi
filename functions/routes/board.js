@@ -390,22 +390,24 @@ router.post("/create_process", util.fileParser, (req, res, next) => {
         })
 });
 
-router.get("/delete_process", (req, res) => {
+router.get("/delete_process", async (req, res) => {
     
     try {
         const user = req.decodedClaims;
+        const articleId = req.query.articleId;
     
-        if (!user) {
+        if (user === null || articleId === undefined) {
             return res.redirect("/");
         }
 
-        console.log(user.uid);
+        const result = await model.deleteArticle(user.uid, articleId);
 
-        return res.redirect("/");
-
-        // await model.deleteArticle()
-
-        
+        if (result.success) {
+            res.redirect('/');
+        }
+        else {
+            throw Error("delete is Not complete!");
+        }
     }
     catch(err) {
         console.error(err);

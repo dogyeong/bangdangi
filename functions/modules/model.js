@@ -343,26 +343,45 @@ const updateArticle = (id, data) => {
  *                   success는 성공했을 경우 true, 실패했을 경우 false를 저장하고,
  *                   실패했을 경우 error에 에러메세지를 같이 전달한다
  */
-const deleteArticle = (uid, articleId) => {
-    
+const deleteArticle = async (uid, articleId) => {
+
     try {
-        let articleRef = db.collection(ARTICLES);
-        let userRef = db.collection(USERS);
+        const articleRef = db.collection(ARTICLES).doc(articleId);
+        const userRef = db.collection(USERS).doc(uid);
+
+        const articlePromise = articleRef.get().then(doc => doc.data());
+        const userPromise = userRef.get().then(doc => doc.data());
+
+        // 프로미스 동시에 실행
+        const articleData = await articlePromise;
+        const userData = await userPromise;
 
         // 매물데이터의 creator와 uid 비교
-
-        // 다르면 에러
-        throw Error("The user is not creator");
-
-        // 같으면 
+        if (articleData.creator !== uid) {
+            // 다르면 에러
+            throw Error("The user is not creator");
+        }
+        
         // 매물데이터 삭제
+        await articleRef.update({ done: true })
 
-        // 유저데이터의 articles에서 articleId 삭제
+        // 유저데이터의 articles에서 articleId 삭제 시작
+        let userArticleArray = [ ...userData.articles ];
+        
+        // articles에서 인덱스를 찾아서
+        const idx = userArticleArray.indexOf(articleId);
+
+        // 존재하면 삭제
+        if (idx !== -1) {
+            userArticleArray.splice(idx, 1);
+            await userRef.update({ articles: userArticleArray })
+        }
 
         // 성공객체 리턴
         return { success: true }
     }
     catch(err) {
+        console.error(err);
         return {
             success: false,
             error: err
