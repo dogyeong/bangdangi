@@ -28,13 +28,13 @@
         }
 
         var contactCallback = function() {
-            var contact = '01042311255'
+            var contact = this.dataset.contact;
             var type = this.dataset.type;
 
             if (checkBrowser() ===  "MOBILE")
                 window.location = `sms:${contact}${checkMobile() === "iphone" ? "&" : "?"}body=방단기에서 단기원룸 글 보고 문의드려요~%0a입주날짜:%0a거주기간:%0a방 보러 갈 날짜:%0a추가 문의사항:%0a%0a${window.location.href}`;
             else
-                window.alert(`방이 마음에 드셨나요? :) 문의사항은 ${contact}으로 연락해주세요. 보신 링크를 함께 문자로 남겨주시면 빠른 상담을 도와드리겠습니다.`);  
+                window.alert(`방이 마음에 드셨나요? :) ${contact}으로 연락해주세요.`);  
         };
 
         var checkMobile = function() {
