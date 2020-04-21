@@ -54,9 +54,10 @@ header {
             font-size: 12px; } }
         .top-section .bread-nav-container .breadcrumbs li a {
           color: #757575;
-          font-size: inherit; }
+          font-size: inherit;
+          text-decoration: none; }
           .top-section .bread-nav-container .breadcrumbs li a:hover {
-            text-decoration: underline; }
+            color: #3b3b46; }
         .top-section .bread-nav-container .breadcrumbs li::after {
           content: '';
           padding: 0 0.15em 0 0.3em;
@@ -83,6 +84,19 @@ header {
           @media only screen and (max-width: 600px) {
             .top-section .bread-nav-container .bread-right span i {
               width: 20px; } }
+  .top-section .creator-section {
+    text-align: right;
+    margin-top: 8px; }
+    .top-section .creator-section > a {
+      font-size: 16px;
+      color: #757575;
+      text-decoration: none;
+      margin-left: 4px; }
+      .top-section .creator-section > a:hover {
+        color: #3b3b46; }
+      @media only screen and (max-width: 600px) {
+        .top-section .creator-section > a {
+          font-size: 14px; } }
   .top-section .title-container {
     padding: 20px 0;
     text-align: left; }

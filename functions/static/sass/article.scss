@@ -54,7 +54,8 @@ header {
                 a {
                     color: $grey;
                     font-size: inherit;
-                    &:hover { text-decoration: underline; }
+                    text-decoration: none;
+                    &:hover { color: $font-color; }
                 }
 
                 &::after {
@@ -87,6 +88,20 @@ header {
                     @include respond-to(phone) { width: 20px; }
                 }
             }
+        }
+    }
+
+    .creator-section {
+        text-align: right;
+        margin-top: 8px;
+
+        > a {
+            font-size: $fs-md;
+            color: $grey;    
+            text-decoration: none;
+            margin-left: 4px;
+            &:hover { color: $font-color; }
+            @include respond-to(phone) { font-size: $fs-sm; }
         }
     }
 

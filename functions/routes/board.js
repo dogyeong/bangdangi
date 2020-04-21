@@ -255,6 +255,7 @@ router.get("/read/:place/:articleId", async (req, res, next) => {
     const place = req.params.place;
     const placeKo = PLACE_OBJ[place];
     const articleId = req.params.articleId;
+    let isCreator = false;
     let kakao = {}; // 카카오로 공유하기 했을 때 전달될 정보
     let data; // 상세페이지에서 보여질 매물정보
     let related = []; // 관련 매물 정보
@@ -265,6 +266,10 @@ router.get("/read/:place/:articleId", async (req, res, next) => {
 
     if (data === null) {
         return createError(404, "찾는 매물이 없습니다");
+    }
+
+    if (data.creator === user.uid) {
+        isCreator = true;
     }
 
     // 카카오톡 공유하기 했을 때 공유될 정보 저장
@@ -281,7 +286,7 @@ router.get("/read/:place/:articleId", async (req, res, next) => {
         done = true;
     }
 
-    return res.render("articleDetail", { place, placeKo, articleId, data, kakao, related, done, user });
+    return res.render("articleDetail", { place, placeKo, articleId, data, kakao, related, done, user, isCreator });
 });
 
 getRelatedArray = arr => {

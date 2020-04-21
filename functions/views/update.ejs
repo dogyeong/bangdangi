@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141137545-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'Pageview',
+            'pagePath': '/create/',
+            'pageTitle': 'create'
+        });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TC8GC5C');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO START -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="keyword" content="방단기, 단기방, 서울 단기임대, 서울 단기원룸, 무보증 원룸, 원룸양도, 방임대, 방양도, 전대차">
+    <meta name="author" content="방단기">
+    <meta itemprop="name" content="방단기">
+    <meta itemprop="description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta name="twitter:title" content="방단기">
+    <meta name="twitter:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta property="og:title" content="방단기">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="방단기">
+    <meta property="og:description" content="방단기 | 단기 방 임대/양도, 보증금없는 방 임대/양도, 단기원룸, 서울 단기임대, 서울 단기원룸">
+    <meta property="og:url" content="https://bangdangi.web.app/">
+    <link rel="canonical" href="https://bangdangi.web.app/" />
+    <!-- SEO END -->
+    <title>방단기</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/headerBar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="../css/create.css">
+
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC8GC5C" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <%- include('templates/gnb') %>
+
+    <section class="wrapper">
+
+        <h1>매물정보수정</h1>
+
+        <form class="form-horizontal" action="/board/update_process" method="post" enctype="multipart/form-data">
+
+            <!-- block 1 -->
+            <div class="block1 block">
+                <!-- 방 사진 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="images">방 사진</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" name="images[]" accept="image/*" id="images" multiple/>
+                    </div>
+                </div>
+                <!-- 주소 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="roadFullAddr">주소</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="roadFullAddr" placeholder="검색 버튼을 눌러 입력해주세요" autocomplete="off" required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" onclick="goPopup();">검색</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- hidden 주소 -->
+                <input type="hidden" name="roadAddrPart">   <!-- 도로명주소 -->
+                <input type="hidden" name="addrDetail">     <!-- 사용자입력정보 -->     
+                <input type="hidden" name="siNm">           <!-- 시도명 -->
+                <input type="hidden" name="sggNm">          <!-- 시군구명 -->
+                <input type="hidden" name="emdNm">          <!-- 읍면동명 -->
+                <input type="hidden" name="roadNm">         <!-- 도로명 -->
+                <input type="hidden" name="buldMnnm">       <!-- 건물본번 -->
+                <input type="hidden" name="buldSlno">       <!-- 건물부번 (없으면 0) -->
+                
+                    <!-- 가격 -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="deposit">가격</label>
+                        <!-- 보증금 -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="deposit" placeholder="보증금"
+                                    aria-describedby="price-addon" required>
+                                <span class="input-group-addon" id="price-addon">만원</span>
+                            </div>
+                        </div>
+                        <!-- 월세 -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="price" placeholder="월세"
+                                    aria-describedby="deposit-addon" required>
+                                <span class="input-group-addon" id="deposit-addon">만원</span>
+                            </div>
+                        </div>
+                        <!-- 관리비 -->
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="expense" placeholder="관리비"
+                                    aria-describedby="expense-addon" required>
+                                <span class="input-group-addon" id="expense-addon">만원</span>
+                            </div>
+                        </div>
+                    </div>
+               
+            </div>
+            
+
+            <!-- block 2 -->
+            <div class="block2 block">
+                <h3 class="block-title">계약기간</h3>
+                <!-- 최소 계약기간 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="minTerm">
+                        최소 계약기간 <input type="radio" name="termType" value="min" checked>
+                    </label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="minTerm" placeholder="최소 계약기간"
+                                aria-describedby="minTerm-addon" required>
+                            <span class="input-group-addon" id="minTerm-addon">달 이상</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 고정 계약기간 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="startDate">
+                        고정 계약기간 <input type="radio" name="termType" value="fix">
+                    </label>
+                    <!-- 시작날짜 -->
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="startDate" placeholder="시작날짜"
+                                aria-describedby="startDate-addon" disabled>
+                            <span class="input-group-addon" id="startDate-addon">부터</span>
+                        </div>
+                    </div>
+                    <!-- 끝 날짜 -->
+                    <div class="col-sm-5">
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="endDate" placeholder="끝날짜"
+                                aria-describedby="endDate-addon" disabled>
+                            <span class="input-group-addon" id="endDate-addon">까지</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- block 3 -->
+            <div class="block3 block">
+                <h3 class="block-title">상세설명</h3>
+
+                <!-- 거래형태 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="tradeType">거래형태</label>
+                    <div class="col-sm-10">
+                        <label class="radio-inline">
+                            <input type="radio" name="tradeType" value="주인직" checked> 주인직
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="tradeType" value="전대"> 전대
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="tradeType" value="쉐어"> 쉐어
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 상세설명 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="text">상세설명</label>
+                    <div class="col-sm-10">
+                        <textarea name="text" class="form-control" rows="5" placeholder="상세설명을 적어주세요"
+                            required></textarea>
+                    </div>
+                </div>
+
+                <!-- 태그 -->
+            </div>
+
+            <!-- block 4 -->
+            <div class="block4 block">
+                <h3 class="block-title">연락처</h3>
+
+                <!-- 연락처 -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="contact">연락처</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" name="contact" placeholder="휴대폰 번호를 - 제외하고 입력해주세요" required>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 취소 / 제출 -->
+            <div class="block5 block">
+                <div class="form-group">
+                    <input class="form-control input-lg" type="submit" value="등록">
+                </div>
+            </div>
+
+        </form>
+
+    </section> <!-- End of wrapper -->
+
+    <%- include('templates/footer') %>
+</body>
+<script>
+    // opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+    //document.domain = "abc.go.kr";
+
+    function goPopup() {
+        // 주소검색을 수행할 팝업 페이지를 호출합니다.
+        // 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+        // var pop = window.open("/testSample","pop","scrollbars=yes, resizable=yes"); 
+
+        // 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+        var pop = window.open("/addrSearch", "pop", "scrollbars=yes, resizable=yes");
+    }
+
+
+
+    function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn, detBdNmList, bdNm, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, emdNo) {
+        // 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+        let form = document.querySelector('form');
+
+        form.roadFullAddr.value = roadFullAddr;
+        form.roadAddrPart.value = roadAddrPart1;
+        form.addrDetail.value = addrDetail;
+        form.siNm.value = siNm;
+        form.sggNm.value = sggNm;
+        form.emdNm.value = emdNm;
+        form.roadNm.value = rn;
+        form.buldMnnm.value = buldMnnm;
+        form.buldSlno.value = buldSlno;
+
+
+        // document.form.roadAddrPart1.value = roadAddrPart1;
+        // document.form.roadAddrPart2.value = roadAddrPart2;
+        // document.form.addrDetail.value = addrDetail;
+        // document.form.engAddr.value = engAddr;
+        // document.form.jibunAddr.value = jibunAddr;
+        // document.form.zipNo.value = zipNo;
+        // document.form.admCd.value = admCd;
+        // document.form.rnMgtSn.value = rnMgtSn;
+        // document.form.bdMgtSn.value = bdMgtSn;
+        // document.form.detBdNmList.value = detBdNmList;
+        // /** 2017년 2월 추가제공 **/
+        // document.form.bdNm.value = bdNm;
+        // document.form.bdKdcd.value = bdKdcd;
+        // document.form.siNm.value = siNm;
+        // document.form.sggNm.value = sggNm;
+        // document.form.emdNm.value = emdNm;
+        // document.form.liNm.value = liNm;
+        // document.form.rn.value = rn;
+        // document.form.udrtYn.value = udrtYn;
+        // document.form.buldMnnm.value = buldMnnm;
+        // document.form.buldSlno.value = buldSlno;
+        // document.form.mtYn.value = mtYn;
+        // document.form.lnbrMnnm.value = lnbrMnnm;
+        // document.form.lnbrSlno.value = lnbrSlno;
+        // /** 2017년 3월 추가제공 **/
+        // document.form.emdNo.value = emdNo;
+    }
+</script>
+<script>
+    var termType = document.querySelectorAll('input[name="termType"]');
+    var minTerm = document.querySelector('input[name="minTerm"]');
+    var startDate = document.querySelector('input[name="startDate"]');
+    var endDate = document.querySelector('input[name="endDate"]');
+
+    termType.forEach(function(input) {
+        input.addEventListener('change', function() {
+            var isMin = (this.value === 'min');
+            
+            minTerm.disabled = !isMin;
+            startDate.disabled = endDate.disabled = isMin;
+
+            minTerm.required = isMin;
+            startDate.required = endDate.required = !isMin;
+        });
+    }); 
+
+    var addr = document.querySelector('input[name="roadFullAddr"]');
+
+    addr.addEventListener('keydown', function(e) {
+        e.preventDefault();
+    })
+    addr.addEventListener('paste', function(e) {
+        e.preventDefault();
+    })
+</script>
+</html>

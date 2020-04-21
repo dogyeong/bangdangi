@@ -113,6 +113,13 @@
                     </span>
                 </div>
             </div>
+            <!-- 수정/삭제 -->
+            <% if (isCreator) { %>
+                <div class="creator-section">
+                    <a class="update" href="#" >수정</a>
+                    <a class="delete" href="/board/delete_process?articleId=<%=articleId%>" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
+                </div>
+            <% } %>
             <!-- 제목 -->
             <div class="title-container">
                 <!-- 글 제목-->
