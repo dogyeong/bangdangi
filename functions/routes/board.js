@@ -382,8 +382,7 @@ router.post("/create_process", util.fileParser, (req, res, next) => {
     return model.addArticle(data, files)
         .then(id => {
             if (id) {
-                console.log(id);
-                return res.redirect('/');
+                return res.redirect(`/`);
             }
             else {
                 return createError(500);
@@ -419,6 +418,27 @@ router.get("/delete_process", async (req, res) => {
         return createError(500);
     }
     
+})
+
+router.get('/update', async (req, res, next) => {
+    const user = req.decodedClaims;
+    const articleId = req.query.articleId;
+
+    if (user === null || articleId === undefined) {
+        return res.redirect("/");
+    }
+
+    const data = await model.getArticleWithId(articleId);
+
+    if (data === null) {
+        return createError(500, "매물 정보를 가져오는 중에 에러가 발생했습니다");
+    }
+
+    res.render("update", { user, data });
+});
+
+router.post('/update_process', async (req, res, next) => {
+    return res.redirect('/');
 })
 
 module.exports = router;

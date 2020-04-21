@@ -116,7 +116,7 @@
             <!-- 수정/삭제 -->
             <% if (isCreator) { %>
                 <div class="creator-section">
-                    <a class="update" href="#" >수정</a>
+                    <a class="update" href="/board/update?articleId=<%=articleId%>" >수정</a>
                     <a class="delete" href="/board/delete_process?articleId=<%=articleId%>" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
                 </div>
             <% } %>
@@ -355,8 +355,6 @@
             }
         }
     </script>
-    <script src="../../../babel/dst/articleDetail.js"></script>
-
     <!--  배경 object-fit 속성 pollyfill -->
     <script src="/js/polyfill.object-fit.min.js"></script>
     <script>
@@ -365,52 +363,7 @@
           fittype: 'cover', // either contain, cover, fill or none
           disableCrossDomain: 'true' // either 'true' or 'false' to not parse external CSS files.
         });
-      </script>
-
+    </script>
+    <script src="../../../babel/dst/articleDetail.js"></script>
 </body>
-
-<!-- Channel Plugin Scripts -->
-<!-- <script>
-    (function () {
-        var w = window;
-        if (w.ChannelIO) {
-            return (window.console.error || window.console.log || function () { })('ChannelIO script included twice.');
-        }
-        var d = window.document;
-        var ch = function () {
-            ch.c(arguments);
-        };
-        ch.q = [];
-        ch.c = function (args) {
-            ch.q.push(args);
-        };
-        w.ChannelIO = ch;
-        function l() {
-            if (w.ChannelIOInitialized) {
-                return;
-            }
-            w.ChannelIOInitialized = true;
-            var s = document.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-            s.charset = 'UTF-8';
-            var x = document.getElementsByTagName('script')[0];
-            x.parentNode.insertBefore(s, x);
-        }
-        if (document.readyState === 'complete') {
-            l();
-        } else if (window.attachEvent) {
-            window.attachEvent('onload', l);
-        } else {
-            window.addEventListener('DOMContentLoaded', l, false);
-            window.addEventListener('load', l, false);
-        }
-    })();
-    ChannelIO('boot', {
-        "pluginKey": "5ce5e194-1fa1-4289-9d57-c84d88b225a0"
-    });
-</script> -->
-<!-- End Channel Plugin -->
-
 </html>

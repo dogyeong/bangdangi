@@ -60,7 +60,7 @@
 
     <section class="wrapper">
 
-        <h1>매물정보수정</h1>
+        <h1>매물수정</h1>
 
         <form class="form-horizontal" action="/board/update_process" method="post" enctype="multipart/form-data">
 
@@ -78,7 +78,7 @@
                     <label class="col-sm-2 control-label" for="roadFullAddr">주소</label>
                     <div class="col-sm-10">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="roadFullAddr" placeholder="검색 버튼을 눌러 입력해주세요" autocomplete="off" required>
+                            <input type="text" class="form-control" name="roadFullAddr" value="<%=data.roadFullAddr%>" placeholder="검색 버튼을 눌러 입력해주세요" autocomplete="off" required>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button" onclick="goPopup();">검색</button>
                             </span>
@@ -86,14 +86,14 @@
                     </div>
                 </div>
                 <!-- hidden 주소 -->
-                <input type="hidden" name="roadAddrPart">   <!-- 도로명주소 -->
-                <input type="hidden" name="addrDetail">     <!-- 사용자입력정보 -->     
-                <input type="hidden" name="siNm">           <!-- 시도명 -->
-                <input type="hidden" name="sggNm">          <!-- 시군구명 -->
-                <input type="hidden" name="emdNm">          <!-- 읍면동명 -->
-                <input type="hidden" name="roadNm">         <!-- 도로명 -->
-                <input type="hidden" name="buldMnnm">       <!-- 건물본번 -->
-                <input type="hidden" name="buldSlno">       <!-- 건물부번 (없으면 0) -->
+                <input type="hidden" name="roadAddrPart" value="<%=data.roadAddrPart%>">     <!-- 도로명주소 -->
+                <input type="hidden" name="addrDetail" value="<%=data.addrDetail%>">         <!-- 사용자입력정보 -->     
+                <input type="hidden" name="siNm" value="<%=data.siNm%>">                     <!-- 시도명 -->
+                <input type="hidden" name="sggNm" value="<%=data.sggNm%>">                  <!-- 시군구명 -->
+                <input type="hidden" name="emdNm" value="<%=data.emdNm%>">                  <!-- 읍면동명 -->
+                <input type="hidden" name="roadNm" value="<%=data.roadNm%>">                <!-- 도로명 -->
+                <input type="hidden" name="buldMnnm" value="<%=data.buldMnnm%>">            <!-- 건물본번 -->
+                <input type="hidden" name="buldSlno" value="<%=data.buldSlno%>">             <!-- 건물부번 (없으면 0) -->
                 
                     <!-- 가격 -->
                     <div class="form-group">
@@ -102,7 +102,7 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="deposit" placeholder="보증금"
-                                    aria-describedby="price-addon" required>
+                                    aria-describedby="price-addon" value="<%=data.deposit%>" required>
                                 <span class="input-group-addon" id="price-addon">만원</span>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="price" placeholder="월세"
-                                    aria-describedby="deposit-addon" required>
+                                    aria-describedby="deposit-addon" value="<%=data.price%>" required>
                                 <span class="input-group-addon" id="deposit-addon">만원</span>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="number" class="form-control" name="expense" placeholder="관리비"
-                                    aria-describedby="expense-addon" required>
+                                    aria-describedby="expense-addon" value="<%=data.expense%>" required>
                                 <span class="input-group-addon" id="expense-addon">만원</span>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                     <div class="col-sm-10">
                         <div class="input-group">
                             <input type="number" class="form-control" name="minTerm" placeholder="최소 계약기간"
-                                aria-describedby="minTerm-addon" required>
+                                aria-describedby="minTerm-addon" value="<%=data.minTerm%>" required>
                             <span class="input-group-addon" id="minTerm-addon">달 이상</span>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="date" class="form-control" name="startDate" placeholder="시작날짜"
-                                aria-describedby="startDate-addon" disabled>
+                                aria-describedby="startDate-addon" value="<%=data.startDate%>" disabled>
                             <span class="input-group-addon" id="startDate-addon">부터</span>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="date" class="form-control" name="endDate" placeholder="끝날짜"
-                                aria-describedby="endDate-addon" disabled>
+                                aria-describedby="endDate-addon" value="<%=data.startDate%>" disabled>
                             <span class="input-group-addon" id="endDate-addon">까지</span>
                         </div>
                     </div>
@@ -176,13 +176,13 @@
                     <label class="col-sm-2 control-label" for="tradeType">거래형태</label>
                     <div class="col-sm-10">
                         <label class="radio-inline">
-                            <input type="radio" name="tradeType" value="주인직" checked> 주인직
+                            <input type="radio" name="tradeType" value="주인직" <%=data.tradeType === "주인직" ? "checked" : ""%>> 주인직
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="tradeType" value="전대"> 전대
+                            <input type="radio" name="tradeType" value="전대" <%=data.tradeType === "전대" ? "checked" : ""%>> 전대
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="tradeType" value="쉐어"> 쉐어
+                            <input type="radio" name="tradeType" value="쉐어" <%=data.tradeType === "쉐어" ? "checked" : ""%>> 쉐어
                         </label>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
                     <label class="col-sm-2 control-label" for="text">상세설명</label>
                     <div class="col-sm-10">
                         <textarea name="text" class="form-control" rows="5" placeholder="상세설명을 적어주세요"
-                            required></textarea>
+                        required><%=data.text || ""%></textarea>
                     </div>
                 </div>
 
@@ -207,7 +207,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="contact">연락처</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="contact" placeholder="휴대폰 번호를 - 제외하고 입력해주세요" required>
+                        <input type="number" class="form-control" name="contact" value="<%=data.contact%>" placeholder="휴대폰 번호를 - 제외하고 입력해주세요" required>
                     </div>
                 </div>
 
@@ -216,7 +216,7 @@
             <!-- 취소 / 제출 -->
             <div class="block5 block">
                 <div class="form-group">
-                    <input class="form-control input-lg" type="submit" value="등록">
+                    <input class="form-control input-lg" type="submit" value="수정">
                 </div>
             </div>
 
