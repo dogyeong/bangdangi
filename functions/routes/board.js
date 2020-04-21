@@ -268,7 +268,7 @@ router.get("/read/:place/:articleId", async (req, res, next) => {
         return createError(404, "찾는 매물이 없습니다");
     }
 
-    if (data.creator === user.uid) {
+    if (user && (user.uid === data.creator)) {
         isCreator = true;
     }
 
