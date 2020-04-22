@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/headerBar.css">
     <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="../css/create.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="/css/fontawesome/all.css" />
 </head>
 
@@ -58,7 +58,33 @@
     <%- include('templates/gnb') %>
 
     <section class="wrapper">
-        <h1><%=user.name%></h1>
+        <h1><%=user.name%><span> 님</span></h1>
+        <div class="article-list-container">
+            <h3>내가 등록한 방</h3>
+            <% for (article of data) { %>
+                <article>
+                    <a href="/board/read/all/<%=article.id%>">
+                        <div class="text-container">
+                            <p class="date"><%= `${article.createdAt.toDate().getFullYear()}년 ${article.createdAt.toDate().getMonth()}월 ${article.createdAt.toDate().getDate()}일` %></p>
+                            <p>
+                                <% if (article.tradeType) { %> 
+                                    <span class="tradeType"><%=article.tradeType%></span>
+                                <% } %>
+                                <span class="price">
+                                    <%= `${article.deposit}/${article.price}` %>
+                                </span>
+                            </p>
+                            <p class="line1"><%=`관리비 ${article.expense}만원`%></p>
+                            <p class="line2"><%=`${article.sggNm} ${article.emdNm}`%></p>
+                        </div>
+                        <div class="img" 
+                            style="background: center / contain no-repeat url('<%= article.images ? article.images[0] : ``%>');">
+                        </div>
+                        
+                    </a>
+                </article>
+            <% } %>
+        </div>
     </section> <!-- End of wrapper -->
 
     <%- include('templates/footer') %>

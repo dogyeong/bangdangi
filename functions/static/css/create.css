@@ -17,13 +17,6 @@
 body {
   background-color: #fff; }
 
-header {
-  position: absolute; }
-  header .nav li > a {
-    padding: 0; }
-    header .nav li > a:hover {
-      background-color: transparent; }
-
 .wrapper {
   max-width: 1024px;
   width: 100%;

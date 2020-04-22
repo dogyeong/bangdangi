@@ -125,7 +125,8 @@ const getReviews = async (place, limit) => {
 /**
  * 매물 데이터 리스트를 전체 또는 지역별로 받아온다
  * @param {string} place 지역 : all | 한글 시군구 지역
- * @param {Object} options 옵션 : display, done, sortBy, limit
+ * @param {Object} options 옵션 : display, done, sortBy - 필수
+ *                               limit, creator - 선택 (없으면 전체)
  *
  * @returns {Array} 매물 데이터 객체들을 담은 배열
  */
@@ -152,23 +153,28 @@ const getArticles = async (place, options) => {
                 ref = ref.where('done', '==', false);
         }
 
+        // 특정 유저의 매물만 필터
+        if (options && options.creator) {
+            ref = ref.where('creator', '==', options.creator);
+        }
+
         // 쿼리결과를 배열에 저장
         let docs = (await ref.get()).docs;
 
         // 정렬, 개수제한 옵션 적용
         if (options) {
-            if (options.sortBy === 'createdAt') { // 최신순
+            if (options.sortBy && options.sortBy === 'createdAt') { // 최신순
                 docs.sort((a,b) => {
                     return b.data().createdAt.seconds - a.data().createdAt.seconds;
                 })
             }
-            else if (options.sortBy === 'views') { // 조회순
+            else if (options.sortBy && options.sortBy === 'views') { // 조회순
                 docs.sort((a,b) => {
                     return b.data().views - a.data().views;
                 })
             }
 
-            if (options.limit > 0) { // 개수 제한
+            if (options.limit && options.limit > 0) { // 개수 제한
                 docs = docs.slice(0, options.limit);
             }
         }

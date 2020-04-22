@@ -7,6 +7,7 @@ const cors = require('cors')({
     origin: true
 });
 const db = admin.firestore();
+const model = require('../modules/model');
 // Kakao API request url to retrieve user profile based on access token
 const requestMeUrl = 'https://kapi.kakao.com/v2/user/me?secure_resource=true';
 
@@ -67,7 +68,7 @@ router.post('/kakaoLogin', (req, res) => {
     });
 })
 
-router.get('/profile', (req, res) => {
+router.get('/profile', async (req, res) => {
     const user = req.decodedClaims;
     
     // 로그인 안했으면 로그인페이지로 라디이렉션
@@ -75,7 +76,14 @@ router.get('/profile', (req, res) => {
         return res.redirect('/user/login'); 
     }
 
-    return res.render('profile', { user });
+    const data = await model.getArticles('all', { 
+        display: true, 
+        done: false, 
+        sortBy: 'createdAt', 
+        creator: user.uid 
+    })
+
+    return res.render('profile', { user, data });
 })
 
 /**

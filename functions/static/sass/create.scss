@@ -12,17 +12,6 @@ $content_max_width: 1024px;
 
 body { background-color: $white; }
 
-header { 
-    position: absolute; 
-    .nav li > a {
-        padding: 0;
-
-        &:hover {
-            background-color: transparent;
-        }
-    }
-}
-
 .wrapper {
     max-width: $content_max_width;
     width: 100%;

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+/*
+*   create.scss
+*   매물 등록 페이지
+*/
+/* 변수 import */
+/* 
+*   SCSS variables
+*/
+/* colors */
+/* font-weight */
+/* font-family */
+/* font-size */
+/* line-height */
+/* media query */
+/* local variables */
+body {
+  background-color: #fff; }
+
+.wrapper {
+  max-width: 1024px;
+  width: 100%;
+  margin: auto;
+  margin-top: 64px;
+  margin-bottom: 80px;
+  background-color: #fff;
+  padding: 16px 0; }
+  @media only screen and (max-width: 600px) {
+    .wrapper {
+      margin-top: 48px; } }
+  .wrapper h1 {
+    text-align: left;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 0 16px 20px;
+    margin-bottom: 80px;
+    border-bottom: 2px solid #c8c8c8; }
+    @media only screen and (max-width: 600px) {
+      .wrapper h1 {
+        padding: 0 12px 20px; } }
+    .wrapper h1 span {
+      font-weight: 400;
+      font-size: 18px; }
+  .wrapper .article-list-container h3 {
+    font-size: 18px;
+    padding: 0 16px 12px;
+    border-bottom: 1px solid #e4e4e4; }
+  .wrapper .article-list-container article {
+    border-bottom: 1px solid #f4f4f4; }
+    .wrapper .article-list-container article a {
+      text-decoration: none;
+      color: #3b3b46;
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      height: 200px;
+      padding: 16px;
+      justify-content: space-between; }
+      .wrapper .article-list-container article a .text-container .date {
+        color: #757575;
+        font-size: 14px;
+        margin-bottom: 4px; }
+      .wrapper .article-list-container article a .text-container .tradeType {
+        color: #1e90ff;
+        font-size: 18px;
+        font-weight: 700; }
+      .wrapper .article-list-container article a .text-container .price {
+        color: #0ab9f1;
+        font-size: 24px;
+        font-weight: 700; }
+      .wrapper .article-list-container article a .text-container .line1, .wrapper .article-list-container article a .text-container .line2 {
+        font-size: 16px;
+        margin-bottom: 4px; }
+      .wrapper .article-list-container article a .img {
+        flex: 1;
+        max-width: 168px;
+        background-color: #f4f4f4;
+        border-radius: 4px; }
