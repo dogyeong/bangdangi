@@ -169,10 +169,10 @@
         <!-- 이미지 캐로셀 -->
         <section class="carousel-container">
             <div class="slick-container">
-                <% if(data.images !== null) { %>
+                <% if(data.images) { %>
                 <% for(i of data.images) { %>
                 <div class="img-container">
-                    <img src="<%=i%>" alt="<%=data.title || ''%>" />
+                    <img src="<%=i%>" alt="방 사진" />
                 </div>
                 <% } %>
                 <% } %>

@@ -374,7 +374,7 @@ router.post("/create_process", util.fileParser, (req, res, next) => {
     
     // 필드들을 객체에 저장
     let data = {
-        roadFullAddr, roadAddrPart, addrDetail, siNm, sggNm, emdNm, roadNm, buldNo, price, deposit, expense, startDate, endDate, minTerm, only, tradeType, text, contact,
+        roadFullAddr, roadAddrPart, addrDetail, siNm, sggNm, emdNm, roadNm, buldNo, price, deposit, expense, startDate, endDate, minTerm, only, tradeType, text, contact, termType,
         creator,
     }
 
@@ -382,7 +382,7 @@ router.post("/create_process", util.fileParser, (req, res, next) => {
     return model.addArticle(data, files)
         .then(id => {
             if (id) {
-                return res.redirect(`/`);
+                return res.redirect(`/board/read/all/${id}`);
             }
             else {
                 return createError(500);
@@ -437,8 +437,53 @@ router.get('/update', async (req, res, next) => {
     res.render("update", { user, data });
 });
 
-router.post('/update_process', async (req, res, next) => {
-    return res.redirect('/');
+router.post('/update_process', util.fileParser, async (req, res, next) => {
+    try {
+        let { 
+            roadFullAddr = null,
+            roadAddrPart = null,
+            addrDetail = null,
+            siNm = null,
+            sggNm = null,
+            emdNm = null,
+            roadNm = null,
+            buldNo = null,
+            price = null,
+            deposit = null,
+            expense = null,
+            startDate = null,
+            endDate = null,
+            minTerm = null,
+            tradeType = null,
+            text = null,
+            contact = null,
+            termType = null, 
+            originalImage = null,  
+        } = req.body;
+    
+        const articleId = req.query.articleId;
+        const files = req.files;
+    
+        // 데이터 타입 검사해서 알맞게 변환
+        startDate = startDate && new Date(startDate);
+        endDate = endDate && new Date(endDate);
+        minTerm = minTerm && parseInt(minTerm);
+        price = price && parseInt(price);
+        expense = expense && parseInt(expense);
+        deposit = deposit && parseInt(deposit);
+    
+        const data = { roadFullAddr, roadAddrPart, addrDetail, siNm, sggNm, emdNm, roadNm, buldNo, price, deposit, expense, startDate, endDate, minTerm, tradeType, text, contact, termType , images: originalImage }
+        
+        const result = await model.updateArticle(articleId, data, files);
+
+        console.log(result);
+        
+        return res.redirect(`/board/read/all/${articleId}`);
+    }
+    catch (err) {
+        console.error(err);
+        createError(500);
+    }
 })
 
 module.exports = router;

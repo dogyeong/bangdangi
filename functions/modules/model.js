@@ -211,10 +211,9 @@ const getArticleWithId = async (id) => {
         // 썸네일 받아오기
         let thumbnails = await getThumbnail(doc);
 
-        // 썸네일 존재하면 썸네일로 이미지 교체
+        // 썸네일 존재하면 썸네일 추가
         if (thumbnails) {
-            data.images = [];
-            thumbnails.forEach(thumb => data.images.push(thumb[600]));
+            data.thumbnails = thumbnails;
         }
 
         return data;
@@ -265,7 +264,7 @@ const addArticle = async (data, files, id) => {
 
         // 문서 생성. createdAt 필드는 현재 시간으로 해준다.
         await ref.set({
-            display: false,
+            display: true,
             tradeType: null,
             startDate: null,
             endDate: null,
@@ -282,7 +281,6 @@ const addArticle = async (data, files, id) => {
             contact: null,
             done: false,
             text: null,
-            title: null,
             views: 0,
             review: null,
             url: null,
@@ -326,12 +324,44 @@ const addArticle = async (data, files, id) => {
  *
  * @returns {Promise}
  */
-const updateArticle = (id, data) => {
+const updateArticle = async (id, data, files) => {
     // 문서 업데이트
-    return db
-        .collection(ARTICLES)
-        .doc(id)
-        .update(data);
+    try{
+        let ref = db.collection(ARTICLES).doc(id);
+
+        // file upload 스트림을 처리하는 promise들을 담을 배열
+        var tasks = [];
+
+        // 스토리지에 사진 저장 -> resolve url
+        for (name in files) {
+            if (name !== '') {
+                // file object
+                const image = files[name];
+
+                // upload promise
+                const task = storageHandler.upload(image, `images/${ref.id}/${image.filename}`)
+
+                tasks.push(task);
+            }
+        }
+
+        // promise는 액세스 url을 resolve
+        const images = await Promise.all(tasks);
+
+        if (!data.images) data.images = [];
+        data.images = [ ...data.images, ...images ];
+
+        // 문서 업데이트
+        await ref.update({
+            ...data,
+        })
+
+        return { success: true };
+    }
+    catch(err) {
+        console.error(err);
+        return { success: false };
+    }
 };
 
 /**

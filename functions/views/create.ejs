@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="../css/headerBar.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="../css/create.css">
-
+    <link rel="stylesheet" href="/css/fontawesome/all.css" />
 </head>
 
 <body>
@@ -71,6 +71,9 @@
                     <label class="col-sm-2 control-label" for="images">방 사진</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" name="images[]" accept="image/*" id="images" multiple/>
+                        <!-- 사진 썸네일 -->
+                        <div class="thumbs">
+                        </div>
                     </div>
                 </div>
                 <!-- 주소 -->
@@ -226,6 +229,7 @@
 
     <%- include('templates/footer') %>
 </body>
+<script src="/babel/dst/create.js"></script>
 <script>
     // opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
     //document.domain = "abc.go.kr";

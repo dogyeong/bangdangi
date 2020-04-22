@@ -68,14 +68,14 @@ router.post('/kakaoLogin', (req, res) => {
 })
 
 router.get('/profile', (req, res) => {
-    const decodedClaims = req.decodedClaims;
+    const user = req.decodedClaims;
     
     // 로그인 안했으면 로그인페이지로 라디이렉션
-    if(!decodedClaims) {
+    if(!user) {
         return res.redirect('/user/login'); 
     }
 
-    return res.send(`프로필페이지입니다. uid: ${decodedClaims.uid}`);
+    return res.render('profile', { user });
 })
 
 /**

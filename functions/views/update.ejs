@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="../css/headerBar.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="../css/create.css">
-
+    <link rel="stylesheet" href="/css/fontawesome/all.css" />
 </head>
 
 <body>
@@ -62,15 +62,33 @@
 
         <h1>매물수정</h1>
 
-        <form class="form-horizontal" action="/board/update_process" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="/board/update_process?articleId=<%=data.id%>" method="post" enctype="multipart/form-data">
 
             <!-- block 1 -->
             <div class="block1 block">
-                <!-- 방 사진 -->
+                <!-- 기존 방 사진 + 추가 -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="images">방 사진</label>
                     <div class="col-sm-10">
                         <input type="file" class="form-control" name="images[]" accept="image/*" id="images" multiple/>
+                        <!-- 사진 썸네일 -->
+                        <div class="thumbs">
+                            <% if (data.images) { %>
+                                <% for(i of data.images) { %>
+                                    <div class="thumb original-image" style="background:center / contain no-repeat url('<%= i %>');">
+                                        <span class="remove" data-image="<%=i%>" onclick="removeThumb(this);">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                            <!-- hidden input -->
+                            <% if (data.images) { %>
+                                <% for(i of data.images) { %>
+                                    <input type="hidden" name="originalImage[]" value="<%=i%>">
+                                <% } %>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
                 <!-- 주소 -->
@@ -123,7 +141,6 @@
                             </div>
                         </div>
                     </div>
-               
             </div>
             
 
@@ -133,12 +150,12 @@
                 <!-- 최소 계약기간 -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="minTerm">
-                        최소 계약기간 <input type="radio" name="termType" value="min" checked>
+                        최소 계약기간 <input type="radio" name="termType" value="min" <%=data.termType === 'fix' ? '' : 'checked'%>>
                     </label>
                     <div class="col-sm-10">
                         <div class="input-group">
                             <input type="number" class="form-control" name="minTerm" placeholder="최소 계약기간"
-                                aria-describedby="minTerm-addon" value="<%=data.minTerm%>" required>
+                                aria-describedby="minTerm-addon" value="<%=data.minTerm%>" <%=data.termType === 'fix' ? 'disabled' : 'required'%>>
                             <span class="input-group-addon" id="minTerm-addon">달 이상</span>
                         </div>
                     </div>
@@ -146,13 +163,14 @@
                 <!-- 고정 계약기간 -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="startDate">
-                        고정 계약기간 <input type="radio" name="termType" value="fix">
+                        고정 계약기간 <input type="radio" name="termType" value="fix" <%=data.termType === 'fix' ? 'checked' : ''%>>
                     </label>
                     <!-- 시작날짜 -->
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="date" class="form-control" name="startDate" placeholder="시작날짜"
-                                aria-describedby="startDate-addon" value="<%=data.startDate%>" disabled>
+                                aria-describedby="startDate-addon" value="<%=data.startDate && data.startDate.toDate().toISOString().split('T')[0]%>"
+                                <%=data.termType === 'fix' ? 'required' : 'disabled'%>>
                             <span class="input-group-addon" id="startDate-addon">부터</span>
                         </div>
                     </div>
@@ -160,7 +178,8 @@
                     <div class="col-sm-5">
                         <div class="input-group">
                             <input type="date" class="form-control" name="endDate" placeholder="끝날짜"
-                                aria-describedby="endDate-addon" value="<%=data.startDate%>" disabled>
+                                aria-describedby="endDate-addon" value="<%=data.startDate && data.endDate.toDate().toISOString().split('T')[0]%>"
+                                <%=data.termType === 'fix' ? 'required' : 'disabled'%>>
                             <span class="input-group-addon" id="endDate-addon">까지</span>
                         </div>
                     </div>
@@ -226,6 +245,7 @@
 
     <%- include('templates/footer') %>
 </body>
+<script src="/babel/dst/update.js"></script>
 <script>
     // opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
     //document.domain = "abc.go.kr";

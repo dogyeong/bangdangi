@@ -34,7 +34,18 @@ const fileParser = (req, res, next) => {
 
     // 필드 처리
     busboy.on("field", (fieldname, value) => {
-        req.body[fieldname] = value;
+        if (fieldname.includes("[]")) {
+            let name = fieldname.replace('[]', '');
+            if (req.body[name]) {
+                req.body[name].push(value);
+            }
+            else {
+                req.body[name] = [value];
+            }
+        }
+        else {
+            req.body[fieldname] = value;
+        }
     });
 
     // This callback will be invoked after all uploaded files are saved.
