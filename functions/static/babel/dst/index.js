@@ -10,15 +10,17 @@
   placeSelect.onchange = changeRoomList;
 })();
 
-(function () {
-  var header = document.querySelector('header');
-  var vh = window.innerHeight;
-  header.classList.add('transparent');
-  window.addEventListener('scroll', function (e) {
-    if (window.pageYOffset >= vh) {
-      header.classList.remove('transparent');
-    } else {
-      header.classList.add('transparent');
-    }
-  });
-})();
+var header = document.querySelector('header');
+var vh = window.innerHeight;
+
+function checkScroll() {
+  if (window.pageYOffset >= vh) {
+    header.classList.remove('transparent');
+  } else {
+    header.classList.add('transparent');
+  }
+}
+
+header.classList.add('transparent');
+checkScroll();
+window.addEventListener('scroll', checkScroll);

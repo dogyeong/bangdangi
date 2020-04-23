@@ -20,6 +20,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+@import url(/css/fontawesome/all.css);
 @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
 html {
   font-family: sans-serif;
@@ -5802,6 +5803,7 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/* 폰트어썸 import */
 /* 웹폰트 import : 구글 Noto Sans KR */
 /* 웹폰트 font-face 설정 : 스포카 한 산스 Spoqa Han Sans */
 @font-face {

@@ -28,34 +28,51 @@ $header_height: 64px;
             background-color: transparent;
             box-shadow: none;
 
-            .nav li > a {
+            .nav li > a, i {
                 color: $white;
+            }
+
+            .container {
+                border-bottom: 0;
             }
         }
 
-        .navbar-brand {
-            > img {
-                display: block;
-                width: 64px;
+        .container {
+            background-color: inherit;
+            border-bottom: 1px solid $grey-border-color;
 
-                @include respond-to(phone) {
-                    width: 52px;
+            .navbar-header {
+                height: $header_height;
+
+                .navbar-brand {
+                    height: $header_height;
+                    padding: 16px 15px;
+        
+                    > img {
+                        display: block;
+                        width: 68px;
+                        @include respond-to(phone) { width: 52px; }
+                    }
+                }
+
+                .navbar-toggle {
+                    @include respond-to(phone) { margin: 3px 15px 3px 0; }
+                    i { font-size: $fs-lg; }
                 }
             }
         }
 
-        .icon-bar {
-            background-color: $font-color;
-        }
+        
+
+        
 
         .nav {
             li {
                 display: inline-block;
-                padding: 0 16px;
-                height: 36px;
-                line-height: 36px;
+                height: $header_height;
                 color: $font-color;
                 @include respond-to(phone) {
+                    
                     display: block;
                     text-align: right;
                     font-size: $fs-sm;
@@ -64,12 +81,13 @@ $header_height: 64px;
 
                 > a {
                     width: 100%;
+                    height: $header_height;
+                    line-height: $header_height;
+                    padding: 0 16px;
                     color: $font-color;
                     font-size: $fs-md;
                     font-weight: $fw-bold;
-                    @include respond-to(phone){
-                        font-size: $fs-sm;
-                    }
+                    @include respond-to(phone){ font-size: $fs-sm; }
 
                     &:hover {
                         color: $main-color;
@@ -79,7 +97,14 @@ $header_height: 64px;
             }
         }
 
+        .navbar-nav {
+            margin-top: 0;
+            margin-bottom: 0;
 
+            @include respond-to(phone) {
+                margin-top: -4px;
+            }
+        }
     }
 }
 
