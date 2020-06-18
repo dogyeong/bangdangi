@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const createError = require('http-errors');
+const {Logging} = require('@google-cloud/logging');
 const cors = require('cors')({
   origin: true
 });
@@ -17,6 +18,39 @@ admin.initializeApp({
 });
 
 const app = express();
+
+// Creates a client
+const logging = new Logging();
+
+// Selects the log to write to
+const log = logging.log('my-log');
+
+// The data to write to the log
+const data = { 
+  id: 123345555123,
+  type: 'click',
+  data: 'index',
+  userId: null,
+ };
+
+// The metadata associated with the entry
+const metadata = {
+  resource: {
+    type: 'cloud_function'
+  },
+  severity: 'INFO',
+};
+
+// Prepares a log entry
+const entry = log.entry(metadata, data);
+
+async function writeLog() {
+  // Writes the log entry
+  await log.write(entry);
+  console.log(`Logged: ${data}`);
+}
+writeLog();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
