@@ -28,5 +28,11 @@
 
 ### 데모 영상
 
-https://user-images.githubusercontent.com/40662323/103201959-92813380-4934-11eb-9201-d9123c7186ac.mov
+#### 방 등록
+
+![g1](https://user-images.githubusercontent.com/40662323/103202403-ada07300-4935-11eb-9498-e0444992a20b.gif)
+
+#### 관리자페이지
+
+![g2](https://user-images.githubusercontent.com/40662323/103202582-27d0f780-4936-11eb-8a2a-c74326a9d4d0.gif)
 
