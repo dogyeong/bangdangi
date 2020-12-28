@@ -4,6 +4,20 @@
 
 <br>
 
+---
+
+<img width="300" src="https://miro.medium.com/max/3200/1*hrGihxj0kr2pyQ7GmY2Qmw.png" />
+
+- Firebase
+  - `Cloud Functions`: node.js serverless backend
+  - `Hosting`: domain hosting
+  - `Firestore`: cloud DB
+  - `Storage`: cloud Storage
+  - `Authentication`
+  
+<br>
+
+---
 
 ### 페이지
 
