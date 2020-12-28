@@ -21,7 +21,7 @@
 
 #### 계약 및 결제 페이지
 
-<img width="420" alt="방단기" src="https://user-images.githubusercontent.com/40662323/103201765-0bcc5680-4934-11eb-8f5c-0b307db364e7.png"> <img width="420" alt="방단기 (1)" src="https://user-images.githubusercontent.com/40662323/103201772-11c23780-4934-11eb-81e4-5d02b3a68a8f.png">
+<img width="380" alt="방단기" src="https://user-images.githubusercontent.com/40662323/103201765-0bcc5680-4934-11eb-8f5c-0b307db364e7.png"> <img width="380" alt="방단기 (1)" src="https://user-images.githubusercontent.com/40662323/103201772-11c23780-4934-11eb-81e4-5d02b3a68a8f.png">
 
 
 <br>
