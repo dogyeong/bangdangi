@@ -20,7 +20,7 @@
     "cookie-parser": "^1.4.5",
     "dropbox": "^4.0.30",
     "ejs": "^2.7.4",
-    "express-fileupload": "^1.1.6",
+    "express-fileupload": "^1.1.10",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.3.0",
     "formidable": "^1.2.1",
